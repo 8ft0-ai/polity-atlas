@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-17",
+  "identity": {
+    "iso2": "AU",
+    "iso3": "AUS",
+    "m49": "036",
+    "name": "Australia",
+    "officialName": "Commonwealth of Australia",
+    "capital": "Canberra"
+  },
+  "government": {
+    "system": {
+      "value": "Federal parliamentary constitutional monarchy",
+      "asOf": "2026-09-17",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "sourceIds": ["au-system"],
+      "confidence": "verified"
+    },
+    "headOfState": [
+      {
+        "office": "Governor-General",
+        "name": "Sam Mostyn",
+        "since": "2024-07-01",
+        "sourceIds": ["au-governor-general"]
+      }
+    ],
+    "headOfGovernment": [
+      {
+        "office": "Prime Minister",
+        "name": "Anthony Albanese",
+        "since": "2022-05-23",
+        "sourceIds": ["au-prime-minister"]
+      }
+    ]
+  },
+  "parliament": {
+    "name": {
+      "value": "Parliament of Australia",
+      "asOf": "2026-09-17",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "sourceIds": ["au-house-parties", "au-senate-composition"],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "house",
+        "name": "House of Representatives",
+        "kind": "lower",
+        "totalSeats": 150,
+        "compositionAsOf": "2026-03-01",
+        "composition": [
+          {
+            "party": "Australian Labor Party",
+            "shortName": "Labor",
+            "seats": 94,
+            "color": "#b8333a"
+          },
+          {
+            "party": "Coalition",
+            "shortName": "Coalition",
+            "seats": 42,
+            "color": "#315ca8"
+          },
+          {
+            "party": "Crossbench",
+            "shortName": "Crossbench",
+            "seats": 14,
+            "color": "#86958e"
+          }
+        ],
+        "sourceIds": ["au-house-parties"]
+      },
+      {
+        "id": "senate",
+        "name": "Senate",
+        "kind": "upper",
+        "totalSeats": 76,
+        "compositionAsOf": "2026-05-14",
+        "composition": [
+          {
+            "party": "Australian Labor Party",
+            "shortName": "Labor",
+            "seats": 30,
+            "color": "#b8333a"
+          },
+          {
+            "party": "Coalition",
+            "shortName": "Coalition",
+            "seats": 27,
+            "color": "#315ca8"
+          },
+          {
+            "party": "Australian Greens",
+            "shortName": "Greens",
+            "seats": 10,
+            "color": "#3a8145"
+          },
+          {
+            "party": "One Nation",
+            "shortName": "One Nation",
+            "seats": 4,
+            "color": "#d48332"
+          },
+          {
+            "party": "Other",
+            "shortName": "Other",
+            "seats": 5,
+            "color": "#86958e"
+          }
+        ],
+        "sourceIds": ["au-senate-composition"]
+      }
+    ]
+  },
+  "elections": [
+    {
+      "title": "Next Australian federal election",
+      "status": "expected",
+      "dateLabel": "Aug 2027 – May 2028",
+      "note": "No polling day has been announced. The Australian Electoral Commission states that the next federal election is due within this interval.",
+      "sourceIds": ["au-election-timetable"]
+    }
+  ],
+  "relations": [
+    {
+      "country": "China",
+      "m49": "156",
+      "status": "resident-mission",
+      "note": "Australian embassy network demonstration",
+      "sourceIds": ["au-missions"]
+    },
+    {
+      "country": "Indonesia",
+      "m49": "360",
+      "status": "resident-mission",
+      "note": "Australian embassy network demonstration",
+      "sourceIds": ["au-missions"]
+    },
+    {
+      "country": "Japan",
+      "m49": "392",
+      "status": "resident-mission",
+      "note": "Australian embassy network demonstration",
+      "sourceIds": ["au-missions"]
+    },
+    {
+      "country": "New Zealand",
+      "m49": "554",
+      "status": "resident-mission",
+      "note": "Australian high commission network demonstration",
+      "sourceIds": ["au-missions"]
+    },
+    {
+      "country": "United Kingdom",
+      "m49": "826",
+      "status": "resident-mission",
+      "note": "Australian high commission network demonstration",
+      "sourceIds": ["au-missions"]
+    },
+    {
+      "country": "United States of America",
+      "m49": "840",
+      "status": "resident-mission",
+      "note": "Australian embassy network demonstration",
+      "sourceIds": ["au-missions"]
+    }
+  ],
+  "sources": [
+    {
+      "id": "au-system",
+      "publisher": "Parliamentary Education Office",
+      "title": "Australia's system of government",
+      "url": "https://peo.gov.au/understand-our-parliament/how-parliament-works/system-of-government/australias-system-of-government",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-governor-general",
+      "publisher": "Governor-General of Australia",
+      "title": "About the Governor-General",
+      "url": "https://www.gg.gov.au/about-governor-general",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-prime-minister",
+      "publisher": "Prime Minister of Australia",
+      "title": "About the Prime Minister",
+      "url": "https://www.pm.gov.au/about-prime-minister",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-house-parties",
+      "publisher": "Parliament of Australia",
+      "title": "Political parties in the House of Representatives",
+      "url": "https://www.aph.gov.au/About_Parliament/House_of_Representatives/Powers_practice_and_procedure/00_-_Infosheets/Infosheet_22_-_Political_parties",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-senate-composition",
+      "publisher": "Parliament of Australia",
+      "title": "Senate composition",
+      "url": "https://www.aph.gov.au/Senators_and_Members/Senators/senate%20composition",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-election-timetable",
+      "publisher": "Australian Electoral Commission",
+      "title": "When elections are held",
+      "url": "https://www.aec.gov.au/learn/election-timetable.htm",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-missions",
+      "publisher": "Department of Foreign Affairs and Trade",
+      "title": "Australian embassies and consulates overseas",
+      "url": "https://www.dfat.gov.au/about-us/our-locations/missions/Pages/our-embassies-and-consulates-overseas",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    }
+  ]
+}
