@@ -47,6 +47,19 @@ describe('WorldMap entity interaction', () => {
     expect(onSelect).toHaveBeenCalledWith('state:m49:578', 'Norway', '578');
   });
 
+  it('highlights Norway when the canonical search identity is selected', () => {
+    const { container } = renderMap({
+      selectedEntityId: 'state:m49:578',
+    });
+
+    const norwayPath = container.querySelector(
+      '[data-world-copy="0"] [data-country-link][data-entity-id="state:m49:578"] path',
+    );
+
+    expect(norwayPath).not.toBeNull();
+    expect(norwayPath).toHaveAttribute('fill', 'var(--map-selected)');
+  });
+
   it('selects Kosovo independently from other non-M49 geometries', () => {
     const onSelect = vi.fn();
     const { container } = renderMap({ onSelect });
