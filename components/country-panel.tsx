@@ -96,14 +96,14 @@ function SeatBar({
     ? `${chamber.name} post-election composition`
     : `${chamber.name} latest partial election result`;
 
-  let seatsBefore = 0;
-  const segments = rows.map((row) => {
-    const startFraction = seatsBefore / total;
-    seatsBefore += row.seats;
+  const segments = rows.map((row, index) => {
+    const seatsBefore = rows
+      .slice(0, index)
+      .reduce((sum, entry) => sum + entry.seats, 0);
     return {
       ...row,
-      startFraction,
-      endFraction: Math.min(1, seatsBefore / total),
+      startFraction: seatsBefore / total,
+      endFraction: Math.min(1, (seatsBefore + row.seats) / total),
     };
   });
 

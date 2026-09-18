@@ -2,11 +2,11 @@ import { z } from 'zod';
 
 const isoDate = /^\d{4}-\d{2}-\d{2}$/;
 
-const factSchema = <T extends z.ZodTypeAny>(value: T) =>
+const factSchema = <T extends z.ZodType>(value: T) =>
   z.object({
     value,
     asOf: z.string().regex(isoDate),
-    retrievedAt: z.string().datetime(),
+    retrievedAt: z.iso.datetime(),
     sourceIds: z.array(z.string()).min(1),
     confidence: z.enum(['verified', 'reported', 'conflicting']).default('verified'),
     note: z.string().optional(),
@@ -16,13 +16,13 @@ export const sourceSchema = z.object({
   id: z.string().min(1),
   publisher: z.string().min(1),
   title: z.string().min(1),
-  url: z.string().url().refine((url) => new URL(url).protocol === 'https:', {
+  url: z.url().refine((url) => new URL(url).protocol === 'https:', {
     message: 'Source URLs must use HTTPS',
   }),
-  retrievedAt: z.string().datetime(),
+  retrievedAt: z.iso.datetime(),
   kind: z.enum(['official', 'intergovernmental', 'reference', 'secondary']),
   attribution: z.string().optional(),
-  termsUrl: z.string().url().optional(),
+  termsUrl: z.url().optional(),
 });
 
 const officeHolderSchema = z.object({
@@ -75,15 +75,15 @@ const electionOutcomeSchema = z.object({
   sourceIds: z.array(z.string()).min(1),
 }).superRefine((election, ctx) => {
   if (election.date.to && election.date.to < election.date.from) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Election end date cannot precede start date' });
+    ctx.addIssue({ code: 'custom', message: 'Election end date cannot precede start date' });
   }
   const resultTotal = election.resultSeats?.reduce((sum, row) => sum + row.seats, 0) ?? 0;
   if (election.seatsAtStake && resultTotal > election.seatsAtStake) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Election-result seats cannot exceed seats at stake' });
+    ctx.addIssue({ code: 'custom', message: 'Election-result seats cannot exceed seats at stake' });
   }
   const postTotal = election.postElectionComposition?.reduce((sum, row) => sum + row.seats, 0) ?? 0;
   if (election.postElectionTotalSeats && postTotal > election.postElectionTotalSeats) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Post-election composition cannot exceed its reported total' });
+    ctx.addIssue({ code: 'custom', message: 'Post-election composition cannot exceed its reported total' });
   }
 });
 
