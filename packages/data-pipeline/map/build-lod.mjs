@@ -88,6 +88,63 @@ function minimalTinyCountry(feature, index) {
   };
 }
 
+
+function visitCoordinates(value, points) {
+  if (
+    Array.isArray(value) &&
+    value.length >= 2 &&
+    typeof value[0] === 'number' &&
+    typeof value[1] === 'number'
+  ) {
+    points.push(value);
+    return;
+  }
+
+  if (Array.isArray(value)) {
+    for (const child of value) visitCoordinates(child, points);
+  }
+}
+
+function representativePoint(feature) {
+  const properties = feature.properties ?? {};
+  if (
+    typeof properties.LABEL_X === 'number' &&
+    typeof properties.LABEL_Y === 'number'
+  ) {
+    return [properties.LABEL_X, properties.LABEL_Y];
+  }
+
+  const points = [];
+  visitCoordinates(feature.geometry?.coordinates, points);
+  if (points.length === 0) return [0, 0];
+
+  const total = points.reduce(
+    (sum, point) => [sum[0] + point[0], sum[1] + point[1]],
+    [0, 0],
+  );
+  return [total[0] / points.length, total[1] / points.length];
+}
+
+function fallbackMarker(feature, index) {
+  const p = feature.properties ?? {};
+  return {
+    type: 'Feature',
+    properties: {
+      id: `ne-fallback-country-${index}`,
+      name: p.NAME ?? p.ADMIN ?? p.NAME_LONG ?? 'Unknown',
+      admin: p.ADMIN ?? null,
+      adm0A3: p.ADM0_A3 ?? null,
+      isoA3: p.ISO_A3 ?? null,
+      isoN3: p.ISO_N3 ?? null,
+      unA3: p.UN_A3 ?? null,
+    },
+    geometry: {
+      type: 'Point',
+      coordinates: representativePoint(feature),
+    },
+  };
+}
+
 function sqSegmentDistance(point, start, end) {
   let x = start[0];
   let y = start[1];
@@ -221,6 +278,11 @@ const detailedBoundaries = {
   features: boundaries50.features.map(minimalBoundary),
 };
 
+const fallbackPrimaryMarkers = {
+  type: 'FeatureCollection',
+  features: countries10.features.map(fallbackMarker),
+};
+
 const outputs = {
   '110m/countries.json': {
     type: 'FeatureCollection',
@@ -245,6 +307,7 @@ const outputs = {
     type: 'FeatureCollection',
     features: tiny50.features.map(minimalTinyCountry),
   },
+  'fallback-primary-markers.json': fallbackPrimaryMarkers,
 };
 
 for (const path of Object.keys(outputs)) {
@@ -258,6 +321,7 @@ await writeJson('manifest.json', {
   schemaVersion: 1,
   source: 'Natural Earth',
   sourceVersion: VERSION,
+  fallbackMarkerSource: 'Natural Earth 10m country label/geometry',
   generatedBy: 'packages/data-pipeline/map/build-lod.mjs',
   levels: {
     '110m': {
