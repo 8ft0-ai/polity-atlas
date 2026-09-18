@@ -17,8 +17,7 @@ describe('canonical map entity identity', () => {
     const counts = countryOptions.reduce<Record<string, number>>(
       (result, country) => ({
         ...result,
-        [country.recognitionBasis]:
-          (result[country.recognitionBasis] ?? 0) + 1,
+        [country.recognitionBasis]: (result[country.recognitionBasis] ?? 0) + 1,
       }),
       {},
     );
