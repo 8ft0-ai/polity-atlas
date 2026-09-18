@@ -201,13 +201,17 @@ export function WorldMap({
     const translateX = copyOffset * MERCATOR_WORLD_SIZE;
 
     return (
-      <g key={copyOffset} transform={`translate(${translateX} 0)`}>
+      <g
+        key={copyOffset}
+        data-world-copy={copyOffset}
+        transform={`translate(${translateX} 0)`}
+      >
         <rect
           width={MERCATOR_WORLD_SIZE}
           height={MERCATOR_WORLD_SIZE}
           fill="var(--map-water)"
         />
-        {countryShapes.map((country) => {
+        {countryShapes.map((country, countryIndex) => {
           const selected = selectedM49 === country.m49;
           const relatedCountry = Boolean(related?.has(country.m49));
           let fill = 'var(--map-land)';
@@ -216,7 +220,7 @@ export function WorldMap({
 
           return (
             <a
-              key={country.m49}
+              key={`${copyOffset}:${country.m49}:${countryIndex}`}
               href={`#country=${country.m49}`}
               data-country-link
               tabIndex={copyOffset === 0 ? undefined : -1}
