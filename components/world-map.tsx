@@ -64,11 +64,7 @@ function zoomViewport(
   anchorX: number,
   anchorY: number,
 ): Viewport {
-  const nextScale = clamp(
-    viewport.scale * scaleFactor,
-    MIN_SCALE,
-    MAX_SCALE,
-  );
+  const nextScale = clamp(viewport.scale * scaleFactor, MIN_SCALE, MAX_SCALE);
   if (nextScale === viewport.scale) return viewport;
 
   const ratio = nextScale / viewport.scale;
@@ -127,7 +123,11 @@ export function WorldMap({
 
   function handleWheel(event: React.WheelEvent<SVGSVGElement>) {
     event.preventDefault();
-    zoom(event.deltaY < 0 ? 1.18 : 1 / 1.18, event.clientX, event.clientY);
+    zoom(
+      event.deltaY < 0 ? 1.18 : 1 / 1.18,
+      event.clientX,
+      event.clientY,
+    );
   }
 
   function handlePointerDown(event: React.PointerEvent<SVGSVGElement>) {
