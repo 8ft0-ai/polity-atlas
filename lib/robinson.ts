@@ -33,9 +33,8 @@ export function projectRobinson(longitude: number, latitude: number): LonLat {
   const yCoefficient = interpolate(Y_COEFFICIENTS, latitude);
 
   const rawX =
-    ROBINSON_X_SCALE * (longitude * Math.PI) / 180 * xCoefficient;
-  const rawY =
-    ROBINSON_Y_SCALE * yCoefficient * (latitude < 0 ? -1 : 1);
+    (ROBINSON_X_SCALE * (longitude * Math.PI) * xCoefficient) / 180;
+  const rawY = ROBINSON_Y_SCALE * yCoefficient * (latitude < 0 ? -1 : 1);
 
   const maximumX = ROBINSON_X_SCALE * Math.PI;
   const maximumY = ROBINSON_Y_SCALE;
@@ -93,10 +92,7 @@ function longitudeIntersection(
   if (longitudeDelta === 0) return [longitude, start[1]];
 
   const ratio = (longitude - start[0]) / longitudeDelta;
-  return [
-    longitude,
-    start[1] + (end[1] - start[1]) * ratio,
-  ];
+  return [longitude, start[1] + (end[1] - start[1]) * ratio];
 }
 
 function clipAgainstLongitude(
