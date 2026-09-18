@@ -1,17 +1,17 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Minus, Plus, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
-  countryFeatures,
   primaryCountryByEntityId,
   type MapEntityKind,
 } from '@/lib/countries';
 import {
-  disputedAreaFeatures,
-  disputedBoundaryFeatures,
-} from '@/lib/disputed-geometry';
+  mapGeometryByLod,
+  nextMapLod,
+  type MapLod,
+} from '@/lib/map-lod';
 import {
   geometryToMercatorLinePath,
   geometryToMercatorPath,
@@ -19,6 +19,7 @@ import {
   MERCATOR_VIEWBOX_HEIGHT,
   MERCATOR_VIEWBOX_WIDTH,
   MERCATOR_WORLD_SIZE,
+  projectMercator,
 } from '@/lib/mercator';
 
 export type MapHoverEntity = {
@@ -49,6 +50,30 @@ type DragState = {
   originY: number;
 };
 
+type ShapePackage = {
+  countries: Array<
+    (typeof mapGeometryByLod)['110m']['countries'][number]['properties'] & {
+      path: string;
+    }
+  >;
+  disputedAreas: Array<
+    (typeof mapGeometryByLod)['110m']['disputedAreas'][number] & {
+      path: string;
+    }
+  >;
+  disputedBoundaries: Array<
+    (typeof mapGeometryByLod)['110m']['disputedBoundaries'][number] & {
+      path: string;
+    }
+  >;
+  tinyCountries: Array<
+    (typeof mapGeometryByLod)['110m']['tinyCountries'][number] & {
+      x: number;
+      y: number;
+    }
+  >;
+};
+
 const MIN_SCALE = 1;
 const MAX_SCALE = 6;
 const DEFAULT_VIEWPORT: Viewport = {
@@ -58,20 +83,36 @@ const DEFAULT_VIEWPORT: Viewport = {
 };
 const WORLD_COPIES = [-1, 0, 1] as const;
 
-const countryShapes = countryFeatures.features.map((country) => ({
-  ...country.properties,
-  path: geometryToMercatorPath(country.geometry),
-}));
+function createShapePackage(lod: MapLod): ShapePackage {
+  const geometry = mapGeometryByLod[lod];
 
-const disputedShapes = disputedAreaFeatures.map((area) => ({
-  ...area,
-  path: geometryToMercatorPath(area.geometry),
-}));
+  return {
+    countries: geometry.countries.map((country) => ({
+      ...country.properties,
+      path: geometryToMercatorPath(country.geometry),
+    })),
+    disputedAreas: geometry.disputedAreas.map((area) => ({
+      ...area,
+      path: geometryToMercatorPath(area.geometry),
+    })),
+    disputedBoundaries: geometry.disputedBoundaries.map((boundary) => ({
+      ...boundary,
+      path: geometryToMercatorLinePath(boundary.geometry),
+    })),
+    tinyCountries: geometry.tinyCountries.map((marker) => {
+      const [x, y] = projectMercator(
+        marker.coordinates[0] ?? 0,
+        marker.coordinates[1] ?? 0,
+      );
+      return { ...marker, x, y };
+    }),
+  };
+}
 
-const disputedBoundaryShapes = disputedBoundaryFeatures.map((boundary) => ({
-  ...boundary,
-  path: geometryToMercatorLinePath(boundary.geometry),
-}));
+const shapesByLod: Record<MapLod, ShapePackage> = {
+  '110m': createShapePackage('110m'),
+  '50m': createShapePackage('50m'),
+};
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value));
@@ -115,7 +156,7 @@ function zoomViewport(
 }
 
 function baseFill(
-  shape: (typeof countryShapes)[number],
+  shape: ShapePackage['countries'][number],
   selectedEntityId: string | null,
   related: Set<string> | null,
 ) {
@@ -140,6 +181,16 @@ function baseFill(
   return 'var(--map-land)';
 }
 
+function tinyCountryFill(
+  entityId: string,
+  selectedEntityId: string | null,
+  related: Set<string> | null,
+) {
+  if (entityId === selectedEntityId) return 'var(--map-selected)';
+  if (related?.has(entityId)) return 'var(--map-related)';
+  return 'var(--map-land)';
+}
+
 export function WorldMap({
   selectedEntityId,
   relatedEntityIds,
@@ -150,8 +201,14 @@ export function WorldMap({
   const svgRef = useRef<SVGSVGElement>(null);
   const dragRef = useRef<DragState | null>(null);
   const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT);
+  const [activeLod, setActiveLod] = useState<MapLod>('110m');
 
   const related = relationMode ? new Set(relatedEntityIds) : null;
+  const shapes = shapesByLod[activeLod];
+
+  useEffect(() => {
+    setActiveLod((current) => nextMapLod(current, viewport.scale));
+  }, [viewport.scale]);
 
   function toViewBoxPoint(clientX: number, clientY: number) {
     const rectangle = svgRef.current?.getBoundingClientRect();
@@ -195,7 +252,10 @@ export function WorldMap({
     if (event.button !== 0) return;
 
     const target = event.target;
-    if (target instanceof Element && target.closest('[data-country-link]')) {
+    if (
+      target instanceof Element &&
+      target.closest('[data-map-interactive-entity]')
+    ) {
       return;
     }
 
@@ -263,11 +323,14 @@ export function WorldMap({
 
   function renderWorldCopy(copyOffset: number) {
     const translateX = copyOffset * MERCATOR_WORLD_SIZE;
+    const markerRadius = 4 / viewport.scale;
+    const markerHitRadius = 8 / viewport.scale;
 
     return (
       <g
         key={copyOffset}
         data-world-copy={copyOffset}
+        data-map-lod={activeLod}
         transform={`translate(${translateX} 0)`}
       >
         <rect
@@ -276,7 +339,7 @@ export function WorldMap({
           fill="var(--map-water)"
         />
 
-        {countryShapes.map((country, countryIndex) => {
+        {shapes.countries.map((country, countryIndex) => {
           const fill = baseFill(country, selectedEntityId, related);
           const hoverEntity: MapHoverEntity = {
             entityId: country.entityId,
@@ -289,6 +352,7 @@ export function WorldMap({
               <a
                 key={`${copyOffset}:${country.entityId}:${countryIndex}`}
                 href={`#country=${country.m49 ?? country.entityId}`}
+                data-map-interactive-entity
                 data-country-link
                 data-entity-id={country.entityId}
                 tabIndex={copyOffset === 0 ? undefined : -1}
@@ -337,7 +401,7 @@ export function WorldMap({
           );
         })}
 
-        {disputedShapes.map((area, areaIndex) => {
+        {shapes.disputedAreas.map((area, areaIndex) => {
           const associated = area.associatedPrimaryEntityIds.includes(
             selectedEntityId ?? '',
           );
@@ -351,6 +415,7 @@ export function WorldMap({
             <path
               key={`${copyOffset}:${area.entityId}:${areaIndex}`}
               d={area.path}
+              data-map-interactive-entity
               data-disputed-area
               data-disputed-name={area.name}
               aria-label={area.name}
@@ -370,7 +435,7 @@ export function WorldMap({
           );
         })}
 
-        {disputedBoundaryShapes.map((boundary, boundaryIndex) => (
+        {shapes.disputedBoundaries.map((boundary, boundaryIndex) => (
           <path
             key={`${copyOffset}:${boundary.boundaryId}:${boundaryIndex}`}
             d={boundary.path}
@@ -384,6 +449,59 @@ export function WorldMap({
             pointerEvents="none"
           />
         ))}
+
+        {shapes.tinyCountries.map((marker) => {
+          const country = primaryCountryByEntityId.get(marker.entityId);
+          if (!country) return null;
+
+          const hoverEntity: MapHoverEntity = {
+            entityId: marker.entityId,
+            name: marker.name,
+            kind: 'primary-state',
+          };
+          const fill = tinyCountryFill(
+            marker.entityId,
+            selectedEntityId,
+            related,
+          );
+
+          return (
+            <a
+              key={`${copyOffset}:tiny:${marker.entityId}`}
+              href={`#country=${marker.m49 ?? marker.entityId}`}
+              data-map-interactive-entity
+              data-tiny-country-marker
+              data-entity-id={marker.entityId}
+              tabIndex={copyOffset === 0 ? undefined : -1}
+              aria-label={marker.name}
+              onPointerEnter={() => hover(hoverEntity)}
+              onPointerLeave={() => hover(null)}
+              onFocus={() => hover(hoverEntity)}
+              onBlur={() => hover(null)}
+              onClick={(event) => {
+                event.preventDefault();
+                onSelect(country.entityId, country.name, country.m49);
+              }}
+            >
+              <circle
+                cx={marker.x}
+                cy={marker.y}
+                r={markerHitRadius}
+                fill="transparent"
+              />
+              <circle
+                cx={marker.x}
+                cy={marker.y}
+                r={markerRadius}
+                fill={fill}
+                stroke="var(--map-border)"
+                strokeWidth={0.8}
+                vectorEffect="non-scaling-stroke"
+                className="cursor-pointer"
+              />
+            </a>
+          );
+        })}
       </g>
     );
   }
@@ -395,6 +513,7 @@ export function WorldMap({
         viewBox={`0 0 ${MERCATOR_VIEWBOX_WIDTH} ${MERCATOR_VIEWBOX_HEIGHT}`}
         className="h-full w-full touch-none select-none"
         aria-label="Interactive Mercator world map"
+        data-active-lod={activeLod}
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -442,7 +561,7 @@ export function WorldMap({
       </div>
 
       <div className="ui-text pointer-events-none absolute bottom-3 left-14 border border-border bg-card/90 px-2 py-1 text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-        Boundary data: Natural Earth · Mercator projection
+        Natural Earth · Mercator · {activeLod}
       </div>
     </div>
   );
