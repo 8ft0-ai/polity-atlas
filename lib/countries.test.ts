@@ -13,6 +13,23 @@ describe('canonical map entity identity', () => {
     ).toBe(197);
   });
 
+  it('encodes the primary research set as 193 members, two observers and two additional entities', () => {
+    const counts = countryOptions.reduce<Record<string, number>>(
+      (result, country) => ({
+        ...result,
+        [country.recognitionBasis]:
+          (result[country.recognitionBasis] ?? 0) + 1,
+      }),
+      {},
+    );
+
+    expect(counts).toEqual({
+      'un-member': 193,
+      'un-observer-state': 2,
+      'polity-atlas-additional': 2,
+    });
+  });
+
   it('includes the two UN observer states and the two additional research entities', () => {
     expect(
       countryOptions.find((country) => country.name === 'Palestine'),
