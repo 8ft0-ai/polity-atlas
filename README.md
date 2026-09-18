@@ -7,7 +7,7 @@ A source-led geopolitical GIS workspace for researching governments, parliaments
 - npm with a committed lockfile and Node.js 22 or later.
 - Vinext's Next-style `app` conventions, built by Vite and run locally.
 - Tailwind CSS, shadcn primitives, and semantic CSS custom-property theme tokens.
-- Interactive Robinson-projected SVG world atlas using Natural Earth-derived geometry from `world-atlas`; MapLibre is retained for future detailed/local GIS views.
+- Interactive horizontally wrapping Mercator SVG world atlas using Natural Earth-derived geometry from `world-atlas`; MapLibre is retained for future detailed/local GIS views.
 - Global country selection and search.
 - Citation-bearing Australia demonstration profile.
 - Parliament, election, relation, and source views.
