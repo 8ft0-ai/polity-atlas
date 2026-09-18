@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
   "identity": {
     "iso2": "US",
     "iso3": "USA",
@@ -36,78 +36,203 @@
   },
   "parliament": {
     "name": {
-      "value": "United States Congress",
-      "asOf": "2026-09-18",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["us-house", "us-senate"],
+      "value": "Congress",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "house",
+        "id": "US-LC01",
         "name": "House of Representatives",
         "kind": "lower",
         "totalSeats": 435,
-        "compositionAsOf": "2026-09-02",
-        "composition": [
+        "parliamentaryTermYears": 2,
+        "speakers": [
           {
-            "party": "Republican Party",
-            "shortName": "Republican",
-            "seats": 218,
-            "color": "#E81B23"
-          },
-          {
-            "party": "Democratic Party",
-            "shortName": "Democratic",
-            "seats": 214,
-            "color": "#3333FF"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 1,
-            "color": "grey"
+            "personId": "us-mike-johnson",
+            "name": "Mike Johnson",
+            "officialTitle": "Speaker of the House of Representatives",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2023-10-25"
+            },
+            "additionalInformation": "Elected on 25 Oct. 2023, re-elected on 3 Jan. 2025.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Third",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["us-house"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "directlyElectedSeats": 435,
+          "votingAge": 18,
+          "eligibilityAge": 25,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "US-LC01-E20241105",
+          "title": "United States of America House of Representatives November 2024 Election",
+          "date": {
+            "from": "2024-11-05"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 435,
+          "chamberSize": 435,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "us-republican_party",
+                "party": "Republican Party",
+                "seats": 220
+              },
+              {
+                "partyId": "us-democratic_party_0",
+                "party": "Democratic Party",
+                "seats": 215
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "us-republican_party",
+                "party": "Republican Party",
+                "seats": 220
+              },
+              {
+                "partyId": "us-democratic_party_0",
+                "party": "Democratic Party",
+                "seats": 215
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
       },
       {
-        "id": "senate",
+        "id": "US-UC01",
         "name": "Senate",
         "kind": "upper",
         "totalSeats": 100,
-        "compositionAsOf": "2026-07-14",
-        "composition": [
+        "parliamentaryTermYears": 6,
+        "speakers": [
           {
-            "party": "Republican Party",
-            "shortName": "Republican",
-            "seats": 53,
-            "color": "#E81B23"
+            "personId": "us-james-david-vance",
+            "name": "James David (J.D.) Vance",
+            "officialTitle": "President of the Senate",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2025-01-20"
+            },
+            "additionalInformation": "Vice President\n\nNote: The Vice President is elected on national Election Day, which is \"the Tuesday next after the first Monday in November\" every four years, and is sworn into office on 20 January of the following year. He or she becomes the Senate President by virtue of holding the post of the Vice President.",
+            "designationMode": "Other",
+            "designationAuthority": "Other",
+            "stateRank": "Second",
+            "becomesInterimHeadOfState": true,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           },
           {
-            "party": "Democratic Party",
-            "shortName": "Democratic",
-            "seats": 45,
-            "color": "#3333FF"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 2,
-            "color": "grey"
+            "personId": "us-chuck-grassley",
+            "name": "Charles Grassley",
+            "officialTitle": "President pro tempore of the Senate",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2025-01-03"
+            },
+            "additionalInformation": "Sworn in on 3 Jan. 2025.",
+            "designationMode": "Other",
+            "designationAuthority": "Other",
+            "stateRank": "Second",
+            "becomesInterimHeadOfState": true,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["us-senate"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "directlyElectedSeats": 100,
+          "votingAge": 18,
+          "eligibilityAge": 30,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "US-UC01-E20241105",
+          "title": "United States of America Senate November 2024 Election",
+          "date": {
+            "from": "2024-11-05"
+          },
+          "scope": "partial-renewal",
+          "seatsAtStake": 34,
+          "chamberSize": 100,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "us-democratic_party",
+                "party": "Democratic Party",
+                "seats": 19
+              },
+              {
+                "partyId": "us-republican_party",
+                "party": "Republican Party",
+                "seats": 15
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "us-republican_party",
+                "party": "Republican Party",
+                "seats": 53
+              },
+              {
+                "partyId": "us-democratic_party",
+                "party": "Democratic Party",
+                "seats": 47
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
       }
     ]
   },
-  "elections": [
+  "nextExpectedElections": [
     {
-      "title": "2026 United States midterm elections",
-      "status": "confirmed",
-      "dateLabel": "3 November 2026",
-      "note": "All House seats and the scheduled Senate class seats are due for election on 3 November 2026.",
-      "sourceIds": ["us-election"]
+      "id": "US-LC01:2026-11-03",
+      "level": "national",
+      "chamberId": "US-LC01",
+      "chamberName": "House of Representatives",
+      "eventType": "full-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2026-11-03"
+      },
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "id": "US-UC01:2026-11-03",
+      "level": "national",
+      "chamberId": "US-UC01",
+      "chamberName": "Senate",
+      "eventType": "partial-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2026-11-03"
+      },
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -177,42 +302,21 @@
   ],
   "sources": [
     {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+    },
+    {
       "id": "us-country",
       "publisher": "Wikipedia",
       "title": "United States",
       "url": "https://en.wikipedia.org/wiki/United_States",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "us-president",
-      "publisher": "The White House",
-      "title": "President Donald J. Trump",
-      "url": "https://www.whitehouse.gov/administration/donald-j-trump/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "us-house",
-      "publisher": "U.S. House of Representatives",
-      "title": "Party Breakdown",
-      "url": "https://radiotv.house.gov/house-data/party-breakdown",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "us-senate",
-      "publisher": "United States Senate",
-      "title": "Senate Facts",
-      "url": "https://www.dailypress.senate.gov/on-the-floor/senate-facts/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "us-election",
-      "publisher": "Wikipedia",
-      "title": "2026 United States elections",
-      "url": "https://en.wikipedia.org/wiki/2026_United_States_elections",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
     },
@@ -223,6 +327,14 @@
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_the_United_States",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "us-president",
+      "publisher": "The White House",
+      "title": "President Donald J. Trump",
+      "url": "https://www.whitehouse.gov/administration/donald-j-trump/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
     }
   ]
 }

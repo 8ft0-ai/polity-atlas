@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
   "identity": {
     "iso2": "FR",
     "iso3": "FRA",
@@ -36,168 +36,288 @@
   },
   "parliament": {
     "name": {
-      "value": "French Parliament",
-      "asOf": "2026-09-18",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["fr-assembly", "fr-senate"],
+      "value": "Parliament",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "assembly",
+        "id": "FR-LC01",
         "name": "National Assembly",
         "kind": "lower",
         "totalSeats": 577,
-        "compositionAsOf": "2026-09-17",
-        "composition": [
+        "parliamentaryTermYears": 5,
+        "speakers": [
           {
-            "party": "Rassemblement National",
-            "shortName": "RN",
-            "seats": 122,
-            "color": "#1B4D9B"
-          },
-          {
-            "party": "Ensemble pour la République",
-            "shortName": "EPR",
-            "seats": 90,
-            "color": "#F5C542"
-          },
-          {
-            "party": "La France insoumise – Nouveau Front Populaire",
-            "shortName": "LFI-NFP",
-            "seats": 71,
-            "color": "#CC2443"
-          },
-          {
-            "party": "Socialistes et apparentés",
-            "shortName": "Socialistes",
-            "seats": 67,
-            "color": "#E75480"
-          },
-          {
-            "party": "Droite Républicaine",
-            "shortName": "DR",
-            "seats": 48,
-            "color": "#2F5DA8"
-          },
-          {
-            "party": "Écologiste et Social",
-            "shortName": "Écologiste",
-            "seats": 38,
-            "color": "#45A947"
-          },
-          {
-            "party": "Les Démocrates",
-            "shortName": "Démocrates",
-            "seats": 37,
-            "color": "#F2A900"
-          },
-          {
-            "party": "Horizons & Indépendants",
-            "shortName": "Horizons",
-            "seats": 36,
-            "color": "#00A7B5"
-          },
-          {
-            "party": "Libertés, Indépendants, Outre-mer et Territoires",
-            "shortName": "LIOT",
-            "seats": 22,
-            "color": "#8A8A8A"
-          },
-          {
-            "party": "Gauche Démocrate et Républicaine",
-            "shortName": "GDR",
-            "seats": 17,
-            "color": "#C51B29"
-          },
-          {
-            "party": "Union des droites pour la République",
-            "shortName": "UDR",
-            "seats": 17,
-            "color": "#334F8D"
-          },
-          {
-            "party": "Non inscrit",
-            "shortName": "Non inscrit",
-            "seats": 12,
-            "color": "grey"
+            "personId": "fr-yael-braun-pivet",
+            "name": "Yaël Braun-Pivet",
+            "officialTitle": "President of the National Assembly",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2022-06-28"
+            },
+            "additionalInformation": "Elected on 28 June 2022, re-elected on 18 July 2024.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Fourth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["fr-assembly"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "Two-Round System (TRS)"],
+          "directlyElectedSeats": 577,
+          "votingAge": 18,
+          "eligibilityAge": 18,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "FR-LC01-E20240630",
+          "title": "France National Assembly June 2024 Election",
+          "date": {
+            "from": "2024-06-30",
+            "to": "2024-07-07"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 577,
+          "chamberSize": 577,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "fr-new-popular-front-(nfp)-ug",
+                "party": "New Popular Front (NFP)/UG",
+                "seats": 178
+              },
+              {
+                "partyId": "fr-ensemble_presidential_majority_",
+                "party": "Ensemble (presidential majority)",
+                "seats": 150
+              },
+              {
+                "partyId": "fr-national_rally_rn_",
+                "party": "National Rally (RN)",
+                "seats": 125
+              },
+              {
+                "partyId": "fr-republicans_lr",
+                "party": "The Republicans (LR)",
+                "seats": 39
+              },
+              {
+                "partyId": "fr-other_parties_right_dvd",
+                "party": "Other parties of the right (DVD)",
+                "seats": 27
+              },
+              {
+                "partyId": "fr-union-of-the-far-right",
+                "party": "Union of the far right",
+                "seats": 17
+              },
+              {
+                "partyId": "fr-other_left_wing_parties_dvg",
+                "party": "Other left wing parties (DVG)",
+                "seats": 12
+              },
+              {
+                "partyId": "fr-regionalist_reg",
+                "party": "Regionalist (REG)",
+                "seats": 9
+              },
+              {
+                "partyId": "fr-horizons-(hor)",
+                "party": "Horizons (HOR)",
+                "seats": 6
+              },
+              {
+                "partyId": "fr-other_parties_of_the_centre",
+                "party": "Other parties of the centre",
+                "seats": 6
+              },
+              {
+                "partyId": "fr-union-of-democrats-and-independents-(udi)",
+                "party": "Union of Democrats and Independents (UDI)",
+                "seats": 3
+              },
+              {
+                "partyId": "fr-socialist_party_ps",
+                "party": "Socialist Party (PS)",
+                "seats": 2
+              },
+              {
+                "partyId": "fr-ecologist_eco",
+                "party": "Ecologist (ECO)",
+                "seats": 1
+              },
+              {
+                "partyId": "fr-far_right_exd",
+                "party": "Far Right (EXD)",
+                "seats": 1
+              },
+              {
+                "partyId": "fr-others_div",
+                "party": "Others (DIV)",
+                "seats": 1
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "fr-new-popular-front-(nfp)-ug",
+                "party": "New Popular Front (NFP)/UG",
+                "seats": 178
+              },
+              {
+                "partyId": "fr-ensemble_presidential_majority_",
+                "party": "Ensemble (presidential majority)",
+                "seats": 150
+              },
+              {
+                "partyId": "fr-national_rally_rn_",
+                "party": "National Rally (RN)",
+                "seats": 125
+              },
+              {
+                "partyId": "fr-republicans_lr",
+                "party": "The Republicans (LR)",
+                "seats": 39
+              },
+              {
+                "partyId": "fr-other_parties_right_dvd",
+                "party": "Other parties of the right (DVD)",
+                "seats": 27
+              },
+              {
+                "partyId": "fr-union-of-the-far-right",
+                "party": "Union of the far right",
+                "seats": 17
+              },
+              {
+                "partyId": "fr-other_left_wing_parties_dvg",
+                "party": "Other left wing parties (DVG)",
+                "seats": 12
+              },
+              {
+                "partyId": "fr-regionalist_reg",
+                "party": "Regionalist (REG)",
+                "seats": 9
+              },
+              {
+                "partyId": "fr-horizons-(hor)",
+                "party": "Horizons (HOR)",
+                "seats": 6
+              },
+              {
+                "partyId": "fr-other_parties_of_the_centre",
+                "party": "Other parties of the centre",
+                "seats": 6
+              },
+              {
+                "partyId": "fr-union-of-democrats-and-independents-(udi)",
+                "party": "Union of Democrats and Independents (UDI)",
+                "seats": 3
+              },
+              {
+                "partyId": "fr-socialist_party_ps",
+                "party": "Socialist Party (PS)",
+                "seats": 2
+              },
+              {
+                "partyId": "fr-ecologist_eco",
+                "party": "Ecologist (ECO)",
+                "seats": 1
+              },
+              {
+                "partyId": "fr-far_right_exd",
+                "party": "Far Right (EXD)",
+                "seats": 1
+              },
+              {
+                "partyId": "fr-others_div",
+                "party": "Others (DIV)",
+                "seats": 1
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
       },
       {
-        "id": "senate",
+        "id": "FR-UC01",
         "name": "Senate",
         "kind": "upper",
         "totalSeats": 348,
-        "compositionAsOf": "2026-09-17",
-        "composition": [
+        "parliamentaryTermYears": 6,
+        "speakers": [
           {
-            "party": "Les Républicains",
-            "shortName": "LR",
-            "seats": 131,
-            "color": "#2F5DA8"
-          },
-          {
-            "party": "Socialiste, Écologiste et Républicain",
-            "shortName": "SER",
-            "seats": 64,
-            "color": "#E75480"
-          },
-          {
-            "party": "Union Centriste",
-            "shortName": "UC",
-            "seats": 59,
-            "color": "#F2A900"
-          },
-          {
-            "party": "Les Indépendants – République et Territoires",
-            "shortName": "LIRT",
-            "seats": 20,
-            "color": "#00A7B5"
-          },
-          {
-            "party": "Rassemblement des démocrates, progressistes et indépendants",
-            "shortName": "RDPI",
-            "seats": 19,
-            "color": "#F5C542"
-          },
-          {
-            "party": "Communiste Républicain Citoyen et Écologiste – Kanaky",
-            "shortName": "CRCE-K",
-            "seats": 18,
-            "color": "#C51B29"
-          },
-          {
-            "party": "Rassemblement Démocratique et Social Européen",
-            "shortName": "RDSE",
-            "seats": 17,
-            "color": "#9A5AA6"
-          },
-          {
-            "party": "Écologiste – Solidarité et Territoires",
-            "shortName": "EST",
-            "seats": 16,
-            "color": "#45A947"
-          },
-          {
-            "party": "Non-group",
-            "shortName": "Non-group",
-            "seats": 4,
-            "color": "grey"
+            "personId": "fr-gerard-larcher",
+            "name": "Gérard Larcher",
+            "officialTitle": "President of the Senate",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2014-10-01"
+            },
+            "additionalInformation": "Elected on 1 Oct. 2014, re-elected on 2 Oct. 2017, 1 Oct. 2020 and on 2 Oct. 2023.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Second",
+            "becomesInterimHeadOfState": true,
+            "mandateContinuesBetweenLegislatures": true,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["fr-senate"]
+        "electoralSystem": {
+          "directlyElected": false,
+          "systems": [],
+          "indirectlyElectedSeats": 348,
+          "eligibilityAge": 24,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "FR-UC01-E20230924",
+          "title": "France Senate September 2023 Election",
+          "date": {
+            "from": "2023-09-24"
+          },
+          "scope": "partial-renewal",
+          "seatsAtStake": 170,
+          "chamberSize": 348,
+          "sourceIds": ["ipu-parline"]
+        }
       }
     ]
   },
-  "elections": [
+  "nextExpectedElections": [
     {
-      "title": "2027 French presidential election",
-      "status": "confirmed",
-      "dateLabel": "18 April and 2 May 2027",
-      "note": "The first round is scheduled for 18 April 2027, with a second round on 2 May if required.",
-      "sourceIds": ["fr-election"]
+      "id": "FR-UC01:2026-09-30",
+      "level": "national",
+      "chamberId": "FR-UC01",
+      "chamberName": "Senate",
+      "eventType": "partial-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2026-09-30"
+      },
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "id": "FR-LC01:2029-06-30",
+      "level": "national",
+      "chamberId": "FR-LC01",
+      "chamberName": "National Assembly",
+      "eventType": "full-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2029-06-30"
+      },
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -275,6 +395,14 @@
       "kind": "reference"
     },
     {
+      "id": "fr-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of France",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_France",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
       "id": "fr-president",
       "publisher": "Élysée",
       "title": "Emmanuel Macron",
@@ -291,36 +419,15 @@
       "kind": "official"
     },
     {
-      "id": "fr-assembly",
-      "publisher": "Assemblée nationale",
-      "title": "Effectif des groupes politiques",
-      "url": "https://www2.assemblee-nationale.fr/instances/liste/groupes_politiques/effectif",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "fr-senate",
-      "publisher": "Sénat",
-      "title": "Liste des sénateurs par groupes politiques",
-      "url": "https://www.senat.fr/senateurs/grp.html",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "fr-election",
-      "publisher": "Service-Public.fr",
-      "title": "Élection présidentielle 2027",
-      "url": "https://www.service-public.gouv.fr/particuliers/actualites/A15053",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "fr-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of France",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_France",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
     }
   ]
 }

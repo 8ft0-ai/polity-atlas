@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
   "identity": {
     "iso2": "NZ",
     "iso3": "NZL",
@@ -36,91 +36,140 @@
   },
   "parliament": {
     "name": {
-      "value": "New Zealand Parliament",
-      "asOf": "2026-09-18",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["nz-parliament"],
+      "value": "House of Representatives",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "house",
+        "id": "NZ-LC01",
         "name": "House of Representatives",
         "kind": "unicameral",
-        "totalSeats": 123,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "totalSeats": 120,
+        "parliamentaryTermYears": 3,
+        "speakers": [
           {
-            "party": "New Zealand National Party",
-            "shortName": "National",
-            "seats": 49,
-            "color": "#00529F",
-            "groupingIds": ["government-coalition"]
-          },
-          {
-            "party": "New Zealand Labour Party",
-            "shortName": "Labour",
-            "seats": 34,
-            "color": "#D82A20"
-          },
-          {
-            "party": "Green Party of Aotearoa New Zealand",
-            "shortName": "Green",
-            "seats": 14,
-            "color": "#098137"
-          },
-          {
-            "party": "ACT New Zealand",
-            "shortName": "ACT",
-            "seats": 11,
-            "color": "#FDE401",
-            "groupingIds": ["government-coalition"]
-          },
-          {
-            "party": "New Zealand First",
-            "shortName": "NZ First",
-            "seats": 8,
-            "color": "#000000",
-            "groupingIds": ["government-coalition"]
-          },
-          {
-            "party": "Te Pāti Māori",
-            "shortName": "Te Pāti Māori",
-            "seats": 4,
-            "color": "#B2001D"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 2,
-            "color": "grey"
+            "personId": "nz-gerry-brownlee",
+            "name": "Gerry Brownlee",
+            "officialTitle": "Speaker of the House of Representatives",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2023-12-05"
+            },
+            "additionalInformation": "Elected on 5 Dec. 2023.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Third",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": true,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "groupings": [
-          {
-            "id": "government-coalition",
-            "name": "National–ACT–New Zealand First coalition",
-            "kind": "governing-coalition",
-            "memberParties": [
-              "New Zealand National Party",
-              "ACT New Zealand",
-              "New Zealand First"
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Mixed system", "Mixed Member Proportional System (MMP)"],
+          "directlyElectedSeats": 123,
+          "votingAge": 18,
+          "eligibilityAge": 18,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "NZ-LC01-E20231014",
+          "title": "New Zealand House of Representatives October 2023 Election",
+          "date": {
+            "from": "2023-10-14"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 123,
+          "chamberSize": 123,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "nz-national_party",
+                "party": "National Party",
+                "seats": 49
+              },
+              {
+                "partyId": "nz-labour_party",
+                "party": "Labour Party",
+                "seats": 34
+              },
+              {
+                "partyId": "nz-green_party_0",
+                "party": "Green Party",
+                "seats": 15
+              },
+              {
+                "partyId": "nz-act_new_zealand",
+                "party": "ACT New Zealand",
+                "seats": 11
+              },
+              {
+                "partyId": "nz-new_zealand_first",
+                "party": "New Zealand First",
+                "seats": 8
+              },
+              {
+                "partyId": "nz-maori_party",
+                "party": "Maori Party",
+                "seats": 6
+              }
             ],
-            "asOf": "2026-09-18",
-            "sourceIds": ["nz-prime-minister"]
-          }
-        ],
-        "sourceIds": ["nz-parliament"]
+            "postElectionComposition": [
+              {
+                "partyId": "nz-national_party",
+                "party": "National Party",
+                "seats": 49
+              },
+              {
+                "partyId": "nz-labour_party",
+                "party": "Labour Party",
+                "seats": 34
+              },
+              {
+                "partyId": "nz-green_party_0",
+                "party": "Green Party",
+                "seats": 15
+              },
+              {
+                "partyId": "nz-act_new_zealand",
+                "party": "ACT New Zealand",
+                "seats": 11
+              },
+              {
+                "partyId": "nz-new_zealand_first",
+                "party": "New Zealand First",
+                "seats": 8
+              },
+              {
+                "partyId": "nz-maori_party",
+                "party": "Maori Party",
+                "seats": 6
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
       }
     ]
   },
-  "elections": [
+  "nextExpectedElections": [
     {
-      "title": "2026 New Zealand general election",
-      "status": "confirmed",
-      "dateLabel": "7 November 2026",
-      "note": "The general election has been announced for 7 November 2026.",
-      "sourceIds": ["nz-election"]
+      "id": "NZ-LC01:2026-11-07",
+      "level": "national",
+      "chamberId": "NZ-LC01",
+      "chamberName": "House of Representatives",
+      "eventType": "full-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2026-11-07"
+      },
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -190,6 +239,17 @@
   ],
   "sources": [
     {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+    },
+    {
       "id": "nz-country",
       "publisher": "Wikipedia",
       "title": "New Zealand",
@@ -206,36 +266,20 @@
       "kind": "official"
     },
     {
-      "id": "nz-prime-minister",
-      "publisher": "New Zealand Government",
-      "title": "Prime Minister",
-      "url": "https://www.beehive.govt.nz/portfolio/nationalactnew-zealand-first-coalition-government-2023-2026/prime-minister",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "nz-parliament",
-      "publisher": "New Zealand Parliament",
-      "title": "Parliamentary parties",
-      "url": "https://www.parliament.nz/en/mps-and-electorates/political-parties/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "nz-election",
-      "publisher": "New Zealand Government",
-      "title": "General election to be held 7 November",
-      "url": "https://www.beehive.govt.nz/release/general-election-be-held-7-november",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
       "id": "nz-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of New Zealand",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_New_Zealand",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "nz-prime-minister",
+      "publisher": "New Zealand Government",
+      "title": "Prime Minister",
+      "url": "https://www.beehive.govt.nz/portfolio/nationalactnew-zealand-first-coalition-government-2023-2026/prime-minister",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
     }
   ]
 }

@@ -36,7 +36,7 @@ The first full release should provide:
 - A clickable and keyboard-searchable world map.
 - A profile for every supported sovereign state and separately identified territory.
 - Current heads of state and government.
-- Legislature name, chamber structure, seat counts, party composition, presiding officers, last election, and next known or expected election.
+- Legislature name, chamber structure, statutory seat counts, presiding officers, electoral systems, latest election outcomes, and next known or expected election.
 - Party profiles with abbreviation, leaders, seats by chamber, official links, and sourced ideological descriptions where reliable data exists.
 - Upcoming national elections with clearly distinguished `confirmed`, `tentative`, and `expected` dates.
 - Diplomatic mission relationships, including resident embassy/high commission, non-resident accreditation, interests section, suspended mission, or no diplomatic relations where a reliable source establishes it.
@@ -146,13 +146,13 @@ type CountryProfile = {
     chambers: Chamber[];
   };
   parties: PoliticalParty[];
-  elections: ElectionEvent[];
+  nextExpectedElections: ExpectedElection[];
   relationSummary: RelationSummary;
   sourceIds: string[];
 };
 ```
 
-`Chamber.composition` contains `partyId`, `seats`, `asOf`, and source IDs. Store independents and vacant seats explicitly. Do not force the sum of named parties to equal total statutory seats; validate that the difference is explained by vacancies, appointed seats, unknown affiliation, or incomplete data.
+`Chamber.latestElection` is distinct from current composition. It records scope, seats at stake, seats won in that election, and—only when explicitly supplied by the source—the full post-election composition. A partial-renewal result must never be rendered as a whole chamber or combined with older results to manufacture a current composition. Statutory seats, directly/indirectly elected seats, and appointed seats remain structural chamber fields.
 
 ### Diplomatic relations as directed edges
 
@@ -206,23 +206,23 @@ Record conflicts instead of silently overwriting them. A curated override must i
 
 ### Initial adapters
 
-| Domain                                | Preferred source                                                                      | Use                                                          |
-| ------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| Country IDs/names                     | UN M49 plus reviewed ISO mappings                                                     | Canonical names, regions, and codes.                         |
-| Boundaries                            | Natural Earth Admin 0 datasets                                                        | Country polygons, sovereignty/disputed layers, capitals.     |
-| Parliament/chambers/parties/elections | IPU Parline API                                                                       | Core parliamentary and historical election data.             |
-| Upcoming elections                    | National electoral commissions; IFES ElectionGuide where permitted                    | Dates and status. A proposed date must never look confirmed. |
-| Leaders                               | Official government sites first; referenced Wikidata statements as discovery/fallback | Office holders, start dates, official pages.                 |
-| Diplomatic missions                   | Foreign-ministry mission directories and embassy pages                                | Directional mission relationships.                           |
-| Cross-source IDs                      | Wikidata, reviewed mappings                                                           | Join records without joining by display name.                |
+| Domain                                | Preferred source                                                                      | Use                                                                    |
+| ------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Country IDs/names                     | UN M49 plus reviewed ISO mappings                                                     | Canonical names, regions, and codes.                                   |
+| Boundaries                            | Natural Earth Admin 0 datasets                                                        | Country polygons, sovereignty/disputed layers, capitals.               |
+| Parliament/chambers/parties/elections | IPU Parline API                                                                       | Core parliamentary and historical election data.                       |
+| Expected parliamentary elections      | IPU Parline API                                                                       | National chamber elections/renewals, always labelled expected.         |
+| Confirmed upcoming elections          | National electoral commissions; IFES ElectionGuide where permitted                    | Announced dates and status. A proposed date must never look confirmed. |
+| Leaders                               | Official government sites first; referenced Wikidata statements as discovery/fallback | Office holders, start dates, official pages.                           |
+| Diplomatic missions                   | Foreign-ministry mission directories and embassy pages                                | Directional mission relationships.                                     |
+| Cross-source IDs                      | Wikidata, reviewed mappings                                                           | Join records without joining by display name.                          |
 
 Before automating a source, complete a license and terms review. “Publicly viewable” does not automatically mean “permitted to republish.” Save the decision in `docs/source-policy.md`.
 
 ### Refresh cadence
 
 - Leaders and confirmed election dates: daily.
-- Parliament/party composition: twice weekly and after known elections.
-- IPU election history and chamber metadata: weekly.
+- IPU election outcomes, expected elections, and chamber metadata: weekly and after known elections.
 - Diplomatic mission directories: monthly, with faster manual updates during a rupture or restoration of relations.
 - UN country metadata and Natural Earth geometry: quarterly or when a new release is detected.
 
@@ -230,7 +230,7 @@ Each adapter must use timeouts, bounded retries, a descriptive User-Agent, condi
 
 ## 7. Data refresh and editorial workflow
 
-Run ingestion explicitly on a developer machine after each source's licence, access terms, and credential handling are approved. The initial repository has only data validation, not functioning source adapters. Do not describe a placeholder validation job as an automatic refresh.
+Run ingestion explicitly on a developer machine after each source's licence, access terms, and credential handling are approved. The IPU pilot refresh is functioning; other source adapters remain planned. Do not describe validation or cache replay as an automatic refresh.
 
 1. Start from a clean, current `main` and create one data update branch.
 2. Install locked dependencies and use local, ignored source credentials where required.
@@ -273,10 +273,10 @@ Header:
 
 Tabs:
 
-- **Overview:** government system, head of state, head of government, capital, legislature summary, next election.
-- **Parliament:** one card per chamber, total/filled/vacant seats, accessible seat visualization, governing coalition/opposition only where sourced.
+- **Overview:** government system, head of state, head of government, capital, legislature summary, and all available next expected parliamentary elections.
+- **Parliament:** one card per chamber with statutory seats, Speaker, electoral system, and an accessible latest-election visualization that clearly distinguishes full post-election composition from contested-seat-only partial renewals.
 - **Parties:** dense table with name, abbreviation, chamber seats, leader, status, and expandable sourced description.
-- **Elections:** next known dates first, status label, office/body, cycle, last election, and official election authority link.
+- **Elections:** multiple expected national parliamentary chamber/renewal dates where available, status label, scope, and source. Future adapters may add confirmed or non-national events without changing the collection shape.
 - **Relations:** inbound/outbound mission status, location, accreditation, and a map legend.
 - **Sources:** all sources used in the current country file, grouped by topic and showing publisher, title, retrieved date, and external link.
 
@@ -365,7 +365,7 @@ Fail the refresh pull request when:
 - A `no-relations` edge also contains an active resident mission.
 - Generated JSON does not match the current schema version.
 
-Generate warnings, rather than failures, for stale data, partial composition, dead source links, and unsupported countries. Display these in the refresh summary.
+Generate warnings, rather than failures, for stale data, partial election outcomes, dead source links, and unsupported countries. Display these in the refresh summary.
 
 ### Automated tests
 
@@ -441,6 +441,8 @@ Deliverables:
 Exit criteria: every primary entity in the canonical index can be selected by map where geometry is legible or by keyboard search otherwise, deep-linked, refreshed, and restored; LOD transitions preserve canonical entity identity and never mix base and disputed layers from different resolution packages; no missing source ID can collapse unrelated map entities onto one selection identity.
 
 ### Phase 3 — Shared data platform (7–10 days)
+
+Progress as of 19 September 2026: a bounded pilot slice is implemented. All ten pilots now use a generic unauthenticated IPU adapter, ignored raw snapshot cache, canonical parliament/election normalizer, schema-v2 output, deterministic cache replay, and a hash-backed manifest. Speaker, electoral-system, latest-election, and expected-election fields are live in the UI. Country identity joins and every displayed pilot source reference are tested. Curated override infrastructure, general staleness/change reports, a deduplicated global source registry, and non-IPU adapters remain future Phase 3 work.
 
 Deliverables:
 

@@ -15,7 +15,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "data:validate": "vitest run packages/schemas"
+    "data:validate": "vitest run packages/schemas packages/data-pipeline",
+    "data:refresh:ipu": "node packages/data-pipeline/ipu/refresh.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

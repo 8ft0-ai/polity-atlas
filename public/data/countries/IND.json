@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
   "identity": {
     "iso2": "IN",
     "iso3": "IND",
@@ -36,120 +36,561 @@
   },
   "parliament": {
     "name": {
-      "value": "Parliament of India",
-      "asOf": "2026-09-18",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["in-lok-sabha", "in-rajya-sabha"],
+      "value": "Parliament",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "lok-sabha",
-        "name": "Lok Sabha",
+        "id": "IN-LC01",
+        "name": "House of the People",
         "kind": "lower",
-        "totalSeats": 543,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "totalSeats": 545,
+        "parliamentaryTermYears": 5,
+        "speakers": [
           {
-            "party": "Bharatiya Janata Party",
-            "shortName": "BJP",
-            "seats": 240,
-            "color": "#FF9933"
-          },
-          {
-            "party": "Indian National Congress",
-            "shortName": "INC",
-            "seats": 98,
-            "color": "#00BFFF"
-          },
-          {
-            "party": "Samajwadi Party",
-            "shortName": "SP",
-            "seats": 37,
-            "color": "#D71920"
-          },
-          {
-            "party": "All India Trinamool Congress",
-            "shortName": "AITC",
-            "seats": 28,
-            "color": "#20C646"
-          },
-          {
-            "party": "Dravida Munnetra Kazhagam",
-            "shortName": "DMK",
-            "seats": 22,
-            "color": "#DD1100"
-          },
-          {
-            "party": "Telugu Desam Party",
-            "shortName": "TDP",
-            "seats": 16,
-            "color": "#F2D600"
-          },
-          {
-            "party": "Shiv Sena",
-            "shortName": "Shiv Sena",
-            "seats": 13,
-            "color": "#F58220"
-          },
-          {
-            "party": "Janata Dal (United)",
-            "shortName": "JD(U)",
-            "seats": 12,
-            "color": "#1D5F91"
-          },
-          {
-            "party": "Nationalist Congress Party – Sharadchandra Pawar",
-            "shortName": "NCP-SP",
-            "seats": 8,
-            "color": "#00A859"
-          },
-          {
-            "party": "Other parties and independents",
-            "shortName": "Other",
-            "seats": 66,
-            "color": "grey"
+            "personId": "in-om-birla",
+            "name": "Om Birla",
+            "officialTitle": "Speaker of the Lok Sabha",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2019-06-19"
+            },
+            "additionalInformation": "Elected on 19 June 2019, re-elected on 26 June 2024.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Sixth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["in-lok-sabha"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "directlyElectedSeats": 543,
+          "appointedSeats": 2,
+          "votingAge": 18,
+          "eligibilityAge": 25,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "IN-LC01-E20240419",
+          "title": "India House of the People April 2024 Election",
+          "date": {
+            "from": "2024-04-19",
+            "to": "2024-06-01"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 543,
+          "chamberSize": 545,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "in-bharatiya_janata_party_bjp",
+                "party": "Bharatiya Janata Party (BJP)",
+                "seats": 240
+              },
+              {
+                "partyId": "in-indian_national_congress_inc",
+                "party": "Indian National Congress (INC)",
+                "seats": 99
+              },
+              {
+                "partyId": "in-samajwadi_party_sp",
+                "party": "Samajwadi Party (SP)",
+                "seats": 37
+              },
+              {
+                "partyId": "in-all_india_trinamool_congress_aitc",
+                "party": "All India Trinamool Congress (AITC)",
+                "seats": 29
+              },
+              {
+                "partyId": "in-dravida_munnetra_kazhagam_dmk",
+                "party": "Dravida Munnetra Kazhagam (DMK)",
+                "seats": 22
+              },
+              {
+                "partyId": "in-telugu_desam_party_tdp",
+                "party": "Telugu Desam Party (TDP)",
+                "seats": 16
+              },
+              {
+                "partyId": "in-janata_dal_united_jdu",
+                "party": "Janata Dal (United) (JD(U))",
+                "seats": 12
+              },
+              {
+                "partyId": "in-shiv_sena_ss",
+                "party": "Shiv Sena (SS)",
+                "seats": 9
+              },
+              {
+                "partyId": "in-nationalist-congress-party-party-sharadchandra-pawar-(ncpsp)",
+                "party": "Nationalist Congress Party Party – Sharadchandra Pawar (NCPSP)",
+                "seats": 8
+              },
+              {
+                "partyId": "in-independents",
+                "party": "Independents",
+                "seats": 7
+              },
+              {
+                "partyId": "in-shiv-sena",
+                "party": "Shiv Sena",
+                "seats": 7
+              },
+              {
+                "partyId": "in-lok-jan-shakti-party-(ram-vilas)-ljprv-002",
+                "party": "Lok Jan Shakti Party (Ram Vilas) – LJPRV",
+                "seats": 5
+              },
+              {
+                "partyId": "in-communist_party_india_marxist_cpi_m",
+                "party": "Communist Party of India (Marxist) (CPI (M))",
+                "seats": 4
+              },
+              {
+                "partyId": "in-rashtriya_janata_dal_rjd",
+                "party": "Rashtriya Janata Dal (RJD)",
+                "seats": 4
+              },
+              {
+                "partyId": "in-yuvajana_sramika_rythu_congress_party_ysrcp",
+                "party": "Yuvajana Sramika Rythu Congress Party (YSRCP)",
+                "seats": 4
+              },
+              {
+                "partyId": "in-aam_aadmi_party",
+                "party": "Aam Aadmi Party (AAP)",
+                "seats": 3
+              },
+              {
+                "partyId": "in-indian_union_muslim_league_iuml",
+                "party": "Indian Union Muslim League (IUML)",
+                "seats": 3
+              },
+              {
+                "partyId": "in-jharkhand_mukti_morcha_jmm",
+                "party": "Jharkhand Mukti Morcha (JMM)",
+                "seats": 3
+              },
+              {
+                "partyId": "in-communist_party_india_cpi",
+                "party": "Communist Party of India (CPI)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-communist-party-of-india-(marxist-leninist)-(liberation)-cpi(ml)(l)",
+                "party": "Communist Party of India (Marxist-Leninist) (Liberation) - CPI(ML)(L)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-jammu_and_kashmir_national_conference_j_knc_",
+                "party": "Jammu and Kashmir National Conference (J&KNC)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-janasena-party-jnp",
+                "party": "Janasena Party – JnP",
+                "seats": 2
+              },
+              {
+                "partyId": "in-janata_dal_secular_jds",
+                "party": "Janata Dal (Secular) (JD(S))",
+                "seats": 2
+              },
+              {
+                "partyId": "in-rashtriya-lok-dal-(rld)",
+                "party": "Rashtriya Lok Dal (RLD)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-viduthalai_chiruthaigal_katchi_vck_",
+                "party": "Viduthalai Chiruthaigal Katchi (VCK)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-aazad-samaj-party-(kanshi-ram)-(aspkr)",
+                "party": "Aazad Samaj Party (Kanshi Ram) (ASPKR)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-ajsu_party_ajsu_",
+                "party": "AJSU Party (AJSU)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-all_india_majlis_e_ittehadul_muslimeen",
+                "party": "All India Majlis-E-Ittehadul Muslimeen  (AIMIM)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-apna_dal",
+                "party": "Apna Dal (Soneylal)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-asom-gana-parishad-(agp)",
+                "party": "Asom Gana Parishad (AGP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-bharat-adivasi-party-(bhrtadvsip)",
+                "party": "Bharat Adivasi Party (BHRTADVSIP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-hindustani-awam-morcha-(secular)",
+                "party": "Hindustani Awam Morcha (Secular)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-kerala_congress_m",
+                "party": "Kerala Congress (M) (KC(M))",
+                "seats": 1
+              },
+              {
+                "partyId": "in-marumalarchi-dravida-munnetra-kazhagam-(mdmk)",
+                "party": "Marumalarchi Dravida Munnetra Kazhagam (MDMK)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-nationalist_congress_party_ncp",
+                "party": "Nationalist Congress Party (NCP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-rashtriya_loktantrik_party_rlp_",
+                "party": "Rashtriya Loktantrik Party (RLP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-revolutionary_socialist_party",
+                "party": "Revolutionary Socialist Party (RSP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-shiromani_akali_dal_sad",
+                "party": "Shiromani Akali Dal (SAD)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-sikkim_krantikari_morcha_skm_",
+                "party": "Sikkim Krantikari Morcha (SKM)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-united-people-s-party-liberal-(uppl)",
+                "party": "United People’s Party, Liberal (UPPL)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-voice-of-the-people-party-(votpp)",
+                "party": "Voice of the People Party (VOTPP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-zoram-people-s-movement-(zpm)",
+                "party": "Zoram People’s Movement (ZPM)",
+                "seats": 1
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "in-bharatiya_janata_party_bjp",
+                "party": "Bharatiya Janata Party (BJP)",
+                "seats": 240
+              },
+              {
+                "partyId": "in-indian_national_congress_inc",
+                "party": "Indian National Congress (INC)",
+                "seats": 99
+              },
+              {
+                "partyId": "in-samajwadi_party_sp",
+                "party": "Samajwadi Party (SP)",
+                "seats": 37
+              },
+              {
+                "partyId": "in-all_india_trinamool_congress_aitc",
+                "party": "All India Trinamool Congress (AITC)",
+                "seats": 29
+              },
+              {
+                "partyId": "in-dravida_munnetra_kazhagam_dmk",
+                "party": "Dravida Munnetra Kazhagam (DMK)",
+                "seats": 22
+              },
+              {
+                "partyId": "in-telugu_desam_party_tdp",
+                "party": "Telugu Desam Party (TDP)",
+                "seats": 16
+              },
+              {
+                "partyId": "in-janata_dal_united_jdu",
+                "party": "Janata Dal (United) (JD(U))",
+                "seats": 12
+              },
+              {
+                "partyId": "in-shiv_sena_ss",
+                "party": "Shiv Sena (SS)",
+                "seats": 9
+              },
+              {
+                "partyId": "in-nationalist-congress-party-party-sharadchandra-pawar-(ncpsp)",
+                "party": "Nationalist Congress Party Party – Sharadchandra Pawar (NCPSP)",
+                "seats": 8
+              },
+              {
+                "partyId": "in-independents",
+                "party": "Independents",
+                "seats": 7
+              },
+              {
+                "partyId": "in-shiv-sena",
+                "party": "Shiv Sena",
+                "seats": 7
+              },
+              {
+                "partyId": "in-lok-jan-shakti-party-(ram-vilas)-ljprv-002",
+                "party": "Lok Jan Shakti Party (Ram Vilas) – LJPRV",
+                "seats": 5
+              },
+              {
+                "partyId": "in-communist_party_india_marxist_cpi_m",
+                "party": "Communist Party of India (Marxist) (CPI (M))",
+                "seats": 4
+              },
+              {
+                "partyId": "in-rashtriya_janata_dal_rjd",
+                "party": "Rashtriya Janata Dal (RJD)",
+                "seats": 4
+              },
+              {
+                "partyId": "in-yuvajana_sramika_rythu_congress_party_ysrcp",
+                "party": "Yuvajana Sramika Rythu Congress Party (YSRCP)",
+                "seats": 4
+              },
+              {
+                "partyId": "in-aam_aadmi_party",
+                "party": "Aam Aadmi Party (AAP)",
+                "seats": 3
+              },
+              {
+                "partyId": "in-indian_union_muslim_league_iuml",
+                "party": "Indian Union Muslim League (IUML)",
+                "seats": 3
+              },
+              {
+                "partyId": "in-jharkhand_mukti_morcha_jmm",
+                "party": "Jharkhand Mukti Morcha (JMM)",
+                "seats": 3
+              },
+              {
+                "partyId": "in-communist_party_india_cpi",
+                "party": "Communist Party of India (CPI)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-communist-party-of-india-(marxist-leninist)-(liberation)-cpi(ml)(l)",
+                "party": "Communist Party of India (Marxist-Leninist) (Liberation) - CPI(ML)(L)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-jammu_and_kashmir_national_conference_j_knc_",
+                "party": "Jammu and Kashmir National Conference (J&KNC)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-janasena-party-jnp",
+                "party": "Janasena Party – JnP",
+                "seats": 2
+              },
+              {
+                "partyId": "in-janata_dal_secular_jds",
+                "party": "Janata Dal (Secular) (JD(S))",
+                "seats": 2
+              },
+              {
+                "partyId": "in-rashtriya-lok-dal-(rld)",
+                "party": "Rashtriya Lok Dal (RLD)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-viduthalai_chiruthaigal_katchi_vck_",
+                "party": "Viduthalai Chiruthaigal Katchi (VCK)",
+                "seats": 2
+              },
+              {
+                "partyId": "in-aazad-samaj-party-(kanshi-ram)-(aspkr)",
+                "party": "Aazad Samaj Party (Kanshi Ram) (ASPKR)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-ajsu_party_ajsu_",
+                "party": "AJSU Party (AJSU)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-all_india_majlis_e_ittehadul_muslimeen",
+                "party": "All India Majlis-E-Ittehadul Muslimeen  (AIMIM)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-apna_dal",
+                "party": "Apna Dal (Soneylal)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-asom-gana-parishad-(agp)",
+                "party": "Asom Gana Parishad (AGP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-bharat-adivasi-party-(bhrtadvsip)",
+                "party": "Bharat Adivasi Party (BHRTADVSIP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-hindustani-awam-morcha-(secular)",
+                "party": "Hindustani Awam Morcha (Secular)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-kerala_congress_m",
+                "party": "Kerala Congress (M) (KC(M))",
+                "seats": 1
+              },
+              {
+                "partyId": "in-marumalarchi-dravida-munnetra-kazhagam-(mdmk)",
+                "party": "Marumalarchi Dravida Munnetra Kazhagam (MDMK)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-nationalist_congress_party_ncp",
+                "party": "Nationalist Congress Party (NCP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-rashtriya_loktantrik_party_rlp_",
+                "party": "Rashtriya Loktantrik Party (RLP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-revolutionary_socialist_party",
+                "party": "Revolutionary Socialist Party (RSP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-shiromani_akali_dal_sad",
+                "party": "Shiromani Akali Dal (SAD)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-sikkim_krantikari_morcha_skm_",
+                "party": "Sikkim Krantikari Morcha (SKM)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-united-people-s-party-liberal-(uppl)",
+                "party": "United People’s Party, Liberal (UPPL)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-voice-of-the-people-party-(votpp)",
+                "party": "Voice of the People Party (VOTPP)",
+                "seats": 1
+              },
+              {
+                "partyId": "in-zoram-people-s-movement-(zpm)",
+                "party": "Zoram People’s Movement (ZPM)",
+                "seats": 1
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
       },
       {
-        "id": "rajya-sabha",
-        "name": "Rajya Sabha",
+        "id": "IN-UC01",
+        "name": "Council of States",
         "kind": "upper",
         "totalSeats": 245,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "parliamentaryTermYears": 6,
+        "renewalFrequencyYears": 2,
+        "speakers": [
           {
-            "party": "National Democratic Alliance",
-            "shortName": "NDA",
-            "seats": 144,
-            "color": "#FF9933"
-          },
-          {
-            "party": "INDIA alliance",
-            "shortName": "INDIA",
-            "seats": 75,
-            "color": "#2F6AB3"
-          },
-          {
-            "party": "Other and unaligned members",
-            "shortName": "Other",
-            "seats": 23,
-            "color": "grey"
+            "personId": "in-c-p-radhakrishnan",
+            "name": "C. P. Radhakrishnan",
+            "officialTitle": "Chairman of the Rajya Sabha",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2025-09-12"
+            },
+            "additionalInformation": "The Vice-President of the Republic",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Second",
+            "becomesInterimHeadOfState": true,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["in-rajya-sabha"]
+        "electoralSystem": {
+          "directlyElected": false,
+          "systems": [],
+          "indirectlyElectedSeats": 233,
+          "appointedSeats": 12,
+          "eligibilityAge": 30,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "IN-UC01-E20260316",
+          "title": "India Council of States March 2026 Election",
+          "date": {
+            "from": "2026-03-16"
+          },
+          "scope": "partial-renewal",
+          "seatsAtStake": 72,
+          "chamberSize": 245,
+          "sourceIds": ["ipu-parline"]
+        }
       }
     ]
   },
-  "elections": [
+  "nextExpectedElections": [
     {
-      "title": "Next Indian general election",
+      "id": "IN-UC01:2028-03-31",
+      "level": "national",
+      "chamberId": "IN-UC01",
+      "chamberName": "Council of States",
+      "eventType": "partial-renewal",
       "status": "expected",
-      "dateLabel": "By 2029",
-      "note": "The next Lok Sabha general election is expected by 2029 unless the House is dissolved earlier.",
-      "sourceIds": ["in-election"]
+      "date": {
+        "from": "2028-03-31"
+      },
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "id": "IN-LC01:2029-04-30",
+      "level": "national",
+      "chamberId": "IN-LC01",
+      "chamberName": "House of the People",
+      "eventType": "full-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2029-04-30"
+      },
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -227,6 +668,14 @@
       "kind": "reference"
     },
     {
+      "id": "in-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of India",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_India",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
       "id": "in-president",
       "publisher": "President of India",
       "title": "Profile of the President",
@@ -243,36 +692,15 @@
       "kind": "official"
     },
     {
-      "id": "in-lok-sabha",
-      "publisher": "Digital Sansad",
-      "title": "Lok Sabha — party-wise representation",
-      "url": "https://sansad.in/ls/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "in-rajya-sabha",
-      "publisher": "Wikipedia",
-      "title": "Rajya Sabha",
-      "url": "https://en.wikipedia.org/wiki/Rajya_Sabha",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "in-election",
-      "publisher": "Wikipedia",
-      "title": "Next Indian general election",
-      "url": "https://en.wikipedia.org/wiki/Next_Indian_general_election",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "in-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of India",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_India",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
     }
   ]
 }

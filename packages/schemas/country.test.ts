@@ -1,3 +1,6 @@
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import aus from '@/public/data/countries/AUS.json';
 import can from '@/public/data/countries/CAN.json';
@@ -7,6 +10,7 @@ import gbr from '@/public/data/countries/GBR.json';
 import idn from '@/public/data/countries/IDN.json';
 import ind from '@/public/data/countries/IND.json';
 import jpn from '@/public/data/countries/JPN.json';
+import manifest from '@/public/data/manifest.json';
 import nzl from '@/public/data/countries/NZL.json';
 import usa from '@/public/data/countries/USA.json';
 import { countryProfileSchema } from './country';
@@ -36,9 +40,17 @@ describe('country profile contract', () => {
         ...parsed.parliament.name.sourceIds,
         ...parsed.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
         ...parsed.parliament.chambers.flatMap((chamber) =>
-          (chamber.groupings ?? []).flatMap((grouping) => grouping.sourceIds),
+          chamber.speakers.flatMap((speaker) => speaker.sourceIds),
         ),
-        ...parsed.elections.flatMap((election) => election.sourceIds),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.electoralSystem.sourceIds,
+        ),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.latestElection?.sourceIds ?? [],
+        ),
+        ...parsed.nextExpectedElections.flatMap(
+          (election) => election.sourceIds,
+        ),
         ...parsed.relations.flatMap((relation) => relation.sourceIds),
       ];
 
@@ -49,20 +61,66 @@ describe('country profile contract', () => {
     }
   });
 
-  it('does not over-allocate seats in any pilot chamber', () => {
+  it('never presents a partial contested-seat result as a full chamber', () => {
     for (const profile of pilotProfiles) {
       const parsed = countryProfileSchema.parse(profile);
       for (const chamber of parsed.parliament.chambers) {
-        const allocated = chamber.composition.reduce(
-          (sum, group) => sum + group.seats,
-          0,
-        );
+        const election = chamber.latestElection;
+        if (election?.scope !== 'partial-renewal' || !election.outcome) {
+          continue;
+        }
 
-        expect(
-          allocated,
-          `${parsed.identity.iso3} ${chamber.name} over-allocates seats`,
-        ).toBeLessThanOrEqual(chamber.totalSeats);
+        if (election.outcome.postElectionComposition) {
+          expect(election.outcome.display).toBe(
+            'post-election-full-composition',
+          );
+        } else {
+          expect(election.outcome.display).toBe('contested-seats-only');
+          expect(election.seatsAtStake).toBeLessThan(election.chamberSize);
+        }
       }
+    }
+  });
+
+  it('uses IPU rather than Wikipedia for parliamentary and election facts', () => {
+    for (const profile of pilotProfiles) {
+      const parsed = countryProfileSchema.parse(profile);
+      const parliamentarySourceIds = new Set([
+        ...parsed.parliament.name.sourceIds,
+        ...parsed.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.latestElection?.sourceIds ?? [],
+        ),
+        ...parsed.nextExpectedElections.flatMap(
+          (election) => election.sourceIds,
+        ),
+      ]);
+      const parliamentarySources = parsed.sources.filter((source) =>
+        parliamentarySourceIds.has(source.id),
+      );
+      expect(parliamentarySources).not.toHaveLength(0);
+      expect(
+        parliamentarySources.every(
+          (source) =>
+            source.publisher === 'Inter-Parliamentary Union' &&
+            source.attribution?.startsWith('Inter-Parliamentary Union:'),
+        ),
+      ).toBe(true);
+    }
+  });
+
+  it('limits IPU expected-election entries to national parliamentary events', () => {
+    for (const profile of pilotProfiles) {
+      const parsed = countryProfileSchema.parse(profile);
+      expect(
+        parsed.nextExpectedElections.every(
+          (election) =>
+            election.level === 'national' &&
+            parsed.parliament.chambers.some(
+              (chamber) => chamber.id === election.chamberId,
+            ),
+        ),
+      ).toBe(true);
     }
   });
 
@@ -86,6 +144,25 @@ describe('country profile contract', () => {
 
       expect(actual, `${profile.identity.iso3} pilot mission coverage`).toEqual(
         expected,
+      );
+    }
+  });
+
+  it('publishes all ten pilots in a deterministic, hash-backed manifest', () => {
+    expect(manifest.schemaVersion).toBe(2);
+    expect(manifest.profiles).toHaveLength(10);
+    expect(manifest.profiles.map((profile) => profile.iso3)).toEqual(
+      [...pilotProfiles]
+        .map((profile) => profile.identity.iso3)
+        .sort((left, right) => left.localeCompare(right)),
+    );
+
+    for (const entry of manifest.profiles) {
+      const content = readFileSync(
+        resolve(process.cwd(), 'public/data', entry.path),
+      );
+      expect(createHash('sha256').update(content).digest('hex')).toBe(
+        entry.sha256,
       );
     }
   });

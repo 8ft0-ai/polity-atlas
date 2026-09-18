@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
   "identity": {
     "iso2": "ID",
     "iso3": "IDN",
@@ -36,96 +36,162 @@
   },
   "parliament": {
     "name": {
-      "value": "People's Consultative Assembly",
-      "asOf": "2026-09-18",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["id-dpr", "id-dpd"],
+      "value": "House of Representatives",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "dpr",
-        "name": "House of Representatives (DPR)",
-        "kind": "lower",
+        "id": "ID-LC01",
+        "name": "House of Representatives",
+        "kind": "unicameral",
         "totalSeats": 580,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "parliamentaryTermYears": 5,
+        "speakers": [
           {
-            "party": "Indonesian Democratic Party of Struggle",
-            "shortName": "PDI-P",
-            "seats": 110,
-            "color": "#D71920"
-          },
-          {
-            "party": "Golkar Party",
-            "shortName": "Golkar",
-            "seats": 102,
-            "color": "#F6D32D"
-          },
-          {
-            "party": "Gerindra Party",
-            "shortName": "Gerindra",
-            "seats": 86,
-            "color": "#B71C1C"
-          },
-          {
-            "party": "NasDem Party",
-            "shortName": "NasDem",
-            "seats": 69,
-            "color": "#1D4F91"
-          },
-          {
-            "party": "National Awakening Party",
-            "shortName": "PKB",
-            "seats": 68,
-            "color": "#2AA84A"
-          },
-          {
-            "party": "Prosperous Justice Party",
-            "shortName": "PKS",
-            "seats": 53,
-            "color": "#F58220"
-          },
-          {
-            "party": "National Mandate Party",
-            "shortName": "PAN",
-            "seats": 48,
-            "color": "#1D73B7"
-          },
-          {
-            "party": "Democratic Party",
-            "shortName": "Demokrat",
-            "seats": 44,
-            "color": "#1E4E9A"
+            "personId": "id-puan-maharani",
+            "name": "Puan Maharani",
+            "officialTitle": "Speaker of the House of Representatives",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2019-10-02"
+            },
+            "additionalInformation": "Elected on 2 Oct. 2019, re-elected on 1 Oct. 2024.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["id-dpr"]
-      },
-      {
-        "id": "dpd",
-        "name": "Regional Representative Council (DPD)",
-        "kind": "upper",
-        "totalSeats": 152,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
-          {
-            "party": "Nonpartisan members",
-            "shortName": "Nonpartisan",
-            "seats": 152,
-            "color": "#777777"
-          }
-        ],
-        "sourceIds": ["id-dpd"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": [
+            "Proportional representation",
+            "List Proportional Representation (List PR)"
+          ],
+          "directlyElectedSeats": 580,
+          "votingAge": 17,
+          "eligibilityAge": 21,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "ID-LC01-E20240214",
+          "title": "Indonesia House of Representatives February 2024 Election",
+          "date": {
+            "from": "2024-02-14"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 580,
+          "chamberSize": 580,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "id-indonesian_democratic_party_struggle_pdi_p",
+                "party": "Indonesian Democratic Party - Struggle (PDI-P)",
+                "seats": 110
+              },
+              {
+                "partyId": "id-party_of_functional_groups_golkar_",
+                "party": "Party of Functional Groups (Golkar)",
+                "seats": 102
+              },
+              {
+                "partyId": "id-great_indonesia_movement_gerindra_",
+                "party": "Great Indonesia Movement (Gerindra)",
+                "seats": 86
+              },
+              {
+                "partyId": "id-national_democratic_party_nasdem_",
+                "party": "National Democratic Party (NasDem)",
+                "seats": 69
+              },
+              {
+                "partyId": "id-national_awakening_party_pkb",
+                "party": "National Awakening Party (PKB)",
+                "seats": 68
+              },
+              {
+                "partyId": "id-prosperous_justice_party_pks",
+                "party": "Prosperous Justice Party (PKS)",
+                "seats": 53
+              },
+              {
+                "partyId": "id-national_mandate_party_pan",
+                "party": "National Mandate Party (PAN)",
+                "seats": 48
+              },
+              {
+                "partyId": "id-democratic_party_pd",
+                "party": "Democratic Party (PD)",
+                "seats": 44
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "id-indonesian_democratic_party_struggle_pdi_p",
+                "party": "Indonesian Democratic Party - Struggle (PDI-P)",
+                "seats": 110
+              },
+              {
+                "partyId": "id-party_of_functional_groups_golkar_",
+                "party": "Party of Functional Groups (Golkar)",
+                "seats": 102
+              },
+              {
+                "partyId": "id-great_indonesia_movement_gerindra_",
+                "party": "Great Indonesia Movement (Gerindra)",
+                "seats": 86
+              },
+              {
+                "partyId": "id-national_democratic_party_nasdem_",
+                "party": "National Democratic Party (NasDem)",
+                "seats": 69
+              },
+              {
+                "partyId": "id-national_awakening_party_pkb",
+                "party": "National Awakening Party (PKB)",
+                "seats": 68
+              },
+              {
+                "partyId": "id-prosperous_justice_party_pks",
+                "party": "Prosperous Justice Party (PKS)",
+                "seats": 53
+              },
+              {
+                "partyId": "id-national_mandate_party_pan",
+                "party": "National Mandate Party (PAN)",
+                "seats": 48
+              },
+              {
+                "partyId": "id-democratic_party_pd",
+                "party": "Democratic Party (PD)",
+                "seats": 44
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
       }
     ]
   },
-  "elections": [
+  "nextExpectedElections": [
     {
-      "title": "2029 Indonesian general election",
+      "id": "ID-LC01:2029-04-30",
+      "level": "national",
+      "chamberId": "ID-LC01",
+      "chamberName": "House of Representatives",
+      "eventType": "full-renewal",
       "status": "expected",
-      "dateLabel": "2029",
-      "note": "The next national legislative and presidential election cycle is expected in 2029; a polling date has not been recorded in this profile.",
-      "sourceIds": ["id-election"]
+      "date": {
+        "from": "2029-04-30"
+      },
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -203,6 +269,14 @@
       "kind": "reference"
     },
     {
+      "id": "id-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of Indonesia",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Indonesia",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
       "id": "id-president",
       "publisher": "Portal Informasi Indonesia",
       "title": "Presiden & Wakil Presiden",
@@ -211,36 +285,15 @@
       "kind": "official"
     },
     {
-      "id": "id-dpr",
-      "publisher": "Wikipedia",
-      "title": "House of Representatives (Indonesia)",
-      "url": "https://en.wikipedia.org/wiki/House_of_Representatives_(Indonesia)",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "id-dpd",
-      "publisher": "Dewan Perwakilan Daerah Republik Indonesia",
-      "title": "DPD members 2024–2029",
-      "url": "https://satudata.dpd.go.id/dataset/kompilasi-data-anggota-dewan-perwakilan-daerah-republik-indonesia-dpd-ri-periode-2024-2029",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "id-election",
-      "publisher": "Wikipedia",
-      "title": "2029 Indonesian general election",
-      "url": "https://en.wikipedia.org/wiki/2029_Indonesian_general_election",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "id-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of Indonesia",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Indonesia",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
     }
   ]
 }
