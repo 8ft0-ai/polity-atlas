@@ -8,9 +8,9 @@ import {
 describe('canonical map entity identity', () => {
   it('defines exactly 197 primary selectable countries', () => {
     expect(countryOptions).toHaveLength(197);
-    expect(new Set(countryOptions.map((country) => country.entityId)).size).toBe(
-      197,
-    );
+    expect(
+      new Set(countryOptions.map((country) => country.entityId)).size,
+    ).toBe(197);
   });
 
   it('includes the two UN observer states and the two additional research entities', () => {
@@ -77,9 +77,9 @@ describe('canonical map entity identity', () => {
     expect(
       countryOptions.some((country) => country.name === 'Northern Cyprus'),
     ).toBe(false);
-    expect(countryOptions.some((country) => country.name === 'Somaliland')).toBe(
-      false,
-    );
+    expect(
+      countryOptions.some((country) => country.name === 'Somaliland'),
+    ).toBe(false);
     expect(
       countryOptions.some((country) => country.name === 'Western Sahara'),
     ).toBe(false);
