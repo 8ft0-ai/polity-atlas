@@ -45,3 +45,11 @@ jobs:
             | jq -c '[.features[].properties | select(.TYPE != "Sovereign country") | {ADMIN,ADM0_A3,SOVEREIGNT,SOV_A3,TYPE,ISO_A3,ISO_N3,UN_A3,NAME}]' \
             | sed 's/^/NE_NON_SOVEREIGN=/'
 
+
+      - name: Validate candidate
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run format:check
+          npm test
+          npm run build
