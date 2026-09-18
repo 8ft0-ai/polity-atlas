@@ -1,21 +1,15 @@
-import type { FeatureCollection, Geometry, Point, Position } from 'geojson';
+import type { FeatureCollection, Geometry } from 'geojson';
 import countries110Source from '@/public/data/geometry/lod/110m/countries.json';
 import disputed110Source from '@/public/data/geometry/lod/110m/disputed-areas.json';
 import boundaries110Source from '@/public/data/geometry/lod/110m/disputed-boundaries.json';
-import tiny110Source from '@/public/data/geometry/lod/110m/tiny-countries.json';
 import countries50Source from '@/public/data/geometry/lod/50m/countries.json';
 import disputed50Source from '@/public/data/geometry/lod/50m/disputed-areas.json';
 import boundaries50Source from '@/public/data/geometry/lod/50m/disputed-boundaries.json';
-import tiny50Source from '@/public/data/geometry/lod/50m/tiny-countries.json';
-import fallbackPrimaryMarkersSource from '@/public/data/geometry/lod/fallback-primary-markers.json';
 import {
-  countryOptions,
-  primaryCountryByM49,
   primaryEntityIdForM49,
   primaryEntityIdsMentionedInText,
   propertiesForSourceFeature,
   type MapFeatureProperties,
-  type PrimaryCountryOption,
 } from './map-entities';
 
 export type MapLod = '110m' | '50m';
@@ -39,19 +33,12 @@ export type LodDisputedBoundary = {
   geometry: Geometry;
 };
 
-export type TinyCountryMarker = {
-  entityId: string;
-  name: string;
-  m49?: string;
-  coordinates: Position;
-};
 
 export type MapGeometryPackage = {
   lod: MapLod;
   countries: LodCountryFeature[];
   disputedAreas: LodDisputedArea[];
   disputedBoundaries: LodDisputedBoundary[];
-  tinyCountries: TinyCountryMarker[];
 };
 
 type Properties = Record<string, unknown>;
@@ -169,80 +156,12 @@ function disputedBoundaries(source: unknown): LodDisputedBoundary[] {
   });
 }
 
-function numericM49(value: unknown) {
-  return typeof value === 'string' && /^\d{3}$/.test(value) ? value : undefined;
-}
-
-function countryByTinyProperties(
-  properties: Properties,
-): PrimaryCountryOption | undefined {
-  const m49 = numericM49(properties.unA3) ?? numericM49(properties.isoN3);
-  if (m49) {
-    const byM49 = primaryCountryByM49.get(m49);
-    if (byM49) return byM49;
-  }
-
-  const sourceName =
-    stringProperty(properties, 'name') ?? stringProperty(properties, 'admin');
-  if (!sourceName) return undefined;
-  const lower = sourceName.toLowerCase();
-
-  return countryOptions.find(
-    (country) =>
-      country.name.toLowerCase() === lower ||
-      country.aliases.some((alias) => alias.toLowerCase() === lower),
-  );
-}
-
-function markerCandidates(source: unknown): TinyCountryMarker[] {
-  const collection = source as FeatureCollection<Point, Properties>;
-  const seen = new Set<string>();
-  const markers: TinyCountryMarker[] = [];
-
-  for (const feature of collection.features) {
-    const country = countryByTinyProperties(feature.properties ?? {});
-    if (!country || seen.has(country.entityId)) continue;
-
-    seen.add(country.entityId);
-    markers.push({
-      entityId: country.entityId,
-      name: country.name,
-      m49: country.m49,
-      coordinates: feature.geometry.coordinates,
-    });
-  }
-
-  return markers;
-}
-
-function completeTinyCountryCoverage(
-  countries: LodCountryFeature[],
-  nativeMarkers: TinyCountryMarker[],
-) {
-  const covered = new Set(
-    countries
-      .filter((feature) => feature.properties.kind === 'primary-state')
-      .map((feature) => feature.properties.entityId),
-  );
-  const result = [...nativeMarkers];
-
-  for (const marker of nativeMarkers) covered.add(marker.entityId);
-
-  for (const marker of markerCandidates(fallbackPrimaryMarkersSource)) {
-    if (covered.has(marker.entityId)) continue;
-    covered.add(marker.entityId);
-    result.push(marker);
-  }
-
-  return result;
-}
 
 function createMapGeometryPackage(
   lod: MapLod,
   countriesSource: unknown,
   disputedSource: unknown,
   boundariesSource: unknown,
-  tinySource: unknown,
 ): MapGeometryPackage {
   const countries = countryFeatures(countriesSource);
   return {
@@ -250,10 +169,6 @@ function createMapGeometryPackage(
     countries,
     disputedAreas: disputedAreas(disputedSource),
     disputedBoundaries: disputedBoundaries(boundariesSource),
-    tinyCountries: completeTinyCountryCoverage(
-      countries,
-      markerCandidates(tinySource),
-    ),
   };
 }
 
@@ -263,14 +178,12 @@ export const mapGeometryByLod: Record<MapLod, MapGeometryPackage> = {
     countries110Source,
     disputed110Source,
     boundaries110Source,
-    tiny110Source,
   ),
   '50m': createMapGeometryPackage(
     '50m',
     countries50Source,
     disputed50Source,
     boundaries50Source,
-    tiny50Source,
   ),
 };
 
@@ -283,17 +196,3 @@ export function nextMapLod(current: MapLod, scale: number): MapLod {
   return current;
 }
 
-export function primaryCoverageForLod(lod: MapLod) {
-  const packageForLod = mapGeometryByLod[lod];
-  const covered = new Set(
-    packageForLod.countries
-      .filter((feature) => feature.properties.kind === 'primary-state')
-      .map((feature) => feature.properties.entityId),
-  );
-
-  for (const marker of packageForLod.tinyCountries) {
-    covered.add(marker.entityId);
-  }
-
-  return covered;
-}
