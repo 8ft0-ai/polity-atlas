@@ -70,3 +70,14 @@ Changes to any of the following require substantive review:
 - rendering precedence between primary, dependency, disputed, and relation states.
 
 Source updates must record their source version and should add regression fixtures for politically sensitive identity collisions or association changes.
+
+## Source references
+
+The current policy and geometry decisions should be reviewed against these upstream references:
+
+- United Nations Member States: https://www.un.org/en/about-us/member-states
+- United Nations non-member observer States: https://www.un.org/en/about-us/non-member-states
+- United Nations Statistics Division M49 methodology: https://unstats.un.org/unsd/methodology/m49/
+- Natural Earth disputed-boundaries policy: https://www.naturalearthdata.com/about/disputed-boundaries-policy/
+- Natural Earth 50m breakaway/disputed areas: https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-breakaway-disputed-areas/
+- Pinned Natural Earth vector release: https://github.com/nvkelso/natural-earth-vector/releases/tag/v5.1.2
