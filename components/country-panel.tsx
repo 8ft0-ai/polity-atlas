@@ -78,13 +78,8 @@ function SeatBar({
 }
 
 export function CountryPanel() {
-  const {
-    selectedM49,
-    selectedName,
-    activeTab,
-    setActiveTab,
-    clearCountry,
-  } = useWorkspaceStore();
+  const { selectedM49, selectedName, activeTab, setActiveTab, clearCountry } =
+    useWorkspaceStore();
   const iso3 = selectedM49 ? supportedProfiles[selectedM49] : undefined;
   const profileQuery = useQuery({
     queryKey: ['country-profile', iso3],
