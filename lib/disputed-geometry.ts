@@ -1,6 +1,6 @@
 import type { FeatureCollection, Geometry } from 'geojson';
-import disputedAreasSource from '@/public/data/geometry/ne_50m_admin_0_breakaway_disputed_areas.geojson';
-import disputedBoundariesSource from '@/public/data/geometry/ne_50m_admin_0_boundary_lines_disputed_areas.geojson';
+import disputedAreasSource from '@/public/data/geometry/ne_50m_admin_0_breakaway_disputed_areas.json';
+import disputedBoundariesSource from '@/public/data/geometry/ne_50m_admin_0_boundary_lines_disputed_areas.json';
 import {
   primaryEntityIdForM49,
   primaryEntityIdsMentionedInText,
