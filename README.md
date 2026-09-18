@@ -5,7 +5,7 @@ A source-led geopolitical GIS workspace for researching governments, parliaments
 ## Current foundation
 
 - npm with a committed lockfile and Node.js 22 or later.
-- Vinext's Next-style `app` conventions, built by Vite and statically exported for GitHub Pages.
+- Vinext's Next-style `app` conventions, built by Vite and run locally.
 - Tailwind CSS, shadcn primitives, and semantic CSS custom-property theme tokens.
 - Interactive MapLibre world map using Natural Earth-derived geometry from `world-atlas`.
 - Global country selection and search.
@@ -13,18 +13,23 @@ A source-led geopolitical GIS workspace for researching governments, parliaments
 - Parliament, election, relation, and source views.
 - Light/dark themes and responsive country panel.
 - Shared Zod schemas and automated data-quality tests.
-- CI, CodeQL, Dependabot, and GitHub Pages workflows.
+- CI, CodeQL, and Dependabot for repository assurance.
 
 These choices are the authoritative Phase 1 architecture. They intentionally supersede the initial proposal's pnpm workspace, plain React/Vite shell, hash router, and CSS Modules. See `docs/architecture.md` and `docs/implementation-plan.md` for the decision and its delivery implications. Self-hosted fonts remain deferred.
 
 ## Local development
 
-Requires Node.js 22 or later. npm and `package-lock.json` are authoritative.
+Requires Node.js 22.13 or later. npm and `package-lock.json` are authoritative.
 
 ```sh
 npm ci
 npm run dev
 ```
+
+Open the localhost address printed by the development server (usually
+`http://localhost:3000`). The map and bundled Australia profile load without
+source API credentials. To stop the server, press Ctrl+C. Local source data
+changes should be reviewed before committing.
 
 Verification:
 
@@ -36,12 +41,17 @@ npm test
 npm run build
 ```
 
-The static export is written to `dist/client`. In GitHub Actions, `next.config.ts` derives the repository asset prefix from `GITHUB_REPOSITORY`; the Pages workflow then publishes the export. Routing uses the framework's static App Router output, not a client-side hash router, so every new public route must remain compatible with static export and GitHub Pages.
+The build writes a local static export to `dist/client`. It is not deployed.
+Routing uses the framework's static App Router output without a repository
+subpath; verify new routes by navigating and refreshing on localhost.
 
 Pull requests and pushes to `main` run the `verify` CI job. Repository settings must require that check before merging to satisfy the Phase 1 merge gate.
 
 ## Data and secrets
 
-Public, reviewed data lives in `public/data`. Private source credentials belong in GitHub Actions secrets and must never be exposed through browser-prefixed environment variables.
+Reviewed data lives in `public/data`. Keep private source credentials in ignored
+local environment files or an approved credential store, and use them only in
+explicit ingestion commands. Never expose them through `VITE_` or
+`NEXT_PUBLIC_` variables or commit them. There is no scheduled data ingestion.
 
 See `docs/architecture.md` and `docs/source-policy.md` before adding a source adapter.
