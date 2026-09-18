@@ -435,10 +435,10 @@ Deliverables:
 - Searchable 197-primary-entity index and URL synchronization.
 - Hover/focus identity in the map key without pointer tooltips.
 - Responsive top bar, semantic layer panel, and empty country slide-over.
-- Reproducible Natural Earth geometry generation with synchronized 110m overview and 50m detailed global LOD packages. Country polygons, disputed polygons, disputed boundaries, and tiny-country markers switch together with hysteresis.
-- Tiny-country markers provide a selectable map target where world-scale polygons are absent or too small to use reliably. Natural Earth's 50m disputed-area source is the highest approved global political LOD; more detailed regional GIS belongs behind the MapLibre boundary rather than being synthesized from lower-resolution political geometry.
+- Reproducible Natural Earth geometry generation with synchronized 110m overview and 50m detailed global LOD packages. Country polygons, disputed polygons, and disputed boundaries switch together with hysteresis.
+- Natural Earth's 50m disputed-area source is the highest approved global political LOD; more detailed regional GIS belongs behind the MapLibre boundary rather than being synthesized from lower-resolution political geometry. Very small countries that are not legible at world scale remain available through the canonical country search.
 
-Exit criteria: every primary entity in the canonical index has a polygon or approved tiny-country map target, can be selected by map or keyboard search, deep-linked, refreshed, and restored; LOD transitions preserve canonical entity identity and never mix base and disputed layers from different resolution packages; no missing source ID can collapse unrelated map entities onto one selection identity.
+Exit criteria: every primary entity in the canonical index can be selected by map where geometry is legible or by keyboard search otherwise, deep-linked, refreshed, and restored; LOD transitions preserve canonical entity identity and never mix base and disputed layers from different resolution packages; no missing source ID can collapse unrelated map entities onto one selection identity.
 
 ### Phase 3 — Shared data platform (7–10 days)
 
