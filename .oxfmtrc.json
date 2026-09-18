@@ -9,6 +9,7 @@
     "yarn.lock",
     "bun.lock",
     "bun.lockb",
-    "public/data/geometry/*.json"
+    "public/data/geometry/*.json",
+    "public/data/geometry/**/*.json"
   ]
 }
