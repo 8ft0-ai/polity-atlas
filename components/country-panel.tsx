@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { ExternalLink, Pin, X } from 'lucide-react';
+import { ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { loadCountryProfile } from '@/lib/profile-data';
@@ -78,14 +78,30 @@ function SeatBar({
 }
 
 export function CountryPanel() {
-  const { selectedM49, selectedName, activeTab, setActiveTab } =
-    useWorkspaceStore();
-  const iso3 = supportedProfiles[selectedM49];
+  const {
+    selectedM49,
+    selectedName,
+    activeTab,
+    setActiveTab,
+    clearCountry,
+  } = useWorkspaceStore();
+  const iso3 = selectedM49 ? supportedProfiles[selectedM49] : undefined;
   const profileQuery = useQuery({
     queryKey: ['country-profile', iso3],
     queryFn: () => loadCountryProfile(iso3),
     enabled: Boolean(iso3),
   });
+
+  if (!selectedM49 || !selectedName) return null;
+
+  function clearSelection() {
+    clearCountry();
+    window.history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}${window.location.search}`,
+    );
+  }
 
   return (
     <aside className="absolute inset-y-0 right-0 z-20 flex w-[min(500px,calc(100vw-28px))] flex-col border-l border-border bg-card max-md:top-auto max-md:h-[72vh] max-md:w-full max-md:border-l-0 max-md:border-t">
@@ -96,16 +112,8 @@ export function CountryPanel() {
             <Button
               variant="ghost"
               size="icon-sm"
-              aria-label="Pin country window"
-              disabled
-            >
-              <Pin />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              aria-label="Close country panel"
-              disabled
+              aria-label="Clear country selection"
+              onClick={clearSelection}
             >
               <X />
             </Button>
