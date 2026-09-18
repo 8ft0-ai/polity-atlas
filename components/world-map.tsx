@@ -3,8 +3,17 @@
 import { useRef, useState } from 'react';
 import { Minus, Plus, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { countryFeatures } from '@/lib/countries';
 import {
+  countryFeatures,
+  primaryCountryByEntityId,
+  type MapEntityKind,
+} from '@/lib/countries';
+import {
+  disputedAreaFeatures,
+  disputedBoundaryFeatures,
+} from '@/lib/disputed-geometry';
+import {
+  geometryToMercatorLinePath,
   geometryToMercatorPath,
   initialMercatorY,
   MERCATOR_VIEWBOX_HEIGHT,
@@ -12,11 +21,18 @@ import {
   MERCATOR_WORLD_SIZE,
 } from '@/lib/mercator';
 
+export type MapHoverEntity = {
+  entityId: string;
+  name: string;
+  kind: MapEntityKind;
+};
+
 type WorldMapProps = {
-  selectedM49: string | null;
-  relatedM49: string[];
+  selectedEntityId: string | null;
+  relatedEntityIds: string[];
   relationMode: boolean;
-  onSelect: (m49: string, name: string) => void;
+  onSelect: (entityId: string, name: string, m49?: string) => void;
+  onHoverEntity?: (entity: MapHoverEntity | null) => void;
 };
 
 type Viewport = {
@@ -43,9 +59,18 @@ const DEFAULT_VIEWPORT: Viewport = {
 const WORLD_COPIES = [-1, 0, 1] as const;
 
 const countryShapes = countryFeatures.features.map((country) => ({
-  m49: country.properties.m49,
-  name: country.properties.name ?? 'Unknown',
+  ...country.properties,
   path: geometryToMercatorPath(country.geometry),
+}));
+
+const disputedShapes = disputedAreaFeatures.map((area) => ({
+  ...area,
+  path: geometryToMercatorPath(area.geometry),
+}));
+
+const disputedBoundaryShapes = disputedBoundaryFeatures.map((boundary) => ({
+  ...boundary,
+  path: geometryToMercatorLinePath(boundary.geometry),
 }));
 
 function clamp(value: number, minimum: number, maximum: number) {
@@ -89,17 +114,44 @@ function zoomViewport(
   });
 }
 
+function baseFill(
+  shape: (typeof countryShapes)[number],
+  selectedEntityId: string | null,
+  related: Set<string> | null,
+) {
+  if (shape.kind === 'primary-state') {
+    if (shape.entityId === selectedEntityId) return 'var(--map-selected)';
+    if (related?.has(shape.entityId)) return 'var(--map-related)';
+    return 'var(--map-land)';
+  }
+
+  if (shape.kind === 'dependency' || shape.kind === 'overseas-territory') {
+    return shape.associatedPrimaryEntityIds.includes(selectedEntityId ?? '')
+      ? 'var(--map-dependency-selected)'
+      : 'var(--map-dependency)';
+  }
+
+  if (shape.kind === 'disputed-territory') {
+    return shape.associatedPrimaryEntityIds.includes(selectedEntityId ?? '')
+      ? 'var(--map-disputed-selected)'
+      : 'var(--map-disputed)';
+  }
+
+  return 'var(--map-land)';
+}
+
 export function WorldMap({
-  selectedM49,
-  relatedM49,
+  selectedEntityId,
+  relatedEntityIds,
   relationMode,
   onSelect,
+  onHoverEntity,
 }: WorldMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const dragRef = useRef<DragState | null>(null);
   const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT);
 
-  const related = relationMode ? new Set(relatedM49) : null;
+  const related = relationMode ? new Set(relatedEntityIds) : null;
 
   function toViewBoxPoint(clientX: number, clientY: number) {
     const rectangle = svgRef.current?.getBoundingClientRect();
@@ -197,6 +249,18 @@ export function WorldMap({
     }
   }
 
+  function hover(entity: MapHoverEntity | null) {
+    onHoverEntity?.(entity);
+  }
+
+  function selectAssociatedPrimary(entityIds: string[]) {
+    if (entityIds.length !== 1) return;
+
+    const country = primaryCountryByEntityId.get(entityIds[0]);
+    if (!country) return;
+    onSelect(country.entityId, country.name, country.m49);
+  }
+
   function renderWorldCopy(copyOffset: number) {
     const translateX = copyOffset * MERCATOR_WORLD_SIZE;
 
@@ -211,39 +275,115 @@ export function WorldMap({
           height={MERCATOR_WORLD_SIZE}
           fill="var(--map-water)"
         />
+
         {countryShapes.map((country, countryIndex) => {
-          const selected = selectedM49 === country.m49;
-          const relatedCountry = Boolean(related?.has(country.m49));
-          let fill = 'var(--map-land)';
-          if (relatedCountry) fill = 'var(--map-related)';
-          if (selected) fill = 'var(--map-selected)';
+          const fill = baseFill(country, selectedEntityId, related);
+          const hoverEntity: MapHoverEntity = {
+            entityId: country.entityId,
+            name: country.name,
+            kind: country.kind,
+          };
+
+          if (country.kind === 'primary-state') {
+            return (
+              <a
+                key={`${copyOffset}:${country.entityId}:${countryIndex}`}
+                href={`#country=${country.m49 ?? country.entityId}`}
+                data-country-link
+                data-entity-id={country.entityId}
+                tabIndex={copyOffset === 0 ? undefined : -1}
+                aria-label={country.name}
+                aria-current={
+                  selectedEntityId === country.entityId ? 'location' : undefined
+                }
+                onPointerEnter={() => hover(hoverEntity)}
+                onPointerLeave={() => hover(null)}
+                onFocus={() => hover(hoverEntity)}
+                onBlur={() => hover(null)}
+                onClick={(event) => {
+                  event.preventDefault();
+                  onSelect(country.entityId, country.name, country.m49);
+                }}
+              >
+                <path
+                  d={country.path}
+                  fill={fill}
+                  fillRule="evenodd"
+                  stroke="var(--map-border)"
+                  strokeWidth={0.65}
+                  vectorEffect="non-scaling-stroke"
+                  className="cursor-pointer focus:outline-none"
+                />
+              </a>
+            );
+          }
 
           return (
-            <a
-              key={`${copyOffset}:${country.m49}:${countryIndex}`}
-              href={`#country=${country.m49}`}
-              data-country-link
-              tabIndex={copyOffset === 0 ? undefined : -1}
+            <path
+              key={`${copyOffset}:${country.entityId}:${countryIndex}`}
+              d={country.path}
+              data-map-entity
+              data-entity-id={country.entityId}
+              data-entity-kind={country.kind}
               aria-label={country.name}
-              aria-current={selected ? 'location' : undefined}
-              onClick={(event) => {
-                event.preventDefault();
-                onSelect(country.m49, country.name);
-              }}
-            >
-              <path
-                d={country.path}
-                data-m49={country.m49}
-                fill={fill}
-                fillRule="evenodd"
-                stroke="var(--map-border)"
-                strokeWidth={0.65}
-                vectorEffect="non-scaling-stroke"
-                className="cursor-pointer focus:outline-none"
-              />
-            </a>
+              fill={fill}
+              fillRule="evenodd"
+              stroke="var(--map-border)"
+              strokeWidth={0.65}
+              vectorEffect="non-scaling-stroke"
+              onPointerEnter={() => hover(hoverEntity)}
+              onPointerLeave={() => hover(null)}
+            />
           );
         })}
+
+        {disputedShapes.map((area, areaIndex) => {
+          const associated = area.associatedPrimaryEntityIds.includes(
+            selectedEntityId ?? '',
+          );
+          const hoverEntity: MapHoverEntity = {
+            entityId: area.entityId,
+            name: area.name,
+            kind: 'disputed-territory',
+          };
+
+          return (
+            <path
+              key={`${copyOffset}:${area.entityId}:${areaIndex}`}
+              d={area.path}
+              data-disputed-area
+              data-disputed-name={area.name}
+              aria-label={area.name}
+              fill={
+                associated
+                  ? 'var(--map-disputed-selected)'
+                  : 'var(--map-disputed)'
+              }
+              fillOpacity={0.86}
+              stroke="none"
+              onPointerEnter={() => hover(hoverEntity)}
+              onPointerLeave={() => hover(null)}
+              onClick={() =>
+                selectAssociatedPrimary(area.associatedPrimaryEntityIds)
+              }
+            />
+          );
+        })}
+
+        {disputedBoundaryShapes.map((boundary, boundaryIndex) => (
+          <path
+            key={`${copyOffset}:${boundary.boundaryId}:${boundaryIndex}`}
+            d={boundary.path}
+            data-disputed-boundary
+            data-disputed-boundary-name={boundary.name}
+            fill="none"
+            stroke="var(--map-disputed-boundary)"
+            strokeWidth={1}
+            strokeDasharray="3 3"
+            vectorEffect="non-scaling-stroke"
+            pointerEvents="none"
+          />
+        ))}
       </g>
     );
   }
@@ -260,6 +400,7 @@ export function WorldMap({
         onPointerMove={handlePointerMove}
         onPointerUp={endPointerDrag}
         onPointerCancel={endPointerDrag}
+        onPointerLeave={() => hover(null)}
       >
         <rect
           width={MERCATOR_VIEWBOX_WIDTH}
