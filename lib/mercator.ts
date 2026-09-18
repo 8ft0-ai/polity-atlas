@@ -205,7 +205,6 @@ export function geometryToMercatorPath(geometry: Geometry) {
   return '';
 }
 
-
 export function initialMercatorY(scale = 1) {
   return (MERCATOR_VIEWBOX_HEIGHT - MERCATOR_WORLD_SIZE * scale) / 2;
 }
