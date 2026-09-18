@@ -12,11 +12,7 @@ type WorkspaceState = {
   selectedM49: string | null;
   selectedName: string | null;
   activeTab: CountryTab;
-  setCountry: (
-    entityId: string,
-    name: string,
-    m49?: string,
-  ) => void;
+  setCountry: (entityId: string, name: string, m49?: string) => void;
   clearCountry: () => void;
   setActiveTab: (tab: CountryTab) => void;
 };
