@@ -78,7 +78,9 @@ describe('country profile contract', () => {
       const actual = new Set(
         countryProfileSchema
           .parse(profile)
-          .relations.filter((relation) => relation.status === 'resident-mission')
+          .relations.filter(
+            (relation) => relation.status === 'resident-mission',
+          )
           .map((relation) => relation.m49),
       );
 

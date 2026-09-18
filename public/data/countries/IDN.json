@@ -14,9 +14,7 @@
       "value": "Unitary presidential republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "id-country"
-      ],
+      "sourceIds": ["id-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "President",
         "name": "Prabowo Subianto",
         "since": "2024-10-20",
-        "sourceIds": [
-          "id-president"
-        ]
+        "sourceIds": ["id-president"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "President",
         "name": "Prabowo Subianto",
         "since": "2024-10-20",
-        "sourceIds": [
-          "id-president"
-        ]
+        "sourceIds": ["id-president"]
       }
     ]
   },
@@ -45,10 +39,7 @@
       "value": "People's Consultative Assembly",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "id-dpr",
-        "id-dpd"
-      ],
+      "sourceIds": ["id-dpr", "id-dpd"],
       "confidence": "verified"
     },
     "chambers": [
@@ -108,9 +99,7 @@
             "color": "#1E4E9A"
           }
         ],
-        "sourceIds": [
-          "id-dpr"
-        ]
+        "sourceIds": ["id-dpr"]
       },
       {
         "id": "dpd",
@@ -126,9 +115,7 @@
             "color": "#777777"
           }
         ],
-        "sourceIds": [
-          "id-dpd"
-        ]
+        "sourceIds": ["id-dpd"]
       }
     ]
   },
@@ -138,9 +125,7 @@
       "status": "expected",
       "dateLabel": "2029",
       "note": "The next national legislative and presidential election cycle is expected in 2029; a polling date has not been recorded in this profile.",
-      "sourceIds": [
-        "id-election"
-      ]
+      "sourceIds": ["id-election"]
     }
   ],
   "relations": [
@@ -149,81 +134,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "id-missions"
-      ]
+      "sourceIds": ["id-missions"]
     }
   ],
   "sources": [

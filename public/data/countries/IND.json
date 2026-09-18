@@ -14,9 +14,7 @@
       "value": "Federal parliamentary republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "in-country"
-      ],
+      "sourceIds": ["in-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "President",
         "name": "Droupadi Murmu",
         "since": "2022-07-25",
-        "sourceIds": [
-          "in-president"
-        ]
+        "sourceIds": ["in-president"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Narendra Modi",
         "since": "2014-05-26",
-        "sourceIds": [
-          "in-prime-minister"
-        ]
+        "sourceIds": ["in-prime-minister"]
       }
     ]
   },
@@ -45,10 +39,7 @@
       "value": "Parliament of India",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "in-lok-sabha",
-        "in-rajya-sabha"
-      ],
+      "sourceIds": ["in-lok-sabha", "in-rajya-sabha"],
       "confidence": "verified"
     },
     "chambers": [
@@ -120,9 +111,7 @@
             "color": "grey"
           }
         ],
-        "sourceIds": [
-          "in-lok-sabha"
-        ]
+        "sourceIds": ["in-lok-sabha"]
       },
       {
         "id": "rajya-sabha",
@@ -150,9 +139,7 @@
             "color": "grey"
           }
         ],
-        "sourceIds": [
-          "in-rajya-sabha"
-        ]
+        "sourceIds": ["in-rajya-sabha"]
       }
     ]
   },
@@ -162,9 +149,7 @@
       "status": "expected",
       "dateLabel": "By 2029",
       "note": "The next Lok Sabha general election is expected by 2029 unless the House is dissolved earlier.",
-      "sourceIds": [
-        "in-election"
-      ]
+      "sourceIds": ["in-election"]
     }
   ],
   "relations": [
@@ -173,81 +158,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "in-missions"
-      ]
+      "sourceIds": ["in-missions"]
     }
   ],
   "sources": [

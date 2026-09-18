@@ -131,5 +131,4 @@ describe('canonical map entity identity', () => {
       ),
     ).toEqual(supportedProfiles);
   });
-
 });

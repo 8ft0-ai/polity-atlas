@@ -6,13 +6,10 @@ describe('GeopoliticalWorkspace branding', () => {
   beforeEach(() => {
     document.documentElement.classList.remove('dark');
     localStorage.clear();
-    vi.stubGlobal(
-      'requestAnimationFrame',
-      (callback: FrameRequestCallback) => {
-        callback(0);
-        return 1;
-      },
-    );
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+      callback(0);
+      return 1;
+    });
     vi.stubGlobal('cancelAnimationFrame', vi.fn());
   });
 

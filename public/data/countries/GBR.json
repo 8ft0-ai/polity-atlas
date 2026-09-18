@@ -14,9 +14,7 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "gb-country"
-      ],
+      "sourceIds": ["gb-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "King",
         "name": "Charles III",
         "since": "2022-09-08",
-        "sourceIds": [
-          "gb-monarch"
-        ]
+        "sourceIds": ["gb-monarch"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Andy Burnham",
         "since": "2026-07-20",
-        "sourceIds": [
-          "gb-prime-minister"
-        ]
+        "sourceIds": ["gb-prime-minister"]
       }
     ]
   },
@@ -45,10 +39,7 @@
       "value": "Parliament of the United Kingdom",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "gb-commons",
-        "gb-lords"
-      ],
+      "sourceIds": ["gb-commons", "gb-lords"],
       "confidence": "verified"
     },
     "chambers": [
@@ -162,9 +153,7 @@
             "color": "#48A5EE"
           }
         ],
-        "sourceIds": [
-          "gb-commons"
-        ]
+        "sourceIds": ["gb-commons"]
       },
       {
         "id": "lords",
@@ -246,9 +235,7 @@
             "color": "#999999"
           }
         ],
-        "sourceIds": [
-          "gb-lords"
-        ]
+        "sourceIds": ["gb-lords"]
       }
     ]
   },
@@ -258,9 +245,7 @@
       "status": "expected",
       "dateLabel": "By 15 August 2029",
       "note": "The current Parliament will expire in July 2029 if not dissolved earlier; the last possible polling day is 15 August 2029.",
-      "sourceIds": [
-        "gb-election"
-      ]
+      "sourceIds": ["gb-election"]
     }
   ],
   "relations": [
@@ -269,81 +254,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     }
   ],
   "sources": [

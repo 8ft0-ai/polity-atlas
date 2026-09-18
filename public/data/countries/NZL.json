@@ -14,9 +14,7 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "nz-country"
-      ],
+      "sourceIds": ["nz-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "Governor-General",
         "name": "Cindy Kiro",
         "since": "2021-10-21",
-        "sourceIds": [
-          "nz-governor-general"
-        ]
+        "sourceIds": ["nz-governor-general"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Christopher Luxon",
         "since": "2023-11-27",
-        "sourceIds": [
-          "nz-prime-minister"
-        ]
+        "sourceIds": ["nz-prime-minister"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "New Zealand Parliament",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "nz-parliament"
-      ],
+      "sourceIds": ["nz-parliament"],
       "confidence": "verified"
     },
     "chambers": [
@@ -63,9 +55,7 @@
             "shortName": "National",
             "seats": 49,
             "color": "#00529F",
-            "groupingIds": [
-              "government-coalition"
-            ]
+            "groupingIds": ["government-coalition"]
           },
           {
             "party": "New Zealand Labour Party",
@@ -84,18 +74,14 @@
             "shortName": "ACT",
             "seats": 11,
             "color": "#FDE401",
-            "groupingIds": [
-              "government-coalition"
-            ]
+            "groupingIds": ["government-coalition"]
           },
           {
             "party": "New Zealand First",
             "shortName": "NZ First",
             "seats": 8,
             "color": "#000000",
-            "groupingIds": [
-              "government-coalition"
-            ]
+            "groupingIds": ["government-coalition"]
           },
           {
             "party": "Te Pāti Māori",
@@ -121,14 +107,10 @@
               "New Zealand First"
             ],
             "asOf": "2026-09-18",
-            "sourceIds": [
-              "nz-prime-minister"
-            ]
+            "sourceIds": ["nz-prime-minister"]
           }
         ],
-        "sourceIds": [
-          "nz-parliament"
-        ]
+        "sourceIds": ["nz-parliament"]
       }
     ]
   },
@@ -138,9 +120,7 @@
       "status": "confirmed",
       "dateLabel": "7 November 2026",
       "note": "The general election has been announced for 7 November 2026.",
-      "sourceIds": [
-        "nz-election"
-      ]
+      "sourceIds": ["nz-election"]
     }
   ],
   "relations": [
@@ -149,81 +129,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     }
   ],
   "sources": [

@@ -14,9 +14,7 @@
       "value": "Unitary one-party socialist republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "cn-country"
-      ],
+      "sourceIds": ["cn-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "President",
         "name": "Xi Jinping",
         "since": "2013-03-14",
-        "sourceIds": [
-          "cn-president"
-        ]
+        "sourceIds": ["cn-president"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Premier",
         "name": "Li Qiang",
         "since": "2023-03-11",
-        "sourceIds": [
-          "cn-premier"
-        ]
+        "sourceIds": ["cn-premier"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "National People's Congress",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "cn-npc"
-      ],
+      "sourceIds": ["cn-npc"],
       "confidence": "verified"
     },
     "chambers": [
@@ -71,9 +63,7 @@
             "color": "#F3C64E"
           }
         ],
-        "sourceIds": [
-          "cn-npc-composition"
-        ]
+        "sourceIds": ["cn-npc-composition"]
       }
     ]
   },
@@ -83,9 +73,7 @@
       "status": "expected",
       "dateLabel": "By March 2028",
       "note": "The 14th National People's Congress is scheduled to continue until March 2028; the exact first-session date for its successor has not been announced.",
-      "sourceIds": [
-        "cn-next-npc"
-      ]
+      "sourceIds": ["cn-next-npc"]
     }
   ],
   "relations": [
@@ -94,81 +82,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     }
   ],
   "sources": [

@@ -14,9 +14,7 @@
       "value": "Federal presidential constitutional republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "us-country"
-      ],
+      "sourceIds": ["us-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "President",
         "name": "Donald Trump",
         "since": "2025-01-20",
-        "sourceIds": [
-          "us-president"
-        ]
+        "sourceIds": ["us-president"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "President",
         "name": "Donald Trump",
         "since": "2025-01-20",
-        "sourceIds": [
-          "us-president"
-        ]
+        "sourceIds": ["us-president"]
       }
     ]
   },
@@ -45,10 +39,7 @@
       "value": "United States Congress",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "us-house",
-        "us-senate"
-      ],
+      "sourceIds": ["us-house", "us-senate"],
       "confidence": "verified"
     },
     "chambers": [
@@ -78,9 +69,7 @@
             "color": "grey"
           }
         ],
-        "sourceIds": [
-          "us-house"
-        ]
+        "sourceIds": ["us-house"]
       },
       {
         "id": "senate",
@@ -108,9 +97,7 @@
             "color": "grey"
           }
         ],
-        "sourceIds": [
-          "us-senate"
-        ]
+        "sourceIds": ["us-senate"]
       }
     ]
   },
@@ -120,9 +107,7 @@
       "status": "confirmed",
       "dateLabel": "3 November 2026",
       "note": "All House seats and the scheduled Senate class seats are due for election on 3 November 2026.",
-      "sourceIds": [
-        "us-election"
-      ]
+      "sourceIds": ["us-election"]
     }
   ],
   "relations": [
@@ -131,81 +116,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "us-missions"
-      ]
+      "sourceIds": ["us-missions"]
     }
   ],
   "sources": [
