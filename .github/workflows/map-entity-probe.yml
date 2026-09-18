@@ -1,0 +1,35 @@
+name: Map entity probe
+
+on:
+  push:
+    branches:
+      - feat/map-entity-policy
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Inspect bundled world-atlas feature identities
+        run: |
+          node --input-type=module <<'NODE'
+          import { feature } from 'topojson-client';
+          import topology from 'world-atlas/countries-110m.json' with { type: 'json' };
+          const collection = feature(topology, topology.objects.countries);
+          const rows = collection.features.map((f, index) => ({
+            index,
+            id: f.id ?? null,
+            name: f.properties?.name ?? null,
+            type: f.geometry?.type ?? null
+          }));
+          console.log('ALL_FEATURES=' + JSON.stringify(rows));
+          console.log('MISSING_ID=' + JSON.stringify(rows.filter((row) => row.id == null)));
+          NODE
