@@ -98,7 +98,7 @@ function WorkspaceContent() {
       <header className="relative z-30 grid h-14 grid-cols-[auto_minmax(220px,520px)_1fr] items-center gap-5 border-b border-border bg-card px-4 max-md:h-24 max-md:grid-cols-[1fr_auto] max-md:items-start max-md:pt-3">
         <div className="flex items-center whitespace-nowrap">
           <img
-            src={theme === 'dark' ? logoDark : logoLight}
+            src={theme === 'dark' ? logoDark.src : logoLight.src}
             alt="Polity Atlas"
             className="h-9 w-auto max-w-[190px] object-contain"
           />
