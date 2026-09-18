@@ -88,7 +88,6 @@ function minimalTinyCountry(feature, index) {
   };
 }
 
-
 function visitCoordinates(value, points) {
   if (
     Array.isArray(value) &&
