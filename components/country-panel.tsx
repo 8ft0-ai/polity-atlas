@@ -51,10 +51,8 @@ function semicircleArcPath(startFraction: number, endFraction: number) {
   const startAngle = Math.PI + startFraction * Math.PI;
   const endAngle = Math.PI + endFraction * Math.PI;
 
-  const startX =
-    SEMICIRCLE_CENTER_X + SEMICIRCLE_RADIUS * Math.cos(startAngle);
-  const startY =
-    SEMICIRCLE_CENTER_Y + SEMICIRCLE_RADIUS * Math.sin(startAngle);
+  const startX = SEMICIRCLE_CENTER_X + SEMICIRCLE_RADIUS * Math.cos(startAngle);
+  const startY = SEMICIRCLE_CENTER_Y + SEMICIRCLE_RADIUS * Math.sin(startAngle);
   const endX = SEMICIRCLE_CENTER_X + SEMICIRCLE_RADIUS * Math.cos(endAngle);
   const endY = SEMICIRCLE_CENTER_Y + SEMICIRCLE_RADIUS * Math.sin(endAngle);
 
@@ -80,10 +78,7 @@ function SeatBar({
 }) {
   const groupings = chamber.groupings ?? [];
   const groupingSymbolsById = new Map(
-    groupings.map((grouping, index) => [
-      grouping.id,
-      groupingSymbol(index),
-    ]),
+    groupings.map((grouping, index) => [grouping.id, groupingSymbol(index)]),
   );
   const groupingNamesById = new Map(
     groupings.map((grouping) => [grouping.id, grouping.name]),
@@ -128,10 +123,7 @@ function SeatBar({
           .map((segment) => (
             <path
               key={segment.shortName}
-              d={semicircleArcPath(
-                segment.startFraction,
-                segment.endFraction,
-              )}
+              d={semicircleArcPath(segment.startFraction, segment.endFraction)}
               fill="none"
               stroke={segment.color}
               strokeWidth={24}

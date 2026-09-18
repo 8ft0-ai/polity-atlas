@@ -66,14 +66,10 @@ describe('CountryPanel source links', () => {
     expect(houseBackground).toHaveAttribute('stroke-width', '24');
 
     expect(
-      houseSemicircle!.querySelector(
-        '[data-party-segment="Liberal"]',
-      ),
+      houseSemicircle!.querySelector('[data-party-segment="Liberal"]'),
     ).not.toBeNull();
     expect(
-      houseSemicircle!.querySelector(
-        '[data-party-segment="Nationals"]',
-      ),
+      houseSemicircle!.querySelector('[data-party-segment="Nationals"]'),
     ).not.toBeNull();
 
     const coalitionIndicators = container.querySelectorAll(
@@ -91,5 +87,4 @@ describe('CountryPanel source links', () => {
       'Liberal Party and The Nationals',
     );
   });
-
 });
