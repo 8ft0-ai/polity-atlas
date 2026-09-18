@@ -46,7 +46,11 @@ jobs:
             | sed 's/^/NE_NON_SOVEREIGN=/'
 
 
-      - name: Validate candidate
+      - name: Format candidate and show diff
+        run: |
+          npm run format
+          git diff -- .github/workflows/map-entity-probe.yml components/world-map.test.tsx docs/implementation-plan.md lib/countries.test.ts lib/disputed-geometry.ts lib/map-entities.ts lib/mercator.ts lib/workspace-store.ts
+      - name: Validate formatted candidate
         run: |
           npm run typecheck
           npm run lint
