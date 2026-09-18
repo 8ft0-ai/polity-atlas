@@ -14,4 +14,4 @@ The intended pipeline is:
 6. project/clip or simplify geometry for each approved map level of detail;
 7. emit reviewable generated assets and a manifest with source versions and file hashes.
 
-The current runtime keeps the established 110m base country geometry while consuming pinned Natural Earth 50m disputed overlays. This directory is the boundary for moving that transitional runtime normalization into a reproducible build step.
+`build-lod.mjs` now generates source-consistent global map packages from pinned Natural Earth v5.1.2 inputs. The runtime has two approved global levels: 110m for the world overview and 50m for detailed global zoom. Countries, disputed areas, disputed boundaries, and tiny-country markers switch as one package. Natural Earth publishes the breakaway/disputed-area polygons at 50m rather than 10m, so the global atlas deliberately stops at 50m instead of inventing higher-detail dispute polygons. More detailed local/regional GIS remains the MapLibre boundary.

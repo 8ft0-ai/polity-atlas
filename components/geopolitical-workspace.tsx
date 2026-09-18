@@ -204,6 +204,10 @@ function WorkspaceContent() {
               Disputed territory
             </div>
             <div className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full border border-muted-foreground bg-background" />{' '}
+              Tiny country marker
+            </div>
+            <div className="flex items-center gap-2">
               <span
                 className="w-3 border-t border-dashed"
                 style={{ borderColor: 'var(--map-disputed-boundary)' }}

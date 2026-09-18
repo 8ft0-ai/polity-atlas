@@ -29,14 +29,13 @@ Internal identifiers are application identifiers and must never be represented a
 
 ## Boundary and disputed-area sources
 
-The global base map currently uses the repository's bundled `world-atlas` 110m country geometry. The disputed-area overlay is pinned to the Natural Earth vector repository's v5.1.2 release tag:
+The global atlas uses generated, pinned Natural Earth v5.1.2 geometry packages at 110m and 50m. Each active package contains country geometry, disputed-area geometry, disputed-boundary geometry, and tiny-country markers. The 110m disputed layers are reproducibly simplified from the pinned 50m disputed source so the overview has a matched coarser representation; the 50m tier uses the source geometry directly.
 
-- `ne_50m_admin_0_breakaway_disputed_areas.geojson`;
-- `ne_50m_admin_0_boundary_lines_disputed_areas.geojson`.
+Natural Earth v5.1.2 supplies the breakaway/disputed-area polygons at 50m, so Polity Atlas does not label any global disputed polygon as 10m geometry. The 50m tier is the highest approved political LOD for the global atlas.
 
 Natural Earth documents its default Admin-0 presentation as oriented to de facto control and provides separate breakaway/disputed areas and disputed boundary lines so applications can display claims and disputes explicitly. Polity Atlas does not reinterpret these layers as an adjudication of a claim.
 
-A later geometry-build phase should replace the mixed 110m/50m runtime sources with generated, versioned Polity Atlas geometry at defined levels of detail while preserving the same entity IDs.
+The generated LOD pipeline preserves canonical Polity Atlas entity IDs across levels and keeps political semantics independent from geometry resolution.
 
 ## Rendering rules
 
