@@ -6,7 +6,10 @@ const ROOT =
   VERSION +
   '/geojson';
 
-const outputRoot = new URL('../../../public/data/geometry/lod/', import.meta.url);
+const outputRoot = new URL(
+  '../../../public/data/geometry/lod/',
+  import.meta.url,
+);
 
 async function load(name) {
   const response = await fetch(`${ROOT}/${name}`);
@@ -92,8 +95,7 @@ function sqSegmentDistance(point, start, end) {
   let dy = end[1] - y;
 
   if (dx !== 0 || dy !== 0) {
-    const t =
-      ((point[0] - x) * dx + (point[1] - y) * dy) / (dx * dx + dy * dy);
+    const t = ((point[0] - x) * dx + (point[1] - y) * dy) / (dx * dx + dy * dy);
     if (t > 1) {
       x = end[0];
       y = end[1];
@@ -123,7 +125,11 @@ function simplifyLine(points, tolerance) {
     let index = 0;
 
     for (let i = first + 1; i < last; i += 1) {
-      const distance = sqSegmentDistance(points[i], points[first], points[last]);
+      const distance = sqSegmentDistance(
+        points[i],
+        points[first],
+        points[last],
+      );
       if (distance > maxDistance) {
         index = i;
         maxDistance = distance;
@@ -143,12 +149,17 @@ function simplifyGeometry(geometry, tolerance) {
   if (!geometry) return geometry;
 
   if (geometry.type === 'LineString') {
-    return { ...geometry, coordinates: simplifyLine(geometry.coordinates, tolerance) };
+    return {
+      ...geometry,
+      coordinates: simplifyLine(geometry.coordinates, tolerance),
+    };
   }
   if (geometry.type === 'MultiLineString') {
     return {
       ...geometry,
-      coordinates: geometry.coordinates.map((line) => simplifyLine(line, tolerance)),
+      coordinates: geometry.coordinates.map((line) =>
+        simplifyLine(line, tolerance),
+      ),
     };
   }
   if (geometry.type === 'Polygon') {
@@ -191,21 +202,15 @@ async function writeJson(path, value) {
 
 await mkdir(outputRoot, { recursive: true });
 
-const [
-  countries110,
-  countries50,
-  disputed50,
-  boundaries50,
-  tiny110,
-  tiny50,
-] = await Promise.all([
-  load('ne_110m_admin_0_countries.geojson'),
-  load('ne_50m_admin_0_countries.geojson'),
-  load('ne_50m_admin_0_breakaway_disputed_areas.geojson'),
-  load('ne_50m_admin_0_boundary_lines_disputed_areas.geojson'),
-  load('ne_110m_admin_0_tiny_countries.geojson'),
-  load('ne_50m_admin_0_tiny_countries.geojson'),
-]);
+const [countries110, countries50, disputed50, boundaries50, tiny110, tiny50] =
+  await Promise.all([
+    load('ne_110m_admin_0_countries.geojson'),
+    load('ne_50m_admin_0_countries.geojson'),
+    load('ne_50m_admin_0_breakaway_disputed_areas.geojson'),
+    load('ne_50m_admin_0_boundary_lines_disputed_areas.geojson'),
+    load('ne_110m_admin_0_tiny_countries.geojson'),
+    load('ne_50m_admin_0_tiny_countries.geojson'),
+  ]);
 
 const detailedDisputed = {
   type: 'FeatureCollection',

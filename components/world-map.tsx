@@ -3,15 +3,8 @@
 import { useRef, useState } from 'react';
 import { Minus, Plus, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  primaryCountryByEntityId,
-  type MapEntityKind,
-} from '@/lib/countries';
-import {
-  mapGeometryByLod,
-  nextMapLod,
-  type MapLod,
-} from '@/lib/map-lod';
+import { primaryCountryByEntityId, type MapEntityKind } from '@/lib/countries';
+import { mapGeometryByLod, nextMapLod, type MapLod } from '@/lib/map-lod';
 import {
   geometryToMercatorLinePath,
   geometryToMercatorPath,

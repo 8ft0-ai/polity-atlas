@@ -1,9 +1,4 @@
-import type {
-  FeatureCollection,
-  Geometry,
-  Point,
-  Position,
-} from 'geojson';
+import type { FeatureCollection, Geometry, Point, Position } from 'geojson';
 import countries110Source from '@/public/data/geometry/lod/110m/countries.json';
 import disputed110Source from '@/public/data/geometry/lod/110m/disputed-areas.json';
 import boundaries110Source from '@/public/data/geometry/lod/110m/disputed-boundaries.json';
@@ -98,9 +93,7 @@ function slug(value: string) {
     .replaceAll(/^_+|_+$/g, '');
 }
 
-function countryFeatures(
-  source: unknown,
-): LodCountryFeature[] {
+function countryFeatures(source: unknown): LodCountryFeature[] {
   const collection = source as FeatureCollection<
     Geometry,
     CountrySourceProperties
@@ -176,16 +169,13 @@ function disputedBoundaries(source: unknown): LodDisputedBoundary[] {
 }
 
 function numericM49(value: unknown) {
-  return typeof value === 'string' && /^\d{3}$/.test(value)
-    ? value
-    : undefined;
+  return typeof value === 'string' && /^\d{3}$/.test(value) ? value : undefined;
 }
 
 function countryByTinyProperties(
   properties: Properties,
 ): PrimaryCountryOption | undefined {
-  const m49 =
-    numericM49(properties.unA3) ?? numericM49(properties.isoN3);
+  const m49 = numericM49(properties.unA3) ?? numericM49(properties.isoN3);
   if (m49) {
     const byM49 = primaryCountryByM49.get(m49);
     if (byM49) return byM49;

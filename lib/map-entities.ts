@@ -280,7 +280,6 @@ const normalisedAliases = countryOptions.flatMap((country) => [
 
 const primaryEntityIdByName = new Map(normalisedAliases);
 
-
 export type SourceMapFeature = {
   name: string;
   isoN3?: string | null;

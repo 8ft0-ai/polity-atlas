@@ -179,5 +179,4 @@ describe('WorldMap entity interaction', () => {
       '336',
     );
   });
-
 });

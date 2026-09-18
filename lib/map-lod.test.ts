@@ -52,8 +52,9 @@ describe('synchronized map LOD', () => {
     );
 
     for (const entityId of ids110) {
-      expect(ids50.has(entityId) || primaryCoverageForLod('50m').has(entityId))
-        .toBe(true);
+      expect(
+        ids50.has(entityId) || primaryCoverageForLod('50m').has(entityId),
+      ).toBe(true);
     }
   });
 
