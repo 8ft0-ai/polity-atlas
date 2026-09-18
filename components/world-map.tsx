@@ -5,12 +5,31 @@ import type { Map as MapLibreMap } from 'maplibre-gl';
 import { countryFeatures } from '@/lib/countries';
 
 type WorldMapProps = {
-  selectedM49: string;
+  selectedM49: string | null;
   relatedM49: string[];
   relationMode: boolean;
   theme: 'light' | 'dark';
   onSelect: (m49: string, name: string) => void;
 };
+
+type HighlightState = {
+  selectedM49: string | null;
+  relatedM49: string[];
+  relationMode: boolean;
+};
+
+function applyHighlightFilters(map: MapLibreMap, state: HighlightState) {
+  map.setFilter('selected-country', [
+    '==',
+    ['get', 'm49'],
+    state.selectedM49 ?? '',
+  ]);
+  map.setFilter('related-countries', [
+    'in',
+    ['get', 'm49'],
+    ['literal', state.relationMode ? state.relatedM49 : []],
+  ]);
+}
 
 export function WorldMap({
   selectedM49,
@@ -21,6 +40,11 @@ export function WorldMap({
 }: WorldMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
+  const highlightStateRef = useRef<HighlightState>({
+    selectedM49,
+    relatedM49,
+    relationMode,
+  });
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -38,6 +62,7 @@ export function WorldMap({
         minZoom: 0.8,
         maxZoom: 7,
         attributionControl: false,
+        renderWorldCopies: false,
         style: {
           version: 8,
           sources: {
@@ -66,7 +91,7 @@ export function WorldMap({
               id: 'related-countries',
               type: 'fill',
               source: 'countries',
-              filter: ['in', ['id'], ['literal', []]],
+              filter: ['in', ['get', 'm49'], ['literal', []]],
               paint: {
                 'fill-color': colors.getPropertyValue('--map-related').trim(),
                 'fill-opacity': 0.72,
@@ -76,7 +101,7 @@ export function WorldMap({
               id: 'selected-country',
               type: 'fill',
               source: 'countries',
-              filter: ['==', ['id'], selectedM49],
+              filter: ['==', ['get', 'm49'], ''],
               paint: {
                 'fill-color': colors.getPropertyValue('--map-selected').trim(),
                 'fill-opacity': 0.92,
@@ -99,13 +124,18 @@ export function WorldMap({
         new NavigationControl({ showCompass: false }),
         'bottom-left',
       );
+
+      map.on('style.load', () => {
+        map.setProjection({ type: 'globe' });
+        applyHighlightFilters(map, highlightStateRef.current);
+      });
+
       map.on('click', 'countries', (event) => {
         const selected = event.features?.[0];
-        if (!selected?.id) return;
-        onSelect(
-          String(selected.id).padStart(3, '0'),
-          String(selected.properties?.name ?? 'Unknown'),
-        );
+        const m49 = selected?.properties?.m49;
+        if (!m49) return;
+
+        onSelect(String(m49), String(selected.properties?.name ?? 'Unknown'));
       });
       map.on('mouseenter', 'countries', () => {
         map.getCanvas().style.cursor = 'pointer';
@@ -122,17 +152,18 @@ export function WorldMap({
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, [theme, onSelect, selectedM49]);
+  }, [theme, onSelect]);
 
   useEffect(() => {
+    highlightStateRef.current = {
+      selectedM49,
+      relatedM49,
+      relationMode,
+    };
+
     const map = mapRef.current;
     if (!map?.isStyleLoaded()) return;
-    map.setFilter('selected-country', ['==', ['id'], selectedM49]);
-    map.setFilter('related-countries', [
-      'in',
-      ['id'],
-      ['literal', relationMode ? relatedM49 : []],
-    ]);
+    applyHighlightFilters(map, highlightStateRef.current);
   }, [selectedM49, relatedM49, relationMode]);
 
   return (
