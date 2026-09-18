@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
   "identity": {
     "iso2": "CA",
     "iso3": "CAN",
@@ -14,7 +14,9 @@
       "value": "Federal parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["ca-country"],
+      "sourceIds": [
+        "ca-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "Governor General",
         "name": "Louise Arbour",
         "since": "2026-06-08",
-        "sourceIds": ["ca-governor-general"]
+        "sourceIds": [
+          "ca-governor-general"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Mark Carney",
         "since": "2025-03-14",
-        "sourceIds": ["ca-prime-minister"]
+        "sourceIds": [
+          "ca-prime-minister"
+        ]
       }
     ]
   },
@@ -39,105 +45,111 @@
       "value": "Parliament of Canada",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["ca-house", "ca-senate"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "commons",
+        "id": "CA-LC01",
         "name": "House of Commons",
         "kind": "lower",
-        "totalSeats": 343,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "statutorySeats": 343,
+        "termYears": 4,
+        "designationMode": "Directly elected",
+        "speakers": [
           {
-            "party": "Liberal Party",
-            "shortName": "Liberal",
-            "seats": 174,
-            "color": "#D71920"
-          },
-          {
-            "party": "Conservative Party",
-            "shortName": "Conservative",
-            "seats": 140,
-            "color": "#1A4782"
-          },
-          {
-            "party": "Bloc Québécois",
-            "shortName": "Bloc Québécois",
-            "seats": 21,
-            "color": "#33B2CC"
-          },
-          {
-            "party": "New Democratic Party",
-            "shortName": "NDP",
-            "seats": 5,
-            "color": "#F58220"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 2,
-            "color": "grey"
-          },
-          {
-            "party": "Green Party",
-            "shortName": "Green",
-            "seats": 1,
-            "color": "#3D9B35"
+            "name": "Francis Scarpaleggia",
+            "officialTitle": "Speaker of the House of Commons",
+            "termStart": "2025-05-26",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["ca-house"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "system": "Plurality/majority",
+          "subsystem": "First Past The Post (FPTP)",
+          "minimumVotingAge": 18,
+          "minimumEligibilityAge": 18,
+          "compulsoryVoting": "no",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "CA-LC01-E20250428",
+          "date": {
+            "from": "2025-04-28"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 343,
+          "postElectionComposition": [
+            {
+              "party": "Liberal Party",
+              "seats": 169
+            },
+            {
+              "party": "Conservative Party",
+              "seats": 144
+            },
+            {
+              "party": "Bloc Québécois (BQ)",
+              "seats": 22
+            },
+            {
+              "party": "NDP-New Democratic Party (NDP)",
+              "seats": 7
+            },
+            {
+              "party": "Green Party",
+              "seats": 1
+            }
+          ],
+          "postElectionTotalSeats": 343,
+          "expectedNextDate": "2029-10-15",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       },
       {
-        "id": "senate",
+        "id": "CA-UC01",
         "name": "Senate",
         "kind": "upper",
-        "totalSeats": 105,
-        "compositionAsOf": "2026-04-10",
-        "composition": [
-          {
-            "party": "Independent Senators Group",
-            "shortName": "ISG",
-            "seats": 42,
-            "color": "#7D7D7D"
-          },
-          {
-            "party": "Canadian Senators Group",
-            "shortName": "CSG",
-            "seats": 19,
-            "color": "#5B7FA3"
-          },
-          {
-            "party": "Progressive Senate Group",
-            "shortName": "PSG",
-            "seats": 16,
-            "color": "#A04A6A"
-          },
-          {
-            "party": "Conservative Party",
-            "shortName": "Conservative",
-            "seats": 12,
-            "color": "#1A4782"
-          },
-          {
-            "party": "Non-affiliated",
-            "shortName": "Non-affiliated",
-            "seats": 8,
-            "color": "#AAAAAA"
-          }
-        ],
-        "sourceIds": ["ca-senate"]
+        "statutorySeats": 105,
+        "designationMode": "Appointed",
+        "speakers": [],
+        "electoralSystem": {
+          "directlyElected": false,
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       }
     ]
   },
   "elections": [
     {
-      "title": "Next Canadian federal election",
+      "id": "CA-LC01-next",
+      "title": "House of Commons next election or renewal",
+      "level": "national",
+      "chamberId": "CA-LC01",
+      "eventType": "chamber-election",
       "status": "expected",
       "dateLabel": "15 October 2029",
-      "note": "The next fixed election date is 15 October 2029; an election may be called earlier.",
-      "sourceIds": ["ca-election"]
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -146,63 +158,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["ca-missions"]
+      "sourceIds": [
+        "ca-missions"
+      ]
     }
   ],
   "sources": [
@@ -231,36 +261,22 @@
       "kind": "official"
     },
     {
-      "id": "ca-house",
-      "publisher": "House of Commons of Canada",
-      "title": "Party standings in the House of Commons",
-      "url": "https://www.ourcommons.ca/members/en/party-standings",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "ca-senate",
-      "publisher": "Wikipedia",
-      "title": "List of current senators of Canada",
-      "url": "https://en.wikipedia.org/wiki/List_of_current_senators_of_Canada",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "ca-election",
-      "publisher": "Elections Canada",
-      "title": "ElectoFacts",
-      "url": "https://www.elections.ca/electofacts",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
       "id": "ca-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of Canada",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Canada",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "IPU Parline",
+      "url": "https://data.ipu.org/parliament/CA/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use"
     }
   ]
 }

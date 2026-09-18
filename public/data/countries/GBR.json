@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
   "identity": {
     "iso2": "GB",
     "iso3": "GBR",
@@ -14,7 +14,9 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["gb-country"],
+      "sourceIds": [
+        "gb-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "King",
         "name": "Charles III",
         "since": "2022-09-08",
-        "sourceIds": ["gb-monarch"]
+        "sourceIds": [
+          "gb-monarch"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Andy Burnham",
         "since": "2026-07-20",
-        "sourceIds": ["gb-prime-minister"]
+        "sourceIds": [
+          "gb-prime-minister"
+        ]
       }
     ]
   },
@@ -39,213 +45,160 @@
       "value": "Parliament of the United Kingdom",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["gb-commons", "gb-lords"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "commons",
+        "id": "GB-LC01",
         "name": "House of Commons",
         "kind": "lower",
-        "totalSeats": 650,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "statutorySeats": 650,
+        "termYears": 5,
+        "designationMode": "Directly elected",
+        "speakers": [
           {
-            "party": "Labour Party",
-            "shortName": "Labour",
-            "seats": 403,
-            "color": "#E4003B"
-          },
-          {
-            "party": "Conservative Party",
-            "shortName": "Conservative",
-            "seats": 118,
-            "color": "#0087DC"
-          },
-          {
-            "party": "Liberal Democrats",
-            "shortName": "Liberal Democrat",
-            "seats": 71,
-            "color": "#FAA61A"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 11,
-            "color": "grey"
-          },
-          {
-            "party": "Reform UK",
-            "shortName": "Reform UK",
-            "seats": 8,
-            "color": "#12B6CF"
-          },
-          {
-            "party": "Scottish National Party",
-            "shortName": "SNP",
-            "seats": 8,
-            "color": "#FDF38E"
-          },
-          {
-            "party": "Sinn Féin",
-            "shortName": "Sinn Féin",
-            "seats": 7,
-            "color": "#326760"
-          },
-          {
-            "party": "Democratic Unionist Party",
-            "shortName": "DUP",
-            "seats": 5,
-            "color": "#D46A4C"
-          },
-          {
-            "party": "Green Party",
-            "shortName": "Green",
-            "seats": 5,
-            "color": "#02A95B"
-          },
-          {
-            "party": "Plaid Cymru",
-            "shortName": "Plaid Cymru",
-            "seats": 4,
-            "color": "#005B54"
-          },
-          {
-            "party": "Social Democratic and Labour Party",
-            "shortName": "SDLP",
-            "seats": 2,
-            "color": "#2AA82C"
-          },
-          {
-            "party": "Your Party",
-            "shortName": "Your Party",
-            "seats": 2,
-            "color": "#7A4F9A"
-          },
-          {
-            "party": "Alliance Party",
-            "shortName": "Alliance",
-            "seats": 1,
-            "color": "#F6CB2F"
-          },
-          {
-            "party": "Restore Britain",
-            "shortName": "Restore Britain",
-            "seats": 1,
-            "color": "#777777"
-          },
-          {
-            "party": "Speaker",
-            "shortName": "Speaker",
-            "seats": 1,
-            "color": "#999999"
-          },
-          {
-            "party": "Traditional Unionist Voice",
-            "shortName": "TUV",
-            "seats": 1,
-            "color": "#0C3A6B"
-          },
-          {
-            "party": "Ulster Unionist Party",
-            "shortName": "UUP",
-            "seats": 1,
-            "color": "#48A5EE"
+            "name": "Lindsay Hoyle",
+            "officialTitle": "Speaker of the House of Commons",
+            "termStart": "2019-11-04",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["gb-commons"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "system": "Plurality/majority",
+          "subsystem": "First Past The Post (FPTP)",
+          "minimumVotingAge": 18,
+          "minimumEligibilityAge": 18,
+          "compulsoryVoting": "no",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "GB-LC01-E20240704",
+          "date": {
+            "from": "2024-07-04"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 650,
+          "postElectionComposition": [
+            {
+              "party": "Labour Party",
+              "seats": 411
+            },
+            {
+              "party": "Conservative Party",
+              "seats": 121
+            },
+            {
+              "party": "Liberal Democrats",
+              "seats": 72
+            },
+            {
+              "party": "Scottish National Party",
+              "seats": 9
+            },
+            {
+              "party": "Sinn Féin",
+              "seats": 7
+            },
+            {
+              "party": "Democratic Unionist Party",
+              "seats": 5
+            },
+            {
+              "party": "Reform UK",
+              "seats": 5
+            },
+            {
+              "party": "Green Party",
+              "seats": 4
+            },
+            {
+              "party": "Plaid Cymru",
+              "seats": 4
+            },
+            {
+              "party": "Social Democratic and Labour Party (SDLP)",
+              "seats": 2
+            },
+            {
+              "party": "Traditional Unionist Voice",
+              "seats": 1
+            },
+            {
+              "party": "Alliance Party",
+              "seats": 1
+            },
+            {
+              "party": "Ulster Unionist Party",
+              "seats": 1
+            },
+            {
+              "party": "Independents",
+              "seats": 6
+            },
+            {
+              "party": "The Speaker",
+              "seats": 1
+            }
+          ],
+          "postElectionTotalSeats": 650,
+          "expectedNextDate": "2029-07-31",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       },
       {
-        "id": "lords",
+        "id": "GB-UC01",
         "name": "House of Lords",
         "kind": "upper",
-        "totalSeats": 798,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "statutorySeats": 800,
+        "designationMode": "Appointed",
+        "speakers": [
           {
-            "party": "Conservative Party",
-            "shortName": "Conservative",
-            "seats": 247,
-            "color": "#0087DC"
-          },
-          {
-            "party": "Labour Party",
-            "shortName": "Labour",
-            "seats": 233,
-            "color": "#E4003B"
-          },
-          {
-            "party": "Crossbench",
-            "shortName": "Crossbench",
-            "seats": 155,
-            "color": "#777777"
-          },
-          {
-            "party": "Liberal Democrats",
-            "shortName": "Liberal Democrat",
-            "seats": 80,
-            "color": "#FAA61A"
-          },
-          {
-            "party": "Non-affiliated",
-            "shortName": "Non-affiliated",
-            "seats": 43,
-            "color": "#AAAAAA"
-          },
-          {
-            "party": "Bishops",
-            "shortName": "Bishops",
-            "seats": 25,
-            "color": "#7B6E5D"
-          },
-          {
-            "party": "Democratic Unionist Party",
-            "shortName": "DUP",
-            "seats": 6,
-            "color": "#D46A4C"
-          },
-          {
-            "party": "Ulster Unionist Party",
-            "shortName": "UUP",
-            "seats": 3,
-            "color": "#48A5EE"
-          },
-          {
-            "party": "Green Party",
-            "shortName": "Green",
-            "seats": 2,
-            "color": "#02A95B"
-          },
-          {
-            "party": "Plaid Cymru",
-            "shortName": "Plaid Cymru",
-            "seats": 2,
-            "color": "#005B54"
-          },
-          {
-            "party": "Conservative Independent",
-            "shortName": "Conservative Ind.",
-            "seats": 1,
-            "color": "#4B79A1"
-          },
-          {
-            "party": "Lord Speaker",
-            "shortName": "Lord Speaker",
-            "seats": 1,
-            "color": "#999999"
+            "name": "Lord Forsyth of Drumlean",
+            "officialTitle": "Lord Speaker",
+            "termStart": "2026-02-02",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["gb-lords"]
+        "electoralSystem": {
+          "directlyElected": false,
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       }
     ]
   },
   "elections": [
     {
-      "title": "Next United Kingdom general election",
+      "id": "GB-LC01-next",
+      "title": "House of Commons next election or renewal",
+      "level": "national",
+      "chamberId": "GB-LC01",
+      "eventType": "chamber-election",
       "status": "expected",
-      "dateLabel": "By 15 August 2029",
-      "note": "The current Parliament will expire in July 2029 if not dissolved earlier; the last possible polling day is 15 August 2029.",
-      "sourceIds": ["gb-election"]
+      "dateLabel": "31 July 2029",
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -254,63 +207,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["gb-missions"]
+      "sourceIds": [
+        "gb-missions"
+      ]
     }
   ],
   "sources": [
@@ -339,36 +310,22 @@
       "kind": "official"
     },
     {
-      "id": "gb-commons",
-      "publisher": "UK Parliament",
-      "title": "State of the parties — House of Commons",
-      "url": "https://members.parliament.uk/parties/Commons",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "gb-lords",
-      "publisher": "UK Parliament",
-      "title": "Lords membership",
-      "url": "https://members.parliament.uk/parties/Lord",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "gb-election",
-      "publisher": "House of Commons Library",
-      "title": "MPs standing down from the Commons at the next general election",
-      "url": "https://commonslibrary.parliament.uk/research-briefings/cbp-10971/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
       "id": "gb-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of the United Kingdom",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_the_United_Kingdom",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "IPU Parline",
+      "url": "https://data.ipu.org/parliament/GB/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
   "identity": {
     "iso2": "NZ",
     "iso3": "NZL",
@@ -14,7 +14,9 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["nz-country"],
+      "sourceIds": [
+        "nz-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "Governor-General",
         "name": "Cindy Kiro",
         "since": "2021-10-21",
-        "sourceIds": ["nz-governor-general"]
+        "sourceIds": [
+          "nz-governor-general"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Christopher Luxon",
         "since": "2023-11-27",
-        "sourceIds": ["nz-prime-minister"]
+        "sourceIds": [
+          "nz-prime-minister"
+        ]
       }
     ]
   },
@@ -39,88 +45,98 @@
       "value": "New Zealand Parliament",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["nz-parliament"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "house",
+        "id": "NZ-LC01",
         "name": "House of Representatives",
         "kind": "unicameral",
-        "totalSeats": 123,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "statutorySeats": 120,
+        "termYears": 3,
+        "designationMode": "Directly elected",
+        "speakers": [
           {
-            "party": "New Zealand National Party",
-            "shortName": "National",
-            "seats": 49,
-            "color": "#00529F",
-            "groupingIds": ["government-coalition"]
-          },
-          {
-            "party": "New Zealand Labour Party",
-            "shortName": "Labour",
-            "seats": 34,
-            "color": "#D82A20"
-          },
-          {
-            "party": "Green Party of Aotearoa New Zealand",
-            "shortName": "Green",
-            "seats": 14,
-            "color": "#098137"
-          },
-          {
-            "party": "ACT New Zealand",
-            "shortName": "ACT",
-            "seats": 11,
-            "color": "#FDE401",
-            "groupingIds": ["government-coalition"]
-          },
-          {
-            "party": "New Zealand First",
-            "shortName": "NZ First",
-            "seats": 8,
-            "color": "#000000",
-            "groupingIds": ["government-coalition"]
-          },
-          {
-            "party": "Te Pāti Māori",
-            "shortName": "Te Pāti Māori",
-            "seats": 4,
-            "color": "#B2001D"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 2,
-            "color": "grey"
+            "name": "Gerry Brownlee",
+            "officialTitle": "Speaker of the House of Representatives",
+            "termStart": "2023-12-05",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "groupings": [
-          {
-            "id": "government-coalition",
-            "name": "National–ACT–New Zealand First coalition",
-            "kind": "governing-coalition",
-            "memberParties": [
-              "New Zealand National Party",
-              "ACT New Zealand",
-              "New Zealand First"
-            ],
-            "asOf": "2026-09-18",
-            "sourceIds": ["nz-prime-minister"]
-          }
-        ],
-        "sourceIds": ["nz-parliament"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "system": "Proportional representation",
+          "subsystem": "Mixed Member Proportional (MMP)",
+          "minimumVotingAge": 18,
+          "minimumEligibilityAge": 18,
+          "compulsoryVoting": "no",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "NZ-LC01-E20231014",
+          "date": {
+            "from": "2023-10-14"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 123,
+          "postElectionComposition": [
+            {
+              "party": "National Party",
+              "seats": 49
+            },
+            {
+              "party": "Labour Party",
+              "seats": 34
+            },
+            {
+              "party": "Green Party",
+              "seats": 15
+            },
+            {
+              "party": "ACT New Zealand",
+              "seats": 11
+            },
+            {
+              "party": "New Zealand First",
+              "seats": 8
+            },
+            {
+              "party": "Maori Party",
+              "seats": 6
+            }
+          ],
+          "postElectionTotalSeats": 123,
+          "expectedNextDate": "2026-11-07",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       }
     ]
   },
   "elections": [
     {
-      "title": "2026 New Zealand general election",
-      "status": "confirmed",
+      "id": "NZ-LC01-next",
+      "title": "House of Representatives next election or renewal",
+      "level": "national",
+      "chamberId": "NZ-LC01",
+      "eventType": "chamber-election",
+      "status": "expected",
       "dateLabel": "7 November 2026",
-      "note": "The general election has been announced for 7 November 2026.",
-      "sourceIds": ["nz-election"]
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -129,63 +145,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     }
   ],
   "sources": [
@@ -214,28 +248,22 @@
       "kind": "official"
     },
     {
-      "id": "nz-parliament",
-      "publisher": "New Zealand Parliament",
-      "title": "Parliamentary parties",
-      "url": "https://www.parliament.nz/en/mps-and-electorates/political-parties/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "nz-election",
-      "publisher": "New Zealand Government",
-      "title": "General election to be held 7 November",
-      "url": "https://www.beehive.govt.nz/release/general-election-be-held-7-november",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
       "id": "nz-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of New Zealand",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_New_Zealand",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "IPU Parline",
+      "url": "https://data.ipu.org/parliament/NZ/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use"
     }
   ]
 }

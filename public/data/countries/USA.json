@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
   "identity": {
     "iso2": "US",
     "iso3": "USA",
@@ -14,7 +14,9 @@
       "value": "Federal presidential constitutional republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["us-country"],
+      "sourceIds": [
+        "us-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Donald Trump",
         "since": "2025-01-20",
-        "sourceIds": ["us-president"]
+        "sourceIds": [
+          "us-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "President",
         "name": "Donald Trump",
         "since": "2025-01-20",
-        "sourceIds": ["us-president"]
+        "sourceIds": [
+          "us-president"
+        ]
       }
     ]
   },
@@ -39,75 +45,167 @@
       "value": "United States Congress",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["us-house", "us-senate"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "house",
+        "id": "US-LC01",
         "name": "House of Representatives",
         "kind": "lower",
-        "totalSeats": 435,
-        "compositionAsOf": "2026-09-02",
-        "composition": [
+        "statutorySeats": 435,
+        "termYears": 2,
+        "designationMode": "Directly elected",
+        "speakers": [
           {
-            "party": "Republican Party",
-            "shortName": "Republican",
-            "seats": 218,
-            "color": "#E81B23"
-          },
-          {
-            "party": "Democratic Party",
-            "shortName": "Democratic",
-            "seats": 214,
-            "color": "#3333FF"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 1,
-            "color": "grey"
+            "name": "Mike Johnson",
+            "officialTitle": "Speaker of the House of Representatives",
+            "termStart": "2023-10-25",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["us-house"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "system": "Plurality/majority",
+          "subsystem": "First Past The Post (FPTP)",
+          "minimumVotingAge": 18,
+          "minimumEligibilityAge": 25,
+          "compulsoryVoting": "no",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "US-LC01-E20241105",
+          "date": {
+            "from": "2024-11-05"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 435,
+          "postElectionComposition": [
+            {
+              "party": "Republican Party",
+              "seats": 220
+            },
+            {
+              "party": "Democratic Party",
+              "seats": 215
+            }
+          ],
+          "postElectionTotalSeats": 435,
+          "expectedNextDate": "2026-11-03",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       },
       {
-        "id": "senate",
+        "id": "US-UC01",
         "name": "Senate",
         "kind": "upper",
-        "totalSeats": 100,
-        "compositionAsOf": "2026-07-14",
-        "composition": [
+        "statutorySeats": 100,
+        "termYears": 6,
+        "designationMode": "Directly elected",
+        "speakers": [
           {
-            "party": "Republican Party",
-            "shortName": "Republican",
-            "seats": 53,
-            "color": "#E81B23"
+            "name": "J.D. Vance",
+            "officialTitle": "President of the Senate",
+            "termStart": "2025-01-20",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           },
           {
-            "party": "Democratic Party",
-            "shortName": "Democratic",
-            "seats": 45,
-            "color": "#3333FF"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 2,
-            "color": "grey"
+            "name": "Charles Grassley",
+            "officialTitle": "President pro tempore",
+            "termStart": "2025-01-03",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["us-senate"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "system": "Plurality/majority",
+          "minimumVotingAge": 18,
+          "minimumEligibilityAge": 30,
+          "compulsoryVoting": "no",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "US-UC01-E20241105",
+          "date": {
+            "from": "2024-11-05"
+          },
+          "scope": "partial-renewal",
+          "seatsAtStake": 34,
+          "resultSeats": [
+            {
+              "party": "Republican Party",
+              "seats": 15
+            },
+            {
+              "party": "Democratic Party",
+              "seats": 19
+            }
+          ],
+          "postElectionComposition": [
+            {
+              "party": "Republican Party",
+              "seats": 53
+            },
+            {
+              "party": "Democratic Party",
+              "seats": 47
+            }
+          ],
+          "postElectionTotalSeats": 100,
+          "expectedNextDate": "2026-11-03",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       }
     ]
   },
   "elections": [
     {
-      "title": "2026 United States midterm elections",
-      "status": "confirmed",
+      "id": "US-LC01-next",
+      "title": "House of Representatives next election or renewal",
+      "level": "national",
+      "chamberId": "US-LC01",
+      "eventType": "chamber-election",
+      "status": "expected",
       "dateLabel": "3 November 2026",
-      "note": "All House seats and the scheduled Senate class seats are due for election on 3 November 2026.",
-      "sourceIds": ["us-election"]
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
+    },
+    {
+      "id": "US-UC01-next",
+      "title": "Senate next election or renewal",
+      "level": "national",
+      "chamberId": "US-UC01",
+      "eventType": "partial-renewal",
+      "status": "expected",
+      "dateLabel": "3 November 2026",
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -116,63 +214,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     }
   ],
   "sources": [
@@ -193,36 +309,22 @@
       "kind": "official"
     },
     {
-      "id": "us-house",
-      "publisher": "U.S. House of Representatives",
-      "title": "Party Breakdown",
-      "url": "https://radiotv.house.gov/house-data/party-breakdown",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "us-senate",
-      "publisher": "United States Senate",
-      "title": "Senate Facts",
-      "url": "https://www.dailypress.senate.gov/on-the-floor/senate-facts/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "us-election",
-      "publisher": "Wikipedia",
-      "title": "2026 United States elections",
-      "url": "https://en.wikipedia.org/wiki/2026_United_States_elections",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
       "id": "us-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of the United States",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_the_United_States",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "IPU Parline",
+      "url": "https://data.ipu.org/parliament/US/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use"
     }
   ]
 }
