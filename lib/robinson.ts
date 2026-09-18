@@ -32,9 +32,10 @@ export function projectRobinson(longitude: number, latitude: number): LonLat {
   const xCoefficient = interpolate(X_COEFFICIENTS, latitude);
   const yCoefficient = interpolate(Y_COEFFICIENTS, latitude);
 
-  const rawX =
-    (ROBINSON_X_SCALE * (longitude * Math.PI) * xCoefficient) / 180;
-  const rawY = ROBINSON_Y_SCALE * yCoefficient * (latitude < 0 ? -1 : 1);
+  const longitudeRadians = (longitude * Math.PI) / 180;
+  const hemisphere = latitude < 0 ? -1 : 1;
+  const rawX = ROBINSON_X_SCALE * longitudeRadians * xCoefficient;
+  const rawY = ROBINSON_Y_SCALE * yCoefficient * hemisphere;
 
   const maximumX = ROBINSON_X_SCALE * Math.PI;
   const maximumY = ROBINSON_Y_SCALE;
