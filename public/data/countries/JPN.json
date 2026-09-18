@@ -14,7 +14,9 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["jp-country"],
+      "sourceIds": [
+        "jp-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "Emperor",
         "name": "Naruhito",
         "since": "2019-05-01",
-        "sourceIds": ["jp-emperor"]
+        "sourceIds": [
+          "jp-emperor"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Sanae Takaichi",
         "since": "2026-02-18",
-        "sourceIds": ["jp-prime-minister"]
+        "sourceIds": [
+          "jp-prime-minister"
+        ]
       }
     ]
   },
@@ -39,7 +45,10 @@
       "value": "National Diet",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["jp-house", "jp-senate"],
+      "sourceIds": [
+        "jp-house",
+        "jp-senate"
+      ],
       "confidence": "verified"
     },
     "chambers": [
@@ -99,14 +108,16 @@
             "color": "grey"
           }
         ],
-        "sourceIds": ["jp-house"]
+        "sourceIds": [
+          "jp-house"
+        ]
       },
       {
         "id": "senate",
         "name": "House of Councillors",
         "kind": "upper",
         "totalSeats": 248,
-        "compositionAsOf": "2026-07-08",
+        "compositionAsOf": "2026-09-16",
         "composition": [
           {
             "party": "Liberal Democratic Party and Group of Independents",
@@ -117,7 +128,7 @@
           {
             "party": "Constitutional Democratic Party of Japan and the Independent",
             "shortName": "CDP",
-            "seats": 40,
+            "seats": 39,
             "color": "#00469C"
           },
           {
@@ -151,10 +162,10 @@
             "color": "#DB001C"
           },
           {
-            "party": "Reiwa Shinsengumi",
-            "shortName": "Reiwa",
+            "party": "Currently confirming",
+            "shortName": "Confirming",
             "seats": 5,
-            "color": "#ED1A3D"
+            "color": "grey"
           },
           {
             "party": "Conservative Party of Japan",
@@ -183,11 +194,13 @@
           {
             "party": "Independents",
             "shortName": "Independent",
-            "seats": 6,
+            "seats": 7,
             "color": "grey"
           }
         ],
-        "sourceIds": ["jp-senate"]
+        "sourceIds": [
+          "jp-senate"
+        ]
       }
     ]
   },
@@ -197,7 +210,9 @@
       "status": "expected",
       "dateLabel": "2028",
       "note": "The next regular House of Councillors election is expected in 2028; an earlier House of Representatives election remains possible.",
-      "sourceIds": ["jp-election"]
+      "sourceIds": [
+        "jp-election"
+      ]
     }
   ],
   "relations": [
@@ -206,63 +221,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     }
   ],
   "sources": [

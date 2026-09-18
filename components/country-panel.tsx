@@ -196,6 +196,51 @@ function SeatBar({
   );
 }
 
+type OfficeHolder = CountryProfile['government']['headOfState'][number];
+
+type OfficeHolderCard = OfficeHolder & {
+  key: string;
+  roles: string[];
+};
+
+function officeHolderCards(profile: CountryProfile): OfficeHolderCard[] {
+  const holders = [
+    ...profile.government.headOfGovernment.map((holder) => ({
+      holder,
+      role: 'Head of government',
+    })),
+    ...profile.government.headOfState.map((holder) => ({
+      holder,
+      role: 'Head of state',
+    })),
+  ];
+
+  const cards = new Map<string, OfficeHolderCard>();
+
+  for (const { holder, role } of holders) {
+    const key = [holder.name, holder.office, holder.since].join('|');
+    const existing = cards.get(key);
+
+    if (existing) {
+      if (!existing.roles.includes(role)) {
+        existing.roles.push(role);
+      }
+      existing.sourceIds = [
+        ...new Set([...existing.sourceIds, ...holder.sourceIds]),
+      ];
+      continue;
+    }
+
+    cards.set(key, {
+      ...holder,
+      key,
+      roles: [role],
+    });
+  }
+
+  return [...cards.values()];
+}
+
 export function CountryPanel() {
   const {
     selectedEntityId,
@@ -260,9 +305,8 @@ export function CountryPanel() {
           <div className="border-l-2 border-primary pl-4">
             <h2 className="text-base font-semibold">Profile pipeline ready</h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Map selection works globally. Australia is the first validated
-              demonstration profile; additional country files can now be added
-              without changing this interface.
+              A verified profile is not yet available for this country. Map
+              selection still works globally.
             </p>
           </div>
         </div>
@@ -308,22 +352,19 @@ export function CountryPanel() {
                 </p>
               </section>
               <section className="grid grid-cols-2 gap-3">
-                {[
-                  ...profileQuery.data.government.headOfGovernment,
-                  ...profileQuery.data.government.headOfState,
-                ].map((holder) => (
+                {officeHolderCards(profileQuery.data).map((holder) => (
                   <article
-                    key={holder.office}
+                    key={holder.key}
                     className="border border-border bg-background/45 p-3"
                   >
                     <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-                      {holder.office}
+                      {holder.roles.join(' · ')}
                     </p>
                     <h2 className="mt-2 text-sm font-semibold">
                       {holder.name}
                     </h2>
                     <p className="mt-1 text-xs text-muted-foreground">
-                      Since {holder.since}
+                      {holder.office} · Since {holder.since}
                     </p>
                     <Sources
                       ids={holder.sourceIds}

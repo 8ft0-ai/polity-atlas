@@ -6,7 +6,7 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Added
 
-- Gold-standard country profiles for all ten configured pilot countries, with dated government, parliament, election, diplomatic-relation, and source provenance data.
+- Validated pilot country profiles for all ten configured pilot countries, with dated government, parliament, election, diplomatic-relation, and source provenance data.
 - Synchronized 110m/50m map LOD packages for countries, disputed areas, and disputed boundaries.
 - Canonical map-entity identities that distinguish primary countries, dependencies, overseas territories, disputed territories, and non-country map areas.
 - Natural Earth 50m disputed-area and disputed-boundary layers.
