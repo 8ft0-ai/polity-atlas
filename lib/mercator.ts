@@ -206,48 +206,6 @@ export function geometryToMercatorPath(geometry: Geometry) {
 }
 
 
-function linePath(coordinates: Position[]) {
-  if (coordinates.length < 2) return '';
-
-  const segments: string[] = [];
-  let current: string[] = [];
-  let previousLongitude: number | null = null;
-
-  for (const coordinate of coordinates) {
-    const longitude = coordinate[0] ?? 0;
-    const latitude = coordinate[1] ?? 0;
-
-    if (
-      previousLongitude !== null &&
-      Math.abs(longitude - previousLongitude) > 180
-    ) {
-      if (current.length > 1) segments.push(current.join(''));
-      current = [];
-    }
-
-    const [x, y] = projectMercator(longitude, latitude);
-    current.push(
-      `${current.length === 0 ? 'M' : 'L'}${x.toFixed(2)},${y.toFixed(2)}`,
-    );
-    previousLongitude = longitude;
-  }
-
-  if (current.length > 1) segments.push(current.join(''));
-  return segments.join('');
-}
-
-export function geometryToMercatorLinePath(geometry: Geometry) {
-  if (geometry.type === 'LineString') {
-    return linePath(geometry.coordinates);
-  }
-
-  if (geometry.type === 'MultiLineString') {
-    return geometry.coordinates.map(linePath).join('');
-  }
-
-  return '';
-}
-
 export function initialMercatorY(scale = 1) {
   return (MERCATOR_VIEWBOX_HEIGHT - MERCATOR_WORLD_SIZE * scale) / 2;
 }
