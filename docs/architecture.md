@@ -22,6 +22,12 @@ Private source API tokens belong in ignored local environment files or an approv
 
 `next.config.ts` retains static export, trailing slashes, and unoptimised images for local builds. The Pages-specific asset prefix and `NEXT_PUBLIC_BASE_PATH` have been removed. Local profile fetches use `/data/...`.
 
+## Map rendering boundary
+
+The global political atlas is rendered as SVG from the bundled Natural Earth-derived country geometry. Country rings are clipped at the antimeridian, projected with a deterministic Robinson projection, and rendered as interactive SVG paths keyed by M49. This keeps global country shape, selection, relation highlighting, and world-scale navigation independent of MapLibre's tiled polygon pipeline.
+
+MapLibre remains an installed GIS dependency for future detailed regional or local views where conventional slippy-map behaviour, dense layers, or tiled data are appropriate. It is not the renderer for the global world atlas.
+
 ## Repository controls
 
 - `.github/workflows/ci.yml` runs the `verify` job on pull requests and pushes to `main`.
