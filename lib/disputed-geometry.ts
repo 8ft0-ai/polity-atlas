@@ -32,6 +32,12 @@ const disputedBoundaries =
     NaturalEarthProperties
   >;
 
+const displayNameOverrides: Record<string, string> = {
+  'N. Cyprus': 'Northern Cyprus',
+  'W. Sahara': 'Western Sahara',
+  Transdniestria: 'Transnistria',
+};
+
 const explicitAssociations: Record<string, string[]> = {
   Abkhazia: [primaryEntityIdForM49('268')],
   'Falkland Is.': [primaryEntityIdForM49('826'), primaryEntityIdForM49('032')],
@@ -81,16 +87,17 @@ function associatedIds(properties: NaturalEarthProperties, name: string) {
 export const disputedAreaFeatures: DisputedArea[] = disputedAreas.features.map(
   (feature, index) => {
     const properties = feature.properties ?? {};
-    const name =
+    const sourceName =
       stringProperty(properties, 'BRK_NAME') ??
       stringProperty(properties, 'NAME') ??
       `Disputed area ${index + 1}`;
+    const name = displayNameOverrides[sourceName] ?? sourceName;
 
     return {
-      entityId: `disputed:${slug(name)}:${index}`,
+      entityId: `disputed:${slug(sourceName)}:${index}`,
       name,
       geometry: feature.geometry,
-      associatedPrimaryEntityIds: associatedIds(properties, name),
+      associatedPrimaryEntityIds: associatedIds(properties, sourceName),
       sourceType:
         stringProperty(properties, 'TYPE') ??
         stringProperty(properties, 'featurecla') ??
@@ -102,14 +109,15 @@ export const disputedAreaFeatures: DisputedArea[] = disputedAreas.features.map(
 export const disputedBoundaryFeatures: DisputedBoundary[] =
   disputedBoundaries.features.map((feature, index) => {
     const properties = feature.properties ?? {};
-    const name =
+    const sourceName =
       stringProperty(properties, 'BRK_NAME') ??
       stringProperty(properties, 'NAME') ??
       stringProperty(properties, 'NOTE') ??
       `Disputed boundary ${index + 1}`;
+    const name = displayNameOverrides[sourceName] ?? sourceName;
 
     return {
-      boundaryId: `disputed-boundary:${slug(name)}:${index}`,
+      boundaryId: `disputed-boundary:${slug(sourceName)}:${index}`,
       name,
       geometry: feature.geometry,
     };
