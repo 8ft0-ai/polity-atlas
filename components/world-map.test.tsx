@@ -29,11 +29,7 @@ describe('WorldMap entity interaction', () => {
     expect(australiaPath).not.toBeNull();
     fireEvent.click(australiaPath!);
 
-    expect(onSelect).toHaveBeenCalledWith(
-      'state:m49:036',
-      'Australia',
-      '036',
-    );
+    expect(onSelect).toHaveBeenCalledWith('state:m49:036', 'Australia', '036');
   });
 
   it('selects Kosovo independently from other non-M49 geometries', () => {
@@ -135,10 +131,7 @@ describe('WorldMap entity interaction', () => {
     );
 
     expect(greenland).not.toBeNull();
-    expect(greenland).toHaveAttribute(
-      'fill',
-      'var(--map-dependency-selected)',
-    );
+    expect(greenland).toHaveAttribute('fill', 'var(--map-dependency-selected)');
   });
 
   it('renders disputed boundaries with a dotted treatment', () => {
