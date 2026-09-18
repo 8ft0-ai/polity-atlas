@@ -1,12 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { WorldMap } from './world-map';
 
 describe('WorldMap country interaction', () => {
   it('selects a country when its SVG shape is clicked', () => {
     const onSelect = vi.fn();
-
-    render(
+    const { container } = render(
       <WorldMap
         selectedM49={null}
         relatedM49={[]}
@@ -15,24 +14,32 @@ describe('WorldMap country interaction', () => {
       />,
     );
 
-    const australiaLinks = screen.getAllByLabelText('Australia');
-    fireEvent.click(australiaLinks[0]);
+    const australiaPath = container.querySelector(
+      '[data-world-copy="0"] [data-country-link][href="#country=036"] path',
+    );
+
+    expect(australiaPath).not.toBeNull();
+    fireEvent.click(australiaPath!);
 
     expect(onSelect).toHaveBeenCalledWith('036', 'Australia');
   });
 
-  it('keeps country links available in each horizontal world copy', () => {
-    const onSelect = vi.fn();
-
-    render(
+  it('renders country links in adjacent world copies for horizontal wrapping', () => {
+    const { container } = render(
       <WorldMap
         selectedM49="036"
         relatedM49={[]}
         relationMode={false}
-        onSelect={onSelect}
+        onSelect={vi.fn()}
       />,
     );
 
-    expect(screen.getAllByLabelText('Australia')).toHaveLength(3);
+    for (const copyOffset of ['-1', '0', '1']) {
+      expect(
+        container.querySelector(
+          `[data-world-copy="${copyOffset}"] [data-country-link][href="#country=036"]`,
+        ),
+      ).not.toBeNull();
+    }
   });
 });
