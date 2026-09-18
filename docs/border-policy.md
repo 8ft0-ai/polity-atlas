@@ -29,7 +29,7 @@ Internal identifiers are application identifiers and must never be represented a
 
 ## Boundary and disputed-area sources
 
-The global atlas uses generated, pinned Natural Earth v5.1.2 geometry packages at 110m and 50m. Each active package contains country geometry, disputed-area geometry, disputed-boundary geometry, and tiny-country markers. The 110m disputed layers are reproducibly simplified from the pinned 50m disputed source so the overview has a matched coarser representation; the 50m tier uses the source geometry directly.
+The global atlas uses generated, pinned Natural Earth v5.1.2 geometry packages at 110m and 50m. Each active package contains country geometry, disputed-area geometry, and disputed-boundary geometry. The 110m disputed layers are reproducibly simplified from the pinned 50m disputed source so the overview has a matched coarser representation; the 50m tier uses the source geometry directly. Very small countries that are not legible at world scale remain available through the canonical country search rather than synthetic point markers.
 
 Natural Earth v5.1.2 supplies the breakaway/disputed-area polygons at 50m, so Polity Atlas does not label any global disputed polygon as 10m geometry. The 50m tier is the highest approved political LOD for the global atlas.
 

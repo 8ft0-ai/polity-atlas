@@ -71,79 +71,6 @@ function minimalBoundary(feature, index) {
   };
 }
 
-function minimalTinyCountry(feature, index) {
-  const p = feature.properties ?? {};
-  return {
-    type: 'Feature',
-    properties: {
-      id: `ne-tiny-country-${index}`,
-      name: p.NAME ?? p.ADMIN ?? p.NAME_LONG ?? 'Unknown',
-      admin: p.ADMIN ?? null,
-      adm0A3: p.ADM0_A3 ?? null,
-      isoA3: p.ISO_A3 ?? null,
-      isoN3: p.ISO_N3 ?? null,
-      unA3: p.UN_A3 ?? null,
-    },
-    geometry: feature.geometry,
-  };
-}
-
-function visitCoordinates(value, points) {
-  if (
-    Array.isArray(value) &&
-    value.length >= 2 &&
-    typeof value[0] === 'number' &&
-    typeof value[1] === 'number'
-  ) {
-    points.push(value);
-    return;
-  }
-
-  if (Array.isArray(value)) {
-    for (const child of value) visitCoordinates(child, points);
-  }
-}
-
-function representativePoint(feature) {
-  const properties = feature.properties ?? {};
-  if (
-    typeof properties.LABEL_X === 'number' &&
-    typeof properties.LABEL_Y === 'number'
-  ) {
-    return [properties.LABEL_X, properties.LABEL_Y];
-  }
-
-  const points = [];
-  visitCoordinates(feature.geometry?.coordinates, points);
-  if (points.length === 0) return [0, 0];
-
-  const total = points.reduce(
-    (sum, point) => [sum[0] + point[0], sum[1] + point[1]],
-    [0, 0],
-  );
-  return [total[0] / points.length, total[1] / points.length];
-}
-
-function fallbackMarker(feature, index) {
-  const p = feature.properties ?? {};
-  return {
-    type: 'Feature',
-    properties: {
-      id: `ne-fallback-country-${index}`,
-      name: p.NAME ?? p.ADMIN ?? p.NAME_LONG ?? 'Unknown',
-      admin: p.ADMIN ?? null,
-      adm0A3: p.ADM0_A3 ?? null,
-      isoA3: p.ISO_A3 ?? null,
-      isoN3: p.ISO_N3 ?? null,
-      unA3: p.UN_A3 ?? null,
-    },
-    geometry: {
-      type: 'Point',
-      coordinates: representativePoint(feature),
-    },
-  };
-}
-
 function sqSegmentDistance(point, start, end) {
   let x = start[0];
   let y = start[1];
@@ -258,23 +185,14 @@ async function writeJson(path, value) {
 
 await mkdir(outputRoot, { recursive: true });
 
-const [
-  countries110,
-  countries50,
-  disputed50,
-  boundaries50,
-  tiny110,
-  tiny50,
-  countries10,
-] = await Promise.all([
-  load('ne_110m_admin_0_countries.geojson'),
-  load('ne_50m_admin_0_countries.geojson'),
-  load('ne_50m_admin_0_breakaway_disputed_areas.geojson'),
-  load('ne_50m_admin_0_boundary_lines_disputed_areas.geojson'),
-  load('ne_110m_admin_0_tiny_countries.geojson'),
-  load('ne_50m_admin_0_tiny_countries.geojson'),
-  load('ne_10m_admin_0_countries.geojson'),
-]);
+const [countries110, countries50, disputed50, boundaries50] = await Promise.all(
+  [
+    load('ne_110m_admin_0_countries.geojson'),
+    load('ne_50m_admin_0_countries.geojson'),
+    load('ne_50m_admin_0_breakaway_disputed_areas.geojson'),
+    load('ne_50m_admin_0_boundary_lines_disputed_areas.geojson'),
+  ],
+);
 
 const detailedDisputed = {
   type: 'FeatureCollection',
@@ -283,11 +201,6 @@ const detailedDisputed = {
 const detailedBoundaries = {
   type: 'FeatureCollection',
   features: boundaries50.features.map(minimalBoundary),
-};
-
-const fallbackPrimaryMarkers = {
-  type: 'FeatureCollection',
-  features: countries10.features.map(fallbackMarker),
 };
 
 const outputs = {
@@ -300,21 +213,12 @@ const outputs = {
     detailedBoundaries,
     0.22,
   ),
-  '110m/tiny-countries.json': {
-    type: 'FeatureCollection',
-    features: tiny110.features.map(minimalTinyCountry),
-  },
   '50m/countries.json': {
     type: 'FeatureCollection',
     features: countries50.features.map(minimalCountry),
   },
   '50m/disputed-areas.json': detailedDisputed,
   '50m/disputed-boundaries.json': detailedBoundaries,
-  '50m/tiny-countries.json': {
-    type: 'FeatureCollection',
-    features: tiny50.features.map(minimalTinyCountry),
-  },
-  'fallback-primary-markers.json': fallbackPrimaryMarkers,
 };
 
 for (const path of Object.keys(outputs)) {
@@ -328,21 +232,18 @@ await writeJson('manifest.json', {
   schemaVersion: 1,
   source: 'Natural Earth',
   sourceVersion: VERSION,
-  fallbackMarkerSource: 'Natural Earth 10m country label/geometry',
   generatedBy: 'packages/data-pipeline/map/build-lod.mjs',
   levels: {
     '110m': {
       countries: '110m/countries.json',
       disputedAreas: '110m/disputed-areas.json',
       disputedBoundaries: '110m/disputed-boundaries.json',
-      tinyCountries: '110m/tiny-countries.json',
       disputedSource: '50m source simplified to overview tolerance',
     },
     '50m': {
       countries: '50m/countries.json',
       disputedAreas: '50m/disputed-areas.json',
       disputedBoundaries: '50m/disputed-boundaries.json',
-      tinyCountries: '50m/tiny-countries.json',
       disputedSource: 'Natural Earth 50m',
     },
   },

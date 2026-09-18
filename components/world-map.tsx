@@ -12,7 +12,6 @@ import {
   MERCATOR_VIEWBOX_HEIGHT,
   MERCATOR_VIEWBOX_WIDTH,
   MERCATOR_WORLD_SIZE,
-  projectMercator,
 } from '@/lib/mercator';
 
 export type MapHoverEntity = {
@@ -60,12 +59,6 @@ type ShapePackage = {
       path: string;
     }
   >;
-  tinyCountries: Array<
-    (typeof mapGeometryByLod)['110m']['tinyCountries'][number] & {
-      x: number;
-      y: number;
-    }
-  >;
 };
 
 const MIN_SCALE = 1;
@@ -94,13 +87,6 @@ function createShapePackage(lod: MapLod): ShapePackage {
       ...boundary,
       path: geometryToMercatorLinePath(boundary.geometry),
     })),
-    tinyCountries: geometry.tinyCountries.map((marker) => {
-      const [x, y] = projectMercator(
-        marker.coordinates[0] ?? 0,
-        marker.coordinates[1] ?? 0,
-      );
-      return { ...marker, x, y };
-    }),
   };
 }
 
@@ -174,16 +160,6 @@ function baseFill(
       : 'var(--map-disputed)';
   }
 
-  return 'var(--map-land)';
-}
-
-function tinyCountryFill(
-  entityId: string,
-  selectedEntityId: string | null,
-  related: Set<string> | null,
-) {
-  if (entityId === selectedEntityId) return 'var(--map-selected)';
-  if (related?.has(entityId)) return 'var(--map-related)';
   return 'var(--map-land)';
 }
 
@@ -315,9 +291,6 @@ export function WorldMap({
 
   function renderWorldCopy(copyOffset: number) {
     const translateX = copyOffset * MERCATOR_WORLD_SIZE;
-    const markerRadius = 4 / viewport.scale;
-    const markerHitRadius = 8 / viewport.scale;
-
     return (
       <g
         key={copyOffset}
@@ -441,59 +414,6 @@ export function WorldMap({
             pointerEvents="none"
           />
         ))}
-
-        {shapes.tinyCountries.map((marker) => {
-          const country = primaryCountryByEntityId.get(marker.entityId);
-          if (!country) return null;
-
-          const hoverEntity: MapHoverEntity = {
-            entityId: marker.entityId,
-            name: marker.name,
-            kind: 'primary-state',
-          };
-          const fill = tinyCountryFill(
-            marker.entityId,
-            selectedEntityId,
-            related,
-          );
-
-          return (
-            <a
-              key={`${copyOffset}:tiny:${marker.entityId}`}
-              href={`#country=${marker.m49 ?? marker.entityId}`}
-              data-map-interactive-entity
-              data-tiny-country-marker
-              data-entity-id={marker.entityId}
-              tabIndex={copyOffset === 0 ? undefined : -1}
-              aria-label={marker.name}
-              onPointerEnter={() => hover(hoverEntity)}
-              onPointerLeave={() => hover(null)}
-              onFocus={() => hover(hoverEntity)}
-              onBlur={() => hover(null)}
-              onClick={(event) => {
-                event.preventDefault();
-                onSelect(country.entityId, country.name, country.m49);
-              }}
-            >
-              <circle
-                cx={marker.x}
-                cy={marker.y}
-                r={markerHitRadius}
-                fill="transparent"
-              />
-              <circle
-                cx={marker.x}
-                cy={marker.y}
-                r={markerRadius}
-                fill={fill}
-                stroke="var(--map-border)"
-                strokeWidth={0.8}
-                vectorEffect="non-scaling-stroke"
-                className="cursor-pointer"
-              />
-            </a>
-          );
-        })}
       </g>
     );
   }

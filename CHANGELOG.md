@@ -6,8 +6,7 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Added
 
-- Synchronized 110m/50m map LOD packages for countries, disputed areas, disputed boundaries, and tiny-country markers.
-- Tiny-country markers keep microstates and small island states discoverable and selectable when polygon geometry is too small at world scale.
+- Synchronized 110m/50m map LOD packages for countries, disputed areas, and disputed boundaries.
 - Canonical map-entity identities that distinguish primary countries, dependencies, overseas territories, disputed territories, and non-country map areas.
 - Natural Earth 50m disputed-area and disputed-boundary layers.
 - Separate map colours for dependencies/overseas territories and disputed territories, including associated-state highlighting.
@@ -24,5 +23,6 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Fixed
 
+- Removed tiny-country circle markers that could create misleading visual emphasis for countries such as Norway; countries that are too small to render remain available through search.
 - Northern Cyprus, Somaliland, and Kosovo no longer share a missing/undefined map identity.
 - Selecting Kosovo no longer causes unrelated non-M49 geometries to receive the same selected-state treatment.
