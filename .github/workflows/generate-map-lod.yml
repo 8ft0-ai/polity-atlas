@@ -24,12 +24,12 @@ jobs:
       - run: node packages/data-pipeline/map/build-lod.mjs
       - name: Commit generated assets
         run: |
-          if git diff --quiet -- public/data/geometry/lod; then
+          git add public/data/geometry/lod
+          if git diff --cached --quiet; then
             echo "No generated changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/data/geometry/lod
           git commit -m "Generate synchronized map LOD assets"
           git push origin HEAD:feat/map-lod
