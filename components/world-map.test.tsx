@@ -32,8 +32,6 @@ describe('WorldMap entity interaction', () => {
     expect(onSelect).toHaveBeenCalledWith('state:m49:036', 'Australia', '036');
   });
 
-
-
   it('keeps a stationary pointer gesture as a country click', () => {
     const onSelect = vi.fn();
     const { container } = renderMap({ onSelect });
