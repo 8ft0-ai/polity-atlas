@@ -130,7 +130,6 @@ function WorkspaceContent() {
           selectedM49={selectedM49}
           relatedM49={selectedM49 === '036' ? australiaRelations : []}
           relationMode={activeTab === 'relations'}
-          theme={theme}
           onSelect={selectCountry}
         />
 
