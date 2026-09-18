@@ -4,6 +4,7 @@ import { useWorkspaceStore } from './workspace-store';
 describe('workspace store country selection', () => {
   beforeEach(() => {
     useWorkspaceStore.setState({
+      selectedEntityId: 'state:m49:036',
       selectedM49: '036',
       selectedName: 'Australia',
       activeTab: 'overview',
@@ -15,6 +16,7 @@ describe('workspace store country selection', () => {
     useWorkspaceStore.getState().clearCountry();
 
     expect(useWorkspaceStore.getState()).toMatchObject({
+      selectedEntityId: null,
       selectedM49: null,
       selectedName: null,
       activeTab: 'overview',
@@ -23,12 +25,25 @@ describe('workspace store country selection', () => {
 
   it('reopens a country selection after it has been cleared', () => {
     useWorkspaceStore.getState().clearCountry();
-    useWorkspaceStore.getState().setCountry('554', 'New Zealand');
+    useWorkspaceStore
+      .getState()
+      .setCountry('state:m49:554', 'New Zealand', '554');
 
     expect(useWorkspaceStore.getState()).toMatchObject({
+      selectedEntityId: 'state:m49:554',
       selectedM49: '554',
       selectedName: 'New Zealand',
       activeTab: 'overview',
+    });
+  });
+
+  it('supports a primary entity without an M49 code', () => {
+    useWorkspaceStore.getState().setCountry('state:XKX', 'Kosovo');
+
+    expect(useWorkspaceStore.getState()).toMatchObject({
+      selectedEntityId: 'state:XKX',
+      selectedM49: null,
+      selectedName: 'Kosovo',
     });
   });
 });
