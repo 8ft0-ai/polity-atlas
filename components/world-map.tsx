@@ -236,28 +236,27 @@ export function WorldMap({
                 : 'var(--map-land)';
 
             return (
-              <path
+              <a
                 key={country.m49}
-                d={country.path}
-                data-m49={country.m49}
-                fill={fill}
-                fillRule="evenodd"
-                stroke="var(--map-border)"
-                strokeWidth={0.65}
-                vectorEffect="non-scaling-stroke"
-                role="button"
-                tabIndex={0}
+                href={`#country=${country.m49}`}
                 aria-label={country.name}
-                aria-pressed={selected}
-                className="cursor-pointer focus:outline-none"
-                onClick={() => selectCountry(country.m49, country.name)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    onSelect(country.m49, country.name);
-                  }
+                aria-current={selected ? 'location' : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  selectCountry(country.m49, country.name);
                 }}
-              />
+              >
+                <path
+                  d={country.path}
+                  data-m49={country.m49}
+                  fill={fill}
+                  fillRule="evenodd"
+                  stroke="var(--map-border)"
+                  strokeWidth={0.65}
+                  vectorEffect="non-scaling-stroke"
+                  className="cursor-pointer focus:outline-none"
+                />
+              </a>
             );
           })}
         </g>
