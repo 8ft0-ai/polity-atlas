@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-18",
+  "identity": {
+    "iso2": "ID",
+    "iso3": "IDN",
+    "m49": "360",
+    "name": "Indonesia",
+    "officialName": "Republic of Indonesia",
+    "capital": "Jakarta"
+  },
+  "government": {
+    "system": {
+      "value": "Unitary presidential republic",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": [
+        "id-country"
+      ],
+      "confidence": "verified"
+    },
+    "headOfState": [
+      {
+        "office": "President",
+        "name": "Prabowo Subianto",
+        "since": "2024-10-20",
+        "sourceIds": [
+          "id-president"
+        ]
+      }
+    ],
+    "headOfGovernment": [
+      {
+        "office": "President",
+        "name": "Prabowo Subianto",
+        "since": "2024-10-20",
+        "sourceIds": [
+          "id-president"
+        ]
+      }
+    ]
+  },
+  "parliament": {
+    "name": {
+      "value": "People's Consultative Assembly",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": [
+        "id-dpr",
+        "id-dpd"
+      ],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "dpr",
+        "name": "House of Representatives (DPR)",
+        "kind": "lower",
+        "totalSeats": 580,
+        "compositionAsOf": "2026-09-18",
+        "composition": [
+          {
+            "party": "Indonesian Democratic Party of Struggle",
+            "shortName": "PDI-P",
+            "seats": 110,
+            "color": "#D71920"
+          },
+          {
+            "party": "Golkar Party",
+            "shortName": "Golkar",
+            "seats": 102,
+            "color": "#F6D32D"
+          },
+          {
+            "party": "Gerindra Party",
+            "shortName": "Gerindra",
+            "seats": 86,
+            "color": "#B71C1C"
+          },
+          {
+            "party": "NasDem Party",
+            "shortName": "NasDem",
+            "seats": 69,
+            "color": "#1D4F91"
+          },
+          {
+            "party": "National Awakening Party",
+            "shortName": "PKB",
+            "seats": 68,
+            "color": "#2AA84A"
+          },
+          {
+            "party": "Prosperous Justice Party",
+            "shortName": "PKS",
+            "seats": 53,
+            "color": "#F58220"
+          },
+          {
+            "party": "National Mandate Party",
+            "shortName": "PAN",
+            "seats": 48,
+            "color": "#1D73B7"
+          },
+          {
+            "party": "Democratic Party",
+            "shortName": "Demokrat",
+            "seats": 44,
+            "color": "#1E4E9A"
+          }
+        ],
+        "sourceIds": [
+          "id-dpr"
+        ]
+      },
+      {
+        "id": "dpd",
+        "name": "Regional Representative Council (DPD)",
+        "kind": "upper",
+        "totalSeats": 152,
+        "compositionAsOf": "2026-09-18",
+        "composition": [
+          {
+            "party": "Nonpartisan members",
+            "shortName": "Nonpartisan",
+            "seats": 152,
+            "color": "#777777"
+          }
+        ],
+        "sourceIds": [
+          "id-dpd"
+        ]
+      }
+    ]
+  },
+  "elections": [
+    {
+      "title": "2029 Indonesian general election",
+      "status": "expected",
+      "dateLabel": "2029",
+      "note": "The next national legislative and presidential election cycle is expected in 2029; a polling date has not been recorded in this profile.",
+      "sourceIds": [
+        "id-election"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "country": "Australia",
+      "m49": "036",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    },
+    {
+      "country": "New Zealand",
+      "m49": "554",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    },
+    {
+      "country": "Canada",
+      "m49": "124",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    },
+    {
+      "country": "United States of America",
+      "m49": "840",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    },
+    {
+      "country": "United Kingdom",
+      "m49": "826",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    },
+    {
+      "country": "France",
+      "m49": "250",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    },
+    {
+      "country": "China",
+      "m49": "156",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    },
+    {
+      "country": "India",
+      "m49": "356",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    },
+    {
+      "country": "Japan",
+      "m49": "392",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "id-missions"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "id-country",
+      "publisher": "Wikipedia",
+      "title": "Indonesia",
+      "url": "https://en.wikipedia.org/wiki/Indonesia",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "id-president",
+      "publisher": "Portal Informasi Indonesia",
+      "title": "Presiden & Wakil Presiden",
+      "url": "https://indonesia.go.id/profile/presiden-wapre",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "id-dpr",
+      "publisher": "Wikipedia",
+      "title": "House of Representatives (Indonesia)",
+      "url": "https://en.wikipedia.org/wiki/House_of_Representatives_(Indonesia)",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "id-dpd",
+      "publisher": "Dewan Perwakilan Daerah Republik Indonesia",
+      "title": "DPD members 2024–2029",
+      "url": "https://satudata.dpd.go.id/dataset/kompilasi-data-anggota-dewan-perwakilan-daerah-republik-indonesia-dpd-ri-periode-2024-2029",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "id-election",
+      "publisher": "Wikipedia",
+      "title": "2029 Indonesian general election",
+      "url": "https://en.wikipedia.org/wiki/2029_Indonesian_general_election",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "id-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of Indonesia",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Indonesia",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    }
+  ]
+}
