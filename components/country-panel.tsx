@@ -89,14 +89,15 @@ function SeatBar({
     groupings.map((grouping) => [grouping.id, grouping.name]),
   );
 
-  let cumulativeFraction = 0;
-  const seatSegments = chamber.composition.map((group) => {
-    const startFraction = cumulativeFraction;
+  const seatSegments = chamber.composition.map((group, index) => {
+    const seatsBefore = chamber.composition
+      .slice(0, index)
+      .reduce((total, entry) => total + entry.seats, 0);
+    const startFraction = seatsBefore / chamber.totalSeats;
     const endFraction = Math.min(
       1,
       startFraction + group.seats / chamber.totalSeats,
     );
-    cumulativeFraction = endFraction;
 
     return {
       ...group,
@@ -110,10 +111,10 @@ function SeatBar({
       <svg
         viewBox="0 0 200 116"
         className="h-32 w-full overflow-visible"
-        role="img"
         aria-label={`${chamber.name} seating composition semicircle`}
         data-seat-semicircle={chamber.id}
       >
+        <title>{`${chamber.name} seating composition semicircle`}</title>
         <path
           d={semicircleArcPath(0, 1)}
           fill="none"
