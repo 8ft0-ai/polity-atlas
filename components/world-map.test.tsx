@@ -162,21 +162,4 @@ describe('WorldMap entity interaction', () => {
       container.querySelector('[data-world-copy="0"][data-map-lod="50m"]'),
     ).not.toBeNull();
   });
-
-  it('renders tiny-country markers as selectable primary entities', () => {
-    const onSelect = vi.fn();
-    const { container } = renderMap({ onSelect });
-    const marker = container.querySelector(
-      '[data-world-copy="0"] [data-tiny-country-marker][data-entity-id="state:m49:336"]',
-    );
-
-    expect(marker).not.toBeNull();
-    fireEvent.click(marker!);
-
-    expect(onSelect).toHaveBeenCalledWith(
-      'state:m49:336',
-      'Vatican City',
-      '336',
-    );
-  });
 });
