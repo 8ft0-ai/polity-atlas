@@ -277,11 +277,16 @@ const primaryEntityIdByName = new Map(normalisedAliases);
 
 export function findPrimaryCountry(token: string) {
   const normalised = token.trim();
+  const lower = normalised.toLowerCase();
+
   return (
     primaryCountryByEntityId.get(normalised) ??
     primaryCountryByM49.get(normalised) ??
     countryOptions.find(
-      (country) => country.name.toLowerCase() === normalised.toLowerCase(),
+      (country) =>
+        country.name.toLowerCase() === lower ||
+        country.aliases.some((alias) => alias.toLowerCase() === lower) ||
+        country.entityId.split(':').at(-1)?.toLowerCase() === lower,
     )
   );
 }
