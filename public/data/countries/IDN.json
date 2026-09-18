@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
   "identity": {
     "iso2": "ID",
     "iso3": "IDN",
@@ -14,7 +14,9 @@
       "value": "Unitary presidential republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["id-country"],
+      "sourceIds": [
+        "id-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Prabowo Subianto",
         "since": "2024-10-20",
-        "sourceIds": ["id-president"]
+        "sourceIds": [
+          "id-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "President",
         "name": "Prabowo Subianto",
         "since": "2024-10-20",
-        "sourceIds": ["id-president"]
+        "sourceIds": [
+          "id-president"
+        ]
       }
     ]
   },
@@ -39,93 +45,103 @@
       "value": "People's Consultative Assembly",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["id-dpr", "id-dpd"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "dpr",
-        "name": "House of Representatives (DPR)",
-        "kind": "lower",
-        "totalSeats": 580,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "id": "ID-LC01",
+        "name": "House of Representatives",
+        "kind": "unicameral",
+        "statutorySeats": 580,
+        "termYears": 5,
+        "designationMode": "Directly elected",
+        "speakers": [
           {
-            "party": "Indonesian Democratic Party of Struggle",
-            "shortName": "PDI-P",
-            "seats": 110,
-            "color": "#D71920"
-          },
-          {
-            "party": "Golkar Party",
-            "shortName": "Golkar",
-            "seats": 102,
-            "color": "#F6D32D"
-          },
-          {
-            "party": "Gerindra Party",
-            "shortName": "Gerindra",
-            "seats": 86,
-            "color": "#B71C1C"
-          },
-          {
-            "party": "NasDem Party",
-            "shortName": "NasDem",
-            "seats": 69,
-            "color": "#1D4F91"
-          },
-          {
-            "party": "National Awakening Party",
-            "shortName": "PKB",
-            "seats": 68,
-            "color": "#2AA84A"
-          },
-          {
-            "party": "Prosperous Justice Party",
-            "shortName": "PKS",
-            "seats": 53,
-            "color": "#F58220"
-          },
-          {
-            "party": "National Mandate Party",
-            "shortName": "PAN",
-            "seats": 48,
-            "color": "#1D73B7"
-          },
-          {
-            "party": "Democratic Party",
-            "shortName": "Demokrat",
-            "seats": 44,
-            "color": "#1E4E9A"
+            "name": "Puan Maharani",
+            "officialTitle": "Speaker of the House of Representatives",
+            "termStart": "2019-10-02",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["id-dpr"]
-      },
-      {
-        "id": "dpd",
-        "name": "Regional Representative Council (DPD)",
-        "kind": "upper",
-        "totalSeats": 152,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
-          {
-            "party": "Nonpartisan members",
-            "shortName": "Nonpartisan",
-            "seats": 152,
-            "color": "#777777"
-          }
-        ],
-        "sourceIds": ["id-dpd"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "system": "Proportional representation",
+          "subsystem": "List Proportional Representation (List PR)",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "ID-LC01-E20240214",
+          "date": {
+            "from": "2024-02-14"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 580,
+          "postElectionComposition": [
+            {
+              "party": "Indonesian Democratic Party - Struggle (PDI-P)",
+              "seats": 110
+            },
+            {
+              "party": "Party of Functional Groups (Golkar)",
+              "seats": 102
+            },
+            {
+              "party": "Great Indonesia Movement (Gerindra)",
+              "seats": 86
+            },
+            {
+              "party": "National Democratic Party (NasDem)",
+              "seats": 69
+            },
+            {
+              "party": "National Awakening Party (PKB)",
+              "seats": 68
+            },
+            {
+              "party": "Prosperous Justice Party (PKS)",
+              "seats": 53
+            },
+            {
+              "party": "National Mandate Party (PAN)",
+              "seats": 48
+            },
+            {
+              "party": "Democratic Party (PD)",
+              "seats": 44
+            }
+          ],
+          "postElectionTotalSeats": 580,
+          "expectedNextDate": "2029-04-30",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       }
     ]
   },
   "elections": [
     {
-      "title": "2029 Indonesian general election",
+      "id": "ID-LC01-next",
+      "title": "House of Representatives next election or renewal",
+      "level": "national",
+      "chamberId": "ID-LC01",
+      "eventType": "chamber-election",
       "status": "expected",
-      "dateLabel": "2029",
-      "note": "The next national legislative and presidential election cycle is expected in 2029; a polling date has not been recorded in this profile.",
-      "sourceIds": ["id-election"]
+      "dateLabel": "30 April 2029",
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -134,63 +150,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     }
   ],
   "sources": [
@@ -211,36 +245,22 @@
       "kind": "official"
     },
     {
-      "id": "id-dpr",
-      "publisher": "Wikipedia",
-      "title": "House of Representatives (Indonesia)",
-      "url": "https://en.wikipedia.org/wiki/House_of_Representatives_(Indonesia)",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "id-dpd",
-      "publisher": "Dewan Perwakilan Daerah Republik Indonesia",
-      "title": "DPD members 2024–2029",
-      "url": "https://satudata.dpd.go.id/dataset/kompilasi-data-anggota-dewan-perwakilan-daerah-republik-indonesia-dpd-ri-periode-2024-2029",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "id-election",
-      "publisher": "Wikipedia",
-      "title": "2029 Indonesian general election",
-      "url": "https://en.wikipedia.org/wiki/2029_Indonesian_general_election",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
       "id": "id-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of Indonesia",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Indonesia",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "IPU Parline",
+      "url": "https://data.ipu.org/parliament/ID/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use"
     }
   ]
 }

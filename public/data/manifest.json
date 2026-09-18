@@ -1,6 +1,27 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-17",
-  "generatedAt": "2026-09-17T00:00:00.000Z",
-  "profiles": ["AUS"]
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
+  "generatedAt": "2026-09-18T00:00:00.000Z",
+  "profiles": [
+    "AUS",
+    "NZL",
+    "CAN",
+    "USA",
+    "GBR",
+    "FRA",
+    "CHN",
+    "IND",
+    "IDN",
+    "JPN"
+  ],
+  "providers": [
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "dataset": "Parline",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "apiKeyRequired": false
+    }
+  ]
 }

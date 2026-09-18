@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
   "identity": {
     "iso2": "IN",
     "iso3": "IND",
@@ -14,7 +14,9 @@
       "value": "Federal parliamentary republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["in-country"],
+      "sourceIds": [
+        "in-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Droupadi Murmu",
         "since": "2022-07-25",
-        "sourceIds": ["in-president"]
+        "sourceIds": [
+          "in-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Narendra Modi",
         "since": "2014-05-26",
-        "sourceIds": ["in-prime-minister"]
+        "sourceIds": [
+          "in-prime-minister"
+        ]
       }
     ]
   },
@@ -39,117 +45,296 @@
       "value": "Parliament of India",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["in-lok-sabha", "in-rajya-sabha"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "lok-sabha",
-        "name": "Lok Sabha",
+        "id": "IN-LC01",
+        "name": "House of the People",
         "kind": "lower",
-        "totalSeats": 543,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "statutorySeats": 545,
+        "termYears": 5,
+        "designationMode": "Directly elected",
+        "speakers": [
           {
-            "party": "Bharatiya Janata Party",
-            "shortName": "BJP",
-            "seats": 240,
-            "color": "#FF9933"
-          },
-          {
-            "party": "Indian National Congress",
-            "shortName": "INC",
-            "seats": 98,
-            "color": "#00BFFF"
-          },
-          {
-            "party": "Samajwadi Party",
-            "shortName": "SP",
-            "seats": 37,
-            "color": "#D71920"
-          },
-          {
-            "party": "All India Trinamool Congress",
-            "shortName": "AITC",
-            "seats": 28,
-            "color": "#20C646"
-          },
-          {
-            "party": "Dravida Munnetra Kazhagam",
-            "shortName": "DMK",
-            "seats": 22,
-            "color": "#DD1100"
-          },
-          {
-            "party": "Telugu Desam Party",
-            "shortName": "TDP",
-            "seats": 16,
-            "color": "#F2D600"
-          },
-          {
-            "party": "Shiv Sena",
-            "shortName": "Shiv Sena",
-            "seats": 13,
-            "color": "#F58220"
-          },
-          {
-            "party": "Janata Dal (United)",
-            "shortName": "JD(U)",
-            "seats": 12,
-            "color": "#1D5F91"
-          },
-          {
-            "party": "Nationalist Congress Party – Sharadchandra Pawar",
-            "shortName": "NCP-SP",
-            "seats": 8,
-            "color": "#00A859"
-          },
-          {
-            "party": "Other parties and independents",
-            "shortName": "Other",
-            "seats": 66,
-            "color": "grey"
+            "name": "Om Birla",
+            "officialTitle": "Speaker of the House of the People",
+            "termStart": "2019-06-19",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["in-lok-sabha"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "system": "Plurality/majority",
+          "subsystem": "First Past The Post (FPTP)",
+          "minimumVotingAge": 18,
+          "minimumEligibilityAge": 25,
+          "compulsoryVoting": "no",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "IN-LC01-E20240419",
+          "date": {
+            "from": "2024-04-19",
+            "to": "2024-06-01"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 543,
+          "postElectionComposition": [
+            {
+              "party": "Bharatiya Janata Party (BJP)",
+              "seats": 240
+            },
+            {
+              "party": "Indian National Congress (INC)",
+              "seats": 99
+            },
+            {
+              "party": "Samajwadi Party (SP)",
+              "seats": 37
+            },
+            {
+              "party": "All India Trinamool Congress (AITC)",
+              "seats": 29
+            },
+            {
+              "party": "Dravida Munnetra Kazhagam (DMK)",
+              "seats": 22
+            },
+            {
+              "party": "Telugu Desam Party (TDP)",
+              "seats": 16
+            },
+            {
+              "party": "Janata Dal (United) (JD(U))",
+              "seats": 12
+            },
+            {
+              "party": "Shiv Sena (SS)",
+              "seats": 9
+            },
+            {
+              "party": "Nationalist Congress Party Party – Sharadchandra Pawar (NCPSP)",
+              "seats": 8
+            },
+            {
+              "party": "Shiv Sena",
+              "seats": 7
+            },
+            {
+              "party": "Lok Jan Shakti Party (Ram Vilas) – LJPRV",
+              "seats": 5
+            },
+            {
+              "party": "Yuvajana Sramika Rythu Congress Party (YSRCP)",
+              "seats": 4
+            },
+            {
+              "party": "Rashtriya Janata Dal (RJD)",
+              "seats": 4
+            },
+            {
+              "party": "Communist Party of India (Marxist) (CPI (M))",
+              "seats": 4
+            },
+            {
+              "party": "Indian Union Muslim League (IUML)",
+              "seats": 3
+            },
+            {
+              "party": "Aam Aadmi Party (AAP)",
+              "seats": 3
+            },
+            {
+              "party": "Jharkhand Mukti Morcha (JMM)",
+              "seats": 3
+            },
+            {
+              "party": "Janasena Party – JnP",
+              "seats": 2
+            },
+            {
+              "party": "Communist Party of India (Marxist-Leninist) (Liberation) - CPI(ML)(L)",
+              "seats": 2
+            },
+            {
+              "party": "Janata Dal (Secular) (JD(S))",
+              "seats": 2
+            },
+            {
+              "party": "Viduthalai Chiruthaigal Katchi (VCK)",
+              "seats": 2
+            },
+            {
+              "party": "Communist Party of India (CPI)",
+              "seats": 2
+            },
+            {
+              "party": "Rashtriya Lok Dal (RLD)",
+              "seats": 2
+            },
+            {
+              "party": "Jammu and Kashmir National Conference (J&KNC)",
+              "seats": 2
+            },
+            {
+              "party": "United People’s Party, Liberal (UPPL)",
+              "seats": 1
+            },
+            {
+              "party": "Asom Gana Parishad (AGP)",
+              "seats": 1
+            },
+            {
+              "party": "Hindustani Awam Morcha (Secular)",
+              "seats": 1
+            },
+            {
+              "party": "Kerala Congress (M) (KC(M))",
+              "seats": 1
+            },
+            {
+              "party": "Revolutionary Socialist Party (RSP)",
+              "seats": 1
+            },
+            {
+              "party": "Nationalist Congress Party (NCP)",
+              "seats": 1
+            },
+            {
+              "party": "Voice of the People Party (VOTPP)",
+              "seats": 1
+            },
+            {
+              "party": "Zoram People’s Movement (ZPM)",
+              "seats": 1
+            },
+            {
+              "party": "Shiromani Akali Dal (SAD)",
+              "seats": 1
+            },
+            {
+              "party": "Rashtriya Loktantrik Party (RLP)",
+              "seats": 1
+            },
+            {
+              "party": "Bharat Adivasi Party (BHRTADVSIP)",
+              "seats": 1
+            },
+            {
+              "party": "Sikkim Krantikari Morcha (SKM)",
+              "seats": 1
+            },
+            {
+              "party": "Marumalarchi Dravida Munnetra Kazhagam (MDMK)",
+              "seats": 1
+            },
+            {
+              "party": "Aazad Samaj Party (Kanshi Ram) (ASPKR)",
+              "seats": 1
+            },
+            {
+              "party": "Apna Dal (Soneylal)",
+              "seats": 1
+            },
+            {
+              "party": "AJSU Party (AJSU)",
+              "seats": 1
+            },
+            {
+              "party": "All India Majlis-E-Ittehadul Muslimeen (AIMIM)",
+              "seats": 1
+            },
+            {
+              "party": "Independents",
+              "seats": 7
+            }
+          ],
+          "postElectionTotalSeats": 543,
+          "expectedNextDate": "2029-04-30",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       },
       {
-        "id": "rajya-sabha",
-        "name": "Rajya Sabha",
+        "id": "IN-UC01",
+        "name": "Council of States",
         "kind": "upper",
-        "totalSeats": 245,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "statutorySeats": 245,
+        "termYears": 6,
+        "designationMode": "Indirectly elected",
+        "speakers": [
           {
-            "party": "National Democratic Alliance",
-            "shortName": "NDA",
-            "seats": 144,
-            "color": "#FF9933"
-          },
-          {
-            "party": "INDIA alliance",
-            "shortName": "INDIA",
-            "seats": 75,
-            "color": "#2F6AB3"
-          },
-          {
-            "party": "Other and unaligned members",
-            "shortName": "Other",
-            "seats": 23,
-            "color": "grey"
+            "name": "C. P. Radhakrishnan",
+            "officialTitle": "Chairman of the Council of States",
+            "termStart": "2025-09-12",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["in-rajya-sabha"]
+        "electoralSystem": {
+          "directlyElected": false,
+          "minimumEligibilityAge": 30,
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "IN-UC01-E20260316",
+          "date": {
+            "from": "2026-03-16"
+          },
+          "scope": "partial-renewal",
+          "seatsAtStake": 72,
+          "expectedNextDate": "2028-03-31",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       }
     ]
   },
   "elections": [
     {
-      "title": "Next Indian general election",
+      "id": "IN-LC01-next",
+      "title": "House of the People next election or renewal",
+      "level": "national",
+      "chamberId": "IN-LC01",
+      "eventType": "chamber-election",
       "status": "expected",
-      "dateLabel": "By 2029",
-      "note": "The next Lok Sabha general election is expected by 2029 unless the House is dissolved earlier.",
-      "sourceIds": ["in-election"]
+      "dateLabel": "30 April 2029",
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
+    },
+    {
+      "id": "IN-UC01-next",
+      "title": "Council of States next election or renewal",
+      "level": "national",
+      "chamberId": "IN-UC01",
+      "eventType": "partial-renewal",
+      "status": "expected",
+      "dateLabel": "31 March 2028",
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -158,63 +343,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     }
   ],
   "sources": [
@@ -243,36 +446,22 @@
       "kind": "official"
     },
     {
-      "id": "in-lok-sabha",
-      "publisher": "Digital Sansad",
-      "title": "Lok Sabha — party-wise representation",
-      "url": "https://sansad.in/ls/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "in-rajya-sabha",
-      "publisher": "Wikipedia",
-      "title": "Rajya Sabha",
-      "url": "https://en.wikipedia.org/wiki/Rajya_Sabha",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "in-election",
-      "publisher": "Wikipedia",
-      "title": "Next Indian general election",
-      "url": "https://en.wikipedia.org/wiki/Next_Indian_general_election",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
       "id": "in-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of India",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_India",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "IPU Parline",
+      "url": "https://data.ipu.org/parliament/IN/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use"
     }
   ]
 }

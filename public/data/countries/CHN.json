@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
   "identity": {
     "iso2": "CN",
     "iso3": "CHN",
@@ -14,7 +14,9 @@
       "value": "Unitary one-party socialist republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["cn-country"],
+      "sourceIds": [
+        "cn-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Xi Jinping",
         "since": "2013-03-14",
-        "sourceIds": ["cn-president"]
+        "sourceIds": [
+          "cn-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Premier",
         "name": "Li Qiang",
         "since": "2023-03-11",
-        "sourceIds": ["cn-premier"]
+        "sourceIds": [
+          "cn-premier"
+        ]
       }
     ]
   },
@@ -39,41 +45,65 @@
       "value": "National People's Congress",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["cn-npc"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "npc",
+        "id": "CN-LC01",
         "name": "National People's Congress",
         "kind": "unicameral",
-        "totalSeats": 2878,
-        "compositionAsOf": "2026-04-30",
-        "composition": [
+        "statutorySeats": 3000,
+        "termYears": 5,
+        "designationMode": "Indirectly elected",
+        "speakers": [
           {
-            "party": "Chinese Communist Party and nonpartisan deputies",
-            "shortName": "CCP + nonpartisan",
-            "seats": 2504,
-            "color": "#DE2910"
-          },
-          {
-            "party": "Other legally recognised parties",
-            "shortName": "Other parties",
-            "seats": 374,
-            "color": "#F3C64E"
+            "name": "Zhao Leji",
+            "officialTitle": "Chairman of the Standing Committee",
+            "termStart": "2023-03-10",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["cn-npc-composition"]
+        "electoralSystem": {
+          "directlyElected": false,
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "CN-LC01-E20230305",
+          "date": {
+            "from": "2023-03-05"
+          },
+          "scope": "full-renewal",
+          "expectedNextDate": "2028-03-05",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       }
     ]
   },
   "elections": [
     {
-      "title": "15th National People's Congress",
+      "id": "CN-LC01-next",
+      "title": "National People's Congress next election or renewal",
+      "level": "national",
+      "chamberId": "CN-LC01",
+      "eventType": "indirect-election",
       "status": "expected",
-      "dateLabel": "By March 2028",
-      "note": "The 14th National People's Congress is scheduled to continue until March 2028; the exact first-session date for its successor has not been announced.",
-      "sourceIds": ["cn-next-npc"]
+      "dateLabel": "5 March 2028",
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -82,63 +112,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     }
   ],
   "sources": [
@@ -167,36 +215,22 @@
       "kind": "official"
     },
     {
-      "id": "cn-npc",
-      "publisher": "National People's Congress",
-      "title": "14th NPC fourth session",
-      "url": "https://www.npc.gov.cn/rdxwzx/xwzx2026/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "cn-npc-composition",
-      "publisher": "Wikipedia",
-      "title": "National People's Congress",
-      "url": "https://en.wikipedia.org/wiki/National_People%27s_Congress",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "cn-next-npc",
-      "publisher": "Wikipedia",
-      "title": "14th National People's Congress",
-      "url": "https://en.wikipedia.org/wiki/14th_National_People%27s_Congress",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
       "id": "cn-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of China",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_China",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "IPU Parline",
+      "url": "https://data.ipu.org/parliament/CN/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use"
     }
   ]
 }

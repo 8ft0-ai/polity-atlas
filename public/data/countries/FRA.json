@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-18-ipu-pilot-1",
   "identity": {
     "iso2": "FR",
     "iso3": "FRA",
@@ -14,7 +14,9 @@
       "value": "Unitary semi-presidential republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["fr-country"],
+      "sourceIds": [
+        "fr-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Emmanuel Macron",
         "since": "2017-05-14",
-        "sourceIds": ["fr-president"]
+        "sourceIds": [
+          "fr-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Sébastien Lecornu",
         "since": "2026-02-26",
-        "sourceIds": ["fr-prime-minister"]
+        "sourceIds": [
+          "fr-prime-minister"
+        ]
       }
     ]
   },
@@ -39,165 +45,187 @@
       "value": "French Parliament",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["fr-assembly", "fr-senate"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "assembly",
+        "id": "FR-LC01",
         "name": "National Assembly",
         "kind": "lower",
-        "totalSeats": 577,
-        "compositionAsOf": "2026-09-17",
-        "composition": [
+        "statutorySeats": 577,
+        "termYears": 5,
+        "designationMode": "Directly elected",
+        "speakers": [
           {
-            "party": "Rassemblement National",
-            "shortName": "RN",
-            "seats": 122,
-            "color": "#1B4D9B"
-          },
-          {
-            "party": "Ensemble pour la République",
-            "shortName": "EPR",
-            "seats": 90,
-            "color": "#F5C542"
-          },
-          {
-            "party": "La France insoumise – Nouveau Front Populaire",
-            "shortName": "LFI-NFP",
-            "seats": 71,
-            "color": "#CC2443"
-          },
-          {
-            "party": "Socialistes et apparentés",
-            "shortName": "Socialistes",
-            "seats": 67,
-            "color": "#E75480"
-          },
-          {
-            "party": "Droite Républicaine",
-            "shortName": "DR",
-            "seats": 48,
-            "color": "#2F5DA8"
-          },
-          {
-            "party": "Écologiste et Social",
-            "shortName": "Écologiste",
-            "seats": 38,
-            "color": "#45A947"
-          },
-          {
-            "party": "Les Démocrates",
-            "shortName": "Démocrates",
-            "seats": 37,
-            "color": "#F2A900"
-          },
-          {
-            "party": "Horizons & Indépendants",
-            "shortName": "Horizons",
-            "seats": 36,
-            "color": "#00A7B5"
-          },
-          {
-            "party": "Libertés, Indépendants, Outre-mer et Territoires",
-            "shortName": "LIOT",
-            "seats": 22,
-            "color": "#8A8A8A"
-          },
-          {
-            "party": "Gauche Démocrate et Républicaine",
-            "shortName": "GDR",
-            "seats": 17,
-            "color": "#C51B29"
-          },
-          {
-            "party": "Union des droites pour la République",
-            "shortName": "UDR",
-            "seats": 17,
-            "color": "#334F8D"
-          },
-          {
-            "party": "Non inscrit",
-            "shortName": "Non inscrit",
-            "seats": 12,
-            "color": "grey"
+            "name": "Yaël Braun-Pivet",
+            "officialTitle": "President of the National Assembly",
+            "termStart": "2022-06-28",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["fr-assembly"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "system": "Plurality/majority",
+          "subsystem": "Two-Round System (TRS)",
+          "minimumVotingAge": 18,
+          "minimumEligibilityAge": 18,
+          "compulsoryVoting": "no",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "FR-LC01-E20240630",
+          "date": {
+            "from": "2024-06-30",
+            "to": "2024-07-07"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 577,
+          "postElectionComposition": [
+            {
+              "party": "New Popular Front (NFP)/UG",
+              "seats": 178
+            },
+            {
+              "party": "Ensemble (presidential majority)",
+              "seats": 150
+            },
+            {
+              "party": "National Rally (RN)",
+              "seats": 125
+            },
+            {
+              "party": "The Republicans (LR)",
+              "seats": 39
+            },
+            {
+              "party": "Other parties of the right (DVD)",
+              "seats": 27
+            },
+            {
+              "party": "Union of the far right",
+              "seats": 17
+            },
+            {
+              "party": "Other left wing parties (DVG)",
+              "seats": 12
+            },
+            {
+              "party": "Regionalist (REG)",
+              "seats": 9
+            },
+            {
+              "party": "Other parties of the centre",
+              "seats": 6
+            },
+            {
+              "party": "Horizons (HOR)",
+              "seats": 6
+            },
+            {
+              "party": "Union of Democrats and Independents (UDI)",
+              "seats": 3
+            },
+            {
+              "party": "Socialist Party (PS)",
+              "seats": 2
+            },
+            {
+              "party": "Ecologist (ECO)",
+              "seats": 1
+            },
+            {
+              "party": "Far Right (EXD)",
+              "seats": 1
+            },
+            {
+              "party": "Others (DIV)",
+              "seats": 1
+            }
+          ],
+          "postElectionTotalSeats": 577,
+          "expectedNextDate": "2029-06-30",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       },
       {
-        "id": "senate",
+        "id": "FR-UC01",
         "name": "Senate",
         "kind": "upper",
-        "totalSeats": 348,
-        "compositionAsOf": "2026-09-17",
-        "composition": [
+        "statutorySeats": 348,
+        "termYears": 6,
+        "designationMode": "Indirectly elected",
+        "speakers": [
           {
-            "party": "Les Républicains",
-            "shortName": "LR",
-            "seats": 131,
-            "color": "#2F5DA8"
-          },
-          {
-            "party": "Socialiste, Écologiste et Républicain",
-            "shortName": "SER",
-            "seats": 64,
-            "color": "#E75480"
-          },
-          {
-            "party": "Union Centriste",
-            "shortName": "UC",
-            "seats": 59,
-            "color": "#F2A900"
-          },
-          {
-            "party": "Les Indépendants – République et Territoires",
-            "shortName": "LIRT",
-            "seats": 20,
-            "color": "#00A7B5"
-          },
-          {
-            "party": "Rassemblement des démocrates, progressistes et indépendants",
-            "shortName": "RDPI",
-            "seats": 19,
-            "color": "#F5C542"
-          },
-          {
-            "party": "Communiste Républicain Citoyen et Écologiste – Kanaky",
-            "shortName": "CRCE-K",
-            "seats": 18,
-            "color": "#C51B29"
-          },
-          {
-            "party": "Rassemblement Démocratique et Social Européen",
-            "shortName": "RDSE",
-            "seats": 17,
-            "color": "#9A5AA6"
-          },
-          {
-            "party": "Écologiste – Solidarité et Territoires",
-            "shortName": "EST",
-            "seats": 16,
-            "color": "#45A947"
-          },
-          {
-            "party": "Non-group",
-            "shortName": "Non-group",
-            "seats": 4,
-            "color": "grey"
+            "name": "Gérard Larcher",
+            "officialTitle": "President of the Senate",
+            "termStart": "2014-10-01",
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
-        "sourceIds": ["fr-senate"]
+        "electoralSystem": {
+          "directlyElected": false,
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "latestElection": {
+          "upstreamId": "FR-UC01-E20230924",
+          "date": {
+            "from": "2023-09-24"
+          },
+          "scope": "partial-renewal",
+          "seatsAtStake": 170,
+          "expectedNextDate": "2026-09-30",
+          "sourceIds": [
+            "ipu-parline"
+          ]
+        },
+        "sourceIds": [
+          "ipu-parline"
+        ]
       }
     ]
   },
   "elections": [
     {
-      "title": "2027 French presidential election",
-      "status": "confirmed",
-      "dateLabel": "18 April and 2 May 2027",
-      "note": "The first round is scheduled for 18 April 2027, with a second round on 2 May if required.",
-      "sourceIds": ["fr-election"]
+      "id": "FR-LC01-next",
+      "title": "National Assembly next election or renewal",
+      "level": "national",
+      "chamberId": "FR-LC01",
+      "eventType": "chamber-election",
+      "status": "expected",
+      "dateLabel": "30 June 2029",
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
+    },
+    {
+      "id": "FR-UC01-next",
+      "title": "Senate next election or renewal",
+      "level": "national",
+      "chamberId": "FR-UC01",
+      "eventType": "partial-renewal",
+      "status": "expected",
+      "dateLabel": "30 September 2026",
+      "note": "Expected date reported by IPU Parline; it may be based on law, practice, the chamber term or the timing of a partial renewal.",
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -206,63 +234,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["fr-missions"]
+      "sourceIds": [
+        "fr-missions"
+      ]
     }
   ],
   "sources": [
@@ -291,36 +337,22 @@
       "kind": "official"
     },
     {
-      "id": "fr-assembly",
-      "publisher": "Assemblée nationale",
-      "title": "Effectif des groupes politiques",
-      "url": "https://www2.assemblee-nationale.fr/instances/liste/groupes_politiques/effectif",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "fr-senate",
-      "publisher": "Sénat",
-      "title": "Liste des sénateurs par groupes politiques",
-      "url": "https://www.senat.fr/senateurs/grp.html",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "fr-election",
-      "publisher": "Service-Public.fr",
-      "title": "Élection présidentielle 2027",
-      "url": "https://www.service-public.gouv.fr/particuliers/actualites/A15053",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
       "id": "fr-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of France",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_France",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "IPU Parline",
+      "url": "https://data.ipu.org/parliament/FR/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use"
     }
   ]
 }
