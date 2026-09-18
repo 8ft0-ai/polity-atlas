@@ -6,6 +6,8 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Added
 
+- Generic IPU Parline acquisition/normalization scaffold, schema-v2 chamber metadata, Speaker/electoral-system fields, and multi-entry expected parliamentary-election events.
+- IPU dataset attribution and terms metadata in every pilot profile and the public data manifest.
 - Validated pilot country profiles for all ten configured pilot countries, with dated government, parliament, election, diplomatic-relation, and source provenance data.
 - Synchronized 110m/50m map LOD packages for countries, disputed areas, and disputed boundaries.
 - Canonical map-entity identities that distinguish primary countries, dependencies, overseas territories, disputed territories, and non-country map areas.
@@ -18,6 +20,9 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Changed
 
+- All ten pilot parliaments now use IPU Parline-backed national parliament/election snapshots instead of hand-maintained current-composition semantics.
+- Partial-renewal chambers show a full post-election chamber only when IPU supplies it; otherwise only the contested seats are shown and labelled.
+- The pilot manifest now lists all ten profiles and the IPU provider/attribution contract.
 - The workspace header now uses the supplied Polity Atlas light/dark logo assets instead of the PA monogram, text name, and subtitle.
 - Diplomatic-link highlighting now works consistently across all configured pilot profiles.
 - Parliament chamber composition now renders as a thicker semicircle with chamber-scoped grouping indicators and explanatory notes.

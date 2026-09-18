@@ -36,7 +36,7 @@ The first full release should provide:
 - A clickable and keyboard-searchable world map.
 - A profile for every supported sovereign state and separately identified territory.
 - Current heads of state and government.
-- Legislature name, chamber structure, seat counts, party composition, presiding officers, last election, and next known or expected election.
+- Legislature name, chamber structure, statutory seat counts, presiding officers, electoral systems, the most recent parliamentary election/renewal outcome, and one or more next known or expected parliamentary elections/renewals. Do not present election-result seats as current chamber composition.
 - Party profiles with abbreviation, leaders, seats by chamber, official links, and sourced ideological descriptions where reliable data exists.
 - Upcoming national elections with clearly distinguished `confirmed`, `tentative`, and `expected` dates.
 - Diplomatic mission relationships, including resident embassy/high commission, non-resident accreditation, interests section, suspended mission, or no diplomatic relations where a reliable source establishes it.
@@ -152,7 +152,7 @@ type CountryProfile = {
 };
 ```
 
-`Chamber.composition` contains `partyId`, `seats`, `asOf`, and source IDs. Store independents and vacant seats explicitly. Do not force the sum of named parties to equal total statutory seats; validate that the difference is explained by vacancies, appointed seats, unknown affiliation, or incomplete data.
+`Chamber.latestElection` records the latest election/renewal, seats at stake, result seats, and an optional full post-election composition supplied by the source. Statutory chamber size is stored independently from the post-election total because overhang or other additional seats can make them differ. For a partial renewal, never infer the whole chamber by combining prior elections or current-party sources: render a full post-renewal composition only when the upstream source supplies one; otherwise show only the contested-seat result. This model is deliberately not a current-composition tracker.
 
 ### Diplomatic relations as directed edges
 
@@ -211,7 +211,7 @@ Record conflicts instead of silently overwriting them. A curated override must i
 | Country IDs/names                     | UN M49 plus reviewed ISO mappings                                                     | Canonical names, regions, and codes.                         |
 | Boundaries                            | Natural Earth Admin 0 datasets                                                        | Country polygons, sovereignty/disputed layers, capitals.     |
 | Parliament/chambers/parties/elections | IPU Parline API                                                                       | Core parliamentary and historical election data.             |
-| Upcoming elections                    | National electoral commissions; IFES ElectionGuide where permitted                    | Dates and status. A proposed date must never look confirmed. |
+| Upcoming parliamentary elections      | IPU Parline for expected national parliamentary dates; electoral commissions for confirmation and non-Parline events | Preserve expected/confirmed semantics; Parline must not be presented as a local-election calendar. |
 | Leaders                               | Official government sites first; referenced Wikidata statements as discovery/fallback | Office holders, start dates, official pages.                 |
 | Diplomatic missions                   | Foreign-ministry mission directories and embassy pages                                | Directional mission relationships.                           |
 | Cross-source IDs                      | Wikidata, reviewed mappings                                                           | Join records without joining by display name.                |
@@ -360,12 +360,12 @@ Fail the refresh pull request when:
 - A source URL is invalid or uses an unapproved protocol.
 - An election end date precedes its start date.
 - A person’s term ends before it starts.
-- A chamber has negative seats or explained seat totals exceed statutory seats.
+- A chamber has negative seats, election-result seats exceed seats at stake, or a source-supplied post-election composition exceeds its reported post-election total. Statutory seats may legitimately differ from post-election totals in systems with overhang/additional seats.
 - A relation references the same country on both ends without an explicitly supported special case.
 - A `no-relations` edge also contains an active resident mission.
 - Generated JSON does not match the current schema version.
 
-Generate warnings, rather than failures, for stale data, partial composition, dead source links, and unsupported countries. Display these in the refresh summary.
+Generate warnings, rather than failures, for stale data, partial election-result coverage, dead source links, and unsupported countries. Display these in the refresh summary.
 
 ### Automated tests
 
@@ -445,18 +445,21 @@ Exit criteria: every primary entity in the canonical index can be selected by ma
 Deliverables:
 
 - Zod schemas, source registry, country mappings, adapters, normalizers, and curated override format.
+- Generic IPU Parline acquisition and normalization scaffold for all ten pilots, with no country-specific transformation branches and no API credential requirement under the current public API contract.
+- Canonical chamber data separating statutory seats, latest election/renewal results, optional source-supplied full post-election composition, presiding officers, electoral systems, and multiple expected national parliamentary election/renewal events.
+- IPU-compliant dataset attribution in source records and the manifest.
 - Manifest and per-country output generation.
 - Quality rules, staleness report, and review-friendly change report.
 - Explicit local refresh command and a reviewable data-change report; propose scheduling only if future operations require it.
 
-Exit criteria: the 10 pilot country files are reproducible, pass all gates, and every displayed pilot fact resolves to a source.
+Exit criteria: the 10 pilot country files are reproducible, pass all gates, and every displayed pilot fact resolves to a source. The IPU slice must be reusable for an additional supported country without country-specific transformation logic or editorial prose.
 
 ### Phase 4 — Country, parliament, party, and election UI (7–10 days)
 
 Deliverables:
 
 - Overview, Parliament, Parties, Elections, and Sources tabs.
-- Accessible seat visualization and dense tables.
+- Accessible latest-election/post-renewal seat visualization and dense tables, with explicit full-chamber versus contested-seat semantics and no current-composition claim.
 - Fact citations, freshness labels, conflict notes, empty/partial states.
 - Loading and schema failure boundaries.
 
