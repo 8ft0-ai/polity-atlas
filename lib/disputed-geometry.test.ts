@@ -16,7 +16,7 @@ describe('disputed-area groundwork', () => {
       disputedAreaFeatures.map((area) => [area.name, area]),
     );
 
-    expect(byName.get('N. Cyprus')?.associatedPrimaryEntityIds).toContain(
+    expect(byName.get('Northern Cyprus')?.associatedPrimaryEntityIds).toContain(
       primaryEntityIdForM49('196'),
     );
     expect(byName.get('Somaliland')?.associatedPrimaryEntityIds).toContain(
