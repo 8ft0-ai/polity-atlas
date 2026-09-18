@@ -94,6 +94,21 @@ export const countryProfileSchema = z.object({
       sourceIds: z.array(z.string()).min(1),
     }),
   ),
+  territories: z
+    .array(
+      z.object({
+        entityId: z.string(),
+        name: z.string(),
+        relationship: z.enum([
+          'dependency',
+          'overseas-territory',
+          'disputed-territory',
+        ]),
+        statusLabel: z.string(),
+        sourceIds: z.array(z.string()).min(1),
+      }),
+    )
+    .optional(),
   sources: z.array(sourceSchema),
 });
 
