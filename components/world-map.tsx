@@ -46,12 +46,6 @@ export function WorldMap({
     relationMode,
   });
 
-  highlightStateRef.current = {
-    selectedM49,
-    relatedM49,
-    relationMode,
-  };
-
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -107,7 +101,7 @@ export function WorldMap({
               id: 'selected-country',
               type: 'fill',
               source: 'countries',
-              filter: ['==', ['get', 'm49'], selectedM49 ?? ''],
+              filter: ['==', ['get', 'm49'], ''],
               paint: {
                 'fill-color': colors.getPropertyValue('--map-selected').trim(),
                 'fill-opacity': 0.92,
@@ -164,6 +158,12 @@ export function WorldMap({
   }, [theme, onSelect]);
 
   useEffect(() => {
+    highlightStateRef.current = {
+      selectedM49,
+      relatedM49,
+      relationMode,
+    };
+
     const map = mapRef.current;
     if (!map?.isStyleLoaded()) return;
     applyHighlightFilters(map, highlightStateRef.current);
