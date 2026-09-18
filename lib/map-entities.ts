@@ -280,6 +280,73 @@ const normalisedAliases = countryOptions.flatMap((country) => [
 
 const primaryEntityIdByName = new Map(normalisedAliases);
 
+
+export type SourceMapFeature = {
+  name: string;
+  isoN3?: string | null;
+  unA3?: string | null;
+  type?: string | null;
+  sovereign?: string | null;
+};
+
+function numericM49(value: string | null | undefined) {
+  return value && /^\d{3}$/.test(value) ? value : undefined;
+}
+
+export function propertiesForSourceFeature(
+  source: SourceMapFeature,
+): MapFeatureProperties {
+  const sourceName = source.name;
+  const missingSpecial = missingIdEntities[sourceName];
+  if (missingSpecial) return { ...missingSpecial, sourceName };
+
+  const m49 = numericM49(source.unA3) ?? numericM49(source.isoN3);
+  if (m49) {
+    const special = specialByM49[m49];
+    if (special) return { ...special, m49, sourceName };
+
+    const primary = primaryCountryByM49.get(m49);
+    if (primary) {
+      return {
+        entityId: primary.entityId,
+        name: primary.name,
+        sourceName,
+        kind: 'primary-state',
+        m49,
+        recognitionBasis: primary.recognitionBasis,
+        associatedPrimaryEntityIds: [],
+      };
+    }
+  }
+
+  const sovereignName = source.sovereign?.trim();
+  const parent = sovereignName
+    ? countryOptions.find(
+        (country) =>
+          country.name.toLowerCase() === sovereignName.toLowerCase() ||
+          country.aliases.some(
+            (alias) => alias.toLowerCase() === sovereignName.toLowerCase(),
+          ),
+      )
+    : undefined;
+
+  const dependencyLike =
+    source.type === 'Dependency' ||
+    source.type === 'Country' ||
+    source.type === 'Disputed' ||
+    source.type === 'Indeterminate';
+
+  return {
+    entityId: `territory:${m49 ?? sourceName.toUpperCase().replaceAll(/[^A-Z0-9]+/g, '_')}`,
+    name: displayNameOverrides[sourceName] ?? sourceName,
+    sourceName,
+    kind: dependencyLike ? 'dependency' : 'other',
+    m49,
+    parentEntityId: parent?.entityId,
+    associatedPrimaryEntityIds: parent ? [parent.entityId] : [],
+  };
+}
+
 export function findPrimaryCountry(token: string) {
   const normalised = token.trim();
   const lower = normalised.toLowerCase();
