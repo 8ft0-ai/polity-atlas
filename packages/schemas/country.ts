@@ -117,12 +117,7 @@ const chamberSchema = z
           ctx.addIssue({
             code: 'custom',
             message: `Grouping "${grouping.name}" references party "${party}", which is not present in the chamber composition`,
-            path: [
-              'groupings',
-              groupingIndex,
-              'memberParties',
-              memberIndex,
-            ],
+            path: ['groupings', groupingIndex, 'memberParties', memberIndex],
           });
         }
       });
@@ -272,8 +267,6 @@ export type SourceRecord = z.infer<typeof sourceSchema>;
 
 export type ParliamentaryChamber = z.infer<typeof chamberSchema>;
 
-export type ParliamentaryGrouping = z.infer<
-  typeof parliamentaryGroupingSchema
->;
+export type ParliamentaryGrouping = z.infer<typeof parliamentaryGroupingSchema>;
 
 export type PartyComposition = z.infer<typeof partyCompositionSchema>;

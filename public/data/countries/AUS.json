@@ -112,10 +112,7 @@
             "id": "coalition",
             "name": "The Coalition",
             "kind": "parliamentary-alliance",
-            "memberParties": [
-              "Liberal Party",
-              "The Nationals"
-            ],
+            "memberParties": ["Liberal Party", "The Nationals"],
             "asOf": "2026-09-18",
             "sourceIds": ["au-house-parties"]
           }
@@ -191,10 +188,7 @@
             "id": "coalition",
             "name": "The Coalition",
             "kind": "parliamentary-alliance",
-            "memberParties": [
-              "Liberal Party",
-              "The Nationals"
-            ],
+            "memberParties": ["Liberal Party", "The Nationals"],
             "asOf": "2026-09-18",
             "sourceIds": ["au-senate-composition"]
           }
