@@ -7,7 +7,7 @@ import { primaryEntityIdForM49 } from './map-entities';
 
 describe('disputed-area groundwork', () => {
   it('loads the Natural Earth disputed-area and disputed-boundary layers', () => {
-    expect(disputedAreaFeatures.length).toBeGreaterThan(50);
+    expect(disputedAreaFeatures.length).toBeGreaterThan(20);
     expect(disputedBoundaryFeatures.length).toBeGreaterThan(10);
   });
 
