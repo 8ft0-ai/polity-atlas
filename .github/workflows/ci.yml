@@ -18,6 +18,34 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Temporary formatter capture
+        run: npm run format
+      - name: Upload formatter output
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ipu-formatter-output
+          retention-days: 1
+          path: |
+            README.md
+            components/country-panel.tsx
+            docs/implementation-plan.md
+            docs/pilot-countries.md
+            docs/source-policy.md
+            packages/data-pipeline/ipu/fetch.mjs
+            packages/data-pipeline/ipu/normalize.test.ts
+            packages/data-pipeline/ipu/normalize.ts
+            packages/schemas/country.test.ts
+            packages/schemas/country.ts
+            public/data/countries/AUS.json
+            public/data/countries/CAN.json
+            public/data/countries/CHN.json
+            public/data/countries/FRA.json
+            public/data/countries/GBR.json
+            public/data/countries/IDN.json
+            public/data/countries/IND.json
+            public/data/countries/JPN.json
+            public/data/countries/NZL.json
+            public/data/countries/USA.json
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
