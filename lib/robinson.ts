@@ -8,13 +8,13 @@ const ROBINSON_X_SCALE = 0.8487;
 const ROBINSON_Y_SCALE = 1.3523;
 
 const X_COEFFICIENTS = [
-  1, 0.9986, 0.9954, 0.99, 0.9822, 0.973, 0.96, 0.9427, 0.9216, 0.8962,
-  0.8679, 0.835, 0.7986, 0.7597, 0.7186, 0.6732, 0.6213, 0.5722, 0.5322,
+  1, 0.9986, 0.9954, 0.99, 0.9822, 0.973, 0.96, 0.9427, 0.9216, 0.8962, 0.8679,
+  0.835, 0.7986, 0.7597, 0.7186, 0.6732, 0.6213, 0.5722, 0.5322,
 ] as const;
 
 const Y_COEFFICIENTS = [
-  0, 0.062, 0.124, 0.186, 0.248, 0.31, 0.372, 0.434, 0.4958, 0.5571,
-  0.6176, 0.6769, 0.7346, 0.7903, 0.8435, 0.8936, 0.9394, 0.9761, 1,
+  0, 0.062, 0.124, 0.186, 0.248, 0.31, 0.372, 0.434, 0.4958, 0.5571, 0.6176,
+  0.6769, 0.7346, 0.7903, 0.8435, 0.8936, 0.9394, 0.9761, 1,
 ] as const;
 
 type LonLat = [number, number];
@@ -140,8 +140,7 @@ export function clipRingAtAntimeridian(ring: Position[]): LonLat[][] {
 
   for (let shift = minimumShift; shift <= maximumShift; shift += 1) {
     const shifted = unwrapped.map(
-      ([longitude, latitude]) =>
-        [longitude + shift * 360, latitude] as LonLat,
+      ([longitude, latitude]) => [longitude + shift * 360, latitude] as LonLat,
     );
     const leftClipped = clipAgainstLongitude(shifted, -180, true);
     const fullyClipped = clipAgainstLongitude(leftClipped, 180, false);
