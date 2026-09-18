@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-18",
+  "identity": {
+    "iso2": "US",
+    "iso3": "USA",
+    "m49": "840",
+    "name": "United States",
+    "officialName": "United States of America",
+    "capital": "Washington, D.C."
+  },
+  "government": {
+    "system": {
+      "value": "Federal presidential constitutional republic",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": [
+        "us-country"
+      ],
+      "confidence": "verified"
+    },
+    "headOfState": [
+      {
+        "office": "President",
+        "name": "Donald Trump",
+        "since": "2025-01-20",
+        "sourceIds": [
+          "us-president"
+        ]
+      }
+    ],
+    "headOfGovernment": [
+      {
+        "office": "President",
+        "name": "Donald Trump",
+        "since": "2025-01-20",
+        "sourceIds": [
+          "us-president"
+        ]
+      }
+    ]
+  },
+  "parliament": {
+    "name": {
+      "value": "United States Congress",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": [
+        "us-house",
+        "us-senate"
+      ],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "house",
+        "name": "House of Representatives",
+        "kind": "lower",
+        "totalSeats": 435,
+        "compositionAsOf": "2026-09-02",
+        "composition": [
+          {
+            "party": "Republican Party",
+            "shortName": "Republican",
+            "seats": 218,
+            "color": "#E81B23"
+          },
+          {
+            "party": "Democratic Party",
+            "shortName": "Democratic",
+            "seats": 214,
+            "color": "#3333FF"
+          },
+          {
+            "party": "Independent",
+            "shortName": "Independent",
+            "seats": 1,
+            "color": "grey"
+          }
+        ],
+        "sourceIds": [
+          "us-house"
+        ]
+      },
+      {
+        "id": "senate",
+        "name": "Senate",
+        "kind": "upper",
+        "totalSeats": 100,
+        "compositionAsOf": "2026-07-14",
+        "composition": [
+          {
+            "party": "Republican Party",
+            "shortName": "Republican",
+            "seats": 53,
+            "color": "#E81B23"
+          },
+          {
+            "party": "Democratic Party",
+            "shortName": "Democratic",
+            "seats": 45,
+            "color": "#3333FF"
+          },
+          {
+            "party": "Independent",
+            "shortName": "Independent",
+            "seats": 2,
+            "color": "grey"
+          }
+        ],
+        "sourceIds": [
+          "us-senate"
+        ]
+      }
+    ]
+  },
+  "elections": [
+    {
+      "title": "2026 United States midterm elections",
+      "status": "confirmed",
+      "dateLabel": "3 November 2026",
+      "note": "All House seats and the scheduled Senate class seats are due for election on 3 November 2026.",
+      "sourceIds": [
+        "us-election"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "country": "Australia",
+      "m49": "036",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    },
+    {
+      "country": "New Zealand",
+      "m49": "554",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    },
+    {
+      "country": "Canada",
+      "m49": "124",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    },
+    {
+      "country": "United Kingdom",
+      "m49": "826",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    },
+    {
+      "country": "France",
+      "m49": "250",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    },
+    {
+      "country": "China",
+      "m49": "156",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    },
+    {
+      "country": "India",
+      "m49": "356",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    },
+    {
+      "country": "Indonesia",
+      "m49": "360",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    },
+    {
+      "country": "Japan",
+      "m49": "392",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "us-missions"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "us-country",
+      "publisher": "Wikipedia",
+      "title": "United States",
+      "url": "https://en.wikipedia.org/wiki/United_States",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "us-president",
+      "publisher": "The White House",
+      "title": "President Donald J. Trump",
+      "url": "https://www.whitehouse.gov/administration/donald-j-trump/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "us-house",
+      "publisher": "U.S. House of Representatives",
+      "title": "Party Breakdown",
+      "url": "https://radiotv.house.gov/house-data/party-breakdown",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "us-senate",
+      "publisher": "United States Senate",
+      "title": "Senate Facts",
+      "url": "https://www.dailypress.senate.gov/on-the-floor/senate-facts/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "us-election",
+      "publisher": "Wikipedia",
+      "title": "2026 United States elections",
+      "url": "https://en.wikipedia.org/wiki/2026_United_States_elections",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "us-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of the United States",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_the_United_States",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    }
+  ]
+}
