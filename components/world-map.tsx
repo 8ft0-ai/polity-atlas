@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Minus, Plus, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -40,6 +40,7 @@ type Viewport = {
   scale: number;
   x: number;
   y: number;
+  lod: MapLod;
 };
 
 type DragState = {
@@ -80,6 +81,7 @@ const DEFAULT_VIEWPORT: Viewport = {
   scale: 1,
   x: 0,
   y: initialMercatorY(),
+  lod: '110m',
 };
 const WORLD_COPIES = [-1, 0, 1] as const;
 
@@ -152,6 +154,7 @@ function zoomViewport(
     scale: nextScale,
     x: anchorX - (anchorX - viewport.x) * ratio,
     y: anchorY - (anchorY - viewport.y) * ratio,
+    lod: nextMapLod(viewport.lod, nextScale),
   });
 }
 
@@ -201,14 +204,10 @@ export function WorldMap({
   const svgRef = useRef<SVGSVGElement>(null);
   const dragRef = useRef<DragState | null>(null);
   const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT);
-  const [activeLod, setActiveLod] = useState<MapLod>('110m');
 
   const related = relationMode ? new Set(relatedEntityIds) : null;
+  const activeLod = viewport.lod;
   const shapes = shapesByLod[activeLod];
-
-  useEffect(() => {
-    setActiveLod((current) => nextMapLod(current, viewport.scale));
-  }, [viewport.scale]);
 
   function toViewBoxPoint(clientX: number, clientY: number) {
     const rectangle = svgRef.current?.getBoundingClientRect();
