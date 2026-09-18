@@ -8,7 +8,7 @@ import { useWorkspaceStore } from '@/lib/workspace-store';
 import { CountryPanel } from './country-panel';
 import { Providers } from './providers';
 
-type ProfileFixture = typeof australiaProfile;
+type ProfileFixture = unknown;
 
 function selectProfile({
   entityId,
