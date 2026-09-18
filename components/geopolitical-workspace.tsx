@@ -12,13 +12,11 @@ import { type MapHoverEntity, WorldMap } from '@/components/world-map';
 import {
   countryOptions,
   findPrimaryCountry,
-  primaryEntityIdForM49,
+  supportedProfiles,
 } from '@/lib/countries';
 import { useWorkspaceStore } from '@/lib/workspace-store';
 
-const australiaRelations = ['156', '360', '392', '554', '826', '840'].map(
-  primaryEntityIdForM49,
-);
+const pilotProfileEntityIds = Object.keys(supportedProfiles);
 
 const kindLabels: Record<MapHoverEntity['kind'], string> = {
   'primary-state': 'Country',
@@ -159,8 +157,10 @@ function WorkspaceContent() {
         <WorldMap
           selectedEntityId={selectedEntityId}
           relatedEntityIds={
-            selectedEntityId === primaryEntityIdForM49('036')
-              ? australiaRelations
+            selectedEntityId && supportedProfiles[selectedEntityId]
+              ? pilotProfileEntityIds.filter(
+                  (entityId) => entityId !== selectedEntityId,
+                )
               : []
           }
           relationMode={activeTab === 'relations'}
