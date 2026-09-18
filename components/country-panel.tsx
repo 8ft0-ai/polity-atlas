@@ -88,7 +88,7 @@ export function CountryPanel() {
   const iso3 = selectedM49 ? supportedProfiles[selectedM49] : undefined;
   const profileQuery = useQuery({
     queryKey: ['country-profile', iso3],
-    queryFn: () => loadCountryProfile(iso3),
+    queryFn: () => loadCountryProfile(iso3!),
     enabled: Boolean(iso3),
   });
 
