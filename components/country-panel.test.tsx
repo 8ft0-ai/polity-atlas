@@ -47,7 +47,7 @@ describe('CountryPanel source links', () => {
   it('renders parliament composition as thick semicircles with grouping indicators and notes', async () => {
     useWorkspaceStore.setState({ activeTab: 'parliament' });
 
-    const { container } = render(
+    render(
       <Providers>
         <CountryPanel />
       </Providers>,
