@@ -32,7 +32,6 @@ describe('WorldMap entity interaction', () => {
     expect(onSelect).toHaveBeenCalledWith('state:m49:036', 'Australia', '036');
   });
 
-
   it('renders and selects Norway with the same canonical identity used by search', () => {
     const onSelect = vi.fn();
     const { container } = renderMap({ onSelect });
@@ -198,9 +197,7 @@ describe('WorldMap entity interaction', () => {
     const australiaPath = container.querySelector(
       '[data-world-copy="0"] [data-country-link][data-entity-id="state:m49:036"] path',
     );
-    const transformedWorld = container.querySelector(
-      'svg > g[transform]',
-    );
+    const transformedWorld = container.querySelector('svg > g[transform]');
 
     expect(svg).not.toBeNull();
     expect(australiaPath).not.toBeNull();
@@ -241,5 +238,4 @@ describe('WorldMap entity interaction', () => {
     expect(transformedWorld!.getAttribute('transform')).not.toBe(before);
     expect(onSelect).not.toHaveBeenCalled();
   });
-
 });

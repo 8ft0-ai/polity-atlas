@@ -118,5 +118,4 @@ describe('canonical map entity identity', () => {
       m49: '578',
     });
   });
-
 });

@@ -259,10 +259,8 @@ export function WorldMap({
 
     drag.moved = true;
 
-    const deltaX =
-      (clientDeltaX / rectangle.width) * MERCATOR_VIEWBOX_WIDTH;
-    const deltaY =
-      (clientDeltaY / rectangle.height) * MERCATOR_VIEWBOX_HEIGHT;
+    const deltaX = (clientDeltaX / rectangle.width) * MERCATOR_VIEWBOX_WIDTH;
+    const deltaY = (clientDeltaY / rectangle.height) * MERCATOR_VIEWBOX_HEIGHT;
 
     setViewport((current) =>
       clampViewport({
