@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-18",
+  "identity": {
+    "iso2": "IN",
+    "iso3": "IND",
+    "m49": "356",
+    "name": "India",
+    "officialName": "Republic of India",
+    "capital": "New Delhi"
+  },
+  "government": {
+    "system": {
+      "value": "Federal parliamentary republic",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": [
+        "in-country"
+      ],
+      "confidence": "verified"
+    },
+    "headOfState": [
+      {
+        "office": "President",
+        "name": "Droupadi Murmu",
+        "since": "2022-07-25",
+        "sourceIds": [
+          "in-president"
+        ]
+      }
+    ],
+    "headOfGovernment": [
+      {
+        "office": "Prime Minister",
+        "name": "Narendra Modi",
+        "since": "2014-05-26",
+        "sourceIds": [
+          "in-prime-minister"
+        ]
+      }
+    ]
+  },
+  "parliament": {
+    "name": {
+      "value": "Parliament of India",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": [
+        "in-lok-sabha",
+        "in-rajya-sabha"
+      ],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "lok-sabha",
+        "name": "Lok Sabha",
+        "kind": "lower",
+        "totalSeats": 543,
+        "compositionAsOf": "2026-09-18",
+        "composition": [
+          {
+            "party": "Bharatiya Janata Party",
+            "shortName": "BJP",
+            "seats": 240,
+            "color": "#FF9933"
+          },
+          {
+            "party": "Indian National Congress",
+            "shortName": "INC",
+            "seats": 98,
+            "color": "#00BFFF"
+          },
+          {
+            "party": "Samajwadi Party",
+            "shortName": "SP",
+            "seats": 37,
+            "color": "#D71920"
+          },
+          {
+            "party": "All India Trinamool Congress",
+            "shortName": "AITC",
+            "seats": 28,
+            "color": "#20C646"
+          },
+          {
+            "party": "Dravida Munnetra Kazhagam",
+            "shortName": "DMK",
+            "seats": 22,
+            "color": "#DD1100"
+          },
+          {
+            "party": "Telugu Desam Party",
+            "shortName": "TDP",
+            "seats": 16,
+            "color": "#F2D600"
+          },
+          {
+            "party": "Shiv Sena",
+            "shortName": "Shiv Sena",
+            "seats": 13,
+            "color": "#F58220"
+          },
+          {
+            "party": "Janata Dal (United)",
+            "shortName": "JD(U)",
+            "seats": 12,
+            "color": "#1D5F91"
+          },
+          {
+            "party": "Nationalist Congress Party – Sharadchandra Pawar",
+            "shortName": "NCP-SP",
+            "seats": 8,
+            "color": "#00A859"
+          },
+          {
+            "party": "Other parties and independents",
+            "shortName": "Other",
+            "seats": 66,
+            "color": "grey"
+          }
+        ],
+        "sourceIds": [
+          "in-lok-sabha"
+        ]
+      },
+      {
+        "id": "rajya-sabha",
+        "name": "Rajya Sabha",
+        "kind": "upper",
+        "totalSeats": 245,
+        "compositionAsOf": "2026-09-18",
+        "composition": [
+          {
+            "party": "National Democratic Alliance",
+            "shortName": "NDA",
+            "seats": 144,
+            "color": "#FF9933"
+          },
+          {
+            "party": "INDIA alliance",
+            "shortName": "INDIA",
+            "seats": 75,
+            "color": "#2F6AB3"
+          },
+          {
+            "party": "Other and unaligned members",
+            "shortName": "Other",
+            "seats": 23,
+            "color": "grey"
+          }
+        ],
+        "sourceIds": [
+          "in-rajya-sabha"
+        ]
+      }
+    ]
+  },
+  "elections": [
+    {
+      "title": "Next Indian general election",
+      "status": "expected",
+      "dateLabel": "By 2029",
+      "note": "The next Lok Sabha general election is expected by 2029 unless the House is dissolved earlier.",
+      "sourceIds": [
+        "in-election"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "country": "Australia",
+      "m49": "036",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    },
+    {
+      "country": "New Zealand",
+      "m49": "554",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    },
+    {
+      "country": "Canada",
+      "m49": "124",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    },
+    {
+      "country": "United States of America",
+      "m49": "840",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    },
+    {
+      "country": "United Kingdom",
+      "m49": "826",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    },
+    {
+      "country": "France",
+      "m49": "250",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    },
+    {
+      "country": "China",
+      "m49": "156",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    },
+    {
+      "country": "Indonesia",
+      "m49": "360",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    },
+    {
+      "country": "Japan",
+      "m49": "392",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "in-missions"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "in-country",
+      "publisher": "Wikipedia",
+      "title": "India",
+      "url": "https://en.wikipedia.org/wiki/India",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "in-president",
+      "publisher": "President of India",
+      "title": "Profile of the President",
+      "url": "https://www.presidentofindia.gov.in/Profile",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "in-prime-minister",
+      "publisher": "Prime Minister of India",
+      "title": "Prime Minister of India",
+      "url": "https://www.pmindia.gov.in/en/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "in-lok-sabha",
+      "publisher": "Digital Sansad",
+      "title": "Lok Sabha — party-wise representation",
+      "url": "https://sansad.in/ls/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "in-rajya-sabha",
+      "publisher": "Wikipedia",
+      "title": "Rajya Sabha",
+      "url": "https://en.wikipedia.org/wiki/Rajya_Sabha",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "in-election",
+      "publisher": "Wikipedia",
+      "title": "Next Indian general election",
+      "url": "https://en.wikipedia.org/wiki/Next_Indian_general_election",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "in-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of India",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_India",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    }
+  ]
+}
