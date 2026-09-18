@@ -33,7 +33,6 @@ export type LodDisputedBoundary = {
   geometry: Geometry;
 };
 
-
 export type MapGeometryPackage = {
   lod: MapLod;
   countries: LodCountryFeature[];
@@ -156,7 +155,6 @@ function disputedBoundaries(source: unknown): LodDisputedBoundary[] {
   });
 }
 
-
 function createMapGeometryPackage(
   lod: MapLod,
   countriesSource: unknown,
@@ -195,4 +193,3 @@ export function nextMapLod(current: MapLod, scale: number): MapLod {
   if (current === '50m' && scale < LOD_LEAVE_50M_SCALE) return '110m';
   return current;
 }
-

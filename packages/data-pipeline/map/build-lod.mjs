@@ -71,7 +71,6 @@ function minimalBoundary(feature, index) {
   };
 }
 
-
 function sqSegmentDistance(point, start, end) {
   let x = start[0];
   let y = start[1];
@@ -186,13 +185,14 @@ async function writeJson(path, value) {
 
 await mkdir(outputRoot, { recursive: true });
 
-const [countries110, countries50, disputed50, boundaries50] =
-  await Promise.all([
+const [countries110, countries50, disputed50, boundaries50] = await Promise.all(
+  [
     load('ne_110m_admin_0_countries.geojson'),
     load('ne_50m_admin_0_countries.geojson'),
     load('ne_50m_admin_0_breakaway_disputed_areas.geojson'),
     load('ne_50m_admin_0_boundary_lines_disputed_areas.geojson'),
-  ]);
+  ],
+);
 
 const detailedDisputed = {
   type: 'FeatureCollection',
@@ -202,7 +202,6 @@ const detailedBoundaries = {
   type: 'FeatureCollection',
   features: boundaries50.features.map(minimalBoundary),
 };
-
 
 const outputs = {
   '110m/countries.json': {

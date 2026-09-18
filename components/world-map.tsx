@@ -11,7 +11,7 @@ import {
   initialMercatorY,
   MERCATOR_VIEWBOX_HEIGHT,
   MERCATOR_VIEWBOX_WIDTH,
-  MERCATOR_WORLD_SIZE
+  MERCATOR_WORLD_SIZE,
 } from '@/lib/mercator';
 
 export type MapHoverEntity = {
@@ -414,7 +414,6 @@ export function WorldMap({
             pointerEvents="none"
           />
         ))}
-
       </g>
     );
   }
