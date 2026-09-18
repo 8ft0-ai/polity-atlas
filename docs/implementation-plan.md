@@ -65,22 +65,22 @@ Private API credentials live in local ignored environment files or an approved c
 
 ## 3. Exact software stack
 
-| Area                     | Choice                                                             | Reason                                                                         |
-| ------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| Area                     | Accepted choice                                                    | Reason                                                                         |
-| ---                      | ---                                                                | ---                                                                            |
-| Language                 | Strict TypeScript                                                  | Shared contracts and early validation.                                         |
-| Application              | Vinext and Vite, using the existing Next-style `app` structure     | Matches the working local application.                                         |
-| Package management       | npm and committed `package-lock.json`                              | Reproducible `npm ci` locally and in CI.                                       |
-| Mapping                  | SVG Mercator atlas with Natural Earth geometry; MapLibre reserved for detailed/local GIS | Deterministic global political rendering without a hosted tile dependency. |
-| Remote/static data cache | TanStack Query                                                     | Loads and caches profile files.                                                |
-| Workspace state          | Zustand                                                            | Local selection, theme, and future pinned-window layout.                       |
-| Routing                  | Existing static App Router output                                  | Direct localhost routes and browser refresh; no Pages subpath or hash routing. |
-| Validation               | Zod and Vitest                                                     | Shared schema and data tests.                                                  |
-| Styling                  | Tailwind CSS, shadcn primitives, semantic CSS variables            | Matches the implemented UI foundation.                                         |
-| Browser tests            | Playwright and axe-core when introduced                            | Selection, routing, theme, and accessibility checks.                           |
-| Lint/format              | oxlint and oxfmt                                                   | Matches repository scripts.                                                    |
-| Data scripts             | Node.js/TypeScript                                                 | Reuses schemas without a second language.                                      |
+| Area                     | Choice                                                                                   | Reason                                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Area                     | Accepted choice                                                                          | Reason                                                                         |
+| ---                      | ---                                                                                      | ---                                                                            |
+| Language                 | Strict TypeScript                                                                        | Shared contracts and early validation.                                         |
+| Application              | Vinext and Vite, using the existing Next-style `app` structure                           | Matches the working local application.                                         |
+| Package management       | npm and committed `package-lock.json`                                                    | Reproducible `npm ci` locally and in CI.                                       |
+| Mapping                  | SVG Mercator atlas with Natural Earth geometry; MapLibre reserved for detailed/local GIS | Deterministic global political rendering without a hosted tile dependency.     |
+| Remote/static data cache | TanStack Query                                                                           | Loads and caches profile files.                                                |
+| Workspace state          | Zustand                                                                                  | Local selection, theme, and future pinned-window layout.                       |
+| Routing                  | Existing static App Router output                                                        | Direct localhost routes and browser refresh; no Pages subpath or hash routing. |
+| Validation               | Zod and Vitest                                                                           | Shared schema and data tests.                                                  |
+| Styling                  | Tailwind CSS, shadcn primitives, semantic CSS variables                                  | Matches the implemented UI foundation.                                         |
+| Browser tests            | Playwright and axe-core when introduced                                                  | Selection, routing, theme, and accessibility checks.                           |
+| Lint/format              | oxlint and oxfmt                                                                         | Matches repository scripts.                                                    |
+| Data scripts             | Node.js/TypeScript                                                                       | Reuses schemas without a second language.                                      |
 
 The present scaffold already includes additional UI libraries. Assess their use before removing any dependency. Avoid adding a new chart library solely for parliamentary seat charts; a small accessible SVG may suffice.
 
