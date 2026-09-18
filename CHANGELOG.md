@@ -24,6 +24,7 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Fixed
 
+- Country clicks remain native click gestures after drag-anywhere support; pointer capture now begins only once movement crosses the drag threshold.
 - Natural Earth features with missing numeric country codes, including Norway, now resolve back to the canonical searchable country identity.
 - Map panning can begin on country and disputed-area geometry; a movement threshold distinguishes drag gestures from click selection.
 - Removed tiny-country circle markers that could create misleading visual emphasis for countries such as Norway; countries that are too small to render remain available through search.

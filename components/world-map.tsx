@@ -223,7 +223,6 @@ export function WorldMap({
     if (event.button !== 0) return;
 
     suppressClickRef.current = false;
-    event.currentTarget.setPointerCapture?.(event.pointerId);
     dragRef.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
@@ -257,7 +256,10 @@ export function WorldMap({
       return;
     }
 
-    drag.moved = true;
+    if (!drag.moved) {
+      drag.moved = true;
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    }
 
     const deltaX = (clientDeltaX / rectangle.width) * MERCATOR_VIEWBOX_WIDTH;
     const deltaY = (clientDeltaY / rectangle.height) * MERCATOR_VIEWBOX_HEIGHT;
