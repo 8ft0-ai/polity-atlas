@@ -22,14 +22,15 @@ export type DisputedBoundary = {
   geometry: Geometry;
 };
 
-const disputedAreas = disputedAreasSource as FeatureCollection<
+const disputedAreas = disputedAreasSource as unknown as FeatureCollection<
   Geometry,
   NaturalEarthProperties
 >;
-const disputedBoundaries = disputedBoundariesSource as FeatureCollection<
-  Geometry,
-  NaturalEarthProperties
->;
+const disputedBoundaries =
+  disputedBoundariesSource as unknown as FeatureCollection<
+    Geometry,
+    NaturalEarthProperties
+  >;
 
 const explicitAssociations: Record<string, string[]> = {
   Abkhazia: [primaryEntityIdForM49('268')],
