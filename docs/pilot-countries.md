@@ -1,6 +1,6 @@
 # Pilot Countries
 
-These are the countries which will be used to test Polity Altas features during development. They are selected to provide a range of political and geographic contexts, including different continents and government types. The list is not exhaustive and may be updated as the project progresses.
+These are the countries used to test Polity Atlas features during development. They are selected to provide a range of political and geographic contexts, including different continents and government types. All ten have normalized IPU-backed parliamentary profiles. The list is not exhaustive and may be updated as the project progresses.
 
 # States
 

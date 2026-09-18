@@ -1,6 +1,57 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-17",
-  "generatedAt": "2026-09-17T00:00:00.000Z",
-  "profiles": ["AUS"]
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
+  "generatedAt": "2026-09-19T00:00:00.000Z",
+  "profiles": [
+    {
+      "iso3": "AUS",
+      "path": "countries/AUS.json",
+      "sha256": "f457e061aa027a87984bf6ed408f1ae69dea8f6437cbe5843261825a28207b74"
+    },
+    {
+      "iso3": "CAN",
+      "path": "countries/CAN.json",
+      "sha256": "b7fdc494c685326184bf0c0b8329bf80205c22bee6eacd515462dbc16bc4a9ca"
+    },
+    {
+      "iso3": "CHN",
+      "path": "countries/CHN.json",
+      "sha256": "6b3a0671b1f29bba4ba09ebed1c7ad7c9d181d46a2c5e9dd683b51bad16c25c4"
+    },
+    {
+      "iso3": "FRA",
+      "path": "countries/FRA.json",
+      "sha256": "62bb073f4b798b79d1a7b82aa5cade818b2444c868c98a4af07966c5ab46187d"
+    },
+    {
+      "iso3": "GBR",
+      "path": "countries/GBR.json",
+      "sha256": "26fadd211e8bd9968d6d2e8fb90f98bb3f1d96acb31e276cc2a6b05eca9b9402"
+    },
+    {
+      "iso3": "IDN",
+      "path": "countries/IDN.json",
+      "sha256": "13e70dcf2bd2ecc89ba9f3fccb36876af45ed0bdc665f768fbe70ccd39d521be"
+    },
+    {
+      "iso3": "IND",
+      "path": "countries/IND.json",
+      "sha256": "b67bcce0f8a3e9f92e231e24added5e45da5529906888ed7b2a8984887276046"
+    },
+    {
+      "iso3": "JPN",
+      "path": "countries/JPN.json",
+      "sha256": "689797618bba18b240223feb8cc66bf8ddcd21414518a3d063fe115e11c26f23"
+    },
+    {
+      "iso3": "NZL",
+      "path": "countries/NZL.json",
+      "sha256": "e7eb3b654887dce4cc8a0189c0e3dbd3eed5526a7b53a4d8a6632c97c7a14304"
+    },
+    {
+      "iso3": "USA",
+      "path": "countries/USA.json",
+      "sha256": "15202b26ec6a7653741add004b1977fc513e92c32f4ea2a3ba1e7832390a3b9f"
+    }
+  ]
 }

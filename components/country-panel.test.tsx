@@ -73,13 +73,13 @@ describe('CountryPanel', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  it('renders parliament composition as thick semicircles with grouping indicators and notes', async () => {
+  it('shows a full-election outcome and labels partial contested-seat results explicitly', async () => {
     useWorkspaceStore.setState({ activeTab: 'parliament' });
 
     renderPanel();
 
     const houseSemicircle = await screen.findByLabelText(
-      'House of Representatives seating composition semicircle',
+      'House of Representatives post-election composition semicircle',
     );
     expect(houseSemicircle.tagName.toLowerCase()).toBe('svg');
 
@@ -89,25 +89,71 @@ describe('CountryPanel', () => {
     expect(houseBackground).toHaveAttribute('stroke-width', '24');
 
     expect(
-      houseSemicircle.querySelector('[data-party-segment="Liberal"]'),
+      houseSemicircle.querySelector(
+        '[data-party-segment="au-australian_labor_party_alp"]',
+      ),
+    ).not.toBeNull();
+
+    expect(screen.getByText('40 of 76 seats contested')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'These figures cover only the seats decided in this election or renewal. They must not be read as the full or current chamber composition.',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByLabelText('Senate contested-seat result semicircle'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Milton Dick')).toBeInTheDocument();
+    expect(screen.getByText(/Alternative Vote \(AV\)/)).toBeInTheDocument();
+  });
+
+  it('uses IPU full composition for a partial renewal when it is supplied', async () => {
+    selectProfile({
+      entityId: 'state:m49:840',
+      m49: '840',
+      name: 'United States',
+      profile: usaProfile,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+
+    renderPanel();
+
+    const senateSemicircle = await screen.findByLabelText(
+      'Senate post-election composition semicircle',
+    );
+    expect(screen.getByText('34 of 100 seats contested')).toBeInTheDocument();
+    expect(
+      screen.getByText('Seats decided in this renewal'),
+    ).toBeInTheDocument();
+    expect(
+      senateSemicircle.querySelector(
+        '[data-party-segment="us-republican_party"]',
+      ),
     ).not.toBeNull();
     expect(
-      houseSemicircle.querySelector('[data-party-segment="Nationals"]'),
-    ).not.toBeNull();
+      screen.getAllByText(
+        'This is the full chamber immediately after the latest election or renewal reported by IPU. It is not necessarily the current composition.',
+      ).length,
+    ).toBeGreaterThan(0);
+  });
 
-    const coalitionIndicators = screen.getAllByLabelText(
-      'Member of The Coalition',
-    );
-    expect(coalitionIndicators).toHaveLength(4);
+  it('shows IPU attribution, licence, and terms in the source index', async () => {
+    useWorkspaceStore.setState({ activeTab: 'sources' });
+    renderPanel();
 
-    const coalitionNotes = document.querySelectorAll(
-      '[data-grouping-note="coalition"]',
-    );
-    expect(coalitionNotes).toHaveLength(2);
-    expect(coalitionNotes[0]).toHaveTextContent('†');
-    expect(coalitionNotes[0]).toHaveTextContent('The Coalition');
-    expect(coalitionNotes[0]).toHaveTextContent(
-      'Liberal Party and The Nationals',
+    expect(
+      await screen.findByText(
+        'Inter-Parliamentary Union: Parline, September 2026',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Terms of use/ })).toHaveAttribute(
+      'href',
+      'https://www.ipu.org/terms-use',
     );
   });
 

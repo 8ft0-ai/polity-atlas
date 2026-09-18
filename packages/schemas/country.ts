@@ -19,156 +19,201 @@ export const sourceSchema = z.object({
     .refine((url) => url.startsWith('https://'), 'Sources must use HTTPS'),
   retrievedAt: z.iso.datetime(),
   kind: z.enum(['official', 'intergovernmental', 'reference', 'secondary']),
+  attribution: z.string().optional(),
+  termsUrl: z
+    .url()
+    .refine((url) => url.startsWith('https://'), 'Terms URLs must use HTTPS')
+    .optional(),
+  license: z.string().optional(),
 });
 
-const partyCompositionSchema = z.object({
+const electionPartyResultSchema = z.object({
+  partyId: z.string(),
   party: z.string(),
-  shortName: z.string(),
   seats: z.number().int().nonnegative(),
-  color: z.string(),
-
-  // Optional because most parties will not belong to a grouping.
-  groupingIds: z.array(z.string()).optional(),
 });
 
-const parliamentaryGroupingSchema = z.object({
-  id: z.string(),
-  name: z.string(),
+const electionOutcomeSchema = z
+  .object({
+    display: z.enum(['post-election-full-composition', 'contested-seats-only']),
+    seatsWonInElection: z.array(electionPartyResultSchema),
+    postElectionComposition: z.array(electionPartyResultSchema).optional(),
+  })
+  .superRefine((outcome, ctx) => {
+    if (
+      outcome.display === 'post-election-full-composition' &&
+      !outcome.postElectionComposition
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          'A full-composition display requires post-election composition data',
+        path: ['postElectionComposition'],
+      });
+    }
 
-  kind: z.enum([
-    'governing-coalition',
-    'opposition-alliance',
-    'parliamentary-alliance',
-    'electoral-alliance',
-    'parliamentary-group',
-  ]),
+    if (
+      outcome.display === 'contested-seats-only' &&
+      outcome.postElectionComposition
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          'Contested-seat-only results must not claim a full composition',
+        path: ['postElectionComposition'],
+      });
+    }
+  });
 
-  memberParties: z.array(z.string()).min(1),
-
-  asOf: z.iso.date(),
-
-  sourceIds: z.array(z.string()).min(1),
-});
-
-const chamberSchema = z
+const latestElectionSchema = z
   .object({
     id: z.string(),
-    name: z.string(),
-
-    kind: z.enum(['lower', 'upper', 'unicameral']),
-
-    totalSeats: z.number().int().positive(),
-
-    compositionAsOf: z.iso.date(),
-
-    composition: z.array(partyCompositionSchema),
-
-    // Optional because many chambers will not need any grouping metadata.
-    groupings: z.array(parliamentaryGroupingSchema).optional(),
-
+    title: z.string().optional(),
+    date: z.object({
+      from: z.iso.date(),
+      to: z.iso.date().optional(),
+    }),
+    scope: z.enum(['full-renewal', 'partial-renewal', 'unknown']),
+    seatsAtStake: z.number().int().positive().optional(),
+    chamberSize: z.number().int().positive(),
+    outcome: electionOutcomeSchema.optional(),
+    notes: z.array(z.string()).optional(),
     sourceIds: z.array(z.string()).min(1),
   })
-  .superRefine((chamber, ctx) => {
-    const groupings = chamber.groupings ?? [];
+  .superRefine((election, ctx) => {
+    if (election.date.to && election.date.to < election.date.from) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Election end date must not precede its start date',
+        path: ['date', 'to'],
+      });
+    }
 
-    const groupingIds = new Set<string>();
+    if (
+      election.seatsAtStake !== undefined &&
+      election.seatsAtStake > election.chamberSize
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Seats at stake must not exceed the chamber size',
+        path: ['seatsAtStake'],
+      });
+    }
 
-    //
-    // Grouping IDs must be unique within the chamber.
-    //
-    groupings.forEach((grouping, groupingIndex) => {
-      if (groupingIds.has(grouping.id)) {
+    if (election.outcome) {
+      const seatsWon = election.outcome.seatsWonInElection.reduce(
+        (sum, result) => sum + result.seats,
+        0,
+      );
+
+      if (
+        election.seatsAtStake !== undefined &&
+        seatsWon > election.seatsAtStake
+      ) {
         ctx.addIssue({
           code: 'custom',
-          message: `Duplicate parliamentary grouping id: ${grouping.id}`,
-          path: ['groupings', groupingIndex, 'id'],
+          message: 'Election results exceed the number of seats at stake',
+          path: ['outcome', 'seatsWonInElection'],
         });
       }
 
-      groupingIds.add(grouping.id);
-    });
+      const fullComposition = election.outcome.postElectionComposition?.reduce(
+        (sum, result) => sum + result.seats,
+        0,
+      );
 
-    const compositionPartyNames = new Set(
-      chamber.composition.map((entry) => entry.party),
-    );
-
-    //
-    // Every groupingId referenced by a party must exist.
-    //
-    chamber.composition.forEach((entry, compositionIndex) => {
-      for (const groupingId of entry.groupingIds ?? []) {
-        if (!groupingIds.has(groupingId)) {
-          ctx.addIssue({
-            code: 'custom',
-            message: `Unknown parliamentary grouping id: ${groupingId}`,
-            path: ['composition', compositionIndex, 'groupingIds'],
-          });
-        }
+      if (
+        fullComposition !== undefined &&
+        fullComposition > election.chamberSize
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Post-election composition exceeds the chamber size',
+          path: ['outcome', 'postElectionComposition'],
+        });
       }
-    });
+    }
+  });
 
-    //
-    // Every party named by a grouping must actually exist in the
-    // chamber composition.
-    //
-    groupings.forEach((grouping, groupingIndex) => {
-      grouping.memberParties.forEach((party, memberIndex) => {
-        if (!compositionPartyNames.has(party)) {
-          ctx.addIssue({
-            code: 'custom',
-            message: `Grouping "${grouping.name}" references party "${party}", which is not present in the chamber composition`,
-            path: ['groupings', groupingIndex, 'memberParties', memberIndex],
-          });
-        }
-      });
-    });
+const speakerSchema = z.object({
+  personId: z.string().optional(),
+  name: z.string().optional(),
+  officialTitle: z.string().optional(),
+  acting: z.boolean(),
+  vacant: z.boolean(),
+  term: z
+    .object({
+      from: z.iso.date().optional(),
+      to: z.iso.date().optional(),
+    })
+    .optional(),
+  additionalInformation: z.string().optional(),
+  designationMode: z.string().optional(),
+  designationAuthority: z.string().optional(),
+  stateRank: z.string().optional(),
+  becomesInterimHeadOfState: z.boolean().optional(),
+  mandateContinuesBetweenLegislatures: z.boolean().optional(),
+  sourceIds: z.array(z.string()).min(1),
+});
 
-    //
-    // Keep grouping membership consistent in both directions.
-    //
-    groupings.forEach((grouping, groupingIndex) => {
-      for (const memberParty of grouping.memberParties) {
-        const compositionEntry = chamber.composition.find(
-          (entry) => entry.party === memberParty,
-        );
+const electoralSystemSchema = z.object({
+  directlyElected: z.boolean(),
+  systems: z.array(z.string()),
+  directlyElectedSeats: z.number().int().nonnegative().optional(),
+  indirectlyElectedSeats: z.number().int().nonnegative().optional(),
+  appointedSeats: z.number().int().nonnegative().optional(),
+  votingAge: z.number().int().nonnegative().optional(),
+  eligibilityAge: z.number().int().nonnegative().optional(),
+  compulsoryVoting: z.string().optional(),
+  sourceIds: z.array(z.string()).min(1),
+});
 
-        if (
-          compositionEntry &&
-          !compositionEntry.groupingIds?.includes(grouping.id)
-        ) {
-          ctx.addIssue({
-            code: 'custom',
-            message: `Party "${memberParty}" is listed in grouping "${grouping.name}" but does not reference grouping id "${grouping.id}"`,
-            path: ['groupings', groupingIndex, 'memberParties'],
-          });
-        }
-      }
-    });
+const chamberSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  kind: z.enum(['lower', 'upper', 'unicameral']),
+  totalSeats: z.number().int().positive(),
+  parliamentaryTermYears: z.number().positive().optional(),
+  renewalFrequencyYears: z.number().positive().optional(),
+  speakers: z.array(speakerSchema),
+  electoralSystem: electoralSystemSchema,
+  latestElection: latestElectionSchema.optional(),
+  sourceIds: z.array(z.string()).min(1),
+});
 
-    //
-    // Party seats may total less than the chamber size because of
-    // vacancies, appointed seats, unknown affiliation, etc.,
-    // but they must never exceed the statutory chamber total.
-    //
-    const allocatedSeats = chamber.composition.reduce(
-      (total, entry) => total + entry.seats,
-      0,
-    );
-
-    if (allocatedSeats > chamber.totalSeats) {
+const expectedElectionSchema = z
+  .object({
+    id: z.string(),
+    level: z.literal('national'),
+    chamberId: z.string(),
+    chamberName: z.string(),
+    eventType: z.enum([
+      'full-renewal',
+      'partial-renewal',
+      'indirect-renewal',
+      'appointment-renewal',
+      'other',
+    ]),
+    status: z.literal('expected'),
+    date: z.object({
+      from: z.iso.date(),
+      to: z.iso.date().optional(),
+    }),
+    sourceIds: z.array(z.string()).min(1),
+  })
+  .superRefine((election, ctx) => {
+    if (election.date.to && election.date.to < election.date.from) {
       ctx.addIssue({
         code: 'custom',
-        message: `Composition contains ${allocatedSeats} seats but chamber total is only ${chamber.totalSeats}`,
-        path: ['composition'],
+        message: 'Expected election end date must not precede its start date',
+        path: ['date', 'to'],
       });
     }
   });
 
 export const countryProfileSchema = z.object({
-  schemaVersion: z.literal(1),
-
+  schemaVersion: z.literal(2),
   buildId: z.string(),
-
   identity: z.object({
     iso2: z.string().length(2),
     iso3: z.string().length(3),
@@ -177,10 +222,8 @@ export const countryProfileSchema = z.object({
     officialName: z.string(),
     capital: z.string(),
   }),
-
   government: z.object({
     system: factSchema(z.string()),
-
     headOfState: z.array(
       z.object({
         office: z.string(),
@@ -189,7 +232,6 @@ export const countryProfileSchema = z.object({
         sourceIds: z.array(z.string()).min(1),
       }),
     ),
-
     headOfGovernment: z.array(
       z.object({
         office: z.string(),
@@ -199,74 +241,43 @@ export const countryProfileSchema = z.object({
       }),
     ),
   }),
-
   parliament: z.object({
     name: factSchema(z.string()),
-
     chambers: z.array(chamberSchema),
   }),
-
-  elections: z.array(
-    z.object({
-      title: z.string(),
-
-      status: z.enum(['confirmed', 'tentative', 'expected']),
-
-      dateLabel: z.string(),
-
-      note: z.string(),
-
-      sourceIds: z.array(z.string()).min(1),
-    }),
-  ),
-
+  nextExpectedElections: z.array(expectedElectionSchema),
   relations: z.array(
     z.object({
       country: z.string(),
-
       m49: z.string().length(3),
-
       status: z.enum([
         'resident-mission',
         'non-resident-accreditation',
         'relations-without-mission',
       ]),
-
       note: z.string(),
-
       sourceIds: z.array(z.string()).min(1),
     }),
   ),
-
   territories: z
     .array(
       z.object({
         entityId: z.string(),
-
         name: z.string(),
-
         relationship: z.enum([
           'dependency',
           'overseas-territory',
           'disputed-territory',
         ]),
-
         statusLabel: z.string(),
-
         sourceIds: z.array(z.string()).min(1),
       }),
     )
     .optional(),
-
   sources: z.array(sourceSchema),
 });
 
 export type CountryProfile = z.infer<typeof countryProfileSchema>;
-
 export type SourceRecord = z.infer<typeof sourceSchema>;
-
 export type ParliamentaryChamber = z.infer<typeof chamberSchema>;
-
-export type ParliamentaryGrouping = z.infer<typeof parliamentaryGroupingSchema>;
-
-export type PartyComposition = z.infer<typeof partyCompositionSchema>;
+export type ElectionPartyResult = z.infer<typeof electionPartyResultSchema>;

@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
   "identity": {
     "iso2": "CA",
     "iso3": "CAN",
@@ -36,108 +36,163 @@
   },
   "parliament": {
     "name": {
-      "value": "Parliament of Canada",
-      "asOf": "2026-09-18",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["ca-house", "ca-senate"],
+      "value": "Parliament of Canada - Parlement du Canada",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "commons",
+        "id": "CA-LC01",
         "name": "House of Commons",
         "kind": "lower",
         "totalSeats": 343,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "parliamentaryTermYears": 4,
+        "speakers": [
           {
-            "party": "Liberal Party",
-            "shortName": "Liberal",
-            "seats": 174,
-            "color": "#D71920"
-          },
-          {
-            "party": "Conservative Party",
-            "shortName": "Conservative",
-            "seats": 140,
-            "color": "#1A4782"
-          },
-          {
-            "party": "Bloc Québécois",
-            "shortName": "Bloc Québécois",
-            "seats": 21,
-            "color": "#33B2CC"
-          },
-          {
-            "party": "New Democratic Party",
-            "shortName": "NDP",
-            "seats": 5,
-            "color": "#F58220"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 2,
-            "color": "grey"
-          },
-          {
-            "party": "Green Party",
-            "shortName": "Green",
-            "seats": 1,
-            "color": "#3D9B35"
+            "personId": "ca-francis-scarpaleggia",
+            "name": "Francis Scarpaleggia",
+            "officialTitle": "Speaker of the House of Commons",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2025-05-26"
+            },
+            "additionalInformation": "Elected on 26 May 2025.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Fifth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["ca-house"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "directlyElectedSeats": 343,
+          "votingAge": 18,
+          "eligibilityAge": 18,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "CA-LC01-E20250428",
+          "title": "Canada House of Commons April 2025 Election",
+          "date": {
+            "from": "2025-04-28"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 343,
+          "chamberSize": 343,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "ca-liberal_party",
+                "party": "Liberal Party",
+                "seats": 169
+              },
+              {
+                "partyId": "ca-conservative_party",
+                "party": "Conservative Party",
+                "seats": 144
+              },
+              {
+                "partyId": "ca-bloc_qu__b__cois_bq",
+                "party": "Bloc Québécois (BQ)",
+                "seats": 22
+              },
+              {
+                "partyId": "ca-ndp_new_democratic_party_ndp_",
+                "party": "NDP-New Democratic Party (NDP)",
+                "seats": 7
+              },
+              {
+                "partyId": "ca-green_party",
+                "party": "Green Party",
+                "seats": 1
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "ca-liberal_party",
+                "party": "Liberal Party",
+                "seats": 169
+              },
+              {
+                "partyId": "ca-conservative_party",
+                "party": "Conservative Party",
+                "seats": 144
+              },
+              {
+                "partyId": "ca-bloc_qu__b__cois_bq",
+                "party": "Bloc Québécois (BQ)",
+                "seats": 22
+              },
+              {
+                "partyId": "ca-ndp_new_democratic_party_ndp_",
+                "party": "NDP-New Democratic Party (NDP)",
+                "seats": 7
+              },
+              {
+                "partyId": "ca-green_party",
+                "party": "Green Party",
+                "seats": 1
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
       },
       {
-        "id": "senate",
+        "id": "CA-UC01",
         "name": "Senate",
         "kind": "upper",
         "totalSeats": 105,
-        "compositionAsOf": "2026-04-10",
-        "composition": [
+        "speakers": [
           {
-            "party": "Independent Senators Group",
-            "shortName": "ISG",
-            "seats": 42,
-            "color": "#7D7D7D"
-          },
-          {
-            "party": "Canadian Senators Group",
-            "shortName": "CSG",
-            "seats": 19,
-            "color": "#5B7FA3"
-          },
-          {
-            "party": "Progressive Senate Group",
-            "shortName": "PSG",
-            "seats": 16,
-            "color": "#A04A6A"
-          },
-          {
-            "party": "Conservative Party",
-            "shortName": "Conservative",
-            "seats": 12,
-            "color": "#1A4782"
-          },
-          {
-            "party": "Non-affiliated",
-            "shortName": "Non-affiliated",
-            "seats": 8,
-            "color": "#AAAAAA"
+            "personId": "ca-raymonde-gagne",
+            "name": "Raymonde Gagné",
+            "officialTitle": "Speaker of the Senate",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2023-05-12"
+            },
+            "additionalInformation": "Appointed on 12 May 2023.\r\nAs the Speaker of the Senate serves at the pleasure of the Prime Minister, there is no set term.",
+            "designationMode": "Other",
+            "stateRank": "Fourth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": true,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["ca-senate"]
+        "electoralSystem": {
+          "directlyElected": false,
+          "systems": [],
+          "appointedSeats": 105,
+          "eligibilityAge": 30,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"]
       }
     ]
   },
-  "elections": [
+  "nextExpectedElections": [
     {
-      "title": "Next Canadian federal election",
+      "id": "CA-LC01:2029-10-15",
+      "level": "national",
+      "chamberId": "CA-LC01",
+      "chamberName": "House of Commons",
+      "eventType": "full-renewal",
       "status": "expected",
-      "dateLabel": "15 October 2029",
-      "note": "The next fixed election date is 15 October 2029; an election may be called earlier.",
-      "sourceIds": ["ca-election"]
+      "date": {
+        "from": "2029-10-15"
+      },
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -223,6 +278,14 @@
       "kind": "official"
     },
     {
+      "id": "ca-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of Canada",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Canada",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
       "id": "ca-prime-minister",
       "publisher": "Prime Minister of Canada",
       "title": "Prime Minister of Canada",
@@ -231,36 +294,15 @@
       "kind": "official"
     },
     {
-      "id": "ca-house",
-      "publisher": "House of Commons of Canada",
-      "title": "Party standings in the House of Commons",
-      "url": "https://www.ourcommons.ca/members/en/party-standings",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "ca-senate",
-      "publisher": "Wikipedia",
-      "title": "List of current senators of Canada",
-      "url": "https://en.wikipedia.org/wiki/List_of_current_senators_of_Canada",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "ca-election",
-      "publisher": "Elections Canada",
-      "title": "ElectoFacts",
-      "url": "https://www.elections.ca/electofacts",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "ca-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of Canada",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Canada",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
     }
   ]
 }

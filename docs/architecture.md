@@ -4,11 +4,32 @@ Polity Atlas runs on a developer's machine. GitHub stores reviewed code and data
 
 - `app` and `components` contain the Vinext/React interface using Next-style App Router conventions.
 - `packages/schemas` holds the shared, versioned data contract.
-- `packages/data-pipeline` is reserved for explicit local source adapters and normalisers.
+- `packages/data-pipeline` contains explicit local source adapters and normalisers. The bounded Phase 3 IPU path is implemented under `packages/data-pipeline/ipu`.
 - `public/data` contains reviewed, citation-bearing JSON loaded by the browser.
 - `npm run dev` serves the application on localhost; `npm run build` creates a local export in `dist/client`.
 
-Private source API tokens belong in ignored local environment files or an approved credential store. Never use a `NEXT_PUBLIC_` or `VITE_` prefix for a private token, write it to generated data, or commit it.
+Private source API tokens belong in ignored local environment files or an approved credential store. Never use a `NEXT_PUBLIC_` or `VITE_` prefix for a private token, write it to generated data, or commit it. IPU Parline currently requires no key and the adapter sends no authorization header.
+
+## IPU normalization boundary
+
+The ten pilot profiles use one country-neutral flow:
+
+```text
+pilot ISO identity
+  -> unauthenticated IPU JSON:API adapter
+  -> ignored raw snapshot cache
+  -> canonical normalizer
+  -> schema validation
+  -> public country JSON + hash-backed manifest
+```
+
+The configuration supplies only canonical identity joins. It does not select country-specific transformations or editorial prose. IPU party and person identifiers are resolved through the API, and taxonomy values are resolved through IPU metadata with a deterministic fallback label.
+
+Parliamentary election results are not treated as current composition. A chamber's `latestElection` preserves seats at stake and scope. For a partial renewal, the normalizer publishes `postElectionComposition` only when IPU explicitly supplies a full-composition breakdown; otherwise it publishes `seatsWonInElection` as `contested-seats-only`. It never reconstructs a whole chamber from prior elections.
+
+`nextExpectedElections` is a collection because bicameral systems and separate renewal cycles can yield multiple entries. The IPU adapter emits only national parliamentary events. It does not infer local or subnational elections.
+
+Heads of state/government, diplomatic relations, territory associations, and Natural Earth geometry are preserved from their existing non-IPU sources when the parliamentary slice is regenerated.
 
 ## Accepted Phase 1 decisions
 
@@ -38,4 +59,4 @@ Country links own click/tap selection; map drag capture deliberately does not be
 - `.github/workflows/codeql.yml` analyses JavaScript and TypeScript.
 - `.github/dependabot.yml` proposes dependency updates.
 - The repository setting should require `verify` on `main`; confirm the effective rule after workflow changes.
-- Source ingestion is manual pending approved source access and adapters. There is no scheduled placeholder validation or deployment workflow.
+- Source ingestion is manual. The approved IPU pilot adapter is explicit and unauthenticated; remaining adapters still require source review. There is no scheduled ingestion, placeholder validation, or deployment workflow.

@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
   "identity": {
     "iso2": "AU",
     "iso3": "AUS",
@@ -36,174 +36,255 @@
   },
   "parliament": {
     "name": {
-      "value": "Parliament of Australia",
-      "asOf": "2026-09-17",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["au-house-parties", "au-senate-composition"],
+      "value": "Parliament",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "house",
+        "id": "AU-LC01",
         "name": "House of Representatives",
         "kind": "lower",
         "totalSeats": 150,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "parliamentaryTermYears": 3,
+        "speakers": [
           {
-            "party": "Australian Labor Party",
-            "shortName": "Labor",
-            "seats": 94,
-            "color": "#b8333a"
-          },
-          {
-            "party": "Liberal Party",
-            "shortName": "Liberal",
-            "seats": 27,
-            "color": "#315ca8",
-            "groupingIds": ["coalition"]
-          },
-          {
-            "party": "The Nationals",
-            "shortName": "Nationals",
-            "seats": 14,
-            "color": "#00843D",
-            "groupingIds": ["coalition"]
-          },
-          {
-            "party": "One Nation",
-            "shortName": "One Nation",
-            "seats": 2,
-            "color": "#f36c21"
-          },
-          {
-            "party": "Community Strong Australia",
-            "shortName": "Community Strong",
-            "seats": 2,
-            "color": "teal"
-          },
-          {
-            "party": "Australian Greens",
-            "shortName": "Greens",
-            "seats": 1,
-            "color": "#009C3D"
-          },
-          {
-            "party": "Katter's Australia Party",
-            "shortName": "Katter's Australia Party",
-            "seats": 1,
-            "color": "maroon"
-          },
-          {
-            "party": "Centre Alliance",
-            "shortName": "Centre Alliance",
-            "seats": 1,
-            "color": "#FFD580"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 8,
-            "color": "grey"
+            "personId": "au-milton-dick",
+            "name": "Milton Dick",
+            "officialTitle": "Speaker of the House of Representatives",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2022-07-26"
+            },
+            "additionalInformation": "Elected on 26 July 2022, re-elected on 22 July 2025.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Fourth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "groupings": [
-          {
-            "id": "coalition",
-            "name": "The Coalition",
-            "kind": "parliamentary-alliance",
-            "memberParties": ["Liberal Party", "The Nationals"],
-            "asOf": "2026-09-18",
-            "sourceIds": ["au-house-parties"]
-          }
-        ],
-        "sourceIds": ["au-house-parties"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "Alternative Vote (AV)"],
+          "directlyElectedSeats": 150,
+          "votingAge": 18,
+          "eligibilityAge": 18,
+          "compulsoryVoting": "Yes",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "AU-LC01-E20250503",
+          "title": "Australia House of Representatives May 2025 Election",
+          "date": {
+            "from": "2025-05-03"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 150,
+          "chamberSize": 150,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "au-australian_labor_party_alp",
+                "party": "Australian Labor Party (ALP)",
+                "seats": 94
+              },
+              {
+                "partyId": "au-liberal_national_coalition",
+                "party": "Liberal National coalition",
+                "seats": 43
+              },
+              {
+                "partyId": "au-independents",
+                "party": "Independents",
+                "seats": 10
+              },
+              {
+                "partyId": "au-centre_alliance",
+                "party": "Centre Alliance",
+                "seats": 1
+              },
+              {
+                "partyId": "au-katters_australian_party",
+                "party": "Katter's Australian Party (KAP)",
+                "seats": 1
+              },
+              {
+                "partyId": "au-greens_0",
+                "party": "The Greens",
+                "seats": 1
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "au-australian_labor_party_alp",
+                "party": "Australian Labor Party (ALP)",
+                "seats": 94
+              },
+              {
+                "partyId": "au-liberal_national_coalition",
+                "party": "Liberal National coalition",
+                "seats": 43
+              },
+              {
+                "partyId": "au-independents",
+                "party": "Independents",
+                "seats": 10
+              },
+              {
+                "partyId": "au-centre_alliance",
+                "party": "Centre Alliance",
+                "seats": 1
+              },
+              {
+                "partyId": "au-katters_australian_party",
+                "party": "Katter's Australian Party (KAP)",
+                "seats": 1
+              },
+              {
+                "partyId": "au-greens_0",
+                "party": "The Greens",
+                "seats": 1
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
       },
       {
-        "id": "senate",
+        "id": "AU-UC01",
         "name": "Senate",
         "kind": "upper",
         "totalSeats": 76,
-        "compositionAsOf": "2026-09-18",
-        "composition": [
+        "parliamentaryTermYears": 6,
+        "renewalFrequencyYears": 3,
+        "speakers": [
           {
-            "party": "Australian Labor Party",
-            "shortName": "Labor",
-            "seats": 30,
-            "color": "#b8333a"
-          },
-          {
-            "party": "Liberal Party",
-            "shortName": "Liberal",
-            "seats": 23,
-            "color": "#315ca8",
-            "groupingIds": ["coalition"]
-          },
-          {
-            "party": "The Nationals",
-            "shortName": "Nationals",
-            "seats": 4,
-            "color": "#00843D",
-            "groupingIds": ["coalition"]
-          },
-          {
-            "party": "Australian Greens",
-            "shortName": "Greens",
-            "seats": 10,
-            "color": "#009C3D"
-          },
-          {
-            "party": "One Nation",
-            "shortName": "One Nation",
-            "seats": 4,
-            "color": "#f36c21"
-          },
-          {
-            "party": "Lambie Network",
-            "shortName": "Lambie Network",
-            "seats": 1,
-            "color": "#FFb550"
-          },
-          {
-            "party": "United Australia Party",
-            "shortName": "United Australia Party",
-            "seats": 1,
-            "color": "yellow"
-          },
-          {
-            "party": "Australia's Voice",
-            "shortName": "Australia's Voice",
-            "seats": 1,
-            "color": "#AA0746"
-          },
-          {
-            "party": "Independent",
-            "shortName": "Independent",
-            "seats": 2,
-            "color": "grey"
+            "personId": "au-sue-lines",
+            "name": "Sue Lines",
+            "officialTitle": "President of the Senate",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2022-07-26"
+            },
+            "additionalInformation": "Elected on 26 July 2022, re-elected on 22 July 2025.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Third",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": true,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "groupings": [
-          {
-            "id": "coalition",
-            "name": "The Coalition",
-            "kind": "parliamentary-alliance",
-            "memberParties": ["Liberal Party", "The Nationals"],
-            "asOf": "2026-09-18",
-            "sourceIds": ["au-senate-composition"]
-          }
-        ],
-        "sourceIds": ["au-senate-composition"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": [
+            "Proportional representation",
+            "Single Transferable Vote (STV)"
+          ],
+          "directlyElectedSeats": 76,
+          "votingAge": 18,
+          "eligibilityAge": 18,
+          "compulsoryVoting": "Yes",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "AU-UC01-E20250503",
+          "title": "Australia Senate May 2025 Election",
+          "date": {
+            "from": "2025-05-03"
+          },
+          "scope": "partial-renewal",
+          "seatsAtStake": 40,
+          "chamberSize": 76,
+          "outcome": {
+            "display": "contested-seats-only",
+            "seatsWonInElection": [
+              {
+                "partyId": "au-australian_labor_party_alp",
+                "party": "Australian Labor Party (ALP)",
+                "seats": 16
+              },
+              {
+                "partyId": "au-liberal",
+                "party": "Liberal",
+                "seats": 6
+              },
+              {
+                "partyId": "au-greens_0",
+                "party": "The Greens",
+                "seats": 6
+              },
+              {
+                "partyId": "au-liberalnationals",
+                "party": "Liberal/Nationals",
+                "seats": 4
+              },
+              {
+                "partyId": "au-pauline_hansons_one_nation",
+                "party": "Pauline Hanson's One Nation",
+                "seats": 3
+              },
+              {
+                "partyId": "au-liberal_national_party_queensland",
+                "party": "Liberal National Party of Queensland",
+                "seats": 2
+              },
+              {
+                "partyId": "au-country_liberals_nt",
+                "party": "Country Liberals (NT)",
+                "seats": 1
+              },
+              {
+                "partyId": "au-david_pocock",
+                "party": "David Pocock",
+                "seats": 1
+              },
+              {
+                "partyId": "au-jacqui_lambie_network",
+                "party": "Jacqui Lambie Network",
+                "seats": 1
+              }
+            ]
+          },
+          "notes": [
+            "The number of seats won by the Greens above includes a senator who joined the ALP after the elections."
+          ],
+          "sourceIds": ["ipu-parline"]
+        }
       }
     ]
   },
-  "elections": [
+  "nextExpectedElections": [
     {
-      "title": "Next Australian federal election",
+      "id": "AU-LC01:2028-05-31",
+      "level": "national",
+      "chamberId": "AU-LC01",
+      "chamberName": "House of Representatives",
+      "eventType": "full-renewal",
       "status": "expected",
-      "dateLabel": "Aug 2027 – May 2028",
-      "note": "No polling day has been announced. The Australian Electoral Commission states that the next federal election is due within this interval.",
-      "sourceIds": ["au-election-timetable"]
+      "date": {
+        "from": "2028-05-31"
+      },
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "id": "AU-UC01:2028-05-31",
+      "level": "national",
+      "chamberId": "AU-UC01",
+      "chamberName": "Senate",
+      "eventType": "partial-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2028-05-31"
+      },
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -273,18 +354,18 @@
   ],
   "sources": [
     {
-      "id": "au-system",
-      "publisher": "Parliamentary Education Office",
-      "title": "Australia's system of government",
-      "url": "https://peo.gov.au/understand-our-parliament/how-parliament-works/system-of-government/australias-system-of-government",
-      "retrievedAt": "2026-09-17T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
       "id": "au-governor-general",
       "publisher": "Governor-General of Australia",
       "title": "About the Governor-General",
       "url": "https://www.gg.gov.au/about-governor-general",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-missions",
+      "publisher": "Department of Foreign Affairs and Trade",
+      "title": "Australian embassies and consulates overseas",
+      "url": "https://www.dfat.gov.au/about-us/our-locations/missions/Pages/our-embassies-and-consulates-overseas",
       "retrievedAt": "2026-09-17T00:00:00.000Z",
       "kind": "official"
     },
@@ -297,44 +378,23 @@
       "kind": "official"
     },
     {
-      "id": "au-parliament-reference",
-      "publisher": "Wikipedia",
-      "title": "Parliament of Australia",
-      "url": "https://en.wikipedia.org/wiki/Parliament_of_Australia",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "au-house-parties",
-      "publisher": "Wikipedia",
-      "title": "Australian House of Representatives",
-      "url": "https://en.wikipedia.org/wiki/Australian_House_of_Representatives",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "au-senate-composition",
-      "publisher": "Wikipedia",
-      "title": "Australian Senate",
-      "url": "https://en.wikipedia.org/wiki/Australian_Senate",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "au-election-timetable",
-      "publisher": "Australian Electoral Commission",
-      "title": "When elections are held",
-      "url": "https://www.aec.gov.au/learn/election-timetable.htm",
+      "id": "au-system",
+      "publisher": "Parliamentary Education Office",
+      "title": "Australia's system of government",
+      "url": "https://peo.gov.au/understand-our-parliament/how-parliament-works/system-of-government/australias-system-of-government",
       "retrievedAt": "2026-09-17T00:00:00.000Z",
       "kind": "official"
     },
     {
-      "id": "au-missions",
-      "publisher": "Department of Foreign Affairs and Trade",
-      "title": "Australian embassies and consulates overseas",
-      "url": "https://www.dfat.gov.au/about-us/our-locations/missions/Pages/our-embassies-and-consulates-overseas",
-      "retrievedAt": "2026-09-17T00:00:00.000Z",
-      "kind": "official"
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
     }
   ]
 }

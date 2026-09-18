@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "buildId": "2026-09-18",
+  "schemaVersion": 2,
+  "buildId": "2026-09-19",
   "identity": {
     "iso2": "JP",
     "iso3": "JPN",
@@ -37,167 +37,309 @@
   "parliament": {
     "name": {
       "value": "National Diet",
-      "asOf": "2026-09-18",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["jp-house", "jp-senate"],
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
       {
-        "id": "representatives",
+        "id": "JP-LC01",
         "name": "House of Representatives",
         "kind": "lower",
         "totalSeats": 465,
-        "compositionAsOf": "2026-02-18",
-        "composition": [
+        "parliamentaryTermYears": 4,
+        "speakers": [
           {
-            "party": "Liberal Democratic Party",
-            "shortName": "LDP",
-            "seats": 316,
-            "color": "#3CA324"
-          },
-          {
-            "party": "Centrist Reform Alliance",
-            "shortName": "CRA",
-            "seats": 48,
-            "color": "#4A69BD"
-          },
-          {
-            "party": "Nippon Ishin (Japan Innovation Party)",
-            "shortName": "JIP",
-            "seats": 36,
-            "color": "#8FC31F"
-          },
-          {
-            "party": "Democratic Party for the People",
-            "shortName": "DPFP",
-            "seats": 28,
-            "color": "#F4C300"
-          },
-          {
-            "party": "SANSEITO",
-            "shortName": "Sanseito",
-            "seats": 15,
-            "color": "#F39800"
-          },
-          {
-            "party": "Team Mirai",
-            "shortName": "Team Mirai",
-            "seats": 11,
-            "color": "#00A0C6"
-          },
-          {
-            "party": "Japanese Communist Party",
-            "shortName": "JCP",
-            "seats": 4,
-            "color": "#DB001C"
-          },
-          {
-            "party": "Independents",
-            "shortName": "Independent",
-            "seats": 7,
-            "color": "grey"
+            "personId": "jp-eisuke-mori",
+            "name": "Eisuke Mori",
+            "officialTitle": "Speaker of the House of Representatives",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2026-02-18"
+            },
+            "additionalInformation": "Elected on 18 Feb. 2026.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Other",
+            "becomesInterimHeadOfState": true,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["jp-house"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Mixed system", "Parallel Systems"],
+          "directlyElectedSeats": 465,
+          "votingAge": 18,
+          "eligibilityAge": 25,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "JP-LC01-E20260208",
+          "title": "Japan House of Representatives February 2026 Election",
+          "date": {
+            "from": "2026-02-08"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 465,
+          "chamberSize": 465,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "jp-liberal_democratic_party_ldp",
+                "party": "Liberal Democratic Party (LDP)",
+                "seats": 315
+              },
+              {
+                "partyId": "jp-centrist-reform-alliance",
+                "party": "Centrist Reform Alliance",
+                "seats": 49
+              },
+              {
+                "partyId": "jp-nippon_ishin_no_japan_restoration_party",
+                "party": "Nippon Ishin (Japan Innovation Party)",
+                "seats": 36
+              },
+              {
+                "partyId": "jp-democratic_party_for_the_people",
+                "party": "Democratic Party for the People",
+                "seats": 28
+              },
+              {
+                "partyId": "jp-sanseito",
+                "party": "Sanseito",
+                "seats": 15
+              },
+              {
+                "partyId": "jp-team-mirai",
+                "party": "Team Mirai",
+                "seats": 11
+              },
+              {
+                "partyId": "jp-independents",
+                "party": "Independents",
+                "seats": 5
+              },
+              {
+                "partyId": "jp-japanese_communist_party_jcp",
+                "party": "Japanese Communist Party (JCP)",
+                "seats": 4
+              },
+              {
+                "partyId": "jp-genzei-nippon-yukoku-rengo",
+                "party": "Genzei Nippon Yukoku Rengo",
+                "seats": 1
+              },
+              {
+                "partyId": "jp-reiwa_shinsengumi",
+                "party": "Reiwa Shinsengumi",
+                "seats": 1
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "jp-liberal_democratic_party_ldp",
+                "party": "Liberal Democratic Party (LDP)",
+                "seats": 315
+              },
+              {
+                "partyId": "jp-centrist-reform-alliance",
+                "party": "Centrist Reform Alliance",
+                "seats": 49
+              },
+              {
+                "partyId": "jp-nippon_ishin_no_japan_restoration_party",
+                "party": "Nippon Ishin (Japan Innovation Party)",
+                "seats": 36
+              },
+              {
+                "partyId": "jp-democratic_party_for_the_people",
+                "party": "Democratic Party for the People",
+                "seats": 28
+              },
+              {
+                "partyId": "jp-sanseito",
+                "party": "Sanseito",
+                "seats": 15
+              },
+              {
+                "partyId": "jp-team-mirai",
+                "party": "Team Mirai",
+                "seats": 11
+              },
+              {
+                "partyId": "jp-independents",
+                "party": "Independents",
+                "seats": 5
+              },
+              {
+                "partyId": "jp-japanese_communist_party_jcp",
+                "party": "Japanese Communist Party (JCP)",
+                "seats": 4
+              },
+              {
+                "partyId": "jp-genzei-nippon-yukoku-rengo",
+                "party": "Genzei Nippon Yukoku Rengo",
+                "seats": 1
+              },
+              {
+                "partyId": "jp-reiwa_shinsengumi",
+                "party": "Reiwa Shinsengumi",
+                "seats": 1
+              }
+            ]
+          },
+          "notes": [
+            "One independent candidate joined the LDP after the elections, giving it 316 seats."
+          ],
+          "sourceIds": ["ipu-parline"]
+        }
       },
       {
-        "id": "senate",
-        "name": "House of Councillors",
+        "id": "JP-UC01",
+        "name": "Senate",
         "kind": "upper",
         "totalSeats": 248,
-        "compositionAsOf": "2026-09-16",
-        "composition": [
+        "parliamentaryTermYears": 6,
+        "renewalFrequencyYears": 3,
+        "speakers": [
           {
-            "party": "Liberal Democratic Party and Group of Independents",
-            "shortName": "LDP-GI",
-            "seats": 101,
-            "color": "#3CA324"
-          },
-          {
-            "party": "Constitutional Democratic Party of Japan and the Independent",
-            "shortName": "CDP",
-            "seats": 39,
-            "color": "#00469C"
-          },
-          {
-            "party": "Democratic Party for the People and The Shin-Ryokufukai",
-            "shortName": "DPFP-SR",
-            "seats": 25,
-            "color": "#F4C300"
-          },
-          {
-            "party": "Komeito",
-            "shortName": "Komeito",
-            "seats": 21,
-            "color": "#F5A9C7"
-          },
-          {
-            "party": "Nippon Ishin (Japan Innovation Party)",
-            "shortName": "JIP",
-            "seats": 19,
-            "color": "#8FC31F"
-          },
-          {
-            "party": "SANSEITO",
-            "shortName": "Sanseito",
-            "seats": 15,
-            "color": "#F39800"
-          },
-          {
-            "party": "Japanese Communist Party",
-            "shortName": "JCP",
-            "seats": 7,
-            "color": "#DB001C"
-          },
-          {
-            "party": "Currently confirming",
-            "shortName": "Confirming",
-            "seats": 5,
-            "color": "grey"
-          },
-          {
-            "party": "Conservative Party of Japan",
-            "shortName": "CPJ",
-            "seats": 2,
-            "color": "#1D3B70"
-          },
-          {
-            "party": "Okinawa Whirlwind",
-            "shortName": "OW",
-            "seats": 2,
-            "color": "#6AA84F"
-          },
-          {
-            "party": "Team Mirai and the Independent",
-            "shortName": "Team Mirai",
-            "seats": 2,
-            "color": "#00A0C6"
-          },
-          {
-            "party": "Social Democratic Party",
-            "shortName": "SDP",
-            "seats": 2,
-            "color": "#01A8EC"
-          },
-          {
-            "party": "Independents",
-            "shortName": "Independent",
-            "seats": 7,
-            "color": "grey"
+            "personId": "jp-masakazu-sekiguchi",
+            "name": "Masakazu Sekiguchi",
+            "officialTitle": "President of the Senate",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2024-11-11"
+            },
+            "additionalInformation": "Elected on 11 Nov. 2024, re-elected on 1 Aug. 2025.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Other",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
           }
         ],
-        "sourceIds": ["jp-senate"]
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Mixed system", "Parallel Systems"],
+          "directlyElectedSeats": 248,
+          "votingAge": 18,
+          "eligibilityAge": 30,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "JP-UC01-E20250720",
+          "title": "Japan House of Councillors July 2025 Election",
+          "date": {
+            "from": "2025-07-20"
+          },
+          "scope": "partial-renewal",
+          "seatsAtStake": 125,
+          "chamberSize": 248,
+          "outcome": {
+            "display": "contested-seats-only",
+            "seatsWonInElection": [
+              {
+                "partyId": "jp-liberal_democratic_party_ldp",
+                "party": "Liberal Democratic Party (LDP)",
+                "seats": 39
+              },
+              {
+                "partyId": "jp-constitutional_democratic_party_japan",
+                "party": "Constitutional Democratic Party of Japan",
+                "seats": 22
+              },
+              {
+                "partyId": "jp-democratic_party_for_the_people",
+                "party": "Democratic Party for the People",
+                "seats": 17
+              },
+              {
+                "partyId": "jp-sanseito",
+                "party": "Sanseito",
+                "seats": 14
+              },
+              {
+                "partyId": "jp-independents",
+                "party": "Independents",
+                "seats": 8
+              },
+              {
+                "partyId": "jp-komeito",
+                "party": "Komeito",
+                "seats": 8
+              },
+              {
+                "partyId": "jp-nippon_ishin_no_japan_restoration_party",
+                "party": "Nippon Ishin (Japan Innovation Party)",
+                "seats": 7
+              },
+              {
+                "partyId": "jp-japanese_communist_party_jcp",
+                "party": "Japanese Communist Party (JCP)",
+                "seats": 3
+              },
+              {
+                "partyId": "jp-reiwa_shinsengumi",
+                "party": "Reiwa Shinsengumi",
+                "seats": 3
+              },
+              {
+                "partyId": "jp-conservative-party-of-japan",
+                "party": "Conservative Party of Japan",
+                "seats": 2
+              },
+              {
+                "partyId": "jp-social_democratic_party_sdp",
+                "party": "Social Democratic Party (SDP)",
+                "seats": 1
+              },
+              {
+                "partyId": "jp-team-mirai",
+                "party": "Team Mirai",
+                "seats": 1
+              }
+            ]
+          },
+          "notes": [
+            "The number of seats for the Constitutional Democratic Party of Japan includes one female member who won a by-election in Tokyo prefecture.\n\nParliamentary groups in the House of Councillors (As of 25 August 2025)\n- Liberal Democratic Party (LDP): 100\n- Constitutional Democratic Party of Japan (CDP) - Social Democratic Party (SDP) – Independents: 42\n- The Democratic Party and The Shin-Ryokufukai (DP-SR): 25\n- Komeito (KP): 21\n- Nippon Ishin (Japan Innovation Party): 19\n- Sanseito: 15\n- Japanese Communist Party (JCP): 7\n- Reiwa Shinsengumi: 6\n- Okinawa Whirlwind (OW): 2\n- Conservative Party of Japan: 2\n- Independents: 9"
+          ],
+          "sourceIds": ["ipu-parline"]
+        }
       }
     ]
   },
-  "elections": [
+  "nextExpectedElections": [
     {
-      "title": "Next scheduled Japanese national election",
+      "id": "JP-UC01:2028-07-31",
+      "level": "national",
+      "chamberId": "JP-UC01",
+      "chamberName": "Senate",
+      "eventType": "partial-renewal",
       "status": "expected",
-      "dateLabel": "2028",
-      "note": "The next regular House of Councillors election is expected in 2028; an earlier House of Representatives election remains possible.",
-      "sourceIds": ["jp-election"]
+      "date": {
+        "from": "2028-07-31"
+      },
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "id": "JP-LC01:2030-01-31",
+      "level": "national",
+      "chamberId": "JP-LC01",
+      "chamberName": "House of Representatives",
+      "eventType": "full-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2030-01-31"
+      },
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -267,6 +409,17 @@
   ],
   "sources": [
     {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+    },
+    {
       "id": "jp-country",
       "publisher": "Wikipedia",
       "title": "Japan",
@@ -283,44 +436,20 @@
       "kind": "official"
     },
     {
-      "id": "jp-prime-minister",
-      "publisher": "Prime Minister's Office of Japan",
-      "title": "Designation of the Prime Minister",
-      "url": "https://japan.kantei.go.jp/105/actions/202602/_00001.html",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "jp-house",
-      "publisher": "House of Representatives, Japan",
-      "title": "Strength of the In-House Groups in the House of Representatives",
-      "url": "https://www.shugiin.go.jp/internet/itdb_english.nsf/html/statics/english/strength.htm",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "jp-senate",
-      "publisher": "House of Councillors, Japan",
-      "title": "Strength of the Political Groups",
-      "url": "https://www.sangiin.go.jp/japanese/joho1/kousei/eng/strength/index.htm",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "jp-election",
-      "publisher": "Wikipedia",
-      "title": "Next Japanese House of Councillors election",
-      "url": "https://en.wikipedia.org/wiki/2028_Japanese_House_of_Councillors_election",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
       "id": "jp-missions",
       "publisher": "Wikipedia",
       "title": "List of diplomatic missions of Japan",
       "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Japan",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
       "kind": "reference"
+    },
+    {
+      "id": "jp-prime-minister",
+      "publisher": "Prime Minister's Office of Japan",
+      "title": "Designation of the Prime Minister",
+      "url": "https://japan.kantei.go.jp/105/actions/202602/_00001.html",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
     }
   ]
 }
