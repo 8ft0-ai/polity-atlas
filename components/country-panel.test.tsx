@@ -73,41 +73,51 @@ describe('CountryPanel', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  it('renders parliament composition as thick semicircles with grouping indicators and notes', async () => {
+  it('renders IPU election snapshots without calling them current composition', async () => {
     useWorkspaceStore.setState({ activeTab: 'parliament' });
 
     renderPanel();
 
-    const houseSemicircle = await screen.findByLabelText(
-      'House of Representatives seating composition semicircle',
+    const house = await screen.findByLabelText(
+      'House of Representatives post-election composition semicircle',
     );
-    expect(houseSemicircle.tagName.toLowerCase()).toBe('svg');
-
-    const houseBackground = houseSemicircle.querySelector(
-      '[data-seat-arc-background]',
+    expect(house.querySelector('[data-seat-arc-background]')).toHaveAttribute(
+      'stroke-width',
+      '24',
     );
-    expect(houseBackground).toHaveAttribute('stroke-width', '24');
-
     expect(
-      houseSemicircle.querySelector('[data-party-segment="Liberal"]'),
-    ).not.toBeNull();
-    expect(
-      houseSemicircle.querySelector('[data-party-segment="Nationals"]'),
+      house.querySelector(
+        '[data-party-segment="Australian Labor Party (ALP)"]',
+      ),
     ).not.toBeNull();
 
-    const coalitionIndicators = screen.getAllByLabelText(
-      'Member of The Coalition',
+    const senate = screen.getByLabelText(
+      'Senate post-election composition semicircle',
     );
-    expect(coalitionIndicators).toHaveLength(4);
+    expect(senate).toBeInTheDocument();
+    expect(
+      screen.getByText(/40 of 76 statutory seats contested in this renewal/),
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByText(
+        'This shows the full chamber immediately following the most recent election or renewal reported by IPU. It is not a statement of current composition.',
+      ).length,
+    ).toBeGreaterThan(0);
+  });
 
-    const coalitionNotes = document.querySelectorAll(
-      '[data-grouping-note="coalition"]',
-    );
-    expect(coalitionNotes).toHaveLength(2);
-    expect(coalitionNotes[0]).toHaveTextContent('†');
-    expect(coalitionNotes[0]).toHaveTextContent('The Coalition');
-    expect(coalitionNotes[0]).toHaveTextContent(
-      'Liberal Party and The Nationals',
+  it('shows IPU attribution and terms in the Sources tab', async () => {
+    useWorkspaceStore.setState({ activeTab: 'sources' });
+
+    renderPanel();
+
+    expect(
+      await screen.findByText(
+        'Inter-Parliamentary Union: Parline, September 2026',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Terms of use/ })).toHaveAttribute(
+      'href',
+      'https://www.ipu.org/terms-use',
     );
   });
 
