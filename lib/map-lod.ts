@@ -7,6 +7,7 @@ import countries50Source from '@/public/data/geometry/lod/50m/countries.json';
 import disputed50Source from '@/public/data/geometry/lod/50m/disputed-areas.json';
 import boundaries50Source from '@/public/data/geometry/lod/50m/disputed-boundaries.json';
 import tiny50Source from '@/public/data/geometry/lod/50m/tiny-countries.json';
+import fallbackPrimaryMarkersSource from '@/public/data/geometry/lod/fallback-primary-markers.json';
 import {
   countryOptions,
   primaryCountryByM49,
@@ -193,7 +194,7 @@ function countryByTinyProperties(
   );
 }
 
-function tinyCountries(source: unknown): TinyCountryMarker[] {
+function markerCandidates(source: unknown): TinyCountryMarker[] {
   const collection = source as FeatureCollection<Point, Properties>;
   const seen = new Set<string>();
   const markers: TinyCountryMarker[] = [];
@@ -214,21 +215,63 @@ function tinyCountries(source: unknown): TinyCountryMarker[] {
   return markers;
 }
 
+function completeTinyCountryCoverage(
+  countries: LodCountryFeature[],
+  nativeMarkers: TinyCountryMarker[],
+) {
+  const covered = new Set(
+    countries
+      .filter((feature) => feature.properties.kind === 'primary-state')
+      .map((feature) => feature.properties.entityId),
+  );
+  const result = [...nativeMarkers];
+
+  for (const marker of nativeMarkers) covered.add(marker.entityId);
+
+  for (const marker of markerCandidates(fallbackPrimaryMarkersSource)) {
+    if (covered.has(marker.entityId)) continue;
+    covered.add(marker.entityId);
+    result.push(marker);
+  }
+
+  return result;
+}
+
+function createMapGeometryPackage(
+  lod: MapLod,
+  countriesSource: unknown,
+  disputedSource: unknown,
+  boundariesSource: unknown,
+  tinySource: unknown,
+): MapGeometryPackage {
+  const countries = countryFeatures(countriesSource);
+  return {
+    lod,
+    countries,
+    disputedAreas: disputedAreas(disputedSource),
+    disputedBoundaries: disputedBoundaries(boundariesSource),
+    tinyCountries: completeTinyCountryCoverage(
+      countries,
+      markerCandidates(tinySource),
+    ),
+  };
+}
+
 export const mapGeometryByLod: Record<MapLod, MapGeometryPackage> = {
-  '110m': {
-    lod: '110m',
-    countries: countryFeatures(countries110Source),
-    disputedAreas: disputedAreas(disputed110Source),
-    disputedBoundaries: disputedBoundaries(boundaries110Source),
-    tinyCountries: tinyCountries(tiny110Source),
-  },
-  '50m': {
-    lod: '50m',
-    countries: countryFeatures(countries50Source),
-    disputedAreas: disputedAreas(disputed50Source),
-    disputedBoundaries: disputedBoundaries(boundaries50Source),
-    tinyCountries: tinyCountries(tiny50Source),
-  },
+  '110m': createMapGeometryPackage(
+    '110m',
+    countries110Source,
+    disputed110Source,
+    boundaries110Source,
+    tiny110Source,
+  ),
+  '50m': createMapGeometryPackage(
+    '50m',
+    countries50Source,
+    disputed50Source,
+    boundaries50Source,
+    tiny50Source,
+  ),
 };
 
 export const LOD_ENTER_50M_SCALE = 1.8;
