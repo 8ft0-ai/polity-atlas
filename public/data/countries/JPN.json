@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-18",
+  "identity": {
+    "iso2": "JP",
+    "iso3": "JPN",
+    "m49": "392",
+    "name": "Japan",
+    "officialName": "Japan",
+    "capital": "Tokyo"
+  },
+  "government": {
+    "system": {
+      "value": "Unitary parliamentary constitutional monarchy",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": [
+        "jp-country"
+      ],
+      "confidence": "verified"
+    },
+    "headOfState": [
+      {
+        "office": "Emperor",
+        "name": "Naruhito",
+        "since": "2019-05-01",
+        "sourceIds": [
+          "jp-emperor"
+        ]
+      }
+    ],
+    "headOfGovernment": [
+      {
+        "office": "Prime Minister",
+        "name": "Sanae Takaichi",
+        "since": "2026-02-18",
+        "sourceIds": [
+          "jp-prime-minister"
+        ]
+      }
+    ]
+  },
+  "parliament": {
+    "name": {
+      "value": "National Diet",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": [
+        "jp-house",
+        "jp-senate"
+      ],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "representatives",
+        "name": "House of Representatives",
+        "kind": "lower",
+        "totalSeats": 465,
+        "compositionAsOf": "2026-02-18",
+        "composition": [
+          {
+            "party": "Liberal Democratic Party",
+            "shortName": "LDP",
+            "seats": 316,
+            "color": "#3CA324"
+          },
+          {
+            "party": "Centrist Reform Alliance",
+            "shortName": "CRA",
+            "seats": 48,
+            "color": "#4A69BD"
+          },
+          {
+            "party": "Nippon Ishin (Japan Innovation Party)",
+            "shortName": "JIP",
+            "seats": 36,
+            "color": "#8FC31F"
+          },
+          {
+            "party": "Democratic Party for the People",
+            "shortName": "DPFP",
+            "seats": 28,
+            "color": "#F4C300"
+          },
+          {
+            "party": "SANSEITO",
+            "shortName": "Sanseito",
+            "seats": 15,
+            "color": "#F39800"
+          },
+          {
+            "party": "Team Mirai",
+            "shortName": "Team Mirai",
+            "seats": 11,
+            "color": "#00A0C6"
+          },
+          {
+            "party": "Japanese Communist Party",
+            "shortName": "JCP",
+            "seats": 4,
+            "color": "#DB001C"
+          },
+          {
+            "party": "Independents",
+            "shortName": "Independent",
+            "seats": 7,
+            "color": "grey"
+          }
+        ],
+        "sourceIds": [
+          "jp-house"
+        ]
+      },
+      {
+        "id": "senate",
+        "name": "House of Councillors",
+        "kind": "upper",
+        "totalSeats": 248,
+        "compositionAsOf": "2026-07-08",
+        "composition": [
+          {
+            "party": "Liberal Democratic Party and Group of Independents",
+            "shortName": "LDP-GI",
+            "seats": 101,
+            "color": "#3CA324"
+          },
+          {
+            "party": "Constitutional Democratic Party of Japan and the Independent",
+            "shortName": "CDP",
+            "seats": 40,
+            "color": "#00469C"
+          },
+          {
+            "party": "Democratic Party for the People and The Shin-Ryokufukai",
+            "shortName": "DPFP-SR",
+            "seats": 25,
+            "color": "#F4C300"
+          },
+          {
+            "party": "Komeito",
+            "shortName": "Komeito",
+            "seats": 21,
+            "color": "#F5A9C7"
+          },
+          {
+            "party": "Nippon Ishin (Japan Innovation Party)",
+            "shortName": "JIP",
+            "seats": 19,
+            "color": "#8FC31F"
+          },
+          {
+            "party": "SANSEITO",
+            "shortName": "Sanseito",
+            "seats": 15,
+            "color": "#F39800"
+          },
+          {
+            "party": "Japanese Communist Party",
+            "shortName": "JCP",
+            "seats": 7,
+            "color": "#DB001C"
+          },
+          {
+            "party": "Reiwa Shinsengumi",
+            "shortName": "Reiwa",
+            "seats": 5,
+            "color": "#ED1A3D"
+          },
+          {
+            "party": "Conservative Party of Japan",
+            "shortName": "CPJ",
+            "seats": 2,
+            "color": "#1D3B70"
+          },
+          {
+            "party": "Okinawa Whirlwind",
+            "shortName": "OW",
+            "seats": 2,
+            "color": "#6AA84F"
+          },
+          {
+            "party": "Team Mirai and the Independent",
+            "shortName": "Team Mirai",
+            "seats": 2,
+            "color": "#00A0C6"
+          },
+          {
+            "party": "Social Democratic Party",
+            "shortName": "SDP",
+            "seats": 2,
+            "color": "#01A8EC"
+          },
+          {
+            "party": "Independents",
+            "shortName": "Independent",
+            "seats": 6,
+            "color": "grey"
+          }
+        ],
+        "sourceIds": [
+          "jp-senate"
+        ]
+      }
+    ]
+  },
+  "elections": [
+    {
+      "title": "Next scheduled Japanese national election",
+      "status": "expected",
+      "dateLabel": "2028",
+      "note": "The next regular House of Councillors election is expected in 2028; an earlier House of Representatives election remains possible.",
+      "sourceIds": [
+        "jp-election"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "country": "Australia",
+      "m49": "036",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    },
+    {
+      "country": "New Zealand",
+      "m49": "554",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    },
+    {
+      "country": "Canada",
+      "m49": "124",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    },
+    {
+      "country": "United States of America",
+      "m49": "840",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    },
+    {
+      "country": "United Kingdom",
+      "m49": "826",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    },
+    {
+      "country": "France",
+      "m49": "250",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    },
+    {
+      "country": "China",
+      "m49": "156",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    },
+    {
+      "country": "India",
+      "m49": "356",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    },
+    {
+      "country": "Indonesia",
+      "m49": "360",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": [
+        "jp-missions"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "jp-country",
+      "publisher": "Wikipedia",
+      "title": "Japan",
+      "url": "https://en.wikipedia.org/wiki/Japan",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "jp-emperor",
+      "publisher": "Imperial Household Agency",
+      "title": "Their Majesties the Emperor and Empress",
+      "url": "https://www.kunaicho.go.jp/en/learn/about/history/history01.html",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "jp-prime-minister",
+      "publisher": "Prime Minister's Office of Japan",
+      "title": "Designation of the Prime Minister",
+      "url": "https://japan.kantei.go.jp/105/actions/202602/_00001.html",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "jp-house",
+      "publisher": "House of Representatives, Japan",
+      "title": "Strength of the In-House Groups in the House of Representatives",
+      "url": "https://www.shugiin.go.jp/internet/itdb_english.nsf/html/statics/english/strength.htm",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "jp-senate",
+      "publisher": "House of Councillors, Japan",
+      "title": "Strength of the Political Groups",
+      "url": "https://www.sangiin.go.jp/japanese/joho1/kousei/eng/strength/index.htm",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "jp-election",
+      "publisher": "Wikipedia",
+      "title": "Next Japanese House of Councillors election",
+      "url": "https://en.wikipedia.org/wiki/2028_Japanese_House_of_Councillors_election",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "jp-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of Japan",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Japan",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    }
+  ]
+}
