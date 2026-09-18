@@ -34,10 +34,7 @@ const disputedBoundaries =
 
 const explicitAssociations: Record<string, string[]> = {
   Abkhazia: [primaryEntityIdForM49('268')],
-  'Falkland Is.': [
-    primaryEntityIdForM49('826'),
-    primaryEntityIdForM49('032'),
-  ],
+  'Falkland Is.': [primaryEntityIdForM49('826'), primaryEntityIdForM49('032')],
   'N. Cyprus': [primaryEntityIdForM49('196')],
   Somaliland: [primaryEntityIdForM49('706')],
   'South Ossetia': [primaryEntityIdForM49('268')],
