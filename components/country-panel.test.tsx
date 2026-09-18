@@ -156,9 +156,7 @@ describe('CountryPanel', () => {
     expect(screen.getByText('Naruhito')).toBeInTheDocument();
     expect(screen.getByText('Head of government')).toBeInTheDocument();
     expect(screen.getByText('Head of state')).toBeInTheDocument();
-    expect(
-      screen.queryByText('Head of government · Head of state'),
-    ).toBeNull();
+    expect(screen.queryByText('Head of government · Head of state')).toBeNull();
   });
 
   it('uses durable copy for countries without a validated profile', () => {
