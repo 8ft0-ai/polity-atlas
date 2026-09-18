@@ -24,9 +24,13 @@ Private source API tokens belong in ignored local environment files or an approv
 
 ## Map rendering boundary
 
-The global political atlas is rendered as SVG from the bundled Natural Earth-derived country geometry. Country rings are clipped at the antimeridian, projected with a deterministic Mercator projection, and rendered as interactive SVG paths keyed by M49. Three adjacent world copies provide seamless horizontal wrapping while vertical pan remains bounded. Country links own click/tap selection; map drag capture deliberately does not begin on a country link, keeping selection independent of pan gesture handling. This keeps global country shape, selection, relation highlighting, and world-scale navigation independent of MapLibre's tiled polygon pipeline.
+The global political atlas is rendered as SVG from bundled Natural Earth-derived geometry. Country rings are clipped at the antimeridian and projected with a deterministic Mercator projection. Three adjacent world copies provide seamless horizontal wrapping while vertical pan remains bounded.
 
-MapLibre remains an installed GIS dependency for future detailed regional or local views where conventional slippy-map behaviour, dense layers, or tiled data are appropriate. It is not the renderer for the global world atlas.
+Rendered geography uses canonical Polity Atlas `entityId` values rather than assuming every polygon has an M49 code. Primary countries, dependencies, overseas territories, disputed territories, and non-country areas are distinct entity kinds. The main search contains the 197 primary research entities defined in `docs/border-policy.md`; map geometry may contain additional areas without promoting them into that primary set.
+
+The current base country layer remains the established 110m `world-atlas` geometry. Pinned Natural Earth 50m breakaway/disputed polygons and disputed boundary lines are layered above it. This is a transitional runtime arrangement: `packages/data-pipeline/map/` defines the boundary for moving all geometry normalization and future levels of detail into reproducible generated assets.
+
+Country links own click/tap selection; map drag capture deliberately does not begin on a country link. Disputed areas and dependencies have independent semantic styling and hover identity. MapLibre remains an installed GIS dependency for future detailed regional or local views where conventional slippy-map behaviour, dense layers, or tiled data are appropriate. It is not the renderer for the global world atlas.
 
 ## Repository controls
 

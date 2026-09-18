@@ -60,6 +60,11 @@
   --map-border: #858f89;
   --map-selected: #1c4b3d;
   --map-related: #aa6c35;
+  --map-dependency: #c5d5d0;
+  --map-dependency-selected: #6f9d90;
+  --map-disputed: #d9d0df;
+  --map-disputed-selected: #80658f;
+  --map-disputed-boundary: #6b5876;
 }
 
 .dark {
@@ -86,6 +91,11 @@
   --map-border: #65716b;
   --map-selected: #9bc7b5;
   --map-related: #d6a16d;
+  --map-dependency: #30453e;
+  --map-dependency-selected: #7aab99;
+  --map-disputed: #403449;
+  --map-disputed-selected: #c09bd3;
+  --map-disputed-boundary: #c09bd3;
 }
 
 @layer base {

@@ -145,6 +145,54 @@ function polygonPath(rings: Position[][]) {
     .join('');
 }
 
+function pathForLine(line: Position[]) {
+  if (line.length < 2) return '';
+
+  const segments: string[] = [];
+  let current: LonLat[] = [];
+
+  for (const coordinate of line) {
+    const point: LonLat = [coordinate[0] ?? 0, coordinate[1] ?? 0];
+    const previous = current[current.length - 1];
+
+    if (previous && Math.abs(point[0] - previous[0]) > 180) {
+      if (current.length >= 2) segments.push(projectedLinePath(current));
+      current = [point];
+      continue;
+    }
+
+    current.push(point);
+  }
+
+  if (current.length >= 2) segments.push(projectedLinePath(current));
+  return segments.join('');
+}
+
+function projectedLinePath(line: LonLat[]) {
+  const projected = line.map(([longitude, latitude]) =>
+    projectMercator(longitude, latitude),
+  );
+  const [firstX, firstY] = projected[0];
+  const segments = projected
+    .slice(1)
+    .map(([x, y]) => `L${x.toFixed(2)},${y.toFixed(2)}`)
+    .join('');
+
+  return `M${firstX.toFixed(2)},${firstY.toFixed(2)}${segments}`;
+}
+
+export function geometryToMercatorLinePath(geometry: Geometry) {
+  if (geometry.type === 'LineString') {
+    return pathForLine(geometry.coordinates);
+  }
+
+  if (geometry.type === 'MultiLineString') {
+    return geometry.coordinates.map(pathForLine).join('');
+  }
+
+  return '';
+}
+
 export function geometryToMercatorPath(geometry: Geometry) {
   if (geometry.type === 'Polygon') {
     return polygonPath(geometry.coordinates);

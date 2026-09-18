@@ -65,22 +65,22 @@ Private API credentials live in local ignored environment files or an approved c
 
 ## 3. Exact software stack
 
-| Area                     | Choice                                                             | Reason                                                                         |
-| ------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| Area                     | Accepted choice                                                    | Reason                                                                         |
-| ---                      | ---                                                                | ---                                                                            |
-| Language                 | Strict TypeScript                                                  | Shared contracts and early validation.                                         |
-| Application              | Vinext and Vite, using the existing Next-style `app` structure     | Matches the working local application.                                         |
-| Package management       | npm and committed `package-lock.json`                              | Reproducible `npm ci` locally and in CI.                                       |
-| Mapping                  | MapLibre GL JS with locally bundled Natural Earth-derived geometry | Interactive map without a hosted tile dependency for the first release.        |
-| Remote/static data cache | TanStack Query                                                     | Loads and caches profile files.                                                |
-| Workspace state          | Zustand                                                            | Local selection, theme, and future pinned-window layout.                       |
-| Routing                  | Existing static App Router output                                  | Direct localhost routes and browser refresh; no Pages subpath or hash routing. |
-| Validation               | Zod and Vitest                                                     | Shared schema and data tests.                                                  |
-| Styling                  | Tailwind CSS, shadcn primitives, semantic CSS variables            | Matches the implemented UI foundation.                                         |
-| Browser tests            | Playwright and axe-core when introduced                            | Selection, routing, theme, and accessibility checks.                           |
-| Lint/format              | oxlint and oxfmt                                                   | Matches repository scripts.                                                    |
-| Data scripts             | Node.js/TypeScript                                                 | Reuses schemas without a second language.                                      |
+| Area                     | Choice                                                                                   | Reason                                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Area                     | Accepted choice                                                                          | Reason                                                                         |
+| ---                      | ---                                                                                      | ---                                                                            |
+| Language                 | Strict TypeScript                                                                        | Shared contracts and early validation.                                         |
+| Application              | Vinext and Vite, using the existing Next-style `app` structure                           | Matches the working local application.                                         |
+| Package management       | npm and committed `package-lock.json`                                                    | Reproducible `npm ci` locally and in CI.                                       |
+| Mapping                  | SVG Mercator atlas with Natural Earth geometry; MapLibre reserved for detailed/local GIS | Deterministic global political rendering without a hosted tile dependency.     |
+| Remote/static data cache | TanStack Query                                                                           | Loads and caches profile files.                                                |
+| Workspace state          | Zustand                                                                                  | Local selection, theme, and future pinned-window layout.                       |
+| Routing                  | Existing static App Router output                                                        | Direct localhost routes and browser refresh; no Pages subpath or hash routing. |
+| Validation               | Zod and Vitest                                                                           | Shared schema and data tests.                                                  |
+| Styling                  | Tailwind CSS, shadcn primitives, semantic CSS variables                                  | Matches the implemented UI foundation.                                         |
+| Browser tests            | Playwright and axe-core when introduced                                                  | Selection, routing, theme, and accessibility checks.                           |
+| Lint/format              | oxlint and oxfmt                                                                         | Matches repository scripts.                                                    |
+| Data scripts             | Node.js/TypeScript                                                                       | Reuses schemas without a second language.                                      |
 
 The present scaffold already includes additional UI libraries. Assess their use before removing any dependency. Avoid adding a new chart library solely for parliamentary seat charts; a small accessible SVG may suffice.
 
@@ -94,9 +94,9 @@ The existing components and package directories can grow around the feature boun
 
 ### Stable identity
 
-Use ISO alpha-3 as the app’s primary country identifier because it is readable and widely mapped. Also store ISO alpha-2, UN M49, Wikidata ID, IPU code, aliases, and territory/sovereignty links. Maintain mappings in a reviewed file rather than guessing from names.
+Use a stable Polity Atlas `entityId` as the renderer and workspace identity. Store ISO alpha-3, ISO alpha-2, UN M49, Wikidata ID, IPU code, aliases, and territory/sovereignty links as metadata where they exist. Do not assume every rendered polygon has an ISO or M49 assignment.
 
-Handle politically sensitive or non-ISO entities with internal IDs such as `XKX`, but label them as internal compatibility codes and document the policy. Never imply that an internal code is an official UN or ISO position.
+The primary search set contains the 193 United Nations Member States, the Holy See and State of Palestine as United Nations non-member observer States, plus Kosovo and Taiwan as additional Polity Atlas research entities. Internal identifiers such as `XKX` are compatibility identifiers only; never imply that they are official UN or ISO positions. Dependencies, overseas territories, disputed areas, and other map units have their own entity IDs and are not automatically peers of the primary search set.
 
 ### Citation-bearing facts
 
@@ -299,30 +299,33 @@ Implement the frame with native Pointer Events and a small tested layout reducer
 
 ### Map behavior
 
-- Default view: neutral global projection, restrained land/water palette, thin national boundaries, optional disputed-boundary dashes.
-- Hover: change fill and show a small label with country name and next election date if available.
-- Click: set the ISO3 selection, update the URL, apply selected feature state, and open the slide-over.
-- Search result activation: fly to the country’s stored bounding box and perform the same selection action.
+- Default view: horizontally wrapping Mercator SVG atlas, restrained land/water palette, thin national boundaries, and explicit disputed-boundary dashes.
+- Hover/focus: keep the map uncluttered and show the map entity name and category in the layer/key panel rather than at the pointer.
+- Click: set the canonical `entityId` selection, update the URL, apply semantic selected-state styling, and open the slide-over.
+- Search result activation: select the same canonical primary entity even when no visible polygon exists at the current geometry level.
+- Dependencies and overseas territories: use a separate semantic fill, with a stronger associated-state fill when their primary state is selected.
+- Disputed/breakaway areas: render as a separate layer with distinct fill and dotted disputed boundaries; association highlighting must not make them indistinguishable from the selected primary state.
 - Relations tab: highlight related countries by status using both color and line/pattern differences; show a legend.
 - Relation-row hover/focus: emphasize only that counterpart country. Activation opens it in the slide-over; modified activation pins it for comparison.
 - Mission markers: show only at an appropriate zoom and cluster if necessary. Do not imply an exact location when the source gives only a city.
-- Maintain a non-map country search/list so every country and fact is available to keyboard and screen-reader users.
+- Maintain a non-map country search/list so every primary entity and fact is available to keyboard and screen-reader users.
 
 ### Light/dark mode
 
-Use `data-theme="light|dark"` on the root element. Default to the OS preference, save explicit choice in local storage, set `color-scheme`, and run a tiny pre-render theme initializer to avoid a flash of the wrong theme. Theme the MapLibre style and app controls together.
+Use `data-theme="light|dark"` on the root element. Default to the OS preference, save explicit choice in local storage, set `color-scheme`, and run a tiny pre-render theme initializer to avoid a flash of the wrong theme. Theme the SVG atlas semantic map tokens and app controls together; detailed/local MapLibre views should reuse those semantic tokens when introduced.
 
 ## 9. Geographic and editorial policy
 
-Political maps are assertions, not neutral decoration. Create `docs/border-policy.md` before launch:
+Political maps are assertions, not neutral decoration. `docs/border-policy.md` is the governing map-entity and boundary policy:
 
 - State which boundary dataset/version is shown.
+- Keep the 197-primary-entity search policy explicit and separate from geometry-source classifications.
 - Render disputed boundaries separately from undisputed boundaries.
 - Do not use UI language that claims the map resolves sovereignty disputes.
-- Preserve the source dataset’s sovereignty and administrative fields separately.
-- Add a visible map note and source/version link in the layer panel.
-- Treat territories and dependencies as selectable profiles linked to the sovereign state where appropriate.
-- Require review for changes to geometry, names, sovereign links, or recognition status.
+- Preserve the source dataset’s sovereignty, administration, and claim metadata separately from application associations.
+- Add a visible map note and legend treatment for dependencies and disputed areas.
+- Keep dependencies, overseas territories, and disputed territories as separate entity kinds with future profile-association support.
+- Require review for changes to geometry, names, entity kinds, parent/association links, or recognition-basis metadata.
 
 ## 10. Security and privacy
 
@@ -427,12 +430,14 @@ Exit criteria: a fresh clone installs and runs locally, the map and bundled pilo
 
 Deliverables:
 
-- Natural Earth conversion/simplification command.
-- MapLibre world map, labels, hover/selected states, dispute layer, bounding-box navigation.
-- Searchable country index and URL synchronization.
-- Responsive top bar, layer panel, and empty country slide-over.
+- Canonical political map-entity registry with stable IDs independent of optional ISO/M49 metadata.
+- Horizontally wrapping SVG Mercator world atlas, selected/related states, dependency styling, disputed-area overlay, and dotted disputed boundaries.
+- Searchable 197-primary-entity index and URL synchronization.
+- Hover/focus identity in the map key without pointer tooltips.
+- Responsive top bar, semantic layer panel, and empty country slide-over.
+- Natural Earth geometry-generation/simplification command remains the final Phase 2 pipeline item; current runtime sources are transitional inputs to that build step.
 
-Exit criteria: every country in the canonical index can be selected by map and keyboard search, deep-linked, refreshed, and restored.
+Exit criteria: every primary entity in the canonical index can be selected by map where geometry exists or by keyboard search otherwise, deep-linked, refreshed, and restored; no missing source ID can collapse unrelated map entities onto one selection identity.
 
 ### Phase 3 — Shared data platform (7–10 days)
 

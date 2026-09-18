@@ -78,16 +78,23 @@ function SeatBar({
 }
 
 export function CountryPanel() {
-  const { selectedM49, selectedName, activeTab, setActiveTab, clearCountry } =
-    useWorkspaceStore();
-  const iso3 = selectedM49 ? supportedProfiles[selectedM49] : undefined;
+  const {
+    selectedEntityId,
+    selectedName,
+    activeTab,
+    setActiveTab,
+    clearCountry,
+  } = useWorkspaceStore();
+  const iso3 = selectedEntityId
+    ? supportedProfiles[selectedEntityId]
+    : undefined;
   const profileQuery = useQuery({
     queryKey: ['country-profile', iso3],
     queryFn: () => loadCountryProfile(iso3!),
     enabled: Boolean(iso3),
   });
 
-  if (!selectedM49 || !selectedName) return null;
+  if (!selectedEntityId || !selectedName) return null;
 
   function clearSelection() {
     clearCountry();

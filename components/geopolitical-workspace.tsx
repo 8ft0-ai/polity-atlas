@@ -6,16 +6,33 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CountryPanel } from '@/components/country-panel';
 import { Providers } from '@/components/providers';
-import { WorldMap } from '@/components/world-map';
-import { countryOptions } from '@/lib/countries';
+import { type MapHoverEntity, WorldMap } from '@/components/world-map';
+import {
+  countryOptions,
+  findPrimaryCountry,
+  primaryEntityIdForM49,
+} from '@/lib/countries';
 import { useWorkspaceStore } from '@/lib/workspace-store';
 
-const australiaRelations = ['156', '360', '392', '554', '826', '840'];
+const australiaRelations = ['156', '360', '392', '554', '826', '840'].map(
+  primaryEntityIdForM49,
+);
+
+const kindLabels: Record<MapHoverEntity['kind'], string> = {
+  'primary-state': 'Country',
+  dependency: 'Dependency',
+  'overseas-territory': 'Overseas territory',
+  'disputed-territory': 'Disputed territory',
+  other: 'Map area',
+};
 
 function WorkspaceContent() {
-  const { selectedM49, activeTab, setCountry } = useWorkspaceStore();
+  const { selectedEntityId, activeTab, setCountry } = useWorkspaceStore();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [query, setQuery] = useState('');
+  const [hoveredEntity, setHoveredEntity] = useState<MapHoverEntity | null>(
+    null,
+  );
 
   useEffect(() => {
     const dark = document.documentElement.classList.contains('dark');
@@ -26,15 +43,22 @@ function WorkspaceContent() {
   }, []);
 
   useEffect(() => {
-    const m49 = window.location.hash.match(/^#country=(\d{3})$/)?.[1];
-    const country = countryOptions.find((option) => option.m49 === m49);
-    if (country) queueMicrotask(() => setCountry(country.m49, country.name));
+    const token = window.location.hash.match(/^#country=(.+)$/)?.[1];
+    if (!token) return;
+
+    const country = findPrimaryCountry(decodeURIComponent(token));
+    if (country) {
+      queueMicrotask(() =>
+        setCountry(country.entityId, country.name, country.m49),
+      );
+    }
   }, [setCountry]);
 
   const selectCountry = useCallback(
-    (m49: string, name: string) => {
-      setCountry(m49, name);
-      window.history.replaceState(null, '', `#country=${m49}`);
+    (entityId: string, name: string, m49?: string) => {
+      setCountry(entityId, name, m49);
+      const token = m49 ?? entityId.split(':').at(-1) ?? entityId;
+      window.history.replaceState(null, '', `#country=${token}`);
     },
     [setCountry],
   );
@@ -43,7 +67,13 @@ function WorkspaceContent() {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return [];
     return countryOptions
-      .filter((country) => country.name.toLowerCase().includes(normalized))
+      .filter(
+        (country) =>
+          country.name.toLowerCase().includes(normalized) ||
+          country.aliases.some((alias) =>
+            alias.toLowerCase().includes(normalized),
+          ),
+      )
       .slice(0, 6);
   }, [query]);
 
@@ -59,7 +89,7 @@ function WorkspaceContent() {
     event.preventDefault();
     const country = matchingCountries[0];
     if (!country) return;
-    selectCountry(country.m49, country.name);
+    selectCountry(country.entityId, country.name, country.m49);
     setQuery('');
   }
 
@@ -94,17 +124,19 @@ function WorkspaceContent() {
             <div className="absolute inset-x-0 top-9 z-40 border border-border bg-popover p-1">
               {matchingCountries.map((country) => (
                 <button
-                  key={country.m49}
+                  key={country.entityId}
                   type="button"
                   onClick={() => {
-                    selectCountry(country.m49, country.name);
+                    selectCountry(country.entityId, country.name, country.m49);
                     setQuery('');
                   }}
                   className="ui-text flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-muted focus:bg-muted focus:outline-none"
                 >
                   <span>{country.name}</span>
                   <span className="text-[10px] text-muted-foreground">
-                    M49 {country.m49}
+                    {country.m49
+                      ? `M49 ${country.m49}`
+                      : country.entityId.split(':').at(-1)}
                   </span>
                 </button>
               ))}
@@ -113,7 +145,7 @@ function WorkspaceContent() {
         </form>
 
         <div className="ui-text flex items-center justify-end gap-3 text-[10px] uppercase tracking-[0.07em] text-muted-foreground">
-          <span className="hidden lg:inline">Dataset 17 Sep 2026</span>
+          <span className="hidden lg:inline">Dataset 18 Sep 2026</span>
           <Button
             variant="outline"
             size="icon"
@@ -127,28 +159,79 @@ function WorkspaceContent() {
 
       <div className="relative h-[calc(100%-3.5rem)] max-md:h-[calc(100%-6rem)]">
         <WorldMap
-          selectedM49={selectedM49}
-          relatedM49={selectedM49 === '036' ? australiaRelations : []}
+          selectedEntityId={selectedEntityId}
+          relatedEntityIds={
+            selectedEntityId === primaryEntityIdForM49('036')
+              ? australiaRelations
+              : []
+          }
           relationMode={activeTab === 'relations'}
           onSelect={selectCountry}
+          onHoverEntity={setHoveredEntity}
         />
 
-        <aside className="absolute left-3 top-3 z-10 w-44 border border-border bg-card/95 max-md:hidden">
+        <aside className="absolute left-3 top-3 z-10 w-52 border border-border bg-card/95 max-md:hidden">
           <div className="ui-text flex items-center gap-2 border-b border-border px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.08em]">
             <Layers3 className="h-3.5 w-3.5" /> Map layers
           </div>
           <div className="ui-text space-y-2.5 p-3 text-xs text-muted-foreground">
             <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 bg-primary" /> Selected country
+              <span
+                className="h-2.5 w-2.5"
+                style={{ background: 'var(--map-selected)' }}
+              />{' '}
+              Selected country
             </div>
             <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 bg-[#aa6c35] dark:bg-[#d6a16d]" />{' '}
+              <span
+                className="h-2.5 w-2.5"
+                style={{ background: 'var(--map-related)' }}
+              />{' '}
               Diplomatic link
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="h-2.5 w-2.5"
+                style={{ background: 'var(--map-dependency)' }}
+              />{' '}
+              Dependency / overseas territory
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="h-2.5 w-2.5"
+                style={{ background: 'var(--map-disputed)' }}
+              />{' '}
+              Disputed territory
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="w-3 border-t border-dashed"
+                style={{ borderColor: 'var(--map-disputed-boundary)' }}
+              />{' '}
+              Disputed boundary
             </div>
             <div className="flex items-center gap-2">
               <span className="h-px w-3 bg-muted-foreground" /> National
               boundary
             </div>
+          </div>
+
+          <div className="ui-text min-h-16 border-t border-border px-3 py-2 text-xs">
+            <p className="text-[9px] uppercase tracking-[0.08em] text-muted-foreground">
+              Hover
+            </p>
+            {hoveredEntity ? (
+              <>
+                <p className="mt-1 font-semibold text-card-foreground">
+                  {hoveredEntity.name}
+                </p>
+                <p className="mt-0.5 text-[10px] text-muted-foreground">
+                  {kindLabels[hoveredEntity.kind]}
+                </p>
+              </>
+            ) : (
+              <p className="mt-1 text-muted-foreground">Move over the map</p>
+            )}
           </div>
         </aside>
 
