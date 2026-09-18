@@ -41,6 +41,7 @@ type DragState = {
   startY: number;
   originX: number;
   originY: number;
+  moved: boolean;
 };
 
 type ShapePackage = {
@@ -63,6 +64,7 @@ type ShapePackage = {
 
 const MIN_SCALE = 1;
 const MAX_SCALE = 6;
+const DRAG_THRESHOLD_PX = 5;
 const DEFAULT_VIEWPORT: Viewport = {
   scale: 1,
   x: 0,
@@ -172,6 +174,7 @@ export function WorldMap({
 }: WorldMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const dragRef = useRef<DragState | null>(null);
+  const suppressClickRef = useRef(false);
   const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT);
 
   const related = relationMode ? new Set(relatedEntityIds) : null;
@@ -219,21 +222,15 @@ export function WorldMap({
   function handlePointerDown(event: React.PointerEvent<SVGSVGElement>) {
     if (event.button !== 0) return;
 
-    const target = event.target;
-    if (
-      target instanceof Element &&
-      target.closest('[data-map-interactive-entity]')
-    ) {
-      return;
-    }
-
-    event.currentTarget.setPointerCapture(event.pointerId);
+    suppressClickRef.current = false;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
     dragRef.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
       originX: viewport.x,
       originY: viewport.y,
+      moved: false,
     };
   }
 
@@ -250,12 +247,20 @@ export function WorldMap({
       return;
     }
 
-    const deltaX =
-      ((event.clientX - drag.startX) / rectangle.width) *
-      MERCATOR_VIEWBOX_WIDTH;
-    const deltaY =
-      ((event.clientY - drag.startY) / rectangle.height) *
-      MERCATOR_VIEWBOX_HEIGHT;
+    const clientDeltaX = event.clientX - drag.startX;
+    const clientDeltaY = event.clientY - drag.startY;
+
+    if (
+      !drag.moved &&
+      Math.hypot(clientDeltaX, clientDeltaY) < DRAG_THRESHOLD_PX
+    ) {
+      return;
+    }
+
+    drag.moved = true;
+
+    const deltaX = (clientDeltaX / rectangle.width) * MERCATOR_VIEWBOX_WIDTH;
+    const deltaY = (clientDeltaY / rectangle.height) * MERCATOR_VIEWBOX_HEIGHT;
 
     setViewport((current) =>
       clampViewport({
@@ -271,9 +276,10 @@ export function WorldMap({
     if (!drag || drag.pointerId !== event.pointerId) return;
 
     dragRef.current = null;
+    suppressClickRef.current = drag.moved;
 
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+      event.currentTarget.releasePointerCapture?.(event.pointerId);
     }
   }
 
@@ -331,6 +337,10 @@ export function WorldMap({
                 onBlur={() => hover(null)}
                 onClick={(event) => {
                   event.preventDefault();
+                  if (suppressClickRef.current) {
+                    suppressClickRef.current = false;
+                    return;
+                  }
                   onSelect(country.entityId, country.name, country.m49);
                 }}
               >
@@ -393,9 +403,13 @@ export function WorldMap({
               stroke="none"
               onPointerEnter={() => hover(hoverEntity)}
               onPointerLeave={() => hover(null)}
-              onClick={() =>
-                selectAssociatedPrimary(area.associatedPrimaryEntityIds)
-              }
+              onClick={() => {
+                if (suppressClickRef.current) {
+                  suppressClickRef.current = false;
+                  return;
+                }
+                selectAssociatedPrimary(area.associatedPrimaryEntityIds);
+              }}
             />
           );
         })}

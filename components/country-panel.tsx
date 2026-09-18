@@ -20,17 +20,18 @@ const tabs: Array<{ value: CountryTab; label: string }> = [
 function Sources({ ids, profile }: { ids: string[]; profile: CountryProfile }) {
   const sources = profile.sources.filter((source) => ids.includes(source.id));
   return (
-    <span className="ui-text ml-1 inline-flex gap-1 text-xs">
-      {sources.map((source, index) => (
+    <span className="ui-text ml-1 inline-flex flex-wrap gap-x-2 gap-y-1 text-xs">
+      {sources.map((source) => (
         <a
           key={source.id}
           href={source.url}
           target="_blank"
-          rel="noreferrer"
-          className="text-primary underline underline-offset-2"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-primary underline underline-offset-2"
           aria-label={`Source: ${source.title}`}
         >
-          [{index + 1}]
+          <span>{source.title}</span>
+          <ExternalLink className="h-3 w-3 shrink-0" aria-hidden="true" />
         </a>
       ))}
     </span>

@@ -4,6 +4,7 @@ import {
   countryOptions,
   primaryEntityIdForM49,
 } from './countries';
+import { propertiesForSourceFeature } from './map-entities';
 
 describe('canonical map entity identity', () => {
   it('defines exactly 197 primary selectable countries', () => {
@@ -99,5 +100,22 @@ describe('canonical map entity identity', () => {
     expect(
       countryOptions.some((country) => country.name === 'Western Sahara'),
     ).toBe(false);
+  });
+
+  it('resolves Norway to its canonical entity when Natural Earth numeric IDs are unavailable', () => {
+    expect(
+      propertiesForSourceFeature({
+        name: 'Norway',
+        isoN3: '-99',
+        unA3: '-99',
+        type: 'Sovereign country',
+        sovereign: 'Norway',
+      }),
+    ).toMatchObject({
+      entityId: 'state:m49:578',
+      name: 'Norway',
+      kind: 'primary-state',
+      m49: '578',
+    });
   });
 });

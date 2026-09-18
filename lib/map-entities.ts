@@ -318,6 +318,19 @@ export function propertiesForSourceFeature(
     }
   }
 
+  const primaryByName = findPrimaryCountry(sourceName);
+  if (primaryByName) {
+    return {
+      entityId: primaryByName.entityId,
+      name: primaryByName.name,
+      sourceName,
+      kind: 'primary-state',
+      m49: primaryByName.m49,
+      recognitionBasis: primaryByName.recognitionBasis,
+      associatedPrimaryEntityIds: [],
+    };
+  }
+
   const sovereignName = source.sovereign?.trim();
   const parent = sovereignName
     ? countryOptions.find(
