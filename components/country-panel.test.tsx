@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import australiaProfile from '@/public/data/countries/AUS.json';
 import indonesiaProfile from '@/public/data/countries/IDN.json';
@@ -56,6 +56,7 @@ describe('CountryPanel', () => {
   });
 
   afterEach(() => {
+    cleanup();
     vi.unstubAllGlobals();
   });
 
