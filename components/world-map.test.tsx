@@ -32,6 +32,42 @@ describe('WorldMap entity interaction', () => {
     expect(onSelect).toHaveBeenCalledWith('state:m49:036', 'Australia', '036');
   });
 
+
+
+  it('keeps a stationary pointer gesture as a country click', () => {
+    const onSelect = vi.fn();
+    const { container } = renderMap({ onSelect });
+    const svg = container.querySelector('svg');
+    const australiaPath = container.querySelector(
+      '[data-world-copy="0"] [data-country-link][data-entity-id="state:m49:036"] path',
+    );
+
+    expect(svg).not.toBeNull();
+    expect(australiaPath).not.toBeNull();
+
+    const setPointerCapture = vi.fn();
+    Object.defineProperty(svg!, 'setPointerCapture', {
+      configurable: true,
+      value: setPointerCapture,
+    });
+
+    fireEvent.pointerDown(australiaPath!, {
+      button: 0,
+      pointerId: 7,
+      clientX: 400,
+      clientY: 300,
+    });
+    fireEvent.pointerUp(australiaPath!, {
+      pointerId: 7,
+      clientX: 400,
+      clientY: 300,
+    });
+    fireEvent.click(australiaPath!);
+
+    expect(setPointerCapture).not.toHaveBeenCalled();
+    expect(onSelect).toHaveBeenCalledWith('state:m49:036', 'Australia', '036');
+  });
+
   it('renders and selects Norway with the same canonical identity used by search', () => {
     const onSelect = vi.fn();
     const { container } = renderMap({ onSelect });
