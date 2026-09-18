@@ -135,10 +135,7 @@ export function WorldMap({
         const m49 = selected?.properties?.m49;
         if (!m49) return;
 
-        onSelect(
-          String(m49),
-          String(selected.properties?.name ?? 'Unknown'),
-        );
+        onSelect(String(m49), String(selected.properties?.name ?? 'Unknown'));
       });
       map.on('mouseenter', 'countries', () => {
         map.getCanvas().style.cursor = 'pointer';
