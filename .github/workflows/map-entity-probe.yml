@@ -33,3 +33,15 @@ jobs:
           console.log('ALL_FEATURES=' + JSON.stringify(rows));
           console.log('MISSING_ID=' + JSON.stringify(rows.filter((row) => row.id == null)));
           NODE
+      - name: Inspect Natural Earth 50m country classifications
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_50m_admin_0_countries.geojson \
+            | jq -c '[.features[].properties | {ADMIN,ADM0_A3,SOVEREIGNT,SOV_A3,TYPE,ISO_A3,ISO_N3,UN_A3,NAME}]' \
+            | sed 's/^/NE_COUNTRIES=/'
+          curl -fsSL https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_50m_admin_0_countries.geojson \
+            | jq -c '[.features[].properties.TYPE] | group_by(.) | map({type: .[0], count: length})' \
+            | sed 's/^/NE_TYPES=/'
+          curl -fsSL https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_50m_admin_0_countries.geojson \
+            | jq -c '[.features[].properties | select(.TYPE != "Sovereign country") | {ADMIN,ADM0_A3,SOVEREIGNT,SOV_A3,TYPE,ISO_A3,ISO_N3,UN_A3,NAME}]' \
+            | sed 's/^/NE_NON_SOVEREIGN=/'
+
