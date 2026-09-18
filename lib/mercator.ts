@@ -18,11 +18,8 @@ export function projectMercator(longitude: number, latitude: number): LonLat {
   const clampedLatitude = clampLatitude(latitude);
   const latitudeRadians = (clampedLatitude * Math.PI) / 180;
   const x = ((longitude + 180) / 360) * MERCATOR_WORLD_SIZE;
-  const mercatorY = Math.log(
-    Math.tan(Math.PI / 4 + latitudeRadians / 2),
-  );
-  const y =
-    (0.5 - mercatorY / (2 * Math.PI)) * MERCATOR_WORLD_SIZE;
+  const mercatorY = Math.log(Math.tan(Math.PI / 4 + latitudeRadians / 2));
+  const y = (0.5 - mercatorY / (2 * Math.PI)) * MERCATOR_WORLD_SIZE;
 
   return [x, y];
 }
