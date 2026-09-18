@@ -64,7 +64,8 @@ function zoomViewport(
   anchorX: number,
   anchorY: number,
 ): Viewport {
-  const nextScale = clamp(viewport.scale * scaleFactor, MIN_SCALE, MAX_SCALE);
+  const scaled = viewport.scale * scaleFactor;
+  const nextScale = clamp(scaled, MIN_SCALE, MAX_SCALE);
   if (nextScale === viewport.scale) return viewport;
 
   const ratio = nextScale / viewport.scale;
@@ -123,11 +124,8 @@ export function WorldMap({
 
   function handleWheel(event: React.WheelEvent<SVGSVGElement>) {
     event.preventDefault();
-    zoom(
-      event.deltaY < 0 ? 1.18 : 1 / 1.18,
-      event.clientX,
-      event.clientY,
-    );
+    const factor = event.deltaY < 0 ? 1.18 : 1 / 1.18;
+    zoom(factor, event.clientX, event.clientY);
   }
 
   function handlePointerDown(event: React.PointerEvent<SVGSVGElement>) {
@@ -229,11 +227,9 @@ export function WorldMap({
           {countryShapes.map((country) => {
             const selected = selectedM49 === country.m49;
             const relatedCountry = Boolean(related?.has(country.m49));
-            const fill = selected
-              ? 'var(--map-selected)'
-              : relatedCountry
-                ? 'var(--map-related)'
-                : 'var(--map-land)';
+            let fill = 'var(--map-land)';
+            if (relatedCountry) fill = 'var(--map-related)';
+            if (selected) fill = 'var(--map-selected)';
 
             return (
               <a
