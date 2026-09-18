@@ -145,7 +145,6 @@ function polygonPath(rings: Position[][]) {
     .join('');
 }
 
-
 function pathForLine(line: Position[]) {
   if (line.length < 2) return '';
 
