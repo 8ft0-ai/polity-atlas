@@ -259,15 +259,23 @@ async function writeJson(path, value) {
 
 await mkdir(outputRoot, { recursive: true });
 
-const [countries110, countries50, disputed50, boundaries50, tiny110, tiny50] =
-  await Promise.all([
-    load('ne_110m_admin_0_countries.geojson'),
-    load('ne_50m_admin_0_countries.geojson'),
-    load('ne_50m_admin_0_breakaway_disputed_areas.geojson'),
-    load('ne_50m_admin_0_boundary_lines_disputed_areas.geojson'),
-    load('ne_110m_admin_0_tiny_countries.geojson'),
-    load('ne_50m_admin_0_tiny_countries.geojson'),
-  ]);
+const [
+  countries110,
+  countries50,
+  disputed50,
+  boundaries50,
+  tiny110,
+  tiny50,
+  countries10,
+] = await Promise.all([
+  load('ne_110m_admin_0_countries.geojson'),
+  load('ne_50m_admin_0_countries.geojson'),
+  load('ne_50m_admin_0_breakaway_disputed_areas.geojson'),
+  load('ne_50m_admin_0_boundary_lines_disputed_areas.geojson'),
+  load('ne_110m_admin_0_tiny_countries.geojson'),
+  load('ne_50m_admin_0_tiny_countries.geojson'),
+  load('ne_10m_admin_0_countries.geojson'),
+]);
 
 const detailedDisputed = {
   type: 'FeatureCollection',
