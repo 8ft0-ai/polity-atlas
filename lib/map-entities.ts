@@ -225,7 +225,10 @@ function propertiesForFeature(
   };
 }
 
-export const countryFeatures: FeatureCollection<Geometry, MapFeatureProperties> = {
+export const countryFeatures: FeatureCollection<
+  Geometry,
+  MapFeatureProperties
+> = {
   ...converted,
   features: converted.features.map((country) => {
     const sourceName = country.properties?.name ?? 'Unknown';
@@ -251,8 +254,10 @@ const geometryPrimaryOptions: PrimaryCountryOption[] = countryFeatures.features
         : [country.properties.sourceName],
   }));
 
-export const countryOptions = [...geometryPrimaryOptions, ...supplementalPrimaryCountries]
-  .sort((left, right) => left.name.localeCompare(right.name));
+export const countryOptions = [
+  ...geometryPrimaryOptions,
+  ...supplementalPrimaryCountries,
+].sort((left, right) => left.name.localeCompare(right.name));
 
 export const primaryCountryByEntityId = new Map(
   countryOptions.map((country) => [country.entityId, country]),
