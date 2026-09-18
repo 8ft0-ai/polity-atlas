@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "countries": [
+    {
+      "entityId": "state:m49:036",
+      "iso2": "AU",
+      "iso3": "AUS",
+      "m49": "036",
+      "name": "Australia"
+    },
+    {
+      "entityId": "state:m49:554",
+      "iso2": "NZ",
+      "iso3": "NZL",
+      "m49": "554",
+      "name": "New Zealand"
+    },
+    {
+      "entityId": "state:m49:124",
+      "iso2": "CA",
+      "iso3": "CAN",
+      "m49": "124",
+      "name": "Canada"
+    },
+    {
+      "entityId": "state:m49:840",
+      "iso2": "US",
+      "iso3": "USA",
+      "m49": "840",
+      "name": "United States"
+    },
+    {
+      "entityId": "state:m49:826",
+      "iso2": "GB",
+      "iso3": "GBR",
+      "m49": "826",
+      "name": "United Kingdom"
+    },
+    {
+      "entityId": "state:m49:250",
+      "iso2": "FR",
+      "iso3": "FRA",
+      "m49": "250",
+      "name": "France"
+    },
+    {
+      "entityId": "state:m49:156",
+      "iso2": "CN",
+      "iso3": "CHN",
+      "m49": "156",
+      "name": "China"
+    },
+    {
+      "entityId": "state:m49:356",
+      "iso2": "IN",
+      "iso3": "IND",
+      "m49": "356",
+      "name": "India"
+    },
+    {
+      "entityId": "state:m49:360",
+      "iso2": "ID",
+      "iso3": "IDN",
+      "m49": "360",
+      "name": "Indonesia"
+    },
+    {
+      "entityId": "state:m49:392",
+      "iso2": "JP",
+      "iso3": "JPN",
+      "m49": "392",
+      "name": "Japan"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "buildId": "2026-09-17",
+  "buildId": "2026-09-18",
   "identity": {
     "iso2": "AU",
     "iso3": "AUS",
@@ -12,8 +12,8 @@
   "government": {
     "system": {
       "value": "Federal parliamentary constitutional monarchy",
-      "asOf": "2026-09-17",
-      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
       "sourceIds": ["au-system"],
       "confidence": "verified"
     },
@@ -38,7 +38,7 @@
     "name": {
       "value": "Parliament of Australia",
       "asOf": "2026-09-17",
-      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
       "sourceIds": ["au-house-parties", "au-senate-composition"],
       "confidence": "verified"
     },
@@ -48,7 +48,7 @@
         "name": "House of Representatives",
         "kind": "lower",
         "totalSeats": 150,
-        "compositionAsOf": "2026-03-01",
+        "compositionAsOf": "2026-09-18",
         "composition": [
           {
             "party": "Australian Labor Party",
@@ -57,16 +57,64 @@
             "color": "#b8333a"
           },
           {
-            "party": "Coalition",
-            "shortName": "Coalition",
-            "seats": 42,
-            "color": "#315ca8"
+            "party": "Liberal Party",
+            "shortName": "Liberal",
+            "seats": 27,
+            "color": "#315ca8",
+            "groupingIds": ["coalition"]
           },
           {
-            "party": "Crossbench",
-            "shortName": "Crossbench",
+            "party": "The Nationals",
+            "shortName": "Nationals",
             "seats": 14,
-            "color": "#86958e"
+            "color": "#00843D",
+            "groupingIds": ["coalition"]
+          },
+          {
+            "party": "One Nation",
+            "shortName": "One Nation",
+            "seats": 2,
+            "color": "#f36c21"
+          },
+          {
+            "party": "Community Strong Australia",
+            "shortName": "Community Strong",
+            "seats": 2,
+            "color": "teal"
+          },
+          {
+            "party": "Australian Greens",
+            "shortName": "Greens",
+            "seats": 1,
+            "color": "#009C3D"
+          },
+          {
+            "party": "Katter's Australia Party",
+            "shortName": "Katter's Australia Party",
+            "seats": 1,
+            "color": "maroon"
+          },
+          {
+            "party": "Centre Alliance",
+            "shortName": "Centre Alliance",
+            "seats": 1,
+            "color": "#FFD580"
+          },
+          {
+            "party": "Independent",
+            "shortName": "Independent",
+            "seats": 8,
+            "color": "grey"
+          }
+        ],
+        "groupings": [
+          {
+            "id": "coalition",
+            "name": "The Coalition",
+            "kind": "parliamentary-alliance",
+            "memberParties": ["Liberal Party", "The Nationals"],
+            "asOf": "2026-09-18",
+            "sourceIds": ["au-house-parties"]
           }
         ],
         "sourceIds": ["au-house-parties"]
@@ -76,7 +124,7 @@
         "name": "Senate",
         "kind": "upper",
         "totalSeats": 76,
-        "compositionAsOf": "2026-05-14",
+        "compositionAsOf": "2026-09-18",
         "composition": [
           {
             "party": "Australian Labor Party",
@@ -85,28 +133,64 @@
             "color": "#b8333a"
           },
           {
-            "party": "Coalition",
-            "shortName": "Coalition",
-            "seats": 27,
-            "color": "#315ca8"
+            "party": "Liberal Party",
+            "shortName": "Liberal",
+            "seats": 23,
+            "color": "#315ca8",
+            "groupingIds": ["coalition"]
+          },
+          {
+            "party": "The Nationals",
+            "shortName": "Nationals",
+            "seats": 4,
+            "color": "#00843D",
+            "groupingIds": ["coalition"]
           },
           {
             "party": "Australian Greens",
             "shortName": "Greens",
             "seats": 10,
-            "color": "#3a8145"
+            "color": "#009C3D"
           },
           {
             "party": "One Nation",
             "shortName": "One Nation",
             "seats": 4,
-            "color": "#d48332"
+            "color": "#f36c21"
           },
           {
-            "party": "Other",
-            "shortName": "Other",
-            "seats": 5,
-            "color": "#86958e"
+            "party": "Lambie Network",
+            "shortName": "Lambie Network",
+            "seats": 1,
+            "color": "#FFb550"
+          },
+          {
+            "party": "United Australia Party",
+            "shortName": "United Australia Party",
+            "seats": 1,
+            "color": "yellow"
+          },
+          {
+            "party": "Australia's Voice",
+            "shortName": "Australia's Voice",
+            "seats": 1,
+            "color": "#AA0746"
+          },
+          {
+            "party": "Independent",
+            "shortName": "Independent",
+            "seats": 2,
+            "color": "grey"
+          }
+        ],
+        "groupings": [
+          {
+            "id": "coalition",
+            "name": "The Coalition",
+            "kind": "parliamentary-alliance",
+            "memberParties": ["Liberal Party", "The Nationals"],
+            "asOf": "2026-09-18",
+            "sourceIds": ["au-senate-composition"]
           }
         ],
         "sourceIds": ["au-senate-composition"]
@@ -192,20 +276,28 @@
       "kind": "official"
     },
     {
+      "id": "au-parliament-reference",
+      "publisher": "Wikipedia",
+      "title": "Parliament of Australia",
+      "url": "https://en.wikipedia.org/wiki/Parliament_of_Australia",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
       "id": "au-house-parties",
-      "publisher": "Parliament of Australia",
-      "title": "Political parties in the House of Representatives",
-      "url": "https://www.aph.gov.au/About_Parliament/House_of_Representatives/Powers_practice_and_procedure/00_-_Infosheets/Infosheet_22_-_Political_parties",
-      "retrievedAt": "2026-09-17T00:00:00.000Z",
-      "kind": "official"
+      "publisher": "Wikipedia",
+      "title": "Australian House of Representatives",
+      "url": "https://en.wikipedia.org/wiki/Australian_House_of_Representatives",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
     },
     {
       "id": "au-senate-composition",
-      "publisher": "Parliament of Australia",
-      "title": "Senate composition",
-      "url": "https://www.aph.gov.au/Senators_and_Members/Senators/senate%20composition",
-      "retrievedAt": "2026-09-17T00:00:00.000Z",
-      "kind": "official"
+      "publisher": "Wikipedia",
+      "title": "Australian Senate",
+      "url": "https://en.wikipedia.org/wiki/Australian_Senate",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
     },
     {
       "id": "au-election-timetable",
