@@ -53,31 +53,29 @@ describe('CountryPanel source links', () => {
       </Providers>,
     );
 
-    await screen.findByText('House of Representatives');
-
-    const houseSemicircle = container.querySelector(
-      'svg[data-seat-semicircle="house"]',
+    const houseSemicircle = await screen.findByLabelText(
+      'House of Representatives seating composition semicircle',
     );
-    expect(houseSemicircle).not.toBeNull();
+    expect(houseSemicircle.tagName.toLowerCase()).toBe('svg');
 
-    const houseBackground = houseSemicircle!.querySelector(
+    const houseBackground = houseSemicircle.querySelector(
       '[data-seat-arc-background]',
     );
     expect(houseBackground).toHaveAttribute('stroke-width', '24');
 
     expect(
-      houseSemicircle!.querySelector('[data-party-segment="Liberal"]'),
+      houseSemicircle.querySelector('[data-party-segment="Liberal"]'),
     ).not.toBeNull();
     expect(
-      houseSemicircle!.querySelector('[data-party-segment="Nationals"]'),
+      houseSemicircle.querySelector('[data-party-segment="Nationals"]'),
     ).not.toBeNull();
 
-    const coalitionIndicators = container.querySelectorAll(
-      '[data-grouping-indicator="coalition"]',
+    const coalitionIndicators = screen.getAllByLabelText(
+      'Member of The Coalition',
     );
     expect(coalitionIndicators).toHaveLength(4);
 
-    const coalitionNotes = container.querySelectorAll(
+    const coalitionNotes = document.querySelectorAll(
       '[data-grouping-note="coalition"]',
     );
     expect(coalitionNotes).toHaveLength(2);
