@@ -17,6 +17,7 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Changed
 
+- Parliament chamber composition now renders as a thicker semicircle with chamber-scoped grouping indicators and explanatory notes.
 - Inline fact citations now show the source title and external-link icon instead of local numeric references.
 - The global atlas now switches atomically from 110m overview geometry to 50m detailed geometry with hysteresis; political overlays no longer render at a different detail level from the base country layer.
 - The primary searchable country universe is explicitly defined as the 193 United Nations member states, the Holy See and State of Palestine as United Nations non-member observer states, plus Kosovo and Taiwan as additional Polity Atlas research entities.

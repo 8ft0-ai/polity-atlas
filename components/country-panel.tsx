@@ -38,26 +38,104 @@ function Sources({ ids, profile }: { ids: string[]; profile: CountryProfile }) {
   );
 }
 
+const GROUPING_SYMBOLS = ['†', '‡', '§', '¶'] as const;
+const SEMICIRCLE_CENTER_X = 100;
+const SEMICIRCLE_CENTER_Y = 100;
+const SEMICIRCLE_RADIUS = 76;
+
+function groupingSymbol(index: number) {
+  return GROUPING_SYMBOLS[index] ?? `(${index + 1})`;
+}
+
+function semicircleArcPath(startFraction: number, endFraction: number) {
+  const startAngle = Math.PI + startFraction * Math.PI;
+  const endAngle = Math.PI + endFraction * Math.PI;
+
+  const startX = SEMICIRCLE_CENTER_X + SEMICIRCLE_RADIUS * Math.cos(startAngle);
+  const startY = SEMICIRCLE_CENTER_Y + SEMICIRCLE_RADIUS * Math.sin(startAngle);
+  const endX = SEMICIRCLE_CENTER_X + SEMICIRCLE_RADIUS * Math.cos(endAngle);
+  const endY = SEMICIRCLE_CENTER_Y + SEMICIRCLE_RADIUS * Math.sin(endAngle);
+
+  return [
+    `M ${startX.toFixed(3)} ${startY.toFixed(3)}`,
+    `A ${SEMICIRCLE_RADIUS} ${SEMICIRCLE_RADIUS} 0 0 1 ${endX.toFixed(3)} ${endY.toFixed(3)}`,
+  ].join(' ');
+}
+
+function formatMemberParties(memberParties: string[]) {
+  if (memberParties.length <= 1) return memberParties[0] ?? '';
+  if (memberParties.length === 2) {
+    return `${memberParties[0]} and ${memberParties[1]}`;
+  }
+
+  return `${memberParties.slice(0, -1).join(', ')}, and ${memberParties.at(-1)}`;
+}
+
 function SeatBar({
   chamber,
 }: {
   chamber: CountryProfile['parliament']['chambers'][number];
 }) {
+  const groupings = chamber.groupings ?? [];
+  const groupingSymbolsById = new Map(
+    groupings.map((grouping, index) => [grouping.id, groupingSymbol(index)]),
+  );
+  const groupingNamesById = new Map(
+    groupings.map((grouping) => [grouping.id, grouping.name]),
+  );
+
+  const seatSegments = chamber.composition.map((group, index) => {
+    const seatsBefore = chamber.composition
+      .slice(0, index)
+      .reduce((total, entry) => total + entry.seats, 0);
+    const startFraction = seatsBefore / chamber.totalSeats;
+    const endFraction = Math.min(
+      1,
+      startFraction + group.seats / chamber.totalSeats,
+    );
+
+    return {
+      ...group,
+      startFraction,
+      endFraction,
+    };
+  });
+
   return (
     <div className="mt-3" aria-label={`${chamber.name} party composition`}>
-      <div className="flex h-3 overflow-hidden rounded-[2px] border border-border bg-muted">
-        {chamber.composition.map((group) => (
-          <span
-            key={group.shortName}
-            style={{
-              width: `${(group.seats / chamber.totalSeats) * 100}%`,
-              background: group.color,
-            }}
-            title={`${group.party}: ${group.seats}`}
-          />
-        ))}
-      </div>
-      <div className="ui-text mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+      <svg
+        viewBox="0 0 200 116"
+        className="h-32 w-full overflow-visible"
+        aria-label={`${chamber.name} seating composition semicircle`}
+        data-seat-semicircle={chamber.id}
+      >
+        <title>{`${chamber.name} seating composition semicircle`}</title>
+        <path
+          d={semicircleArcPath(0, 1)}
+          fill="none"
+          stroke="var(--muted)"
+          strokeWidth={24}
+          strokeLinecap="butt"
+          data-seat-arc-background
+        />
+        {seatSegments
+          .filter((segment) => segment.endFraction > segment.startFraction)
+          .map((segment) => (
+            <path
+              key={segment.shortName}
+              d={semicircleArcPath(segment.startFraction, segment.endFraction)}
+              fill="none"
+              stroke={segment.color}
+              strokeWidth={24}
+              strokeLinecap="butt"
+              data-party-segment={segment.shortName}
+            >
+              <title>{`${segment.party}: ${segment.seats} seats`}</title>
+            </path>
+          ))}
+      </svg>
+
+      <div className="ui-text mt-2 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
         {chamber.composition.map((group) => (
           <div
             key={group.shortName}
@@ -68,12 +146,52 @@ function SeatBar({
                 className="h-2 w-2 shrink-0"
                 style={{ background: group.color }}
               />
-              <span className="truncate">{group.shortName}</span>
+              <span className="truncate">
+                {group.shortName}
+                {group.groupingIds?.map((groupingId) => {
+                  const groupingName = groupingNamesById.get(groupingId);
+                  return (
+                    <sup
+                      key={groupingId}
+                      data-grouping-indicator={groupingId}
+                      className="ml-0.5 text-[9px] font-semibold text-foreground"
+                      aria-label={
+                        groupingName
+                          ? `Member of ${groupingName}`
+                          : `Grouping ${groupingId}`
+                      }
+                    >
+                      {groupingSymbolsById.get(groupingId) ?? '•'}
+                    </sup>
+                  );
+                })}
+              </span>
             </span>
             <strong>{group.seats}</strong>
           </div>
         ))}
       </div>
+
+      {groupings.length > 0 && (
+        <div className="ui-text mt-4 space-y-1 border-t border-border pt-3 text-[11px] leading-5 text-muted-foreground">
+          {groupings.map((grouping, index) => (
+            <p key={grouping.id} data-grouping-note={grouping.id}>
+              <span
+                className="mr-1 font-semibold text-foreground"
+                aria-hidden="true"
+              >
+                {groupingSymbol(index)}
+              </span>
+              <span>
+                <strong className="font-semibold text-foreground/80">
+                  {grouping.name}
+                </strong>{' '}
+                — {formatMemberParties(grouping.memberParties)}
+              </span>
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

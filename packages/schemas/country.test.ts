@@ -18,6 +18,9 @@ describe('country profile contract', () => {
       ),
       ...parsed.parliament.name.sourceIds,
       ...parsed.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+      ...parsed.parliament.chambers.flatMap((chamber) =>
+        (chamber.groupings ?? []).flatMap((grouping) => grouping.sourceIds),
+      ),
       ...parsed.elections.flatMap((election) => election.sourceIds),
       ...parsed.relations.flatMap((relation) => relation.sourceIds),
     ];
