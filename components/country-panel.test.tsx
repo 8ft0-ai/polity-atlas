@@ -137,7 +137,9 @@ describe('CountryPanel', () => {
       expect(
         screen.getByText('Head of government · Head of state'),
       ).toBeInTheDocument();
-      expect(\n        screen.getByText(`President · Since ${since}`),\n      ).toBeInTheDocument();
+      expect(
+        screen.getByText(`President · Since ${since}`),
+      ).toBeInTheDocument();
     },
   );
 
@@ -175,7 +177,9 @@ describe('CountryPanel', () => {
       ),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText(\n        /Australia is the first validated demonstration profile/,\n      ),
+      screen.queryByText(
+        /Australia is the first validated demonstration profile/,
+      ),
     ).toBeNull();
   });
 });
