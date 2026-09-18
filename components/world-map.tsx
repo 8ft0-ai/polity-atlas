@@ -5,11 +5,12 @@ import { Minus, Plus, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { countryFeatures } from '@/lib/countries';
 import {
-  geometryToRobinsonPath,
-  ROBINSON_SPHERE_PATH,
-  ROBINSON_VIEWBOX_HEIGHT,
-  ROBINSON_VIEWBOX_WIDTH,
-} from '@/lib/robinson';
+  geometryToMercatorPath,
+  initialMercatorY,
+  MERCATOR_VIEWBOX_HEIGHT,
+  MERCATOR_VIEWBOX_WIDTH,
+  MERCATOR_WORLD_SIZE,
+} from '@/lib/mercator';
 
 type WorldMapProps = {
   selectedM49: string | null;
@@ -30,30 +31,42 @@ type DragState = {
   startY: number;
   originX: number;
   originY: number;
-  moved: boolean;
 };
 
 const MIN_SCALE = 1;
 const MAX_SCALE = 6;
-const DEFAULT_VIEWPORT: Viewport = { scale: 1, x: 0, y: 0 };
+const DEFAULT_VIEWPORT: Viewport = {
+  scale: 1,
+  x: 0,
+  y: initialMercatorY(),
+};
+const WORLD_COPIES = [-1, 0, 1] as const;
 
 const countryShapes = countryFeatures.features.map((country) => ({
   m49: country.properties.m49,
   name: country.properties.name ?? 'Unknown',
-  path: geometryToRobinsonPath(country.geometry),
+  path: geometryToMercatorPath(country.geometry),
 }));
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value));
 }
 
+function wrapHorizontalOffset(x: number, scale: number) {
+  const worldWidth = MERCATOR_WORLD_SIZE * scale;
+  const remainder = x % worldWidth;
+
+  if (remainder === 0) return 0;
+  return remainder > 0 ? remainder - worldWidth : remainder;
+}
+
 function clampViewport(viewport: Viewport): Viewport {
-  const minimumX = ROBINSON_VIEWBOX_WIDTH * (1 - viewport.scale);
-  const minimumY = ROBINSON_VIEWBOX_HEIGHT * (1 - viewport.scale);
+  const scaledWorldHeight = MERCATOR_WORLD_SIZE * viewport.scale;
+  const minimumY = MERCATOR_VIEWBOX_HEIGHT - scaledWorldHeight;
 
   return {
     ...viewport,
-    x: clamp(viewport.x, minimumX, 0),
+    x: wrapHorizontalOffset(viewport.x, viewport.scale),
     y: clamp(viewport.y, minimumY, 0),
   };
 }
@@ -84,7 +97,6 @@ export function WorldMap({
 }: WorldMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const dragRef = useRef<DragState | null>(null);
-  const suppressClickRef = useRef(false);
   const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT);
 
   const related = relationMode ? new Set(relatedM49) : null;
@@ -93,17 +105,17 @@ export function WorldMap({
     const rectangle = svgRef.current?.getBoundingClientRect();
     if (!rectangle || rectangle.width === 0 || rectangle.height === 0) {
       return {
-        x: ROBINSON_VIEWBOX_WIDTH / 2,
-        y: ROBINSON_VIEWBOX_HEIGHT / 2,
+        x: MERCATOR_VIEWBOX_WIDTH / 2,
+        y: MERCATOR_VIEWBOX_HEIGHT / 2,
       };
     }
 
     return {
       x:
-        ((clientX - rectangle.left) / rectangle.width) * ROBINSON_VIEWBOX_WIDTH,
+        ((clientX - rectangle.left) / rectangle.width) * MERCATOR_VIEWBOX_WIDTH,
       y:
         ((clientY - rectangle.top) / rectangle.height) *
-        ROBINSON_VIEWBOX_HEIGHT,
+        MERCATOR_VIEWBOX_HEIGHT,
     };
   }
 
@@ -111,8 +123,8 @@ export function WorldMap({
     const anchor =
       clientX === undefined || clientY === undefined
         ? {
-            x: ROBINSON_VIEWBOX_WIDTH / 2,
-            y: ROBINSON_VIEWBOX_HEIGHT / 2,
+            x: MERCATOR_VIEWBOX_WIDTH / 2,
+            y: MERCATOR_VIEWBOX_HEIGHT / 2,
           }
         : toViewBoxPoint(clientX, clientY);
 
@@ -130,6 +142,11 @@ export function WorldMap({
   function handlePointerDown(event: React.PointerEvent<SVGSVGElement>) {
     if (event.button !== 0) return;
 
+    const target = event.target;
+    if (target instanceof Element && target.closest('[data-country-link]')) {
+      return;
+    }
+
     event.currentTarget.setPointerCapture(event.pointerId);
     dragRef.current = {
       pointerId: event.pointerId,
@@ -137,7 +154,6 @@ export function WorldMap({
       startY: event.clientY,
       originX: viewport.x,
       originY: viewport.y,
-      moved: false,
     };
   }
 
@@ -156,14 +172,10 @@ export function WorldMap({
 
     const deltaX =
       ((event.clientX - drag.startX) / rectangle.width) *
-      ROBINSON_VIEWBOX_WIDTH;
+      MERCATOR_VIEWBOX_WIDTH;
     const deltaY =
       ((event.clientY - drag.startY) / rectangle.height) *
-      ROBINSON_VIEWBOX_HEIGHT;
-
-    if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
-      drag.moved = true;
-    }
+      MERCATOR_VIEWBOX_HEIGHT;
 
     setViewport((current) =>
       clampViewport({
@@ -178,7 +190,6 @@ export function WorldMap({
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
 
-    suppressClickRef.current = drag.moved;
     dragRef.current = null;
 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
@@ -186,22 +197,60 @@ export function WorldMap({
     }
   }
 
-  function selectCountry(m49: string, name: string) {
-    if (suppressClickRef.current) {
-      suppressClickRef.current = false;
-      return;
-    }
+  function renderWorldCopy(copyOffset: number) {
+    const translateX = copyOffset * MERCATOR_WORLD_SIZE;
 
-    onSelect(m49, name);
+    return (
+      <g key={copyOffset} transform={`translate(${translateX} 0)`}>
+        <rect
+          width={MERCATOR_WORLD_SIZE}
+          height={MERCATOR_WORLD_SIZE}
+          fill="var(--map-water)"
+        />
+        {countryShapes.map((country) => {
+          const selected = selectedM49 === country.m49;
+          const relatedCountry = Boolean(related?.has(country.m49));
+          let fill = 'var(--map-land)';
+          if (relatedCountry) fill = 'var(--map-related)';
+          if (selected) fill = 'var(--map-selected)';
+
+          return (
+            <a
+              key={country.m49}
+              href={`#country=${country.m49}`}
+              data-country-link
+              tabIndex={copyOffset === 0 ? undefined : -1}
+              aria-label={country.name}
+              aria-current={selected ? 'location' : undefined}
+              onClick={(event) => {
+                event.preventDefault();
+                onSelect(country.m49, country.name);
+              }}
+            >
+              <path
+                d={country.path}
+                data-m49={country.m49}
+                fill={fill}
+                fillRule="evenodd"
+                stroke="var(--map-border)"
+                strokeWidth={0.65}
+                vectorEffect="non-scaling-stroke"
+                className="cursor-pointer focus:outline-none"
+              />
+            </a>
+          );
+        })}
+      </g>
+    );
   }
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-background">
       <svg
         ref={svgRef}
-        viewBox={`0 0 ${ROBINSON_VIEWBOX_WIDTH} ${ROBINSON_VIEWBOX_HEIGHT}`}
+        viewBox={`0 0 ${MERCATOR_VIEWBOX_WIDTH} ${MERCATOR_VIEWBOX_HEIGHT}`}
         className="h-full w-full touch-none select-none"
-        aria-label="Interactive Robinson projection world map"
+        aria-label="Interactive Mercator world map"
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -209,51 +258,14 @@ export function WorldMap({
         onPointerCancel={endPointerDrag}
       >
         <rect
-          width={ROBINSON_VIEWBOX_WIDTH}
-          height={ROBINSON_VIEWBOX_HEIGHT}
+          width={MERCATOR_VIEWBOX_WIDTH}
+          height={MERCATOR_VIEWBOX_HEIGHT}
           fill="var(--background)"
         />
         <g
           transform={`translate(${viewport.x} ${viewport.y}) scale(${viewport.scale})`}
         >
-          <path
-            d={ROBINSON_SPHERE_PATH}
-            fill="var(--map-water)"
-            stroke="var(--map-border)"
-            strokeWidth={0.8}
-            vectorEffect="non-scaling-stroke"
-          />
-          {countryShapes.map((country) => {
-            const selected = selectedM49 === country.m49;
-            const relatedCountry = Boolean(related?.has(country.m49));
-            let fill = 'var(--map-land)';
-            if (relatedCountry) fill = 'var(--map-related)';
-            if (selected) fill = 'var(--map-selected)';
-
-            return (
-              <a
-                key={country.m49}
-                href={`#country=${country.m49}`}
-                aria-label={country.name}
-                aria-current={selected ? 'location' : undefined}
-                onClick={(event) => {
-                  event.preventDefault();
-                  selectCountry(country.m49, country.name);
-                }}
-              >
-                <path
-                  d={country.path}
-                  data-m49={country.m49}
-                  fill={fill}
-                  fillRule="evenodd"
-                  stroke="var(--map-border)"
-                  strokeWidth={0.65}
-                  vectorEffect="non-scaling-stroke"
-                  className="cursor-pointer focus:outline-none"
-                />
-              </a>
-            );
-          })}
+          {WORLD_COPIES.map(renderWorldCopy)}
         </g>
       </svg>
 
@@ -285,7 +297,7 @@ export function WorldMap({
       </div>
 
       <div className="ui-text pointer-events-none absolute bottom-3 left-14 border border-border bg-card/90 px-2 py-1 text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-        Boundary data: Natural Earth · Robinson projection
+        Boundary data: Natural Earth · Mercator projection
       </div>
     </div>
   );
