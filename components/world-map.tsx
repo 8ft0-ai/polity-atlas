@@ -100,8 +100,7 @@ export function WorldMap({
 
     return {
       x:
-        ((clientX - rectangle.left) / rectangle.width) *
-        ROBINSON_VIEWBOX_WIDTH,
+        ((clientX - rectangle.left) / rectangle.width) * ROBINSON_VIEWBOX_WIDTH,
       y:
         ((clientY - rectangle.top) / rectangle.height) *
         ROBINSON_VIEWBOX_HEIGHT,
