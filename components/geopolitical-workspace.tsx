@@ -1,7 +1,11 @@
+/* oxlint-disable nextjs/no-img-element */
+/* vinext does not expose next/image; these are local static logo assets. */
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Layers3, Moon, Search, Sun } from 'lucide-react';
+import logoDark from '@/components/logos/Logo-Dark.png';
+import logoLight from '@/components/logos/Logo-Light.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CountryPanel } from '@/components/country-panel';
@@ -10,13 +14,17 @@ import { type MapHoverEntity, WorldMap } from '@/components/world-map';
 import {
   countryOptions,
   findPrimaryCountry,
-  primaryEntityIdForM49,
+  supportedProfiles,
 } from '@/lib/countries';
 import { useWorkspaceStore } from '@/lib/workspace-store';
 
-const australiaRelations = ['156', '360', '392', '554', '826', '840'].map(
-  primaryEntityIdForM49,
-);
+const pilotProfileEntityIds = Object.keys(supportedProfiles);
+
+type StaticAsset = string | { src: string };
+
+function staticAssetUrl(asset: StaticAsset) {
+  return typeof asset === 'string' ? asset : asset.src;
+}
 
 const kindLabels: Record<MapHoverEntity['kind'], string> = {
   'primary-state': 'Country',
@@ -96,16 +104,12 @@ function WorkspaceContent() {
   return (
     <main className="fixed inset-0 overflow-hidden bg-background text-foreground">
       <header className="relative z-30 grid h-14 grid-cols-[auto_minmax(220px,520px)_1fr] items-center gap-5 border-b border-border bg-card px-4 max-md:h-24 max-md:grid-cols-[1fr_auto] max-md:items-start max-md:pt-3">
-        <div className="ui-text flex items-center gap-3 whitespace-nowrap">
-          <span className="grid h-7 w-7 place-items-center border border-primary bg-primary text-xs font-bold text-primary-foreground">
-            PA
-          </span>
-          <div>
-            <p className="text-sm font-semibold leading-none">Polity Atlas</p>
-            <p className="mt-1 text-[9px] uppercase tracking-[0.11em] text-muted-foreground">
-              Geopolitical research desk
-            </p>
-          </div>
+        <div className="flex items-center whitespace-nowrap">
+          <img
+            src={staticAssetUrl(theme === 'dark' ? logoDark : logoLight)}
+            alt="Polity Atlas"
+            className="h-9 w-auto max-w-[190px] object-contain"
+          />
         </div>
 
         <form
@@ -161,8 +165,10 @@ function WorkspaceContent() {
         <WorldMap
           selectedEntityId={selectedEntityId}
           relatedEntityIds={
-            selectedEntityId === primaryEntityIdForM49('036')
-              ? australiaRelations
+            selectedEntityId && supportedProfiles[selectedEntityId]
+              ? pilotProfileEntityIds.filter(
+                  (entityId) => entityId !== selectedEntityId,
+                )
               : []
           }
           relationMode={activeTab === 'relations'}

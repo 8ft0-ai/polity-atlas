@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-18",
+  "identity": {
+    "iso2": "CA",
+    "iso3": "CAN",
+    "m49": "124",
+    "name": "Canada",
+    "officialName": "Canada",
+    "capital": "Ottawa"
+  },
+  "government": {
+    "system": {
+      "value": "Federal parliamentary constitutional monarchy",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": ["ca-country"],
+      "confidence": "verified"
+    },
+    "headOfState": [
+      {
+        "office": "Governor General",
+        "name": "Louise Arbour",
+        "since": "2026-06-08",
+        "sourceIds": ["ca-governor-general"]
+      }
+    ],
+    "headOfGovernment": [
+      {
+        "office": "Prime Minister",
+        "name": "Mark Carney",
+        "since": "2025-03-14",
+        "sourceIds": ["ca-prime-minister"]
+      }
+    ]
+  },
+  "parliament": {
+    "name": {
+      "value": "Parliament of Canada",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": ["ca-house", "ca-senate"],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "commons",
+        "name": "House of Commons",
+        "kind": "lower",
+        "totalSeats": 343,
+        "compositionAsOf": "2026-09-18",
+        "composition": [
+          {
+            "party": "Liberal Party",
+            "shortName": "Liberal",
+            "seats": 174,
+            "color": "#D71920"
+          },
+          {
+            "party": "Conservative Party",
+            "shortName": "Conservative",
+            "seats": 140,
+            "color": "#1A4782"
+          },
+          {
+            "party": "Bloc Québécois",
+            "shortName": "Bloc Québécois",
+            "seats": 21,
+            "color": "#33B2CC"
+          },
+          {
+            "party": "New Democratic Party",
+            "shortName": "NDP",
+            "seats": 5,
+            "color": "#F58220"
+          },
+          {
+            "party": "Independent",
+            "shortName": "Independent",
+            "seats": 2,
+            "color": "grey"
+          },
+          {
+            "party": "Green Party",
+            "shortName": "Green",
+            "seats": 1,
+            "color": "#3D9B35"
+          }
+        ],
+        "sourceIds": ["ca-house"]
+      },
+      {
+        "id": "senate",
+        "name": "Senate",
+        "kind": "upper",
+        "totalSeats": 105,
+        "compositionAsOf": "2026-04-10",
+        "composition": [
+          {
+            "party": "Independent Senators Group",
+            "shortName": "ISG",
+            "seats": 42,
+            "color": "#7D7D7D"
+          },
+          {
+            "party": "Canadian Senators Group",
+            "shortName": "CSG",
+            "seats": 19,
+            "color": "#5B7FA3"
+          },
+          {
+            "party": "Progressive Senate Group",
+            "shortName": "PSG",
+            "seats": 16,
+            "color": "#A04A6A"
+          },
+          {
+            "party": "Conservative Party",
+            "shortName": "Conservative",
+            "seats": 12,
+            "color": "#1A4782"
+          },
+          {
+            "party": "Non-affiliated",
+            "shortName": "Non-affiliated",
+            "seats": 8,
+            "color": "#AAAAAA"
+          }
+        ],
+        "sourceIds": ["ca-senate"]
+      }
+    ]
+  },
+  "elections": [
+    {
+      "title": "Next Canadian federal election",
+      "status": "expected",
+      "dateLabel": "15 October 2029",
+      "note": "The next fixed election date is 15 October 2029; an election may be called earlier.",
+      "sourceIds": ["ca-election"]
+    }
+  ],
+  "relations": [
+    {
+      "country": "Australia",
+      "m49": "036",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    },
+    {
+      "country": "New Zealand",
+      "m49": "554",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    },
+    {
+      "country": "United States of America",
+      "m49": "840",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    },
+    {
+      "country": "United Kingdom",
+      "m49": "826",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    },
+    {
+      "country": "France",
+      "m49": "250",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    },
+    {
+      "country": "China",
+      "m49": "156",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    },
+    {
+      "country": "India",
+      "m49": "356",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    },
+    {
+      "country": "Indonesia",
+      "m49": "360",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    },
+    {
+      "country": "Japan",
+      "m49": "392",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["ca-missions"]
+    }
+  ],
+  "sources": [
+    {
+      "id": "ca-country",
+      "publisher": "Wikipedia",
+      "title": "Canada",
+      "url": "https://en.wikipedia.org/wiki/Canada",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "ca-governor-general",
+      "publisher": "Government of Canada",
+      "title": "Installation of Louise Arbour as Governor General",
+      "url": "https://www.canada.ca/en/canadian-heritage/news/2026/06/installation-ceremony-of-the-honourable-louise-arbour-as-the-31st-governor-general-of-canada.html",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "ca-prime-minister",
+      "publisher": "Prime Minister of Canada",
+      "title": "Prime Minister of Canada",
+      "url": "https://www.pm.gc.ca/en",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "ca-house",
+      "publisher": "House of Commons of Canada",
+      "title": "Party standings in the House of Commons",
+      "url": "https://www.ourcommons.ca/members/en/party-standings",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "ca-senate",
+      "publisher": "Wikipedia",
+      "title": "List of current senators of Canada",
+      "url": "https://en.wikipedia.org/wiki/List_of_current_senators_of_Canada",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "ca-election",
+      "publisher": "Elections Canada",
+      "title": "ElectoFacts",
+      "url": "https://www.elections.ca/electofacts",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "ca-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of Canada",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Canada",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    }
+  ]
+}

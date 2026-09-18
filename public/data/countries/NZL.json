@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-18",
+  "identity": {
+    "iso2": "NZ",
+    "iso3": "NZL",
+    "m49": "554",
+    "name": "New Zealand",
+    "officialName": "New Zealand",
+    "capital": "Wellington"
+  },
+  "government": {
+    "system": {
+      "value": "Unitary parliamentary constitutional monarchy",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": ["nz-country"],
+      "confidence": "verified"
+    },
+    "headOfState": [
+      {
+        "office": "Governor-General",
+        "name": "Cindy Kiro",
+        "since": "2021-10-21",
+        "sourceIds": ["nz-governor-general"]
+      }
+    ],
+    "headOfGovernment": [
+      {
+        "office": "Prime Minister",
+        "name": "Christopher Luxon",
+        "since": "2023-11-27",
+        "sourceIds": ["nz-prime-minister"]
+      }
+    ]
+  },
+  "parliament": {
+    "name": {
+      "value": "New Zealand Parliament",
+      "asOf": "2026-09-18",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "sourceIds": ["nz-parliament"],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "house",
+        "name": "House of Representatives",
+        "kind": "unicameral",
+        "totalSeats": 123,
+        "compositionAsOf": "2026-09-18",
+        "composition": [
+          {
+            "party": "New Zealand National Party",
+            "shortName": "National",
+            "seats": 49,
+            "color": "#00529F",
+            "groupingIds": ["government-coalition"]
+          },
+          {
+            "party": "New Zealand Labour Party",
+            "shortName": "Labour",
+            "seats": 34,
+            "color": "#D82A20"
+          },
+          {
+            "party": "Green Party of Aotearoa New Zealand",
+            "shortName": "Green",
+            "seats": 14,
+            "color": "#098137"
+          },
+          {
+            "party": "ACT New Zealand",
+            "shortName": "ACT",
+            "seats": 11,
+            "color": "#FDE401",
+            "groupingIds": ["government-coalition"]
+          },
+          {
+            "party": "New Zealand First",
+            "shortName": "NZ First",
+            "seats": 8,
+            "color": "#000000",
+            "groupingIds": ["government-coalition"]
+          },
+          {
+            "party": "Te Pāti Māori",
+            "shortName": "Te Pāti Māori",
+            "seats": 4,
+            "color": "#B2001D"
+          },
+          {
+            "party": "Independent",
+            "shortName": "Independent",
+            "seats": 2,
+            "color": "grey"
+          }
+        ],
+        "groupings": [
+          {
+            "id": "government-coalition",
+            "name": "National–ACT–New Zealand First coalition",
+            "kind": "governing-coalition",
+            "memberParties": [
+              "New Zealand National Party",
+              "ACT New Zealand",
+              "New Zealand First"
+            ],
+            "asOf": "2026-09-18",
+            "sourceIds": ["nz-prime-minister"]
+          }
+        ],
+        "sourceIds": ["nz-parliament"]
+      }
+    ]
+  },
+  "elections": [
+    {
+      "title": "2026 New Zealand general election",
+      "status": "confirmed",
+      "dateLabel": "7 November 2026",
+      "note": "The general election has been announced for 7 November 2026.",
+      "sourceIds": ["nz-election"]
+    }
+  ],
+  "relations": [
+    {
+      "country": "Australia",
+      "m49": "036",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    },
+    {
+      "country": "Canada",
+      "m49": "124",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    },
+    {
+      "country": "United States of America",
+      "m49": "840",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    },
+    {
+      "country": "United Kingdom",
+      "m49": "826",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    },
+    {
+      "country": "France",
+      "m49": "250",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    },
+    {
+      "country": "China",
+      "m49": "156",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    },
+    {
+      "country": "India",
+      "m49": "356",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    },
+    {
+      "country": "Indonesia",
+      "m49": "360",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    },
+    {
+      "country": "Japan",
+      "m49": "392",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["nz-missions"]
+    }
+  ],
+  "sources": [
+    {
+      "id": "nz-country",
+      "publisher": "Wikipedia",
+      "title": "New Zealand",
+      "url": "https://en.wikipedia.org/wiki/New_Zealand",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "nz-governor-general",
+      "publisher": "Governor-General of New Zealand",
+      "title": "The Governor-General",
+      "url": "https://gg.govt.nz/governor-general",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "nz-prime-minister",
+      "publisher": "New Zealand Government",
+      "title": "Prime Minister",
+      "url": "https://www.beehive.govt.nz/portfolio/nationalactnew-zealand-first-coalition-government-2023-2026/prime-minister",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "nz-parliament",
+      "publisher": "New Zealand Parliament",
+      "title": "Parliamentary parties",
+      "url": "https://www.parliament.nz/en/mps-and-electorates/political-parties/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "nz-election",
+      "publisher": "New Zealand Government",
+      "title": "General election to be held 7 November",
+      "url": "https://www.beehive.govt.nz/release/general-election-be-held-7-november",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "nz-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of New Zealand",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_New_Zealand",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    }
+  ]
+}

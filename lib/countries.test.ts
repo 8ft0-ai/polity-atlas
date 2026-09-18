@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
+import pilotConfig from '@/packages/data-pipeline/config/pilot-countries.json';
 import {
   countryFeatures,
   countryOptions,
   primaryEntityIdForM49,
+  supportedProfiles,
 } from './countries';
 import { propertiesForSourceFeature } from './map-entities';
 
@@ -117,5 +119,16 @@ describe('canonical map entity identity', () => {
       kind: 'primary-state',
       m49: '578',
     });
+  });
+
+  it('routes every configured pilot identity to its profile file', () => {
+    expect(
+      Object.fromEntries(
+        pilotConfig.countries.map((country) => [
+          country.entityId,
+          country.iso3,
+        ]),
+      ),
+    ).toEqual(supportedProfiles);
   });
 });

@@ -208,10 +208,31 @@
   ],
   "relations": [
     {
+      "country": "Canada",
+      "m49": "124",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["au-missions"]
+    },
+    {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
+      "sourceIds": ["au-missions"]
+    },
+    {
+      "country": "France",
+      "m49": "250",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
+      "sourceIds": ["au-missions"]
+    },
+    {
+      "country": "India",
+      "m49": "356",
+      "status": "resident-mission",
+      "note": "Resident diplomatic mission recorded in the cited mission list.",
       "sourceIds": ["au-missions"]
     },
     {
