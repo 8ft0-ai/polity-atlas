@@ -84,7 +84,7 @@ describe('WorldMap entity interaction', () => {
     });
 
     const northernCyprus = container.querySelector(
-      '[data-world-copy="0"] [data-disputed-area][data-disputed-name="N. Cyprus"]',
+      '[data-world-copy="0"] [data-disputed-area][data-disputed-name="Northern Cyprus"]',
     );
 
     expect(northernCyprus).not.toBeNull();
