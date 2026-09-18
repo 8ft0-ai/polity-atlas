@@ -1,55 +1,27 @@
 import type { Geometry, Position } from 'geojson';
 
-export const ROBINSON_VIEWBOX_WIDTH = 1000;
-export const ROBINSON_VIEWBOX_HEIGHT = 520;
-
-const ROBINSON_PADDING = 16;
-const ROBINSON_X_SCALE = 0.8487;
-const ROBINSON_Y_SCALE = 1.3523;
-
-const X_COEFFICIENTS = [
-  1, 0.9986, 0.9954, 0.99, 0.9822, 0.973, 0.96, 0.9427, 0.9216, 0.8962, 0.8679,
-  0.835, 0.7986, 0.7597, 0.7186, 0.6732, 0.6213, 0.5722, 0.5322,
-] as const;
-
-const Y_COEFFICIENTS = [
-  0, 0.062, 0.124, 0.186, 0.248, 0.31, 0.372, 0.434, 0.4958, 0.5571, 0.6176,
-  0.6769, 0.7346, 0.7903, 0.8435, 0.8936, 0.9394, 0.9761, 1,
-] as const;
+export const MERCATOR_WORLD_SIZE = 1000;
+export const MERCATOR_VIEWBOX_WIDTH = 1000;
+export const MERCATOR_VIEWBOX_HEIGHT = 600;
+export const MERCATOR_MAX_LATITUDE = 85.05112878;
 
 type LonLat = [number, number];
 
-function interpolate(values: readonly number[], latitude: number) {
-  const absoluteLatitude = Math.min(90, Math.abs(latitude));
-  if (absoluteLatitude === 90) return values[values.length - 1];
-
-  const index = Math.floor(absoluteLatitude / 5);
-  const fraction = (absoluteLatitude - index * 5) / 5;
-  return values[index] + (values[index + 1] - values[index]) * fraction;
+function clampLatitude(latitude: number) {
+  return Math.max(
+    -MERCATOR_MAX_LATITUDE,
+    Math.min(MERCATOR_MAX_LATITUDE, latitude),
+  );
 }
 
-export function projectRobinson(longitude: number, latitude: number): LonLat {
-  const xCoefficient = interpolate(X_COEFFICIENTS, latitude);
-  const yCoefficient = interpolate(Y_COEFFICIENTS, latitude);
+export function projectMercator(longitude: number, latitude: number): LonLat {
+  const clampedLatitude = clampLatitude(latitude);
+  const latitudeRadians = (clampedLatitude * Math.PI) / 180;
+  const x = ((longitude + 180) / 360) * MERCATOR_WORLD_SIZE;
+  const mercatorY = Math.log(Math.tan(Math.PI / 4 + latitudeRadians / 2));
+  const y = (0.5 - mercatorY / (2 * Math.PI)) * MERCATOR_WORLD_SIZE;
 
-  const longitudeRadians = (longitude * Math.PI) / 180;
-  const hemisphere = latitude < 0 ? -1 : 1;
-  const rawX = ROBINSON_X_SCALE * longitudeRadians * xCoefficient;
-  const rawY = ROBINSON_Y_SCALE * yCoefficient * hemisphere;
-
-  const maximumX = ROBINSON_X_SCALE * Math.PI;
-  const maximumY = ROBINSON_Y_SCALE;
-  const availableWidth = ROBINSON_VIEWBOX_WIDTH - ROBINSON_PADDING * 2;
-  const availableHeight = ROBINSON_VIEWBOX_HEIGHT - ROBINSON_PADDING * 2;
-  const scale = Math.min(
-    availableWidth / (maximumX * 2),
-    availableHeight / (maximumY * 2),
-  );
-
-  return [
-    ROBINSON_VIEWBOX_WIDTH / 2 + rawX * scale,
-    ROBINSON_VIEWBOX_HEIGHT / 2 - rawY * scale,
-  ];
+  return [x, y];
 }
 
 function coordinatesMatch(left: Position, right: Position) {
@@ -153,7 +125,7 @@ export function clipRingAtAntimeridian(ring: Position[]): LonLat[][] {
 
 function pathForRing(ring: LonLat[]) {
   const projected = ring.map(([longitude, latitude]) =>
-    projectRobinson(longitude, latitude),
+    projectMercator(longitude, latitude),
   );
   if (projected.length < 3) return '';
 
@@ -173,7 +145,7 @@ function polygonPath(rings: Position[][]) {
     .join('');
 }
 
-export function geometryToRobinsonPath(geometry: Geometry) {
+export function geometryToMercatorPath(geometry: Geometry) {
   if (geometry.type === 'Polygon') {
     return polygonPath(geometry.coordinates);
   }
@@ -185,18 +157,6 @@ export function geometryToRobinsonPath(geometry: Geometry) {
   return '';
 }
 
-function createSpherePath() {
-  const coordinates: LonLat[] = [];
-
-  for (let latitude = -90; latitude <= 90; latitude += 3) {
-    coordinates.push([-180, latitude]);
-  }
-
-  for (let latitude = 90; latitude >= -90; latitude -= 3) {
-    coordinates.push([180, latitude]);
-  }
-
-  return pathForRing(coordinates);
+export function initialMercatorY(scale = 1) {
+  return (MERCATOR_VIEWBOX_HEIGHT - MERCATOR_WORLD_SIZE * scale) / 2;
 }
-
-export const ROBINSON_SPHERE_PATH = createSpherePath();

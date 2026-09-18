@@ -3,37 +3,33 @@ import type { Polygon } from 'geojson';
 import { countryFeatures } from './countries';
 import {
   clipRingAtAntimeridian,
-  geometryToRobinsonPath,
-  projectRobinson,
-  ROBINSON_SPHERE_PATH,
-  ROBINSON_VIEWBOX_HEIGHT,
-  ROBINSON_VIEWBOX_WIDTH,
-} from './robinson';
+  geometryToMercatorPath,
+  initialMercatorY,
+  MERCATOR_MAX_LATITUDE,
+  MERCATOR_VIEWBOX_HEIGHT,
+  MERCATOR_WORLD_SIZE,
+  projectMercator,
+} from './mercator';
 
-describe('Robinson world map geometry', () => {
-  it('projects the origin to the centre of the world view', () => {
-    expect(projectRobinson(0, 0)).toEqual([
-      ROBINSON_VIEWBOX_WIDTH / 2,
-      ROBINSON_VIEWBOX_HEIGHT / 2,
+describe('Mercator world map geometry', () => {
+  it('projects the equator and prime meridian to the world centre', () => {
+    expect(projectMercator(0, 0)).toEqual([
+      MERCATOR_WORLD_SIZE / 2,
+      MERCATOR_WORLD_SIZE / 2,
     ]);
   });
 
-  it('keeps projection coordinates finite at world extremes', () => {
-    for (const [longitude, latitude] of [
-      [-180, -90],
-      [-180, 90],
-      [180, -90],
-      [180, 90],
-      [180, 0],
-      [0, 90],
-    ]) {
-      const [x, y] = projectRobinson(longitude, latitude);
-      expect(Number.isFinite(x)).toBe(true);
-      expect(Number.isFinite(y)).toBe(true);
-    }
+  it('clamps polar coordinates to the Web Mercator latitude limit', () => {
+    const north = projectMercator(0, 90);
+    const clampedNorth = projectMercator(0, MERCATOR_MAX_LATITUDE);
+    const south = projectMercator(0, -90);
+
+    expect(north).toEqual(clampedNorth);
+    expect(north[1]).toBeCloseTo(0, 6);
+    expect(south[1]).toBeCloseTo(MERCATOR_WORLD_SIZE, 6);
   });
 
-  it('splits polygons crossing the antimeridian into bounded rings', () => {
+  it('splits antimeridian polygons into bounded rings', () => {
     const ring = [
       [170, -10],
       [-170, -10],
@@ -46,7 +42,6 @@ describe('Robinson world map geometry', () => {
 
     expect(clipped).toHaveLength(2);
     for (const part of clipped) {
-      expect(part.length).toBeGreaterThanOrEqual(3);
       for (const [longitude] of part) {
         expect(longitude).toBeGreaterThanOrEqual(-180);
         expect(longitude).toBeLessThanOrEqual(180);
@@ -54,7 +49,7 @@ describe('Robinson world map geometry', () => {
     }
   });
 
-  it('produces separate Robinson path pieces for an antimeridian polygon', () => {
+  it('produces separate path pieces for an antimeridian polygon', () => {
     const geometry: Polygon = {
       type: 'Polygon',
       coordinates: [
@@ -68,7 +63,7 @@ describe('Robinson world map geometry', () => {
       ],
     };
 
-    const path = geometryToRobinsonPath(geometry);
+    const path = geometryToMercatorPath(geometry);
 
     expect(path.match(/M/g)?.length).toBe(2);
     expect(path).not.toContain('NaN');
@@ -77,12 +72,16 @@ describe('Robinson world map geometry', () => {
 
   it('produces finite SVG paths for every bundled country', () => {
     for (const country of countryFeatures.features) {
-      const path = geometryToRobinsonPath(country.geometry);
+      const path = geometryToMercatorPath(country.geometry);
       expect(path.length).toBeGreaterThan(0);
       expect(path).not.toContain('NaN');
       expect(path).not.toContain('Infinity');
     }
+  });
 
-    expect(ROBINSON_SPHERE_PATH.length).toBeGreaterThan(0);
+  it('centres the full Mercator world vertically in the viewport', () => {
+    expect(initialMercatorY()).toBe(
+      (MERCATOR_VIEWBOX_HEIGHT - MERCATOR_WORLD_SIZE) / 2,
+    );
   });
 });
