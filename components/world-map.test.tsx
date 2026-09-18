@@ -32,6 +32,21 @@ describe('WorldMap entity interaction', () => {
     expect(onSelect).toHaveBeenCalledWith('state:m49:036', 'Australia', '036');
   });
 
+
+  it('renders and selects Norway with the same canonical identity used by search', () => {
+    const onSelect = vi.fn();
+    const { container } = renderMap({ onSelect });
+
+    const norwayPath = container.querySelector(
+      '[data-world-copy="0"] [data-country-link][data-entity-id="state:m49:578"] path',
+    );
+
+    expect(norwayPath).not.toBeNull();
+    fireEvent.click(norwayPath!);
+
+    expect(onSelect).toHaveBeenCalledWith('state:m49:578', 'Norway', '578');
+  });
+
   it('selects Kosovo independently from other non-M49 geometries', () => {
     const onSelect = vi.fn();
     const { container } = renderMap({ onSelect });
@@ -162,4 +177,56 @@ describe('WorldMap entity interaction', () => {
       container.querySelector('[data-world-copy="0"][data-map-lod="50m"]'),
     ).not.toBeNull();
   });
+
+  it('pans when a drag starts on a country without selecting it', () => {
+    const onSelect = vi.fn();
+    const { container } = renderMap({ onSelect });
+    const svg = container.querySelector('svg');
+    const australiaPath = container.querySelector(
+      '[data-world-copy="0"] [data-country-link][data-entity-id="state:m49:036"] path',
+    );
+    const transformedWorld = container.querySelector(
+      'svg > g[transform]',
+    );
+
+    expect(svg).not.toBeNull();
+    expect(australiaPath).not.toBeNull();
+    expect(transformedWorld).not.toBeNull();
+
+    vi.spyOn(svg!, 'getBoundingClientRect').mockReturnValue({
+      x: 0,
+      y: 0,
+      width: 1000,
+      height: 600,
+      top: 0,
+      right: 1000,
+      bottom: 600,
+      left: 0,
+      toJSON: () => ({}),
+    } as DOMRect);
+
+    const before = transformedWorld!.getAttribute('transform');
+
+    fireEvent.pointerDown(australiaPath!, {
+      button: 0,
+      pointerId: 1,
+      clientX: 400,
+      clientY: 300,
+    });
+    fireEvent.pointerMove(svg!, {
+      pointerId: 1,
+      clientX: 440,
+      clientY: 320,
+    });
+    fireEvent.pointerUp(svg!, {
+      pointerId: 1,
+      clientX: 440,
+      clientY: 320,
+    });
+    fireEvent.click(australiaPath!);
+
+    expect(transformedWorld!.getAttribute('transform')).not.toBe(before);
+    expect(onSelect).not.toHaveBeenCalled();
+  });
+
 });
