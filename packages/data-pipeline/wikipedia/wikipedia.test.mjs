@@ -47,23 +47,52 @@ function chamberHtml({ seats, kind, compositionHtml = '' }) {
 function politicalGroupsRow() {
   return `
     <tr>
+      <th>NPC political groups</th>
+      <td>
+        <b>Ruling Party (2,478)</b>
+        <dl>
+          <dd>CCP and Nonpartisan (2,478)</dd>
+        </dl>
+        <p><b>Democratic Parties (369)</b></p>
+        <dl>
+          <dd>Jiusan Society (61)</dd>
+          <dd>CPWDP (60)</dd>
+          <dd>CDL (55)</dd>
+          <dd>CAPD (54)</dd>
+          <dd>CNDCA (44)</dd>
+          <dd>RCCK (43)</dd>
+          <dd>CZGP (39)</dd>
+          <dd>TDSL (13)</dd>
+        </dl>
+      </td>
+    </tr>
+  `;
+}
+
+function lordsGroupsRow() {
+  return `
+    <tr>
       <th>Political groups</th>
       <td>
-        <div><b>Ruling Party (2,478)</b></div>
-        <ul>
-          <li>CCP and Nonpartisan (2,478)</li>
-        </ul>
-        <div><b>Democratic Parties (369)</b></div>
-        <ul>
-          <li>Jiusan Society (61)</li>
-          <li>CPWDP (60)</li>
-          <li>CDL (55)</li>
-          <li>CAPD (54)</li>
-          <li>CNDCA (44)</li>
-          <li>RCCK (43)</li>
-          <li>CZGP (39)</li>
-          <li>TDSL (13)</li>
-        </ul>
+        <div>Lords Spiritual</div>
+        <div><ul><li>Bishops (25)</li></ul></div>
+        <div>Lords Temporal</div>
+        <b>HM Government</b>
+        <div><ul><li>Labour Party (233)</li></ul></div>
+        <b>HM Official Opposition</b>
+        <div><ul><li>Conservative Party (247)</li></ul></div>
+        <b>Other groups</b>
+        <div>
+          <ul>
+            <li>Liberal Democrats (80)</li>
+            <li>Democratic Unionist Party (6)</li>
+            <li>Non-affiliated (43)</li>
+          </ul>
+        </div>
+        <b>Crossbench</b>
+        <div><ul><li>Crossbenchers (155)</li></ul></div>
+        <b>Presiding officer</b>
+        <div><ul><li>Lord Speaker (1)</li></ul></div>
       </td>
     </tr>
   `;
@@ -197,6 +226,43 @@ describe('Wikipedia infobox parsing', () => {
       group: 'Democratic Parties',
     });
     expect(entries.reduce((sum, entry) => sum + entry.seats, 0)).toBe(2847);
+  });
+
+  it('uses structural group headings that do not contain seat totals', () => {
+    const parsed = parseInfobox(
+      chamberHtml({
+        seats: 790,
+        kind: 'upper',
+        compositionHtml: lordsGroupsRow(),
+      }),
+    );
+    const entries = extractPoliticalComposition(parsed);
+
+    expect(entries).toContainEqual({
+      party: 'Labour Party',
+      seats: 233,
+      group: 'HM Government',
+    });
+    expect(entries).toContainEqual({
+      party: 'Conservative Party',
+      seats: 247,
+      group: 'HM Official Opposition',
+    });
+    expect(entries).toContainEqual({
+      party: 'Liberal Democrats',
+      seats: 80,
+      group: 'Other groups',
+    });
+    expect(entries).toContainEqual({
+      party: 'Crossbenchers',
+      seats: 155,
+      group: 'Crossbench',
+    });
+    expect(entries).toContainEqual({
+      party: 'Lord Speaker',
+      seats: 1,
+      group: 'Presiding officer',
+    });
   });
 });
 
