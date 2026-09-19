@@ -87,3 +87,22 @@ cache. Wikidata is not used as a substitute for Wikipedia article infobox
 content. Schema v4 models Wikipedia party-seat data as a separate
 `source-reported` chamber composition with inline provenance and an explicit UI
 disclosure that it is not an IPU election result.
+
+
+## Party and parliamentary display colours
+
+A colour shown beside a parliamentary party/group is contextual display
+metadata, not a political classification. When a Wikipedia legislature/chamber
+entry exposes a usable colour swatch, Polity Atlas may attach that colour to the
+matching seat entry and cite the Wikipedia chamber page as the visual source.
+For IPU-backed results this enrichment must never alter IPU party names, IDs,
+seat totals, election dates, chamber sizes, or outcome semantics.
+
+Matching must fail closed when aliases are ambiguous. Chamber aliases may use
+an exact statutory-capacity match only when that capacity identifies exactly
+one still-unmatched authoritative chamber. Party colours never participate in
+identity matching. When no source colour resolves safely, the application uses
+a deterministic presentation fallback that carries no source claim.
+
+Do not infer ideology, political family, government/opposition status, vacancy
+status, or party identity from a colour.
