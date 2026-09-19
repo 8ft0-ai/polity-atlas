@@ -229,6 +229,37 @@ describe('Wikipedia infobox parsing', () => {
     expect(entries[0].party).not.toContain('.mw-parser-output');
   });
 
+  it('preserves a canonical Wikipedia legend colour and linked party title', () => {
+    const parsed = parseInfobox(
+      chamberHtml({
+        seats: 100,
+        kind: 'lower',
+        compositionHtml: `
+          <tr>
+            <th>Political groups</th>
+            <td>
+              <ul>
+                <li>
+                  <span class="legend-color" style="background-color: rgb(18, 52, 86)"></span>
+                  <a href="./Example_Party">Example Party</a> (100)
+                </li>
+              </ul>
+            </td>
+          </tr>
+        `,
+      }),
+    );
+
+    expect(extractPoliticalComposition(parsed)).toEqual([
+      {
+        party: 'Example Party',
+        seats: 100,
+        articleTitle: 'Example Party',
+        visual: { color: '#123456', method: 'wikipedia-entry' },
+      },
+    ]);
+  });
+
   it('removes Wikimedia TemplateStyles text from a leaf party label', () => {
     const parsed = parseInfobox(
       chamberHtml({
@@ -514,7 +545,36 @@ describe('Wikipedia chamber fallback', () => {
     ).toBe(540);
   });
 
-  it('does not use equal seat count alone to identify an IPU chamber', () => {
+  it('matches source aliases by statutory capacity only when the capacity is unambiguous and one-to-one', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'House of Representatives',
+        kind: 'lower',
+        totalSeats: 440,
+      }),
+      ipuChamber({
+        id: 'EX-UC01',
+        name: 'House of Nationalities',
+        kind: 'upper',
+        totalSeats: 224,
+      }),
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          { name: 'Pyithu Hluttaw', title: 'Pyithu Hluttaw', seats: 440 },
+          { name: 'Amyotha Hluttaw', title: 'Amyotha Hluttaw', seats: 224 },
+        ],
+      }),
+      current,
+    );
+
+    expect(normalized.missingChambers).toEqual([]);
+  });
+
+  it('does not use an already-matched equal seat count to identify a second chamber', () => {
     const current = profile([
       ipuChamber({
         id: 'EX-LC01',
