@@ -507,9 +507,11 @@ function ElectionOutcome({
             {primary.kind === 'source-reported'
               ? primary.dimension === 'membership-role'
                 ? 'Membership composition'
-                : `${publisherLabel(primary.sourceIds, sources)} ${(
-                    primary.viewLabel ?? 'composition'
-                  ).toLowerCase()} breakdown`
+                : primary.viewId === 'composition'
+                  ? `${publisherLabel(primary.sourceIds, sources)} party-seat breakdown`
+                  : `${publisherLabel(primary.sourceIds, sources)} ${(
+                      primary.viewLabel ?? 'composition'
+                    ).toLowerCase()} breakdown`
               : primary.kind === 'ipu-post-election'
                 ? 'IPU full-composition result'
                 : 'Seats decided in the cited event'}
