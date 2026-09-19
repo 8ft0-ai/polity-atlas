@@ -29,8 +29,12 @@ const legislaturePilots = [irn, sau, mmr];
 
 function compositionSourceIds(
   composition:
-    | ReturnType<typeof countryProfileSchema.parse>['parliament']['chambers'][number]['composition']
-    | ReturnType<typeof legislatureProfileSchema.parse>['parliament']['chambers'][number]['composition'],
+    | ReturnType<
+        typeof countryProfileSchema.parse
+      >['parliament']['chambers'][number]['composition']
+    | ReturnType<
+        typeof legislatureProfileSchema.parse
+      >['parliament']['chambers'][number]['composition'],
 ) {
   if (!composition) return [];
   return 'views' in composition
