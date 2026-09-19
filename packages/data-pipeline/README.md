@@ -1,8 +1,6 @@
 # Data pipeline
 
-The application reads only reviewed, schema-valid files in `public/data`; it
-never calls a source API in the browser. The first bounded Phase 3 adapter is
-implemented for IPU Parline and covers all ten configured pilot countries.
+The application reads only reviewed, schema-valid files in `public/data`; it never calls a source API in the browser. IPU Parline now covers ten full-profile pilots plus three standalone legislature pilots (IRN, SAU, MMR).
 
 ## IPU pilot refresh
 
@@ -26,7 +24,7 @@ The refresh command:
    party-name overrides, or country-specific editorial strings.
 7. Replaces the parliamentary and expected-election slice of each profile while
    preserving government, relation, territory, and map sourcing.
-8. Updates the global deduplicated `public/data/sources.json` registry and writes a sorted manifest with SHA-256 hashes for all ten profile files plus the registry.
+8. Updates the global deduplicated `public/data/sources.json` registry and writes a sorted manifest with SHA-256 hashes for all ten full profiles, all three legislature modules, and the registry.
 
 To reproduce output from the retained raw inputs without making network calls:
 
@@ -100,10 +98,13 @@ a full post-election composition. The fallback composition never becomes
 `latestElection.outcome`: it is a distinct chamber field with its own retrieval
 time and Wikipedia source IDs.
 
-Chamber matching prefers strong normalized-name evidence, then compatible
-chamber identity. When source names differ but exactly one IPU chamber has the
-same explicit lower/upper/unicameral kind, that unique kind can resolve the
-alias; seat count alone is never chamber identity. Previously generated
+Chamber matching prefers strong normalized-name evidence across the IPU primary
+name plus IPU-provided local/full chamber aliases, then compatible chamber
+identity. When source names differ but exactly one still-unmatched IPU chamber
+has the same explicit lower/upper/unicameral kind, that unique kind can resolve
+the alias. A statutory-capacity match is used only when it identifies exactly
+one still-unmatched authoritative chamber; capacity is never treated as a
+globally unique chamber identity. Previously generated
 Wikipedia fallback chambers are reconciled on every refresh and are removed
 when IPU later supplies the chamber. Added chambers may be partial records:
 unknown Speaker, electoral-system, or election fields remain unknown rather
@@ -145,3 +146,35 @@ key**. Requests send the project's descriptive User-Agent and no Authorization
 header. If authenticated Wikimedia access is introduced later it must be a
 separate reviewed credential change, not an implicit requirement of this
 pipeline.
+
+## Standalone legislature pilots
+
+`packages/data-pipeline/config/pilot-countries.json` defines the ten countries
+with complete reviewed profiles. `legislature-pilots.json` independently
+defines Iran, Saudi Arabia, and Myanmar. Both IPU and Wikimedia refresh commands
+process the combined 13-country legislature set. A legislature-only country is
+written to `public/data/legislatures/{ISO3}.json` using the same chamber and
+renewal contracts embedded in a full country profile.
+
+The manifest hashes both collections separately. Adding a legislature pilot
+therefore does not widen the unrelated government, leader, territory, or
+diplomatic-relations completeness contract. IPU local/full chamber names are
+retained as reconciliation aliases, not as additional chambers. When IPU
+explicitly reports a chamber as suspended, that operational status, effective
+date, note, and IPU provenance are preserved and rendered rather than inferred.
+
+### Seat display colours
+
+Wikimedia rendered infobox entries may contain an adjacent colour swatch. The
+parser canonicalizes safe `#RGB`, `#RRGGBB`, and `rgb(...)` values to
+uppercase `#RRGGBB`. When a rendered entry has no swatch but links to an
+English Wikipedia party article, the refresh may resolve that exact sitelink
+through Wikidata and use its unambiguous P465 sRGB value. There is no fuzzy
+party-name lookup.
+
+For a safely matched IPU party, only this display colour is copied; the IPU
+party identity and seat count are unchanged. Ambiguous or multi-valued Wikidata
+colours are left unresolved. The UI hashes the stable party/entry ID to select a
+repeatable fallback colour, so reordering rows cannot change unresolved colours.
+
+Colour is visual metadata, not evidence of ideology or party identity.

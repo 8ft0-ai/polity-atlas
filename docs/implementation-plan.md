@@ -442,7 +442,7 @@ Exit criteria: every primary entity in the canonical index can be selected by ma
 
 ### Phase 3 — Shared data platform (7–10 days)
 
-Progress as of 19 September 2026: a bounded pilot slice is implemented, including a deduplicated global source registry. All ten pilots now use a generic unauthenticated IPU adapter, ignored raw snapshot cache, canonical parliament/election normalizer, schema-v4 output with global source resolution, deterministic cache replay, and a hash-backed manifest. Speaker, electoral-system, latest-election, and expected-election fields are live in the UI. Country identity joins and every displayed pilot source reference are tested. A separate reusable Wikipedia acquisition path now supplies chamber-level fallback when IPU omits a national chamber and source-reported party-seat composition when a matched IPU chamber lacks a full split. Wikipedia acquisition uses the MediaWiki REST API, retains exact page/revision metadata in the ignored cache, and requires no API key. The UI keeps Wikipedia composition distinct from IPU election outcomes and cites the Wikipedia chamber page directly. General staleness/change reports and further non-IPU adapters remain future Phase 3 work.
+Progress as of 19 September 2026: a bounded pilot slice is implemented, including a deduplicated global source registry. All ten full-profile pilots now use a generic unauthenticated IPU adapter, ignored raw snapshot cache, canonical parliament/election normalizer, schema-v4 output with global source resolution, deterministic cache replay, and a hash-backed manifest. Speaker, electoral-system, latest-election, and expected-election fields are live in the UI. Country identity joins and every displayed pilot source reference are tested. A separate reusable Wikipedia acquisition path now supplies chamber-level fallback when IPU omits a national chamber and source-reported party-seat composition when a matched IPU chamber lacks a full split. Wikipedia acquisition uses the MediaWiki REST API, retains exact page/revision metadata in the ignored cache, and requires no API key. The UI keeps Wikipedia composition distinct from IPU election outcomes and cites the Wikipedia chamber page directly. General staleness/change reports and further non-IPU adapters remain future Phase 3 work.
 
 Deliverables:
 
@@ -451,13 +451,13 @@ Deliverables:
 - Quality rules, staleness report, and review-friendly change report.
 - Explicit local refresh command and a reviewable data-change report; propose scheduling only if future operations require it.
 
-Exit criteria: the 10 pilot country files are reproducible, pass all gates, and every displayed pilot fact resolves to a source.
+Exit criteria: the 10 full country profiles plus the 3 legislature-only pilots are reproducible, pass all gates, and every sourced displayed fact resolves through the global source registry.
 
 ### Phase 4 — Country, parliament, party, and election UI (7–10 days)
 
 Deliverables:
 
-- Overview, Parliament, Parties, Elections, and Sources tabs.
+- Overview, Legislature, Parties, Elections, and Sources tabs.
 - Accessible seat visualization and dense tables.
 - Fact citations, freshness labels, conflict notes, empty/partial states.
 - Loading and schema failure boundaries.

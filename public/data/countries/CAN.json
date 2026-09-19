@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "CA",
@@ -38,7 +38,7 @@
     "name": {
       "value": "Parliament of Canada - Parlement du Canada",
       "asOf": "2026-09-19",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
       "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
@@ -92,54 +92,104 @@
               {
                 "partyId": "ca-liberal_party",
                 "party": "Liberal Party",
-                "seats": 169
+                "seats": 169,
+                "visual": {
+                  "color": "#EA6D6A",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               },
               {
                 "partyId": "ca-conservative_party",
                 "party": "Conservative Party",
-                "seats": 144
+                "seats": 144,
+                "visual": {
+                  "color": "#6495ED",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               },
               {
                 "partyId": "ca-bloc_qu__b__cois_bq",
                 "party": "Bloc Québécois (BQ)",
-                "seats": 22
+                "seats": 22,
+                "visual": {
+                  "color": "#87CEFA",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               },
               {
                 "partyId": "ca-ndp_new_democratic_party_ndp_",
                 "party": "NDP-New Democratic Party (NDP)",
-                "seats": 7
+                "seats": 7,
+                "visual": {
+                  "color": "#F4A460",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               },
               {
                 "partyId": "ca-green_party",
                 "party": "Green Party",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#99C955",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               }
             ],
             "postElectionComposition": [
               {
                 "partyId": "ca-liberal_party",
                 "party": "Liberal Party",
-                "seats": 169
+                "seats": 169,
+                "visual": {
+                  "color": "#EA6D6A",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               },
               {
                 "partyId": "ca-conservative_party",
                 "party": "Conservative Party",
-                "seats": 144
+                "seats": 144,
+                "visual": {
+                  "color": "#6495ED",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               },
               {
                 "partyId": "ca-bloc_qu__b__cois_bq",
                 "party": "Bloc Québécois (BQ)",
-                "seats": 22
+                "seats": 22,
+                "visual": {
+                  "color": "#87CEFA",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               },
               {
                 "partyId": "ca-ndp_new_democratic_party_ndp_",
                 "party": "NDP-New Democratic Party (NDP)",
-                "seats": 7
+                "seats": 7,
+                "visual": {
+                  "color": "#F4A460",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               },
               {
                 "partyId": "ca-green_party",
                 "party": "Green Party",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#99C955",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-64313"]
+                }
               }
             ]
           },
@@ -181,42 +231,77 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 105,
-          "retrievedAt": "2026-09-19T03:20:00.000Z",
+          "retrievedAt": "2026-09-19T04:35:00.000Z",
           "entries": [
             {
               "partyId": "wiki-123498-ungrouped-independent-senators-group-3",
               "party": "Independent Senators Group",
-              "seats": 38
+              "seats": 38,
+              "visual": {
+                "color": "#845B87",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-123498"]
+              }
             },
             {
               "partyId": "wiki-123498-ungrouped-progressive-senate-group-4",
               "party": "Progressive Senate Group",
-              "seats": 17
+              "seats": 17,
+              "visual": {
+                "color": "#5B081D",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-123498"]
+              }
             },
             {
               "partyId": "wiki-123498-ungrouped-canadian-senators-group-5",
               "party": "Canadian Senators Group",
-              "seats": 16
+              "seats": 16,
+              "visual": {
+                "color": "#386B67",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-123498"]
+              }
             },
             {
               "partyId": "wiki-123498-ungrouped-conservative-party-2",
               "party": "Conservative Party",
-              "seats": 12
+              "seats": 12,
+              "visual": {
+                "color": "#6495ED",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-123498"]
+              }
             },
             {
               "partyId": "wiki-123498-ungrouped-vacant-7",
               "party": "Vacant",
-              "seats": 11
+              "seats": 11,
+              "visual": {
+                "color": "#FFFFFF",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-123498"]
+              }
             },
             {
               "partyId": "wiki-123498-ungrouped-non-affiliated-6",
               "party": "Non-affiliated",
-              "seats": 6
+              "seats": 6,
+              "visual": {
+                "color": "#DCDCDC",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-123498"]
+              }
             },
             {
               "partyId": "wiki-123498-ungrouped-government-representative-s-office-1",
               "party": "Government Representative’s Office",
-              "seats": 5
+              "seats": 5,
+              "visual": {
+                "color": "#A9A9A9",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-123498"]
+              }
             }
           ],
           "sourceIds": ["wikipedia-en-page-123498"]

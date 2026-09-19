@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "JP",
@@ -38,7 +38,7 @@
     "name": {
       "value": "National Diet",
       "asOf": "2026-09-19",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
       "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
@@ -46,6 +46,7 @@
       {
         "id": "JP-LC01",
         "name": "House of Representatives",
+        "aliases": ["Shugiin", "Shugiin (House of Representatives)"],
         "kind": "lower",
         "totalSeats": 465,
         "parliamentaryTermYears": 4,
@@ -92,12 +93,22 @@
               {
                 "partyId": "jp-liberal_democratic_party_ldp",
                 "party": "Liberal Democratic Party (LDP)",
-                "seats": 315
+                "seats": 315,
+                "visual": {
+                  "color": "#D7003A",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-centrist-reform-alliance",
                 "party": "Centrist Reform Alliance",
-                "seats": 49
+                "seats": 49,
+                "visual": {
+                  "color": "#0073BD",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-nippon_ishin_no_japan_restoration_party",
@@ -107,27 +118,52 @@
               {
                 "partyId": "jp-democratic_party_for_the_people",
                 "party": "Democratic Party for the People",
-                "seats": 28
+                "seats": 28,
+                "visual": {
+                  "color": "#FFBA00",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-sanseito",
                 "party": "Sanseito",
-                "seats": 15
+                "seats": 15,
+                "visual": {
+                  "color": "#EE7300",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-team-mirai",
                 "party": "Team Mirai",
-                "seats": 11
+                "seats": 11,
+                "visual": {
+                  "color": "#84E6D5",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-independents",
                 "party": "Independents",
-                "seats": 5
+                "seats": 5,
+                "visual": {
+                  "color": "#DCDCDC",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-japanese_communist_party_jcp",
                 "party": "Japanese Communist Party (JCP)",
-                "seats": 4
+                "seats": 4,
+                "visual": {
+                  "color": "#FF5466",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-genzei-nippon-yukoku-rengo",
@@ -144,12 +180,22 @@
               {
                 "partyId": "jp-liberal_democratic_party_ldp",
                 "party": "Liberal Democratic Party (LDP)",
-                "seats": 315
+                "seats": 315,
+                "visual": {
+                  "color": "#D7003A",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-centrist-reform-alliance",
                 "party": "Centrist Reform Alliance",
-                "seats": 49
+                "seats": 49,
+                "visual": {
+                  "color": "#0073BD",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-nippon_ishin_no_japan_restoration_party",
@@ -159,27 +205,52 @@
               {
                 "partyId": "jp-democratic_party_for_the_people",
                 "party": "Democratic Party for the People",
-                "seats": 28
+                "seats": 28,
+                "visual": {
+                  "color": "#FFBA00",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-sanseito",
                 "party": "Sanseito",
-                "seats": 15
+                "seats": 15,
+                "visual": {
+                  "color": "#EE7300",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-team-mirai",
                 "party": "Team Mirai",
-                "seats": 11
+                "seats": 11,
+                "visual": {
+                  "color": "#84E6D5",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-independents",
                 "party": "Independents",
-                "seats": 5
+                "seats": 5,
+                "visual": {
+                  "color": "#DCDCDC",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-japanese_communist_party_jcp",
                 "party": "Japanese Communist Party (JCP)",
-                "seats": 4
+                "seats": 4,
+                "visual": {
+                  "color": "#FF5466",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217778"]
+                }
               },
               {
                 "partyId": "jp-genzei-nippon-yukoku-rengo",
@@ -202,6 +273,7 @@
       {
         "id": "JP-UC01",
         "name": "Senate",
+        "aliases": ["Sangiin", "Sangiin (Senate)"],
         "kind": "upper",
         "totalSeats": 248,
         "parliamentaryTermYears": 6,
@@ -249,42 +321,82 @@
               {
                 "partyId": "jp-liberal_democratic_party_ldp",
                 "party": "Liberal Democratic Party (LDP)",
-                "seats": 39
+                "seats": 39,
+                "visual": {
+                  "color": "#D7003A",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-constitutional_democratic_party_japan",
                 "party": "Constitutional Democratic Party of Japan",
-                "seats": 22
+                "seats": 22,
+                "visual": {
+                  "color": "#004098",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-democratic_party_for_the_people",
                 "party": "Democratic Party for the People",
-                "seats": 17
+                "seats": 17,
+                "visual": {
+                  "color": "#FFBA00",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-sanseito",
                 "party": "Sanseito",
-                "seats": 14
+                "seats": 14,
+                "visual": {
+                  "color": "#EE7300",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-independents",
                 "party": "Independents",
-                "seats": 8
+                "seats": 8,
+                "visual": {
+                  "color": "#DCDCDC",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-komeito",
                 "party": "Komeito",
-                "seats": 8
+                "seats": 8,
+                "visual": {
+                  "color": "#F95580",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-nippon_ishin_no_japan_restoration_party",
                 "party": "Nippon Ishin (Japan Innovation Party)",
-                "seats": 7
+                "seats": 7,
+                "visual": {
+                  "color": "#B8CE43",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-japanese_communist_party_jcp",
                 "party": "Japanese Communist Party (JCP)",
-                "seats": 3
+                "seats": 3,
+                "visual": {
+                  "color": "#FF5466",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-reiwa_shinsengumi",
@@ -294,17 +406,32 @@
               {
                 "partyId": "jp-conservative-party-of-japan",
                 "party": "Conservative Party of Japan",
-                "seats": 2
+                "seats": 2,
+                "visual": {
+                  "color": "#0A82DC",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-social_democratic_party_sdp",
                 "party": "Social Democratic Party (SDP)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#3D9BE7",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               },
               {
                 "partyId": "jp-team-mirai",
                 "party": "Team Mirai",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#84E6D5",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-217779"]
+                }
               }
             ]
           },
@@ -316,91 +443,161 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 246,
-          "retrievedAt": "2026-09-19T03:20:00.000Z",
+          "retrievedAt": "2026-09-19T04:35:00.000Z",
           "entries": [
             {
               "partyId": "wiki-217779-government-ldp-1",
               "party": "LDP",
               "seats": 101,
-              "group": "Government"
+              "group": "Government",
+              "visual": {
+                "color": "#D7003A",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-cdp-3",
               "party": "CDP",
               "seats": 40,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#004098",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-dpfp-4",
               "party": "DPFP",
               "seats": 25,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#FFBA00",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-komeito-5",
               "party": "Kōmeitō",
               "seats": 21,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#F95580",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-government-ishin-2",
               "party": "Ishin",
               "seats": 19,
-              "group": "Government"
+              "group": "Government",
+              "visual": {
+                "color": "#B8CE43",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-sanseito-6",
               "party": "Sanseitō",
               "seats": 15,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#EE7300",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-jcp-7",
               "party": "JCP",
               "seats": 7,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#FF5466",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-life-8",
               "party": "Life",
               "seats": 5,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#ED008C",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-unaffiliated-independent-13",
               "party": "Independent",
               "seats": 4,
-              "group": "Unaffiliated"
+              "group": "Unaffiliated",
+              "visual": {
+                "color": "#DCDCDC",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-cpj-9",
               "party": "CPJ",
               "seats": 2,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#0A82DC",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-okinawa-whirlwind-10",
               "party": "Okinawa Whirlwind",
               "seats": 2,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#009140",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-sdp-12",
               "party": "SDP",
               "seats": 2,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#3D9BE7",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-opposition-team-mirai-11",
               "party": "Team Mirai",
               "seats": 2,
-              "group": "Opposition"
+              "group": "Opposition",
+              "visual": {
+                "color": "#84E6D5",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             },
             {
               "partyId": "wiki-217779-vacant-vacant-14",
               "party": "Vacant",
               "seats": 1,
-              "group": "Vacant"
+              "group": "Vacant",
+              "visual": {
+                "color": "#F8F9FA",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-217779"]
+              }
             }
           ],
           "sourceIds": ["wikipedia-en-page-217779"]

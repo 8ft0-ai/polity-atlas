@@ -17,12 +17,14 @@ The pinned disputed overlays in this repository come from the Natural Earth vect
 ## IPU Parline
 
 IPU Parline is the canonical source for parliament names and structures,
-registered chambers, Speakers, electoral systems, latest national parliamentary
-election outcomes, and expected national parliamentary elections in the
-ten-country pilot. When Wikipedia identifies a national chamber that IPU does
-not register, the separate Wikipedia adapter may add that missing chamber
-without replacing or modifying any IPU chamber. It does not replace sources for heads of state/government, diplomatic
-relations, territories, or Natural Earth geometry.
+registered chambers, source-reported chamber operational status, Speakers,
+electoral systems, latest national parliamentary election outcomes, and expected
+national parliamentary elections across the ten full-profile pilots and three
+standalone legislature pilots. When Wikipedia identifies a national chamber
+that IPU does not register, the separate Wikipedia adapter may add that missing
+chamber without replacing or modifying any IPU chamber. It does not replace
+sources for heads of state/government, diplomatic relations, territories, or
+Natural Earth geometry.
 
 The Parline API is public, read-only, and currently documents no authentication
 or API-key requirement. The adapter therefore sends no credentials. A 401 or
@@ -84,6 +86,38 @@ The current read-only MediaWiki REST workflow requires no API key. Requests are
 unauthenticated and carry the Polity Atlas User-Agent. REST snapshots preserve
 the page/revision/licence metadata supplied by Wikimedia in the ignored local
 cache. Wikidata is not used as a substitute for Wikipedia article infobox
-content. Schema v4 models Wikipedia party-seat data as a separate
-`source-reported` chamber composition with inline provenance and an explicit UI
-disclosure that it is not an IPU election result.
+content or for IPU political facts. It may supply visual metadata only through
+an exact English-Wikipedia sitelink binding. Schema v5 models Wikipedia
+party-seat data as a separate `source-reported` chamber composition with inline
+provenance and an explicit UI disclosure that it is not an IPU election result.
+
+## Party and parliamentary display colours
+
+A colour shown beside a parliamentary party/group is contextual display
+metadata, not a political classification. When a Wikipedia legislature/chamber
+entry exposes a usable colour swatch, Polity Atlas may attach that colour to the
+matching seat entry and cite the Wikipedia chamber page as the visual source.
+If that exact entry has no swatch but links to an English Wikipedia party
+article, Polity Atlas may resolve that exact sitelink to Wikidata and use a
+single unambiguous P465 colour, cited to the Wikidata item. For IPU-backed
+results this enrichment must never alter IPU party names, IDs,
+seat totals, election dates, chamber sizes, or outcome semantics.
+
+Matching must fail closed when aliases are ambiguous. IPU-provided local and
+full chamber names are retained as source-reconciliation aliases. A
+statutory-capacity match may be used only when that capacity identifies exactly
+one still-unmatched authoritative chamber. Party colours never participate in
+identity matching. When no source colour resolves safely, the application uses
+a deterministic presentation fallback that carries no source claim.
+
+Do not infer ideology, political family, government/opposition status, vacancy
+status, or party identity from a colour.
+
+## Legislature operational status
+
+Operational status is published only when a source reports it explicitly. In
+particular, a historical election record must not be interpreted as evidence
+that a legislature is currently functioning. When IPU marks a chamber as
+suspended, Polity Atlas preserves the reported status, effective date, note, and
+IPU source ID alongside the chamber. No functioning/suspended status is inferred
+from election age, political events, or secondary-source composition alone.

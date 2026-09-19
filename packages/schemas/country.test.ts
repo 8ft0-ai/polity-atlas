@@ -10,13 +10,21 @@ import gbr from '@/public/data/countries/GBR.json';
 import idn from '@/public/data/countries/IDN.json';
 import ind from '@/public/data/countries/IND.json';
 import jpn from '@/public/data/countries/JPN.json';
+import irn from '@/public/data/legislatures/IRN.json';
+import mmr from '@/public/data/legislatures/MMR.json';
+import sau from '@/public/data/legislatures/SAU.json';
 import manifest from '@/public/data/manifest.json';
 import sourceRegistry from '@/public/data/sources.json';
 import nzl from '@/public/data/countries/NZL.json';
 import usa from '@/public/data/countries/USA.json';
-import { countryProfileSchema, sourceRegistrySchema } from './country';
+import {
+  countryProfileSchema,
+  legislatureProfileSchema,
+  sourceRegistrySchema,
+} from './country';
 
 const pilotProfiles = [aus, nzl, can, usa, gbr, fra, chn, ind, idn, jpn];
+const legislaturePilots = [irn, sau, mmr];
 
 describe('country profile contract', () => {
   it('accepts every pilot profile', () => {
@@ -26,6 +34,22 @@ describe('country profile contract', () => {
         `${profile.identity.iso3} should satisfy the country profile schema`,
       ).not.toThrow();
     }
+  });
+
+  it('accepts the three standalone legislature pilots without full country data', () => {
+    for (const profile of legislaturePilots) {
+      expect(
+        () => legislatureProfileSchema.parse(profile),
+        `${profile.identity.iso3} should satisfy the legislature profile schema`,
+      ).not.toThrow();
+    }
+
+    expect(irn.parliament.chambers).toHaveLength(1);
+    expect(sau.parliament.chambers).toHaveLength(1);
+    expect(mmr.parliament.chambers).toHaveLength(2);
+    expect(mmr.parliament.chambers.map((chamber) => chamber.id).sort()).toEqual(
+      ['MM-LC01', 'MM-UC01'],
+    );
   });
 
   it('rejects duplicate global source IDs', () => {
@@ -51,6 +75,9 @@ describe('country profile contract', () => {
         ),
         ...parsed.parliament.name.sourceIds,
         ...parsed.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.operationalStatus?.sourceIds ?? [],
+        ),
         ...parsed.parliament.chambers.flatMap((chamber) =>
           chamber.speakers.flatMap((speaker) => speaker.sourceIds),
         ),
@@ -63,6 +90,17 @@ describe('country profile contract', () => {
         ...parsed.parliament.chambers.flatMap(
           (chamber) => chamber.composition?.sourceIds ?? [],
         ),
+        ...parsed.parliament.chambers.flatMap((chamber) => [
+          ...(chamber.latestElection?.outcome?.seatsWonInElection.flatMap(
+            (entry) => entry.visual?.sourceIds ?? [],
+          ) ?? []),
+          ...(chamber.latestElection?.outcome?.postElectionComposition?.flatMap(
+            (entry) => entry.visual?.sourceIds ?? [],
+          ) ?? []),
+          ...(chamber.composition?.entries.flatMap(
+            (entry) => entry.visual?.sourceIds ?? [],
+          ) ?? []),
+        ]),
         ...parsed.nextExpectedElections.flatMap(
           (election) => election.sourceIds,
         ),
@@ -177,9 +215,60 @@ describe('country profile contract', () => {
     }
   });
 
-  it('publishes all ten pilots in a deterministic, hash-backed manifest', () => {
-    expect(manifest.schemaVersion).toBe(4);
+  it('keeps every legislature-pilot source reference resolvable', () => {
+    const registry = sourceRegistrySchema.parse(sourceRegistry);
+    const knownSources = new Set(registry.sources.map((source) => source.id));
+
+    for (const profile of legislaturePilots) {
+      const parsed = legislatureProfileSchema.parse(profile);
+      const usedSources = [
+        ...parsed.parliament.name.sourceIds,
+        ...parsed.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.operationalStatus?.sourceIds ?? [],
+        ),
+        ...parsed.parliament.chambers.flatMap((chamber) =>
+          chamber.speakers.flatMap((speaker) => speaker.sourceIds),
+        ),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.electoralSystem?.sourceIds ?? [],
+        ),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.latestElection?.sourceIds ?? [],
+        ),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.composition?.sourceIds ?? [],
+        ),
+        ...parsed.parliament.chambers.flatMap((chamber) => [
+          ...(chamber.latestElection?.outcome?.seatsWonInElection.flatMap(
+            (entry) => entry.visual?.sourceIds ?? [],
+          ) ?? []),
+          ...(chamber.latestElection?.outcome?.postElectionComposition?.flatMap(
+            (entry) => entry.visual?.sourceIds ?? [],
+          ) ?? []),
+          ...(chamber.composition?.entries.flatMap(
+            (entry) => entry.visual?.sourceIds ?? [],
+          ) ?? []),
+        ]),
+        ...parsed.nextExpectedElections.flatMap(
+          (election) => election.sourceIds,
+        ),
+      ];
+      expect(usedSources.every((sourceId) => knownSources.has(sourceId))).toBe(
+        true,
+      );
+    }
+  });
+
+  it('publishes ten full profiles and three legislature modules in a deterministic, hash-backed manifest', () => {
+    expect(manifest.schemaVersion).toBe(5);
     expect(manifest.profiles).toHaveLength(10);
+    expect(manifest.legislatures).toHaveLength(3);
+    expect(manifest.legislatures.map((entry) => entry.iso3)).toEqual([
+      'IRN',
+      'MMR',
+      'SAU',
+    ]);
     expect(manifest.profiles.map((profile) => profile.iso3)).toEqual(
       [...pilotProfiles]
         .map((profile) => profile.identity.iso3)
@@ -193,7 +282,7 @@ describe('country profile contract', () => {
       manifest.sourceRegistry.sha256,
     );
 
-    for (const entry of manifest.profiles) {
+    for (const entry of [...manifest.profiles, ...manifest.legislatures]) {
       const content = readFileSync(
         resolve(process.cwd(), 'public/data', entry.path),
       );

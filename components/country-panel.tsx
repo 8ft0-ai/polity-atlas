@@ -4,14 +4,22 @@ import { useQuery } from '@tanstack/react-query';
 import { ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { loadCountryProfile, loadSourceRegistry } from '@/lib/profile-data';
-import { supportedProfiles } from '@/lib/countries';
+import {
+  loadCountryProfile,
+  loadLegislatureProfile,
+  loadSourceRegistry,
+} from '@/lib/profile-data';
+import { supportedLegislatures, supportedProfiles } from '@/lib/countries';
 import { type CountryTab, useWorkspaceStore } from '@/lib/workspace-store';
-import type { CountryProfile, SourceRecord } from '@/packages/schemas/country';
+import type {
+  CountryProfile,
+  LegislatureProfile,
+  SourceRecord,
+} from '@/packages/schemas/country';
 
 const tabs: Array<{ value: CountryTab; label: string }> = [
   { value: 'overview', label: 'Overview' },
-  { value: 'parliament', label: 'Parliament' },
+  { value: 'parliament', label: 'Legislature' },
   { value: 'elections', label: 'Elections' },
   { value: 'relations', label: 'Relations' },
   { value: 'sources', label: 'Sources' },
@@ -38,15 +46,21 @@ function Sources({ ids, sources }: { ids: string[]; sources: SourceRecord[] }) {
   );
 }
 
-function sourceIdsForProfile(profile: CountryProfile) {
+function sourceIdsForProfile(profile: CountryProfile | LegislatureProfile) {
+  const fullProfile = 'government' in profile ? profile : undefined;
   return new Set([
-    ...profile.government.system.sourceIds,
-    ...profile.government.headOfState.flatMap((holder) => holder.sourceIds),
-    ...profile.government.headOfGovernment.flatMap(
+    ...(fullProfile?.government.system.sourceIds ?? []),
+    ...(fullProfile?.government.headOfState.flatMap(
       (holder) => holder.sourceIds,
-    ),
+    ) ?? []),
+    ...(fullProfile?.government.headOfGovernment.flatMap(
+      (holder) => holder.sourceIds,
+    ) ?? []),
     ...profile.parliament.name.sourceIds,
     ...profile.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) => chamber.operationalStatus?.sourceIds ?? [],
+    ),
     ...profile.parliament.chambers.flatMap((chamber) =>
       chamber.speakers.flatMap((speaker) => speaker.sourceIds),
     ),
@@ -56,12 +70,28 @@ function sourceIdsForProfile(profile: CountryProfile) {
     ...profile.parliament.chambers.flatMap(
       (chamber) => chamber.latestElection?.sourceIds ?? [],
     ),
+    ...profile.parliament.chambers.flatMap((chamber) => [
+      ...(chamber.latestElection?.outcome?.seatsWonInElection.flatMap(
+        (entry) => entry.visual?.sourceIds ?? [],
+      ) ?? []),
+      ...(chamber.latestElection?.outcome?.postElectionComposition?.flatMap(
+        (entry) => entry.visual?.sourceIds ?? [],
+      ) ?? []),
+    ]),
     ...profile.parliament.chambers.flatMap(
       (chamber) => chamber.composition?.sourceIds ?? [],
     ),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) =>
+        chamber.composition?.entries.flatMap(
+          (entry) => entry.visual?.sourceIds ?? [],
+        ) ?? [],
+    ),
     ...profile.nextExpectedElections.flatMap((election) => election.sourceIds),
-    ...profile.relations.flatMap((relation) => relation.sourceIds),
-    ...(profile.territories ?? []).flatMap((territory) => territory.sourceIds),
+    ...(fullProfile?.relations.flatMap((relation) => relation.sourceIds) ?? []),
+    ...(fullProfile?.territories ?? []).flatMap(
+      (territory) => territory.sourceIds,
+    ),
   ]);
 }
 
@@ -79,6 +109,14 @@ const PARTY_COLORS = [
   '#4d7c0f',
   '#6b7280',
 ] as const;
+
+function fallbackPartyColor(partyId: string) {
+  let hash = 0;
+  for (const character of partyId) {
+    hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+  }
+  return PARTY_COLORS[hash % PARTY_COLORS.length];
+}
 
 function semicircleArcPath(startFraction: number, endFraction: number) {
   const startAngle = Math.PI + startFraction * Math.PI;
@@ -105,6 +143,11 @@ function SeatBar({
     party: string;
     seats: number;
     group?: string;
+    visual?: {
+      color: string;
+      method: 'wikipedia-entry' | 'wikidata-p465';
+      sourceIds: string[];
+    };
   }>;
   totalSeats: number;
   label: string;
@@ -118,7 +161,7 @@ function SeatBar({
 
     return {
       ...group,
-      color: PARTY_COLORS[index % PARTY_COLORS.length],
+      color: group.visual?.color ?? fallbackPartyColor(group.partyId),
       startFraction,
       endFraction,
     };
@@ -182,6 +225,13 @@ function SeatBar({
           </div>
         ))}
       </div>
+      {seatSegments.some((entry) => entry.visual) && (
+        <p className="mt-3 text-[11px] leading-5 text-muted-foreground">
+          Seat colours follow cited Wikipedia or Wikidata visual metadata where
+          available. Unresolved entries use a stable Polity Atlas fallback
+          colour.
+        </p>
+      )}
     </div>
   );
 }
@@ -270,6 +320,10 @@ function ElectionOutcome({
     ? election?.chamberSize
     : election?.seatsAtStake;
   const isPartial = election?.scope === 'partial-renewal';
+  const isDirectlyElected = chamber.electoralSystem?.directlyElected !== false;
+  const isAppointed =
+    chamber.electoralSystem?.directlyElected === false &&
+    Boolean(chamber.electoralSystem.appointedSeats);
 
   if (!election && !chamber.composition) {
     return (
@@ -286,19 +340,27 @@ function ElectionOutcome({
         <>
           <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
             {hasFullComposition
-              ? 'Post-election composition'
-              : isPartial
-                ? 'Latest partial election result'
-                : 'Most recent election outcome'}
+              ? isDirectlyElected
+                ? 'Post-election composition'
+                : 'Post-renewal composition'
+              : isAppointed
+                ? 'Latest appointment / renewal'
+                : !isDirectlyElected
+                  ? 'Latest indirect renewal'
+                  : isPartial
+                    ? 'Latest partial election result'
+                    : 'Most recent election outcome'}
           </p>
           <p className="mt-1 text-sm font-semibold">
             {formatDateRange(election.date)}
           </p>
           {election.seatsAtStake && (
             <p className="ui-text mt-1 text-xs text-muted-foreground">
-              {isPartial
-                ? `${election.seatsAtStake} of ${election.chamberSize} seats contested`
-                : `${election.seatsAtStake} seats contested`}
+              {!isDirectlyElected
+                ? `${election.seatsAtStake} of ${election.chamberSize} seats renewed`
+                : isPartial
+                  ? `${election.seatsAtStake} of ${election.chamberSize} seats contested`
+                  : `${election.seatsAtStake} seats contested`}
             </p>
           )}
 
@@ -314,15 +376,17 @@ function ElectionOutcome({
             />
           ) : (
             <p className="mt-3 text-sm text-muted-foreground">
-              The cited election source does not report a structured party-seat
-              outcome for this record.
+              The cited {isDirectlyElected ? 'election' : 'renewal'} source does
+              not report a structured party-seat outcome for this record.
             </p>
           )}
 
           <p className="mt-3 text-xs leading-5 text-muted-foreground">
             {hasFullComposition
-              ? 'This is the full chamber immediately after the latest election or renewal reported by IPU. It is not necessarily the current composition.'
-              : 'These figures cover only the seats decided in this election or renewal. They must not be read as the full or current chamber composition.'}
+              ? `This is the full chamber immediately after the latest ${isDirectlyElected ? 'election' : 'renewal'} reported by IPU. It is not necessarily the current composition.`
+              : isDirectlyElected
+                ? 'These figures cover only the seats decided in this election or renewal. They must not be read as the full or current chamber composition.'
+                : 'This record describes a non-direct renewal. It must not be read as a popular election result.'}
           </p>
 
           {hasFullComposition &&
@@ -363,7 +427,7 @@ function ElectionOutcome({
         </>
       ) : (
         <p className="text-sm text-muted-foreground">
-          No recent parliamentary election record is available from the cited
+          No recent legislature renewal record is available from the cited
           sources.
         </p>
       )}
@@ -373,6 +437,12 @@ function ElectionOutcome({
       )}
     </div>
   );
+}
+
+type BriefingProfile = CountryProfile | LegislatureProfile;
+
+function isCountryProfile(profile: BriefingProfile): profile is CountryProfile {
+  return 'government' in profile;
 }
 
 type OfficeHolder = CountryProfile['government']['headOfState'][number];
@@ -428,23 +498,46 @@ export function CountryPanel() {
     setActiveTab,
     clearCountry,
   } = useWorkspaceStore();
-  const iso3 = selectedEntityId
+  const fullIso3 = selectedEntityId
     ? supportedProfiles[selectedEntityId]
     : undefined;
+  const legislatureIso3 = selectedEntityId
+    ? supportedLegislatures[selectedEntityId]
+    : undefined;
+  const iso3 = fullIso3 ?? legislatureIso3;
   const sourceRegistryQuery = useQuery({
     queryKey: ['source-registry'],
     queryFn: loadSourceRegistry,
     enabled: Boolean(iso3),
   });
-  const profileQuery = useQuery({
-    queryKey: ['country-profile', iso3],
-    queryFn: () => loadCountryProfile(iso3!),
+  const profileQuery = useQuery<BriefingProfile>({
+    queryKey: [fullIso3 ? 'country-profile' : 'legislature-profile', iso3],
+    queryFn: async (): Promise<BriefingProfile> =>
+      fullIso3
+        ? loadCountryProfile(fullIso3)
+        : loadLegislatureProfile(legislatureIso3!),
     enabled: Boolean(iso3),
   });
 
   if (!selectedEntityId || !selectedName) return null;
 
   const sources = sourceRegistryQuery.data?.sources ?? [];
+  const fullProfile =
+    profileQuery.data && isCountryProfile(profileQuery.data)
+      ? profileQuery.data
+      : undefined;
+  const visibleTabs = fullProfile
+    ? tabs
+    : tabs.filter(
+        (tab) =>
+          tab.value === 'parliament' ||
+          tab.value === 'elections' ||
+          tab.value === 'sources',
+      );
+  const effectiveTab =
+    !fullProfile && (activeTab === 'overview' || activeTab === 'relations')
+      ? 'parliament'
+      : activeTab;
 
   function clearSelection() {
     clearCountry();
@@ -475,8 +568,10 @@ export function CountryPanel() {
           {profileQuery.data?.identity.name ?? selectedName}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {profileQuery.data?.identity.officialName ??
-            'This country is awaiting a verified profile.'}
+          {fullProfile?.identity.officialName ??
+            (profileQuery.data
+              ? 'Legislature pilot · full country profile not yet available'
+              : 'This country is awaiting a verified profile.')}
         </p>
         {profileQuery.data && (
           <p className="ui-text mt-3 text-[11px] uppercase tracking-[0.07em] text-muted-foreground">
@@ -509,13 +604,13 @@ export function CountryPanel() {
         </div>
       ) : (
         <Tabs
-          value={activeTab}
+          value={effectiveTab}
           onValueChange={(value) => setActiveTab(value as CountryTab)}
           className="min-h-0 flex-1 gap-0"
         >
           <div className="overflow-x-auto border-b border-border px-4">
             <TabsList variant="line" className="h-11 min-w-max gap-4 p-0">
-              {tabs.map((tab) => (
+              {visibleTabs.map((tab) => (
                 <TabsTrigger
                   key={tab.value}
                   value={tab.value}
@@ -527,65 +622,74 @@ export function CountryPanel() {
             </TabsList>
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
-            <TabsContent value="overview" className="space-y-6">
-              <section>
-                <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">
-                  Government
-                </p>
-                <p className="mt-2 text-[15px] leading-6">
-                  {profileQuery.data.government.system.value}
-                  <Sources
-                    ids={profileQuery.data.government.system.sourceIds}
-                    sources={sources}
-                  />
-                </p>
-              </section>
-              <section className="grid grid-cols-2 gap-3">
-                {officeHolderCards(profileQuery.data).map((holder) => (
-                  <article
-                    key={holder.key}
-                    className="border border-border bg-background/45 p-3"
-                  >
-                    <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-                      {holder.roles.join(' · ')}
-                    </p>
-                    <h2 className="mt-2 text-sm font-semibold">
-                      {holder.name}
-                    </h2>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {holder.office} · Since {holder.since}
-                    </p>
-                    <Sources ids={holder.sourceIds} sources={sources} />
-                  </article>
-                ))}
-              </section>
-              <section className="border-t border-border pt-4">
-                <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">
-                  Next expected parliamentary elections
-                </p>
-                {profileQuery.data.nextExpectedElections.length ? (
-                  <div className="mt-3 space-y-3">
-                    {profileQuery.data.nextExpectedElections.map((election) => (
-                      <article key={election.id}>
-                        <h2 className="text-sm font-semibold">
-                          {election.chamberName}
-                        </h2>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          Expected {formatDateRange(election.date)} ·{' '}
-                          {humanize(election.eventType)}
-                        </p>
-                        <Sources ids={election.sourceIds} sources={sources} />
-                      </article>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    No expected parliamentary election date is currently
-                    available from IPU.
+            {fullProfile && (
+              <TabsContent value="overview" className="space-y-6">
+                <section>
+                  <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                    Government
                   </p>
-                )}
-              </section>
-            </TabsContent>
+                  <p className="mt-2 text-[15px] leading-6">
+                    {fullProfile!.government.system.value}
+                    <Sources
+                      ids={fullProfile!.government.system.sourceIds}
+                      sources={sources}
+                    />
+                  </p>
+                </section>
+                <section className="grid grid-cols-2 gap-3">
+                  {(fullProfile ? officeHolderCards(fullProfile) : []).map(
+                    (holder) => (
+                      <article
+                        key={holder.key}
+                        className="border border-border bg-background/45 p-3"
+                      >
+                        <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                          {holder.roles.join(' · ')}
+                        </p>
+                        <h2 className="mt-2 text-sm font-semibold">
+                          {holder.name}
+                        </h2>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {holder.office} · Since {holder.since}
+                        </p>
+                        <Sources ids={holder.sourceIds} sources={sources} />
+                      </article>
+                    ),
+                  )}
+                </section>
+                <section className="border-t border-border pt-4">
+                  <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                    Next expected parliamentary elections
+                  </p>
+                  {profileQuery.data.nextExpectedElections.length ? (
+                    <div className="mt-3 space-y-3">
+                      {profileQuery.data.nextExpectedElections.map(
+                        (election) => (
+                          <article key={election.id}>
+                            <h2 className="text-sm font-semibold">
+                              {election.chamberName}
+                            </h2>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                              Expected {formatDateRange(election.date)} ·{' '}
+                              {humanize(election.eventType)}
+                            </p>
+                            <Sources
+                              ids={election.sourceIds}
+                              sources={sources}
+                            />
+                          </article>
+                        ),
+                      )}
+                    </div>
+                  ) : (
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                      No expected parliamentary election date is currently
+                      available from IPU.
+                    </p>
+                  )}
+                </section>
+              </TabsContent>
+            )}
 
             <TabsContent value="parliament" className="space-y-4">
               {profileQuery.data.parliament.chambers.map((chamber) => (
@@ -596,6 +700,28 @@ export function CountryPanel() {
                       {chamber.totalSeats} statutory seats
                     </span>
                   </div>
+                  {chamber.operationalStatus?.state === 'suspended' && (
+                    <div className="mt-4 border border-border bg-muted/45 p-3">
+                      <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                        Legislature status
+                      </p>
+                      <p className="mt-1 text-sm font-semibold">Suspended</p>
+                      {chamber.operationalStatus.since && (
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Since {chamber.operationalStatus.since}
+                        </p>
+                      )}
+                      {chamber.operationalStatus.note && (
+                        <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                          {chamber.operationalStatus.note}
+                        </p>
+                      )}
+                      <Sources
+                        ids={chamber.operationalStatus.sourceIds}
+                        sources={sources}
+                      />
+                    </div>
+                  )}
                   <ElectionOutcome chamber={chamber} sources={sources} />
 
                   <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2">
@@ -738,31 +864,33 @@ export function CountryPanel() {
               )}
             </TabsContent>
 
-            <TabsContent value="relations" className="space-y-3">
-              <p className="text-sm leading-6 text-muted-foreground">
-                Related countries are highlighted on the map while this tab is
-                active.
-              </p>
-              {profileQuery.data.relations.map((relation) => (
-                <article
-                  key={relation.m49}
-                  className="flex items-start justify-between gap-4 border-b border-border py-3 first:pt-0"
-                >
-                  <div>
-                    <h2 className="text-sm font-semibold">
-                      {relation.country}
-                    </h2>
-                    <p className="ui-text mt-1 text-[11px] uppercase tracking-[0.06em] text-muted-foreground">
-                      {relation.status.replaceAll('-', ' ')}
-                    </p>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {relation.note}
-                    </p>
-                  </div>
-                  <Sources ids={relation.sourceIds} sources={sources} />
-                </article>
-              ))}
-            </TabsContent>
+            {fullProfile && (
+              <TabsContent value="relations" className="space-y-3">
+                <p className="text-sm leading-6 text-muted-foreground">
+                  Related countries are highlighted on the map while this tab is
+                  active.
+                </p>
+                {(fullProfile?.relations ?? []).map((relation) => (
+                  <article
+                    key={relation.m49}
+                    className="flex items-start justify-between gap-4 border-b border-border py-3 first:pt-0"
+                  >
+                    <div>
+                      <h2 className="text-sm font-semibold">
+                        {relation.country}
+                      </h2>
+                      <p className="ui-text mt-1 text-[11px] uppercase tracking-[0.06em] text-muted-foreground">
+                        {relation.status.replaceAll('-', ' ')}
+                      </p>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        {relation.note}
+                      </p>
+                    </div>
+                    <Sources ids={relation.sourceIds} sources={sources} />
+                  </article>
+                ))}
+              </TabsContent>
+            )}
 
             <TabsContent value="sources" className="space-y-4">
               {sources

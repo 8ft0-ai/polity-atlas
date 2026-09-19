@@ -21,3 +21,9 @@ export const supportedProfiles: Record<string, string> = {
   'state:m49:360': 'IDN',
   'state:m49:392': 'JPN',
 };
+
+export const supportedLegislatures: Record<string, string> = {
+  'state:m49:364': 'IRN',
+  'state:m49:682': 'SAU',
+  'state:m49:104': 'MMR',
+};

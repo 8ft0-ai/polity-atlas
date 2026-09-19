@@ -46,6 +46,10 @@ const snapshot = {
       id: 'AU-LC01',
       attributes: {
         chamber_name: dated({ en: 'House of Representatives' }),
+        chamber_name_local: dated({ en: 'Local Assembly' }),
+        chamber_name_full: dated({
+          en: 'Local Assembly (House of Representatives)',
+        }),
         struct_parl_status: { value: { term: 'lower_chamber' } },
         statutory_members_number: dated(100),
         directly_elected_number: { value: 100 },
@@ -302,6 +306,10 @@ describe('IPU normalisation', () => {
   it('emits generic Speaker, electoral-system, and multi-entry national election data', () => {
     const normalized = normalizeIpuSnapshot(snapshot);
     const house = normalized.parliament.chambers[0];
+    expect(house.aliases).toEqual([
+      'Local Assembly',
+      'Local Assembly (House of Representatives)',
+    ]);
     expect(house.speakers[0]).toMatchObject({
       personId: 'au-example-speaker',
       name: 'Alex Example',
@@ -321,6 +329,27 @@ describe('IPU normalisation', () => {
         (election) => election.level === 'national',
       ),
     ).toBe(true);
+  });
+
+  it('classifies an appointed chamber as an appointment renewal', () => {
+    const appointed = structuredClone(snapshot);
+    appointed.chambers[0].attributes.not_directly_elected = { value: true };
+    delete appointed.chambers[0].attributes.directly_elected_number;
+    appointed.chambers[0].attributes.appointed_members_number = { value: 100 };
+
+    const normalized = normalizeIpuSnapshot(appointed);
+    expect(
+      normalized.nextExpectedElections.find(
+        (election) => election.chamberId === 'AU-LC01',
+      )?.eventType,
+    ).toBe('appointment-renewal');
+    expect(
+      normalized.parliament.chambers.find((chamber) => chamber.id === 'AU-LC01')
+        ?.electoralSystem,
+    ).toMatchObject({
+      directlyElected: false,
+      appointedSeats: 100,
+    });
   });
 
   it('preserves a fallback composition only while IPU lacks a full composition', () => {
@@ -383,7 +412,7 @@ describe('IPU normalisation', () => {
       '2026-09-18',
     );
     expect(() => countryProfileSchema.parse(profile)).not.toThrow();
-    expect(profile.schemaVersion).toBe(4);
+    expect(profile.schemaVersion).toBe(5);
     expect(profile).not.toHaveProperty('sources');
   });
 });

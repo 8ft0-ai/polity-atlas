@@ -78,58 +78,67 @@ describe('WikipediaClient Wikimedia REST acquisition', () => {
   });
 
   it('falls back to REST page search when the conventional title is absent', async () => {
-    const fetchImpl = vi
-      .fn()
-      .mockImplementationOnce(async () => response(404, {}))
-      .mockImplementationOnce(async () =>
-        response(200, {
-          pages: [
-            {
-              id: 456,
-              key: 'Legislature_of_Example',
-              title: 'Legislature of Example',
-            },
-            {
-              id: 789,
-              key: 'Example_Parliament',
-              title: 'Example Parliament',
-            },
-          ],
-        }),
-      )
-      .mockImplementationOnce(async () =>
-        response(
+    const fetchImpl = vi.fn(async (url) => {
+      const value = String(url);
+      if (value.includes('/page/Parliament_of_Example/with_html')) {
+        return response(404, {});
+      }
+      if (value.includes('/search/page?')) {
+        return response(200, {
+          pages: value.includes('q=Parliament+of+Example')
+            ? [
+                {
+                  id: 456,
+                  key: 'Legislature_of_Example',
+                  title: 'Legislature of Example',
+                },
+                {
+                  id: 789,
+                  key: 'Example_Parliament',
+                  title: 'Example Parliament',
+                },
+              ]
+            : [],
+        });
+      }
+      if (value.includes('/page/Example_Parliament/with_html')) {
+        return response(
           200,
           restPage({
             id: 789,
             key: 'Example_Parliament',
             title: 'Example Parliament',
           }),
-        ),
-      );
+        );
+      }
+      throw new Error(`Unexpected request: ${value}`);
+    });
 
     const client = new WikipediaClient({ fetchImpl });
     const page = await client.resolveParliamentPage('Example');
 
-    expect(fetchImpl).toHaveBeenCalledTimes(3);
+    expect(fetchImpl).toHaveBeenCalledTimes(7);
     expect(String(fetchImpl.mock.calls[1][0])).toContain(
       '/w/rest.php/v1/search/page?',
     );
     expect(String(fetchImpl.mock.calls[1][0])).toContain(
       'q=Parliament+of+Example',
     );
-    expect(String(fetchImpl.mock.calls[2][0])).toContain(
-      '/page/Example_Parliament/with_html',
-    );
+    expect(
+      fetchImpl.mock.calls.some(([url]) =>
+        String(url).includes('/page/Example_Parliament/with_html'),
+      ),
+    ).toBe(true);
     expect(page.pageId).toBe(789);
     expect(page.title).toBe('Example Parliament');
   });
 
   it('returns an empty parliament snapshot when REST discovery finds no page', async () => {
-    const fetchImpl = vi
-      .fn()
-      .mockImplementationOnce(async () => response(404, {}))
-      .mockImplementationOnce(async () => response(200, { pages: [] }));
+    const fetchImpl = vi.fn(async (url) =>
+      String(url).includes('/page/Parliament_of_Example/with_html')
+        ? response(404, {})
+        : response(200, { pages: [] }),
+    );
 
     const client = new WikipediaClient({ fetchImpl });
     const snapshot = await client.fetchParliamentSnapshot(
@@ -142,7 +151,7 @@ describe('WikipediaClient Wikimedia REST acquisition', () => {
 
     expect(snapshot.parliamentPage).toBeUndefined();
     expect(snapshot.chamberPages).toEqual([]);
-    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(fetchImpl).toHaveBeenCalledTimes(6);
   });
 
   it('fails explicitly on non-404 REST errors', async () => {

@@ -12,7 +12,7 @@ Private source API tokens belong in ignored local environment files or an approv
 
 ## IPU normalization boundary
 
-The ten pilot profiles use one country-neutral flow:
+The ten full profiles and three standalone legislature pilots use one country-neutral flow:
 
 ```text
 pilot ISO identity
@@ -113,7 +113,36 @@ page ID, canonical title/key, latest revision ID and timestamp, and licence
 metadata before normalization. These acquisition details remain in the ignored
 cache and do not change the country schema in this phase.
 
-Wikidata REST is not used to obtain parliamentary infobox HTML: the seat and
-political-group structures needed by later phases are Wikipedia article
-content. Wikidata may be added later as an entity-identity supplement without
-replacing MediaWiki REST for article rendering.
+Wikidata is not used to obtain parliamentary infobox HTML or political facts:
+seat and political-group structures remain Wikipedia article content and IPU
+remains authoritative for IPU-backed chamber/election facts. For display colour
+only, an entry with no Wikipedia swatch may follow its exact English-Wikipedia
+sitelink to a Wikidata item and use one unambiguous P465 sRGB value. This
+enrichment is optional and non-blocking.
+
+## Generated legislature module boundary
+
+Legislature data is now a reusable module rather than requiring a complete
+country-profile shell. Full profiles embed the legislature contract; IRN, SAU,
+and MMR publish the same contract as standalone modules. The browser selects a
+full profile when one exists and otherwise loads the standalone legislature
+module. Legislature-only modules expose only Legislature, Elections, and
+Sources; they do not synthesize Overview or Relations content.
+
+The global manifest binds ten full profiles and three standalone legislature
+modules independently. Both source adapters stage the complete public-data set
+before publication. IPU-provided local/full chamber names are retained as
+reconciliation aliases so source naming differences do not create duplicate
+chambers. Explicit IPU suspension status is preserved as sourced chamber
+operational metadata.
+
+## Legislature visual metadata
+
+Political facts and display metadata have separate precedence. IPU remains the
+authority for an IPU chamber's party result and seat numbers. Wikimedia can
+supply a `visual.color` on the corresponding result when the rendered chamber
+entry exposes a colour and matching is unambiguous. Wikipedia composition
+fallbacks can carry the same colour on their own entries. If the exact
+Wikipedia-linked party article has no rendered swatch, one unambiguous Wikidata
+P465 value may supply visual metadata with its own source ID. The renderer falls
+back to a deterministic stable colour when no sourced colour exists.

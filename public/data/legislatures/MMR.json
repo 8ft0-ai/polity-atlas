@@ -1,0 +1,420 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-19",
+  "identity": {
+    "entityId": "state:m49:104",
+    "iso2": "MM",
+    "iso3": "MMR",
+    "m49": "104",
+    "name": "Myanmar"
+  },
+  "parliament": {
+    "name": {
+      "value": "Assembly of the Union",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
+      "sourceIds": ["ipu-parline"],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "MM-LC01",
+        "name": "House of Representatives",
+        "aliases": [
+          "Pyithu Hluttaw",
+          "Pyithu Hluttaw (House of Representatives)"
+        ],
+        "kind": "lower",
+        "totalSeats": 440,
+        "parliamentaryTermYears": 5,
+        "operationalStatus": {
+          "state": "suspended",
+          "since": "2022-03-01",
+          "note": "The Parliament of Myanmar, the Pyidaungsu Hluttaw (Assembly of the Union), comprising the Pyithu Hluttaw (House of Representatives) and the Amyotha Hluttaw (House of Nationalities), had its most recent elections in November 2020. \r\n\nThe military staged a coup on 1 February 2021, the day on which the newly elected parliament was due to be sworn in. Consequently, there is currently no functioning parliament in Myanmar.",
+          "sourceIds": ["ipu-parline"]
+        },
+        "speakers": [
+          {
+            "acting": false,
+            "vacant": true,
+            "additionalInformation": "In accordance with article 76 (a) of the Constitution, the Speaker and the Deputy Speaker of the Amyotha Hluttaw (House of Nationalities) shall also serve as the Speaker and the Deputy Speaker of the Pyidaungsu Hluttaw (joint Parliament) from the day of term of the Pyithu Hluttaw commences up to the end of 30 months. Thereafter the Speaker and the Deputy Speaker of the Pyithu Hluttaw (House of Representatives) shall also serve as the Speaker and the Deputy Speaker of the Pyidaungsu Hluttaw for the remaining term.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Fourth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
+          }
+        ],
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "directlyElectedSeats": 330,
+          "appointedSeats": 110,
+          "votingAge": 18,
+          "eligibilityAge": 25,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "MM-LC01-E20201108",
+          "title": "Myanmar House of Representatives November 2020 Election",
+          "date": {
+            "from": "2020-11-08"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 315,
+          "chamberSize": 440,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "mm-national_league_democracy_nld",
+                "party": "National League for Democracy (NLD)",
+                "seats": 258
+              },
+              {
+                "partyId": "mm-union_solidarity_and_development_party_usdp",
+                "party": "Union Solidarity and Development Party (USDP)",
+                "seats": 26,
+                "visual": {
+                  "color": "#00623D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
+              },
+              {
+                "partyId": "mm-shan_national_league_for_democracy_snld_",
+                "party": "Shan National League for Democracy (SNLD)",
+                "seats": 13
+              },
+              {
+                "partyId": "mm-arakan_national_party_anp",
+                "party": "Arakan National Party (ANP)",
+                "seats": 4
+              },
+              {
+                "partyId": "mm-pa_o_national_organisation_pa_o_no",
+                "party": "Pa-O National Organisation (Pa O NO)",
+                "seats": 3,
+                "visual": {
+                  "color": "#28166F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
+              },
+              {
+                "partyId": "mm-taang_national_party_taang_np",
+                "party": "Ta'ang National Party (Ta'ang NP)",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-kayah_state_democratic_party",
+                "party": "Kayah State Democratic Party",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-mon_unity_party",
+                "party": "Mon Unity Party",
+                "seats": 2,
+                "visual": {
+                  "color": "#C13830",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
+              },
+              {
+                "partyId": "mm-arakan_front_party",
+                "party": "Arakan Front Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-kachin_state_people_s_party",
+                "party": "Kachin State People's Party",
+                "seats": 1,
+                "visual": {
+                  "color": "#1D7706",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
+              },
+              {
+                "partyId": "mm-wa_national_party",
+                "party": "Wa National Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-zomi_congress_democracy_zomi_cd",
+                "party": "Zomi Congress for Democracy (Zomi CD)",
+                "seats": 1
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "mm-national_league_democracy_nld",
+                "party": "National League for Democracy (NLD)",
+                "seats": 258
+              },
+              {
+                "partyId": "mm-union_solidarity_and_development_party_usdp",
+                "party": "Union Solidarity and Development Party (USDP)",
+                "seats": 26,
+                "visual": {
+                  "color": "#00623D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
+              },
+              {
+                "partyId": "mm-shan_national_league_for_democracy_snld_",
+                "party": "Shan National League for Democracy (SNLD)",
+                "seats": 13
+              },
+              {
+                "partyId": "mm-arakan_national_party_anp",
+                "party": "Arakan National Party (ANP)",
+                "seats": 4
+              },
+              {
+                "partyId": "mm-pa_o_national_organisation_pa_o_no",
+                "party": "Pa-O National Organisation (Pa O NO)",
+                "seats": 3,
+                "visual": {
+                  "color": "#28166F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
+              },
+              {
+                "partyId": "mm-taang_national_party_taang_np",
+                "party": "Ta'ang National Party (Ta'ang NP)",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-kayah_state_democratic_party",
+                "party": "Kayah State Democratic Party",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-mon_unity_party",
+                "party": "Mon Unity Party",
+                "seats": 2,
+                "visual": {
+                  "color": "#C13830",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
+              },
+              {
+                "partyId": "mm-arakan_front_party",
+                "party": "Arakan Front Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-kachin_state_people_s_party",
+                "party": "Kachin State People's Party",
+                "seats": 1,
+                "visual": {
+                  "color": "#1D7706",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
+              },
+              {
+                "partyId": "mm-wa_national_party",
+                "party": "Wa National Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-zomi_congress_democracy_zomi_cd",
+                "party": "Zomi Congress for Democracy (Zomi CD)",
+                "seats": 1
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
+      },
+      {
+        "id": "MM-UC01",
+        "name": "House of Nationalities",
+        "aliases": [
+          "Amyotha Hluttaw",
+          "Amyotha Hluttaw (House of Nationalities)"
+        ],
+        "kind": "upper",
+        "totalSeats": 224,
+        "parliamentaryTermYears": 5,
+        "operationalStatus": {
+          "state": "suspended",
+          "since": "2022-03-01",
+          "note": "The Parliament of Myanmar, the Pyidaungsu Hluttaw (Assembly of the Union), comprising the Pyithu Hluttaw (House of Representatives) and the Amyotha Hluttaw (House of Nationalities), had its most recent elections in November 2020. \r\n\nThe military staged a coup on 1 February 2021, the day on which the newly elected parliament was due to be sworn in. Consequently, there is currently no functioning parliament in Myanmar.",
+          "sourceIds": ["ipu-parline"]
+        },
+        "speakers": [
+          {
+            "officialTitle": "Président de la Chambre des nationalités",
+            "acting": false,
+            "vacant": true,
+            "additionalInformation": "In accordance with article 76 (a) of the Constitution, the Speaker and the Deputy Speaker of the Amyotha Hluttaw (House of Nationalities) shall also serve as the Speaker and the Deputy Speaker of the Pyidaungsu Hluttaw (joint Parliament) from the day of term of the Pyithu Hluttaw commences up to the end of 30 months. Thereafter the Speaker and the Deputy Speaker of the Pyithu Hluttaw (House of Representatives) shall also serve as the Speaker and the Deputy Speaker of the Pyidaungsu Hluttaw for the remaining term.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Fifth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
+          }
+        ],
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "directlyElectedSeats": 168,
+          "appointedSeats": 56,
+          "votingAge": 18,
+          "eligibilityAge": 25,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "MM-UC01-E20201108",
+          "title": "Myanmar House of Nationalities November 2020 Election",
+          "date": {
+            "from": "2020-11-08"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 161,
+          "chamberSize": 224,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "mm-national_league_democracy_nld",
+                "party": "National League for Democracy (NLD)",
+                "seats": 138
+              },
+              {
+                "partyId": "mm-union_solidarity_and_development_party_usdp",
+                "party": "Union Solidarity and Development Party (USDP)",
+                "seats": 7,
+                "visual": {
+                  "color": "#00623D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
+              },
+              {
+                "partyId": "mm-arakan_national_party_anp",
+                "party": "Arakan National Party (ANP)",
+                "seats": 4
+              },
+              {
+                "partyId": "mm-kayah_state_democratic_party",
+                "party": "Kayah State Democratic Party",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-mon_unity_party",
+                "party": "Mon Unity Party",
+                "seats": 3,
+                "visual": {
+                  "color": "#C13830",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
+              },
+              {
+                "partyId": "mm-shan_national_league_for_democracy_snld_",
+                "party": "Shan National League for Democracy (SNLD)",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-taang_national_party_taang_np",
+                "party": "Ta'ang National Party (Ta'ang NP)",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-new_democracy_party_kachin_n_d_p_kachin_",
+                "party": "New Democracy Party Kachin (N.D.P. Kachin)",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-pa_o_national_organisation_pa_o_no",
+                "party": "Pa-O National Organisation (Pa O NO)",
+                "seats": 1,
+                "visual": {
+                  "color": "#28166F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "mm-national_league_democracy_nld",
+                "party": "National League for Democracy (NLD)",
+                "seats": 138
+              },
+              {
+                "partyId": "mm-union_solidarity_and_development_party_usdp",
+                "party": "Union Solidarity and Development Party (USDP)",
+                "seats": 7,
+                "visual": {
+                  "color": "#00623D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
+              },
+              {
+                "partyId": "mm-arakan_national_party_anp",
+                "party": "Arakan National Party (ANP)",
+                "seats": 4
+              },
+              {
+                "partyId": "mm-kayah_state_democratic_party",
+                "party": "Kayah State Democratic Party",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-mon_unity_party",
+                "party": "Mon Unity Party",
+                "seats": 3,
+                "visual": {
+                  "color": "#C13830",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
+              },
+              {
+                "partyId": "mm-shan_national_league_for_democracy_snld_",
+                "party": "Shan National League for Democracy (SNLD)",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-taang_national_party_taang_np",
+                "party": "Ta'ang National Party (Ta'ang NP)",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-new_democracy_party_kachin_n_d_p_kachin_",
+                "party": "New Democracy Party Kachin (N.D.P. Kachin)",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-pa_o_national_organisation_pa_o_no",
+                "party": "Pa-O National Organisation (Pa O NO)",
+                "seats": 1,
+                "visual": {
+                  "color": "#28166F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
+      }
+    ]
+  },
+  "nextExpectedElections": []
+}

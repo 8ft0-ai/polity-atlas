@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "countries": [
+    {
+      "entityId": "state:m49:364",
+      "iso2": "IR",
+      "iso3": "IRN",
+      "m49": "364",
+      "name": "Iran"
+    },
+    {
+      "entityId": "state:m49:682",
+      "iso2": "SA",
+      "iso3": "SAU",
+      "m49": "682",
+      "name": "Saudi Arabia"
+    },
+    {
+      "entityId": "state:m49:104",
+      "iso2": "MM",
+      "iso3": "MMR",
+      "m49": "104",
+      "name": "Myanmar"
+    }
+  ]
+}
