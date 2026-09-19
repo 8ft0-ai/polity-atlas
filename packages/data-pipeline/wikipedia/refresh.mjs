@@ -104,7 +104,7 @@ for (const country of countries) {
     ? ` (${normalized.diagnostics.join(', ')})`
     : '';
   process.stdout.write(
-    `Prepared ${country.iso3}: +${normalized.missingChambers.length} chamber(s)${diagnosticSuffix}\n`,
+    `Prepared ${country.iso3}: +${normalized.missingChambers.length} chamber(s), ${normalized.chamberCompositions.length} composition fallback(s)${diagnosticSuffix}\n`,
   );
 }
 
