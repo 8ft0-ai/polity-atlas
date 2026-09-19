@@ -4,7 +4,7 @@ Polity Atlas runs on a developer's machine. GitHub stores reviewed code and data
 
 - `app` and `components` contain the Vinext/React interface using Next-style App Router conventions.
 - `packages/schemas` holds the shared, versioned data contract.
-- `packages/data-pipeline` contains explicit local source adapters and normalisers. The bounded Phase 3 IPU path is implemented under `packages/data-pipeline/ipu`; reusable Wikipedia acquisition and chamber fallback live under `packages/data-pipeline/wikipedia`.
+- `packages/data-pipeline` contains explicit local source adapters and normalisers. The bounded Phase 3 IPU path is implemented under `packages/data-pipeline/ipu`; reusable Wikipedia acquisition and chamber fallback live under `packages/data-pipeline/wikipedia`. Wikipedia article acquisition uses Wikimedia's MediaWiki REST API rather than the legacy Action API.
 - `public/data` contains reviewed, citation-bearing JSON loaded by the browser.
 - `npm run dev` serves the application on localhost; `npm run build` creates a local export in `dist/client`.
 
@@ -72,7 +72,9 @@ fallback completion path, not an override layer.
 
 ```text
 Parliament of {country}
-  -> canonical Wikipedia page
+  -> MediaWiki REST page/{title}/with_html
+  -> REST search/page fallback when needed
+  -> canonical Wikipedia page + revision metadata
   -> infobox house links
   -> chamber-page infoboxes
   -> compare against normalized IPU chambers
@@ -90,3 +92,18 @@ House kind is taken from explicit source labeling first, then inferred from the
 opposite kind of an existing IPU chamber. Seat-count classification is only a
 last resort for two unlabeled Wikipedia chambers: larger is treated as lower,
 with the United Kingdom as the explicit larger-upper-house exception.
+
+### Wikimedia REST acquisition
+
+The Wikipedia adapter uses unauthenticated Wikimedia REST reads only. Article
+identity and rendered HTML come from the MediaWiki REST v1 page resource; title
+fallback uses the REST page-search resource. The adapter does not use
+`w/api.php` or `action=parse` in its normal path. New raw snapshots record
+page ID, canonical title/key, latest revision ID and timestamp, and licence
+metadata before normalization. These acquisition details remain in the ignored
+cache and do not change the country schema in this phase.
+
+Wikidata REST is not used to obtain parliamentary infobox HTML: the seat and
+political-group structures needed by later phases are Wikipedia article
+content. Wikidata may be added later as an entity-identity supplement without
+replacing MediaWiki REST for article rendering.
