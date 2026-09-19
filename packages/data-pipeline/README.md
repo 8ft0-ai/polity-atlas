@@ -85,10 +85,12 @@ npm run data:refresh:wikipedia -- --from-cache
 npm run data:refresh:wikipedia -- --country=GBR
 ```
 
-For each configured country the adapter resolves `Parliament of {country}`,
-following Wikipedia redirects and a bounded title search when the exact title
-does not exist. It parses the parliament infobox, follows the linked house or
-chamber pages, and compares those chambers with the already-normalized IPU
+For each configured country the adapter resolves `Parliament of {country}`
+through Wikimedia's MediaWiki REST API. It first requests the page through the
+REST `page/{title}/with_html` resource and falls back to the REST `search/page`
+resource when the conventional title is absent. The returned rendered HTML is
+parsed for the parliament infobox; linked house or chamber pages are retrieved
+through the same REST page resource and compared with already-normalized IPU
 chambers.
 
 IPU remains authoritative for every chamber it supplies. Wikipedia can add only
@@ -110,5 +112,14 @@ Chamber kind is resolved in this order:
    the upper house.
 
 Raw Wikipedia snapshots are retained only under ignored
-`.cache/wikipedia`. Wikipedia page IDs are used as stable source identities so
-renames and redirects do not create duplicate source records.
+`.cache/wikipedia`. New REST snapshots retain the stable page ID plus the latest
+revision ID/timestamp and licence metadata returned by Wikimedia, so a cached
+run can be tied to an exact page revision. Wikipedia page IDs remain the public
+source identity so renames and redirects do not create duplicate source
+records.
+
+The read-only Wikimedia REST endpoints used by this adapter require **no API
+key**. Requests send the project's descriptive User-Agent and no Authorization
+header. If authenticated Wikimedia access is introduced later it must be a
+separate reviewed credential change, not an implicit requirement of this
+pipeline.
