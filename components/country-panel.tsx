@@ -476,23 +476,49 @@ export function CountryPanel() {
     setActiveTab,
     clearCountry,
   } = useWorkspaceStore();
-  const iso3 = selectedEntityId
+  const fullIso3 = selectedEntityId
     ? supportedProfiles[selectedEntityId]
     : undefined;
+  const legislatureIso3 = selectedEntityId
+    ? supportedLegislatures[selectedEntityId]
+    : undefined;
+  const iso3 = fullIso3 ?? legislatureIso3;
   const sourceRegistryQuery = useQuery({
     queryKey: ['source-registry'],
     queryFn: loadSourceRegistry,
     enabled: Boolean(iso3),
   });
   const profileQuery = useQuery({
-    queryKey: ['country-profile', iso3],
-    queryFn: () => loadCountryProfile(iso3!),
+    queryKey: [
+      fullIso3 ? 'country-profile' : 'legislature-profile',
+      iso3,
+    ],
+    queryFn: () =>
+      fullIso3
+        ? loadCountryProfile(fullIso3)
+        : loadLegislatureProfile(legislatureIso3!),
     enabled: Boolean(iso3),
   });
 
   if (!selectedEntityId || !selectedName) return null;
 
   const sources = sourceRegistryQuery.data?.sources ?? [];
+  const fullProfile =
+    profileQuery.data && 'government' in profileQuery.data
+      ? profileQuery.data
+      : undefined;
+  const visibleTabs = fullProfile
+    ? tabs
+    : tabs.filter(
+        (tab) =>
+          tab.value === 'parliament' ||
+          tab.value === 'elections' ||
+          tab.value === 'sources',
+      );
+  const effectiveTab =
+    !fullProfile && (activeTab === 'overview' || activeTab === 'relations')
+      ? 'parliament'
+      : activeTab;
 
   function clearSelection() {
     clearCountry();
@@ -523,8 +549,10 @@ export function CountryPanel() {
           {profileQuery.data?.identity.name ?? selectedName}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {profileQuery.data?.identity.officialName ??
-            'This country is awaiting a verified profile.'}
+          {fullProfile?.identity.officialName ??
+            (profileQuery.data
+              ? 'Legislature pilot · full country profile not yet available'
+              : 'This country is awaiting a verified profile.')}
         </p>
         {profileQuery.data && (
           <p className="ui-text mt-3 text-[11px] uppercase tracking-[0.07em] text-muted-foreground">
@@ -557,13 +585,13 @@ export function CountryPanel() {
         </div>
       ) : (
         <Tabs
-          value={activeTab}
+          value={effectiveTab}
           onValueChange={(value) => setActiveTab(value as CountryTab)}
           className="min-h-0 flex-1 gap-0"
         >
           <div className="overflow-x-auto border-b border-border px-4">
             <TabsList variant="line" className="h-11 min-w-max gap-4 p-0">
-              {tabs.map((tab) => (
+              {visibleTabs.map((tab) => (
                 <TabsTrigger
                   key={tab.value}
                   value={tab.value}
