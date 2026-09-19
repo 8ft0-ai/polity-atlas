@@ -519,292 +519,6 @@
         }
       },
       {
-        "id": "wiki-ind-lok-sabha",
-        "name": "Lok Sabha",
-        "kind": "lower",
-        "totalSeats": 543,
-        "speakers": [],
-        "composition": {
-          "basis": "source-reported",
-          "reportedSeats": 540,
-          "retrievedAt": "2026-09-19T03:00:00.000Z",
-          "entries": [
-            {
-              "partyId": "wiki-275456-bjp",
-              "party": "BJP",
-              "seats": 240,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-inc",
-              "party": "INC",
-              "seats": 98,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-sp",
-              "party": "SP",
-              "seats": 37,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-dmk",
-              "party": "DMK",
-              "seats": 22,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-ncpi",
-              "party": "NCPI",
-              "seats": 20,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-tdp",
-              "party": "TDP",
-              "seats": 16,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-shs",
-              "party": "SHS",
-              "seats": 13,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-jd-u",
-              "party": "JD(U)",
-              "seats": 12,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-maitc",
-              "party": "MAITC",
-              "seats": 8,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-ncp-sp",
-              "party": "NCP-SP",
-              "seats": 8,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-ljp-rv",
-              "party": "LJP(RV)",
-              "seats": 5,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-cpi-m",
-              "party": "CPI(M)",
-              "seats": 4,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-rjd",
-              "party": "RJD",
-              "seats": 4,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-ysrcp",
-              "party": "YSRCP",
-              "seats": 4,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-aap",
-              "party": "AAP",
-              "seats": 3,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-ind",
-              "party": "IND",
-              "seats": 3,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-iuml",
-              "party": "IUML",
-              "seats": 3,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-jmm",
-              "party": "JMM",
-              "seats": 3,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-ss-ubt",
-              "party": "SS(UBT)",
-              "seats": 3,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-ad-wpd",
-              "party": "AD(WPD)",
-              "seats": 2,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-cpi",
-              "party": "CPI",
-              "seats": 2,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-cpi-ml-l",
-              "party": "CPI(ML)L",
-              "seats": 2,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-jd-s",
-              "party": "JD(S)",
-              "seats": 2,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-jknc",
-              "party": "JKNC",
-              "seats": 2,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-jsp",
-              "party": "JSP",
-              "seats": 2,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-rld",
-              "party": "RLD",
-              "seats": 2,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-vck",
-              "party": "VCK",
-              "seats": 2,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-mw-parser-output-legend-page-break-inside-avoid-break-inside-avoid-column-mw-parser-output-legend-color-display-inline-block-min-width-1-25em-height-1-25em-line-height-1-25-margin-1px-0-text-align-center-border-1px-solid-black-background-color-transparent-color-black-mw-parser-output-legend-text-jkaip",
-              "party": ".mw-parser-output .legend{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .legend-color{display:inline-block;min-width:1.25em;height:1.25em;line-height:1.25;margin:1px 0;text-align:center;border:1px solid black;background-color:transparent;color:black}.mw-parser-output .legend-text{} JKAIP",
-              "seats": 1,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-ad-s",
-              "party": "AD(S)",
-              "seats": 1,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-agp",
-              "party": "AGP",
-              "seats": 1,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-aimim",
-              "party": "AIMIM",
-              "seats": 1,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-ajsu",
-              "party": "AJSU",
-              "seats": 1,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-asp-kr",
-              "party": "ASP(KR)",
-              "seats": 1,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-bap",
-              "party": "BAP",
-              "seats": 1,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-ham-s",
-              "party": "HAM(S)",
-              "seats": 1,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-ind",
-              "party": "IND",
-              "seats": 1,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-kec",
-              "party": "KEC",
-              "seats": 1,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-mdmk",
-              "party": "MDMK",
-              "seats": 1,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-ncp",
-              "party": "NCP",
-              "seats": 1,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-rlp",
-              "party": "RLP",
-              "seats": 1,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-rsp",
-              "party": "RSP",
-              "seats": 1,
-              "group": "Official Opposition (184) INDIA"
-            },
-            {
-              "partyId": "wiki-275456-sad",
-              "party": "SAD",
-              "seats": 1,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-skm",
-              "party": "SKM",
-              "seats": 1,
-              "group": "NDA"
-            },
-            {
-              "partyId": "wiki-275456-uppl",
-              "party": "UPPL",
-              "seats": 1,
-              "group": "Other Opposition"
-            },
-            {
-              "partyId": "wiki-275456-zpm",
-              "party": "ZPM",
-              "seats": 1,
-              "group": "Other Opposition"
-            }
-          ],
-          "sourceIds": ["wikipedia-en-page-275456"]
-        },
-        "sourceIds": ["wikipedia-en-page-410238", "wikipedia-en-page-275456"]
-      },
-      {
         "id": "IN-UC01",
         "name": "Council of States",
         "kind": "upper",
@@ -853,232 +567,232 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 244,
-          "retrievedAt": "2026-09-19T03:00:00.000Z",
+          "retrievedAt": "2026-09-19T03:20:00.000Z",
           "entries": [
             {
-              "partyId": "wiki-232210-bjp",
+              "partyId": "wiki-232210-nda-bjp-1",
               "party": "BJP",
               "seats": 117,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-inc",
+              "partyId": "wiki-232210-official-opposition-inc-16",
               "party": "INC",
               "seats": 30,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-maitc",
+              "partyId": "wiki-232210-official-opposition-maitc-17",
               "party": "MAITC",
               "seats": 9,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-dmk",
+              "partyId": "wiki-232210-other-opposition-dmk-29",
               "party": "DMK",
               "seats": 8,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-nom",
+              "partyId": "wiki-232210-nda-nom-15",
               "party": "NOM",
               "seats": 7,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-bjd",
+              "partyId": "wiki-232210-other-opposition-bjd-30",
               "party": "BJD",
               "seats": 5,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-aiadmk",
+              "partyId": "wiki-232210-nda-aiadmk-2",
               "party": "AIADMK",
               "seats": 4,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-jd-u",
+              "partyId": "wiki-232210-nda-jd-u-3",
               "party": "JD(U)",
               "seats": 4,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-ncp",
+              "partyId": "wiki-232210-nda-ncp-4",
               "party": "NCP",
               "seats": 4,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-sp",
+              "partyId": "wiki-232210-official-opposition-sp-18",
               "party": "SP",
               "seats": 4,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-tdp",
+              "partyId": "wiki-232210-nda-tdp-5",
               "party": "TDP",
               "seats": 4,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-ysrcp",
+              "partyId": "wiki-232210-other-opposition-ysrcp-31",
               "party": "YSRCP",
               "seats": 4,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-aap",
+              "partyId": "wiki-232210-other-opposition-aap-32",
               "party": "AAP",
               "seats": 3,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-brs",
+              "partyId": "wiki-232210-other-opposition-brs-33",
               "party": "BRS",
               "seats": 3,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-cpi-m",
+              "partyId": "wiki-232210-official-opposition-cpi-m-19",
               "party": "CPI(M)",
               "seats": 3,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-ind",
+              "partyId": "wiki-232210-nda-ind-14",
               "party": "IND",
               "seats": 3,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-jknc",
+              "partyId": "wiki-232210-official-opposition-jknc-20",
               "party": "JKNC",
               "seats": 3,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-jmm",
+              "partyId": "wiki-232210-official-opposition-jmm-21",
               "party": "JMM",
               "seats": 3,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-rjd",
+              "partyId": "wiki-232210-official-opposition-rjd-22",
               "party": "RJD",
               "seats": 3,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-cpi",
+              "partyId": "wiki-232210-official-opposition-cpi-23",
               "party": "CPI",
               "seats": 2,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-iuml",
+              "partyId": "wiki-232210-official-opposition-iuml-24",
               "party": "IUML",
               "seats": 2,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-shs",
+              "partyId": "wiki-232210-nda-shs-6",
               "party": "SHS",
               "seats": 2,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-uppl",
+              "partyId": "wiki-232210-other-opposition-uppl-34",
               "party": "UPPL",
               "seats": 2,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-agp",
+              "partyId": "wiki-232210-nda-agp-7",
               "party": "AGP",
               "seats": 1,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-bsp",
+              "partyId": "wiki-232210-other-opposition-bsp-35",
               "party": "BSP",
               "seats": 1,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-dmdk",
+              "partyId": "wiki-232210-other-opposition-dmdk-36",
               "party": "DMDK",
               "seats": 1,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-ind",
+              "partyId": "wiki-232210-official-opposition-ind-28",
               "party": "IND",
               "seats": 1,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-jsp",
+              "partyId": "wiki-232210-nda-jsp-8",
               "party": "JSP",
               "seats": 1,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-kc-m",
+              "partyId": "wiki-232210-official-opposition-kc-m-25",
               "party": "KC(M)",
               "seats": 1,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-mnm",
+              "partyId": "wiki-232210-other-opposition-mnm-37",
               "party": "MNM",
               "seats": 1,
               "group": "Other opposition"
             },
             {
-              "partyId": "wiki-232210-ncp-sp",
+              "partyId": "wiki-232210-official-opposition-ncp-sp-26",
               "party": "NCP-SP",
               "seats": 1,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-npp",
+              "partyId": "wiki-232210-nda-npp-9",
               "party": "NPP",
               "seats": 1,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-pmk",
+              "partyId": "wiki-232210-nda-pmk-10",
               "party": "PMK",
               "seats": 1,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-rld",
+              "partyId": "wiki-232210-nda-rld-11",
               "party": "RLD",
               "seats": 1,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-rlm",
+              "partyId": "wiki-232210-nda-rlm-12",
               "party": "RLM",
               "seats": 1,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-rpi-a",
+              "partyId": "wiki-232210-nda-rpi-a-13",
               "party": "RPI(A)",
               "seats": 1,
               "group": "NDA"
             },
             {
-              "partyId": "wiki-232210-ss-ubt",
+              "partyId": "wiki-232210-official-opposition-ss-ubt-27",
               "party": "SS(UBT)",
               "seats": 1,
-              "group": "Official Opposition (63) INDIA"
+              "group": "Official Opposition"
             },
             {
-              "partyId": "wiki-232210-zpm",
+              "partyId": "wiki-232210-other-opposition-zpm-38",
               "party": "ZPM",
               "seats": 1,
               "group": "Other opposition"

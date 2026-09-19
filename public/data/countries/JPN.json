@@ -316,88 +316,88 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 246,
-          "retrievedAt": "2026-09-19T03:00:00.000Z",
+          "retrievedAt": "2026-09-19T03:20:00.000Z",
           "entries": [
             {
-              "partyId": "wiki-217779-mw-parser-output-legend-page-break-inside-avoid-break-inside-avoid-column-mw-parser-output-legend-color-display-inline-block-min-width-1-25em-height-1-25em-line-height-1-25-margin-1px-0-text-align-center-border-1px-solid-black-background-color-transparent-color-black-mw-parser-output-legend-text-ldp",
-              "party": ".mw-parser-output .legend{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .legend-color{display:inline-block;min-width:1.25em;height:1.25em;line-height:1.25;margin:1px 0;text-align:center;border:1px solid black;background-color:transparent;color:black}.mw-parser-output .legend-text{} LDP",
+              "partyId": "wiki-217779-government-ldp-1",
+              "party": "LDP",
               "seats": 101,
               "group": "Government"
             },
             {
-              "partyId": "wiki-217779-cdp",
+              "partyId": "wiki-217779-opposition-cdp-3",
               "party": "CDP",
               "seats": 40,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-dpfp",
+              "partyId": "wiki-217779-opposition-dpfp-4",
               "party": "DPFP",
               "seats": 25,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-komeito",
+              "partyId": "wiki-217779-opposition-komeito-5",
               "party": "Kōmeitō",
               "seats": 21,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-ishin",
+              "partyId": "wiki-217779-government-ishin-2",
               "party": "Ishin",
               "seats": 19,
               "group": "Government"
             },
             {
-              "partyId": "wiki-217779-sanseito",
+              "partyId": "wiki-217779-opposition-sanseito-6",
               "party": "Sanseitō",
               "seats": 15,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-jcp",
+              "partyId": "wiki-217779-opposition-jcp-7",
               "party": "JCP",
               "seats": 7,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-life",
+              "partyId": "wiki-217779-opposition-life-8",
               "party": "Life",
               "seats": 5,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-independent",
+              "partyId": "wiki-217779-unaffiliated-independent-13",
               "party": "Independent",
               "seats": 4,
               "group": "Unaffiliated"
             },
             {
-              "partyId": "wiki-217779-cpj",
+              "partyId": "wiki-217779-opposition-cpj-9",
               "party": "CPJ",
               "seats": 2,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-okinawa-whirlwind",
+              "partyId": "wiki-217779-opposition-okinawa-whirlwind-10",
               "party": "Okinawa Whirlwind",
               "seats": 2,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-sdp",
+              "partyId": "wiki-217779-opposition-sdp-12",
               "party": "SDP",
               "seats": 2,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-team-mirai",
+              "partyId": "wiki-217779-opposition-team-mirai-11",
               "party": "Team Mirai",
               "seats": 2,
               "group": "Opposition"
             },
             {
-              "partyId": "wiki-217779-vacant",
+              "partyId": "wiki-217779-vacant-vacant-14",
               "party": "Vacant",
               "seats": 1,
               "group": "Vacant"

@@ -90,58 +90,58 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 2847,
-          "retrievedAt": "2026-09-19T03:00:00.000Z",
+          "retrievedAt": "2026-09-19T03:20:00.000Z",
           "entries": [
             {
-              "partyId": "wiki-38878740-mw-parser-output-legend-page-break-inside-avoid-break-inside-avoid-column-mw-parser-output-legend-color-display-inline-block-min-width-1-25em-height-1-25em-line-height-1-25-margin-1px-0-text-align-center-border-1px-solid-black-background-color-transparent-color-black-mw-parser-output-legend-text-ccp-and-nonpartisan",
-              "party": ".mw-parser-output .legend{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .legend-color{display:inline-block;min-width:1.25em;height:1.25em;line-height:1.25;margin:1px 0;text-align:center;border:1px solid black;background-color:transparent;color:black}.mw-parser-output .legend-text{} CCP and Nonpartisan",
+              "partyId": "wiki-38878740-ruling-party-ccp-and-nonpartisan-1",
+              "party": "CCP and Nonpartisan",
               "seats": 2478,
               "group": "Ruling Party"
             },
             {
-              "partyId": "wiki-38878740-js",
+              "partyId": "wiki-38878740-democratic-parties-js-2",
               "party": "JS",
               "seats": 61,
               "group": "Democratic Parties"
             },
             {
-              "partyId": "wiki-38878740-cpwdp",
+              "partyId": "wiki-38878740-democratic-parties-cpwdp-3",
               "party": "CPWDP",
               "seats": 60,
               "group": "Democratic Parties"
             },
             {
-              "partyId": "wiki-38878740-cdl",
+              "partyId": "wiki-38878740-democratic-parties-cdl-4",
               "party": "CDL",
               "seats": 55,
               "group": "Democratic Parties"
             },
             {
-              "partyId": "wiki-38878740-capd",
+              "partyId": "wiki-38878740-democratic-parties-capd-5",
               "party": "CAPD",
               "seats": 54,
               "group": "Democratic Parties"
             },
             {
-              "partyId": "wiki-38878740-cndca",
+              "partyId": "wiki-38878740-democratic-parties-cndca-6",
               "party": "CNDCA",
               "seats": 44,
               "group": "Democratic Parties"
             },
             {
-              "partyId": "wiki-38878740-rcck",
+              "partyId": "wiki-38878740-democratic-parties-rcck-7",
               "party": "RCCK",
               "seats": 43,
               "group": "Democratic Parties"
             },
             {
-              "partyId": "wiki-38878740-czgp",
+              "partyId": "wiki-38878740-democratic-parties-czgp-8",
               "party": "CZGP",
               "seats": 39,
               "group": "Democratic Parties"
             },
             {
-              "partyId": "wiki-38878740-tdsl",
+              "partyId": "wiki-38878740-democratic-parties-tdsl-9",
               "party": "TDSL",
               "seats": 13,
               "group": "Democratic Parties"

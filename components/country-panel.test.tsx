@@ -168,7 +168,9 @@ describe('CountryPanel', () => {
     expect(
       await screen.findByText('Source-reported chamber composition'),
     ).toBeInTheDocument();
-    expect(screen.getByText('Wikipedia party-seat breakdown')).toBeInTheDocument();
+    expect(
+      screen.getByText('Wikipedia party-seat breakdown'),
+    ).toBeInTheDocument();
     expect(screen.getByText('2977 seats contested')).toBeInTheDocument();
     expect(
       screen.getByText(
@@ -177,12 +179,12 @@ describe('CountryPanel', () => {
     ).toBeInTheDocument();
 
     const composition = screen.getByLabelText(
-      'National People\'s Congress source-reported chamber composition semicircle',
+      "National People's Congress source-reported chamber composition semicircle",
     );
     expect(composition.querySelectorAll('[data-party-segment]').length).toBe(9);
     expect(
       screen.getByRole('link', {
-        name: 'Source: National People\'s Congress',
+        name: "Source: National People's Congress",
       }),
     ).toHaveAttribute(
       'href',

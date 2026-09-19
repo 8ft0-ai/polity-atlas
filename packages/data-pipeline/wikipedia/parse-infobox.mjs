@@ -44,10 +44,9 @@ function headingText(element) {
   if (!['B', 'STRONG', 'DIV', 'P', 'H1', 'H2', 'H3', 'H4'].includes(tag)) {
     return undefined;
   }
-  const directEmphasis =
-    element.matches('b, strong')
-      ? element
-      : element.querySelector(':scope > b, :scope > strong');
+  const directEmphasis = element.matches('b, strong')
+    ? element
+    : element.querySelector(':scope > b, :scope > strong');
   const text = cleanText((directEmphasis ?? element).textContent ?? '');
   if (!text || text.length > 120) return undefined;
   const label = parseSeatLabel(text)?.label ?? text;
