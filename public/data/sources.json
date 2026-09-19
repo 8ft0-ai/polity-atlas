@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "au-governor-general",
+      "publisher": "Governor-General of Australia",
+      "title": "About the Governor-General",
+      "url": "https://www.gg.gov.au/about-governor-general",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-missions",
+      "publisher": "Department of Foreign Affairs and Trade",
+      "title": "Australian embassies and consulates overseas",
+      "url": "https://www.dfat.gov.au/about-us/our-locations/missions/Pages/our-embassies-and-consulates-overseas",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-prime-minister",
+      "publisher": "Prime Minister of Australia",
+      "title": "About the Prime Minister",
+      "url": "https://www.pm.gov.au/about-prime-minister",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "au-system",
+      "publisher": "Parliamentary Education Office",
+      "title": "Australia's system of government",
+      "url": "https://peo.gov.au/understand-our-parliament/how-parliament-works/system-of-government/australias-system-of-government",
+      "retrievedAt": "2026-09-17T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "ca-country",
+      "publisher": "Wikipedia",
+      "title": "Canada",
+      "url": "https://en.wikipedia.org/wiki/Canada",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "ca-governor-general",
+      "publisher": "Government of Canada",
+      "title": "Installation of Louise Arbour as Governor General",
+      "url": "https://www.canada.ca/en/canadian-heritage/news/2026/06/installation-ceremony-of-the-honourable-louise-arbour-as-the-31st-governor-general-of-canada.html",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "ca-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of Canada",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Canada",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "ca-prime-minister",
+      "publisher": "Prime Minister of Canada",
+      "title": "Prime Minister of Canada",
+      "url": "https://www.pm.gc.ca/en",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "cn-country",
+      "publisher": "Wikipedia",
+      "title": "China",
+      "url": "https://en.wikipedia.org/wiki/China",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "cn-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of China",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_China",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "cn-premier",
+      "publisher": "State Council of the People's Republic of China",
+      "title": "Institutions — State Council leaders",
+      "url": "https://english.www.gov.cn/institutions",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "cn-president",
+      "publisher": "State Council of the People's Republic of China",
+      "title": "Chinese President Xi Jinping at the 18th BRICS Summit",
+      "url": "https://english.www.gov.cn/news/202609/13/content_WS6aa662e4c6d00ca5f9a0d2c2.html",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "fr-country",
+      "publisher": "Wikipedia",
+      "title": "France",
+      "url": "https://en.wikipedia.org/wiki/France",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "fr-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of France",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_France",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "fr-president",
+      "publisher": "Élysée",
+      "title": "Emmanuel Macron",
+      "url": "https://www.elysee.fr/en/emmanuel-macron",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "fr-prime-minister",
+      "publisher": "French Government",
+      "title": "Sébastien Lecornu — Premier ministre",
+      "url": "https://www.info.gouv.fr/personnalite/sebastien-lecornu",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "gb-country",
+      "publisher": "Wikipedia",
+      "title": "United Kingdom",
+      "url": "https://en.wikipedia.org/wiki/United_Kingdom",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "gb-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of the United Kingdom",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_the_United_Kingdom",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "gb-monarch",
+      "publisher": "The Royal Family",
+      "title": "The King",
+      "url": "https://www.royal.uk/the-king",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "gb-prime-minister",
+      "publisher": "GOV.UK",
+      "title": "Prime Minister",
+      "url": "https://www.gov.uk/government/ministers/prime-minister",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "id-country",
+      "publisher": "Wikipedia",
+      "title": "Indonesia",
+      "url": "https://en.wikipedia.org/wiki/Indonesia",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "id-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of Indonesia",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Indonesia",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "id-president",
+      "publisher": "Portal Informasi Indonesia",
+      "title": "Presiden & Wakil Presiden",
+      "url": "https://indonesia.go.id/profile/presiden-wapre",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "in-country",
+      "publisher": "Wikipedia",
+      "title": "India",
+      "url": "https://en.wikipedia.org/wiki/India",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "in-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of India",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_India",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "in-president",
+      "publisher": "President of India",
+      "title": "Profile of the President",
+      "url": "https://www.presidentofindia.gov.in/Profile",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "in-prime-minister",
+      "publisher": "Prime Minister of India",
+      "title": "Prime Minister of India",
+      "url": "https://www.pmindia.gov.in/en/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "ipu-parline",
+      "publisher": "Inter-Parliamentary Union",
+      "title": "Parline national parliament, chamber and election data",
+      "url": "https://data.ipu.org/",
+      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "kind": "intergovernmental",
+      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
+      "termsUrl": "https://www.ipu.org/terms-use",
+      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+    },
+    {
+      "id": "jp-country",
+      "publisher": "Wikipedia",
+      "title": "Japan",
+      "url": "https://en.wikipedia.org/wiki/Japan",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "jp-emperor",
+      "publisher": "Imperial Household Agency",
+      "title": "Their Majesties the Emperor and Empress",
+      "url": "https://www.kunaicho.go.jp/en/learn/about/history/history01.html",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "jp-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of Japan",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Japan",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "jp-prime-minister",
+      "publisher": "Prime Minister's Office of Japan",
+      "title": "Designation of the Prime Minister",
+      "url": "https://japan.kantei.go.jp/105/actions/202602/_00001.html",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "nz-country",
+      "publisher": "Wikipedia",
+      "title": "New Zealand",
+      "url": "https://en.wikipedia.org/wiki/New_Zealand",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "nz-governor-general",
+      "publisher": "Governor-General of New Zealand",
+      "title": "The Governor-General",
+      "url": "https://gg.govt.nz/governor-general",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "nz-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of New Zealand",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_New_Zealand",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "nz-prime-minister",
+      "publisher": "New Zealand Government",
+      "title": "Prime Minister",
+      "url": "https://www.beehive.govt.nz/portfolio/nationalactnew-zealand-first-coalition-government-2023-2026/prime-minister",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    },
+    {
+      "id": "us-country",
+      "publisher": "Wikipedia",
+      "title": "United States",
+      "url": "https://en.wikipedia.org/wiki/United_States",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "us-missions",
+      "publisher": "Wikipedia",
+      "title": "List of diplomatic missions of the United States",
+      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_the_United_States",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "reference"
+    },
+    {
+      "id": "us-president",
+      "publisher": "The White House",
+      "title": "President Donald J. Trump",
+      "url": "https://www.whitehouse.gov/administration/donald-j-trump/",
+      "retrievedAt": "2026-09-18T00:00:00.000Z",
+      "kind": "official"
+    }
+  ]
+}
