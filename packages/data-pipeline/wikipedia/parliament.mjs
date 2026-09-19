@@ -259,22 +259,22 @@ function inferKinds(country, candidates, existingChambers) {
 }
 
 export function normalizeWikipediaParliament(snapshot, profile) {
-  if (!snapshot.parliamentPage) {
+  if (!snapshot.parliamentPage && !snapshot.chamberPages.length) {
     return {
       missingChambers: [],
       chamberCompositions: [],
       chamberVisuals: [],
       sources: [],
-      diagnostics: ['NO_WIKIPEDIA_PARLIAMENT_PAGE'],
+      diagnostics: ['NO_WIKIPEDIA_LEGISLATURE_PAGE'],
     };
   }
 
-  const parliamentParsed = parseInfobox(snapshot.parliamentPage.html);
+  const parentPage = snapshot.parliamentPage ?? snapshot.chamberPages[0];
+  const parliamentParsed = snapshot.parliamentPage
+    ? parseInfobox(snapshot.parliamentPage.html)
+    : { rows: [], text: '' };
   const houseLinks = extractHouseLinks(parliamentParsed);
-  const parentSource = wikipediaSource(
-    snapshot.parliamentPage,
-    snapshot.retrievedAt,
-  );
+  const parentSource = wikipediaSource(parentPage, snapshot.retrievedAt);
 
   const rawCandidates = snapshot.chamberPages.map((page) => {
     const parsed = parseInfobox(page.html);
@@ -296,9 +296,9 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     const parentKind = extractExplicitChamberKind(parliamentParsed);
     if (parentSeats && parentKind === 'unicameral') {
       rawCandidates.push({
-        name: snapshot.parliamentPage.title,
-        requestedTitle: snapshot.parliamentPage.title,
-        pageId: snapshot.parliamentPage.pageId,
+        name: parentPage.title,
+        requestedTitle: parentPage.title,
+        pageId: parentPage.pageId,
         totalSeats: parentSeats,
         kind: 'unicameral',
         compositionEntries: extractPoliticalComposition(parliamentParsed),
