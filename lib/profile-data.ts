@@ -1,7 +1,9 @@
 import {
   countryProfileSchema,
+  legislatureProfileSchema,
   sourceRegistrySchema,
   type CountryProfile,
+  type LegislatureProfile,
   type SourceRegistry,
 } from '@/packages/schemas/country';
 
@@ -15,6 +17,20 @@ export async function loadCountryProfile(
   }
 
   return countryProfileSchema.parse(await response.json());
+}
+
+export async function loadLegislatureProfile(
+  iso3: string,
+): Promise<LegislatureProfile> {
+  const response = await fetch(`/data/legislatures/${iso3}.json`);
+
+  if (!response.ok) {
+    throw new Error(
+      `Legislature request failed with status ${response.status}`,
+    );
+  }
+
+  return legislatureProfileSchema.parse(await response.json());
 }
 
 export async function loadSourceRegistry(): Promise<SourceRegistry> {
