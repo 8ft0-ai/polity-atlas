@@ -17,9 +17,11 @@ The pinned disputed overlays in this repository come from the Natural Earth vect
 ## IPU Parline
 
 IPU Parline is the canonical source for parliament names and structures,
-chambers, Speakers, electoral systems, latest national parliamentary election
-outcomes, and expected national parliamentary elections in the ten-country
-pilot. It does not replace sources for heads of state/government, diplomatic
+registered chambers, Speakers, electoral systems, latest national parliamentary
+election outcomes, and expected national parliamentary elections in the
+ten-country pilot. When Wikipedia identifies a national chamber that IPU does
+not register, the separate Wikipedia adapter may add that missing chamber
+without replacing or modifying any IPU chamber. It does not replace sources for heads of state/government, diplomatic
 relations, territories, or Natural Earth geometry.
 
 The Parline API is public, read-only, and currently documents no authentication
@@ -55,3 +57,21 @@ a current or post-election full composition.
 ## Global source identity
 
 Public source metadata is stored once in `public/data/sources.json`. Country profiles contain stable source IDs only. A source ID must not be reused for materially different publisher, title, URL, terms, licence, or source-kind metadata. Retrieval timestamps and time-bound attribution strings may advance when the same source is refreshed.
+
+
+## Wikipedia parliamentary fallback
+
+Wikipedia is a reference-source fallback for missing national parliamentary
+chambers, not a co-equal source with IPU. The adapter starts from
+`Parliament of {country}`, follows canonical redirects or a bounded title
+search, parses the page infobox, and follows linked chamber pages.
+
+A Wikipedia chamber is added only when it cannot be matched to an IPU chamber.
+The adapter must not convert current political-group listings into historical
+election outcomes or use Wikipedia to overwrite IPU facts. Missing detail stays
+missing.
+
+Wikipedia source records use the stable English Wikipedia page ID. A page move
+may therefore update its title and canonical URL without changing source
+identity. Every added chamber retains both the parliament-page and chamber-page
+source IDs where they are distinct.
