@@ -40,8 +40,14 @@ function wikipediaSource(page, retrievedAt) {
   };
 }
 
-function compositionEntryId(pageId, party, index) {
-  return `wiki-${pageId}-${slug(party) || index + 1}`;
+function compositionEntryId(pageId, party, group, index) {
+  return [
+    'wiki',
+    pageId,
+    slug(group ?? 'ungrouped'),
+    slug(party) || 'entry',
+    index + 1,
+  ].join('-');
 }
 
 function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
@@ -49,7 +55,12 @@ function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
 
   const entries = candidate.compositionEntries
     .map((entry, index) => ({
-      partyId: compositionEntryId(candidate.pageId, entry.party, index),
+      partyId: compositionEntryId(
+        candidate.pageId,
+        entry.party,
+        entry.group,
+        index,
+      ),
       party: entry.party,
       seats: entry.seats,
       ...(entry.group && { group: entry.group }),
@@ -113,6 +124,22 @@ function candidateMatchesIpu(candidate, chamber) {
     candidate.totalSeats !== undefined &&
     candidate.totalSeats === chamber.totalSeats
   );
+}
+
+function findMatchingChamber(candidate, chambers) {
+  const direct = chambers.find((chamber) =>
+    candidateMatchesIpu(candidate, chamber),
+  );
+  if (direct) return direct;
+
+  if (candidate.kind) {
+    const sameKind = chambers.filter(
+      (chamber) => chamber.kind === candidate.kind,
+    );
+    if (sameKind.length === 1) return sameKind[0];
+  }
+
+  return undefined;
 }
 
 function inferKinds(country, candidates, existingChambers) {
@@ -223,9 +250,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   const matchedCandidates = rawCandidates
     .map((candidate) => ({
       candidate,
-      chamber: authoritativeChambers.find((chamber) =>
-        candidateMatchesIpu(candidate, chamber),
-      ),
+      chamber: findMatchingChamber(candidate, authoritativeChambers),
     }))
     .filter(({ chamber }) => chamber);
 
