@@ -9,10 +9,10 @@ A source-led geopolitical GIS workspace for researching governments, parliaments
 - Tailwind CSS, shadcn primitives, and semantic CSS custom-property theme tokens.
 - Interactive horizontally wrapping Mercator SVG world atlas with canonical country/territory identities, Natural Earth disputed-area overlays, and separate disputed/dependency styling; MapLibre is retained for future detailed/local GIS views.
 - Global country selection and search.
-- Ten citation-bearing pilot profiles generated through a shared IPU Parline
+- Ten full citation-bearing pilot profiles plus three legislature-only pilots generated through shared IPU Parline
   normalization path for parliament, chamber, Speaker, electoral-system, and
   parliamentary-election data.
-- Parliament, multi-entry expected-election, relation, and source views.
+- Legislature, multi-entry expected-election, relation, and source views. Iran, Saudi Arabia, and Myanmar can expose the generated legislature module before a full country profile exists.
 - Light/dark themes and responsive country panel.
 - Shared Zod schemas and automated data-quality tests.
 - CI, CodeQL, and Dependabot for repository assurance.
@@ -56,8 +56,7 @@ local environment files or an approved credential store, and use them only in
 explicit ingestion commands. Never expose them through `VITE_` or
 `NEXT_PUBLIC_` variables or commit them. There is no scheduled data ingestion.
 
-The IPU Parline adapter is public and unauthenticated; it needs no API key. Run
-the explicit pilot refresh with:
+The IPU Parline adapter is public and unauthenticated; it needs no API key. The refresh covers the ten full-profile pilots plus legislature-only Iran, Saudi Arabia, and Myanmar. Run the explicit refresh with:
 
 ```sh
 npm run data:refresh:ipu
@@ -93,3 +92,23 @@ access requires no API key or bearer token. Heads of state/government, diplomati
 Natural Earth map geometry remain outside these parliament adapters.
 
 See `docs/architecture.md`, `docs/source-policy.md`, and `docs/border-policy.md` before adding a source adapter or changing political map geometry.
+
+
+## Legislature modules and colours
+
+The user-facing country tab is **Legislature**. The internal workspace key remains
+`parliament` so existing saved state does not need a migration.
+
+The original ten pilots remain full country profiles under
+`public/data/countries`. Iran, Saudi Arabia, and Myanmar are the first
+legislature-only pilots under `public/data/legislatures`; they are generated
+from canonical identity plus IPU/Wikimedia data and do not require fabricated
+government or diplomatic-relations fields.
+
+Seat totals and election/renewal facts remain IPU facts when IPU supplies them.
+The Wikimedia adapter may add only visual colour metadata to a matched IPU party
+result. It takes the colour from the corresponding rendered Wikipedia
+legislature entry where a safe match exists. A missing colour never changes a
+party identity or seat count: the UI uses a stable deterministic fallback
+colour instead. Wikipedia-backed composition fallbacks retain their own
+Wikipedia provenance.
