@@ -40,7 +40,7 @@ function wikipediaSource(page, retrievedAt) {
 
 function isWikipediaFallbackChamber(chamber) {
   return (
-    chamber.id?.startsWith('wiki-') ||
+    chamber.id?.startsWith('wiki-') &&
     chamber.sourceIds?.some((sourceId) =>
       sourceId.startsWith('wikipedia-en-page-'),
     )
@@ -57,7 +57,11 @@ function candidateMatchesIpu(candidate, chamber) {
       wikiName.includes(ipuName) ||
       ipuName.includes(wikiName));
 
-  if (strongNameMatch) return true;
+  const kindsConflict =
+    candidate.kind &&
+    chamber.kind &&
+    candidate.kind !== chamber.kind;
+  if (strongNameMatch && !kindsConflict) return true;
 
   const compatibleKind =
     candidate.kind &&
