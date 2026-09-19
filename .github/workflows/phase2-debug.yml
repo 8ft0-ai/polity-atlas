@@ -1,0 +1,38 @@
+name: Temporary Phase 2 infobox debug
+
+on:
+  push:
+    branches: [feat/wikipedia-chamber-composition]
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: feat/wikipedia-chamber-composition
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Inspect live parliament infobox rows
+        run: |
+          node --input-type=module <<'NODE'
+          import { WikipediaClient } from './packages/data-pipeline/wikipedia/client.mjs';
+          import { parseInfobox } from './packages/data-pipeline/wikipedia/parse-infobox.mjs';
+
+          const client = new WikipediaClient();
+          for (const title of ["National People's Congress", "House of Lords"]) {
+            const page = await client.fetchPageWithHtml(title);
+            const parsed = parseInfobox(page.html);
+            console.log('===', title, '===');
+            for (const row of parsed.rows) {
+              if (/political|group|party|composition|seat/i.test(row.label)) {
+                console.log('LABEL:', row.label);
+                console.log('TEXT:', row.text);
+                console.log('HTML:', row.html);
+              }
+            }
+          }
+          NODE
