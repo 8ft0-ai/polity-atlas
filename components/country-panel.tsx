@@ -56,6 +56,9 @@ function sourceIdsForProfile(profile: CountryProfile) {
     ...profile.parliament.chambers.flatMap(
       (chamber) => chamber.latestElection?.sourceIds ?? [],
     ),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) => chamber.composition?.sourceIds ?? [],
+    ),
     ...profile.nextExpectedElections.flatMap((election) => election.sourceIds),
     ...profile.relations.flatMap((relation) => relation.sourceIds),
     ...(profile.territories ?? []).flatMap((territory) => territory.sourceIds),
@@ -97,7 +100,12 @@ function SeatBar({
   totalSeats,
   label,
 }: {
-  entries: Array<{ partyId: string; party: string; seats: number }>;
+  entries: Array<{
+    partyId: string;
+    party: string;
+    seats: number;
+    group?: string;
+  }>;
   totalSeats: number;
   label: string;
 }) {
@@ -161,7 +169,14 @@ function SeatBar({
                 className="h-2 w-2 shrink-0"
                 style={{ background: group.color }}
               />
-              <span className="truncate">{group.party}</span>
+              <span className="min-w-0">
+                <span className="block truncate">{group.party}</span>
+                {group.group && (
+                  <span className="block truncate text-[10px]">
+                    {group.group}
+                  </span>
+                )}
+              </span>
             </span>
             <strong>{group.seats}</strong>
           </div>
@@ -188,6 +203,51 @@ function humanize(value: string) {
   return value.replaceAll('-', ' ');
 }
 
+function ChamberComposition({
+  chamber,
+  sources,
+}: {
+  chamber: CountryProfile['parliament']['chambers'][number];
+  sources: SourceRecord[];
+}) {
+  const composition = chamber.composition;
+  if (!composition) return null;
+
+  const publishers = [
+    ...new Set(
+      sources
+        .filter((source) => composition.sourceIds.includes(source.id))
+        .map((source) => source.publisher),
+    ),
+  ];
+  const sourceLabel = publishers.length ? publishers.join(' / ') : 'Cited source';
+
+  return (
+    <div className="mt-4 border-t border-border pt-4">
+      <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+        Source-reported chamber composition
+      </p>
+      <p className="mt-1 text-sm font-semibold">
+        {sourceLabel} party-seat breakdown
+      </p>
+      <SeatBar
+        entries={composition.entries}
+        totalSeats={chamber.totalSeats}
+        label={`${chamber.name} source-reported chamber composition`}
+      />
+      <p className="mt-3 text-xs leading-5 text-muted-foreground">
+        {composition.reportedSeats} seats are represented in this source
+        breakdown of {chamber.totalSeats} statutory seats. This is a
+        source-reported chamber composition, not an IPU election result, and it
+        may differ from the composition immediately after the latest election.
+      </p>
+      <div className="mt-3">
+        <Sources ids={composition.sourceIds} sources={sources} />
+      </div>
+    </div>
+  );
+}
+
 function ElectionOutcome({
   chamber,
   sources,
@@ -196,101 +256,118 @@ function ElectionOutcome({
   sources: SourceRecord[];
 }) {
   const election = chamber.latestElection;
-  if (!election) {
+  const outcome = election?.outcome;
+  const hasFullComposition = Boolean(
+    outcome?.display === 'post-election-full-composition' &&
+      outcome.postElectionComposition,
+  );
+  const primaryEntries = hasFullComposition
+    ? outcome?.postElectionComposition
+    : outcome?.seatsWonInElection;
+  const primaryTotal = hasFullComposition
+    ? election?.chamberSize
+    : election?.seatsAtStake;
+  const isPartial = election?.scope === 'partial-renewal';
+
+  if (!election && !chamber.composition) {
     return (
       <p className="mt-4 text-sm text-muted-foreground">
-        No recent parliamentary election record is available from the cited
-        sources.
+        No recent parliamentary election or chamber-composition record is
+        available from the cited sources.
       </p>
     );
   }
 
-  const outcome = election.outcome;
-  const hasFullComposition =
-    outcome?.display === 'post-election-full-composition' &&
-    outcome.postElectionComposition;
-  const primaryEntries = hasFullComposition
-    ? outcome.postElectionComposition
-    : outcome?.seatsWonInElection;
-  const primaryTotal = hasFullComposition
-    ? election.chamberSize
-    : election.seatsAtStake;
-  const isPartial = election.scope === 'partial-renewal';
-
   return (
     <div className="mt-4 border-t border-border pt-4">
-      <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-        {hasFullComposition
-          ? 'Post-election composition'
-          : isPartial
-            ? 'Latest partial election result'
-            : 'Most recent election outcome'}
-      </p>
-      <p className="mt-1 text-sm font-semibold">
-        {formatDateRange(election.date)}
-      </p>
-      {election.seatsAtStake && (
-        <p className="ui-text mt-1 text-xs text-muted-foreground">
-          {isPartial
-            ? `${election.seatsAtStake} of ${election.chamberSize} seats contested`
-            : `${election.seatsAtStake} seats contested`}
-        </p>
-      )}
-
-      {primaryEntries?.length && primaryTotal ? (
-        <SeatBar
-          entries={primaryEntries}
-          totalSeats={primaryTotal}
-          label={`${chamber.name} ${
-            hasFullComposition
-              ? 'post-election composition'
-              : 'contested-seat result'
-          }`}
-        />
-      ) : (
-        <p className="mt-3 text-sm text-muted-foreground">
-          The cited sources do not report a structured party-seat outcome for
-          this record.
-        </p>
-      )}
-
-      <p className="mt-3 text-xs leading-5 text-muted-foreground">
-        {hasFullComposition
-          ? 'This is the full chamber immediately after the latest election or renewal reported by IPU. It is not necessarily the current composition.'
-          : 'These figures cover only the seats decided in this election or renewal. They must not be read as the full or current chamber composition.'}
-      </p>
-
-      {hasFullComposition &&
-        isPartial &&
-        outcome.seatsWonInElection.length > 0 && (
-          <div className="mt-4 border-t border-border pt-3">
-            <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-              Seats decided in this renewal
+      {election ? (
+        <>
+          <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+            {hasFullComposition
+              ? 'Post-election composition'
+              : isPartial
+                ? 'Latest partial election result'
+                : 'Most recent election outcome'}
+          </p>
+          <p className="mt-1 text-sm font-semibold">
+            {formatDateRange(election.date)}
+          </p>
+          {election.seatsAtStake && (
+            <p className="ui-text mt-1 text-xs text-muted-foreground">
+              {isPartial
+                ? `${election.seatsAtStake} of ${election.chamberSize} seats contested`
+                : `${election.seatsAtStake} seats contested`}
             </p>
-            <div className="ui-text mt-2 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
-              {outcome.seatsWonInElection.map((result) => (
-                <div
-                  key={result.partyId}
-                  className="flex items-center justify-between gap-2"
-                >
-                  <span className="truncate text-muted-foreground">
-                    {result.party}
-                  </span>
-                  <strong>{result.seats}</strong>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+          )}
 
-      {election.notes?.map((note) => (
-        <p key={note} className="mt-3 text-xs leading-5 text-muted-foreground">
-          {note}
+          {primaryEntries?.length && primaryTotal ? (
+            <SeatBar
+              entries={primaryEntries}
+              totalSeats={primaryTotal}
+              label={`${chamber.name} ${
+                hasFullComposition
+                  ? 'post-election composition'
+                  : 'contested-seat result'
+              }`}
+            />
+          ) : (
+            <p className="mt-3 text-sm text-muted-foreground">
+              The cited election source does not report a structured party-seat
+              outcome for this record.
+            </p>
+          )}
+
+          <p className="mt-3 text-xs leading-5 text-muted-foreground">
+            {hasFullComposition
+              ? 'This is the full chamber immediately after the latest election or renewal reported by IPU. It is not necessarily the current composition.'
+              : 'These figures cover only the seats decided in this election or renewal. They must not be read as the full or current chamber composition.'}
+          </p>
+
+          {hasFullComposition &&
+            isPartial &&
+            outcome?.seatsWonInElection.length > 0 && (
+              <div className="mt-4 border-t border-border pt-3">
+                <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                  Seats decided in this renewal
+                </p>
+                <div className="ui-text mt-2 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                  {outcome.seatsWonInElection.map((result) => (
+                    <div
+                      key={result.partyId}
+                      className="flex items-center justify-between gap-2"
+                    >
+                      <span className="truncate text-muted-foreground">
+                        {result.party}
+                      </span>
+                      <strong>{result.seats}</strong>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+          {election.notes?.map((note) => (
+            <p
+              key={note}
+              className="mt-3 text-xs leading-5 text-muted-foreground"
+            >
+              {note}
+            </p>
+          ))}
+          <div className="mt-3">
+            <Sources ids={election.sourceIds} sources={sources} />
+          </div>
+        </>
+      ) : (
+        <p className="text-sm text-muted-foreground">
+          No recent parliamentary election record is available from the cited
+          sources.
         </p>
-      ))}
-      <div className="mt-3">
-        <Sources ids={election.sourceIds} sources={sources} />
-      </div>
+      )}
+
+      {!hasFullComposition && (
+        <ChamberComposition chamber={chamber} sources={sources} />
+      )}
     </div>
   );
 }
