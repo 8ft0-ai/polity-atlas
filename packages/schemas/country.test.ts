@@ -18,6 +18,7 @@ import sourceRegistry from '@/public/data/sources.json';
 import nzl from '@/public/data/countries/NZL.json';
 import usa from '@/public/data/countries/USA.json';
 import {
+  chamberSchema,
   countryProfileSchema,
   legislatureProfileSchema,
   sourceRegistrySchema,
@@ -25,6 +26,25 @@ import {
 
 const pilotProfiles = [aus, nzl, can, usa, gbr, fra, chn, ind, idn, jpn];
 const legislaturePilots = [irn, sau, mmr];
+
+function compositionSourceIds(
+  composition:
+    | ReturnType<typeof countryProfileSchema.parse>['parliament']['chambers'][number]['composition']
+    | ReturnType<typeof legislatureProfileSchema.parse>['parliament']['chambers'][number]['composition'],
+) {
+  if (!composition) return [];
+  return 'views' in composition
+    ? composition.views.flatMap((view) => [
+        ...view.sourceIds,
+        ...view.entries.flatMap((entry) => entry.visual?.sourceIds ?? []),
+      ])
+    : [
+        ...composition.sourceIds,
+        ...composition.entries.flatMap(
+          (entry) => entry.visual?.sourceIds ?? [],
+        ),
+      ];
+}
 
 describe('country profile contract', () => {
   it('accepts every pilot profile', () => {
@@ -50,6 +70,104 @@ describe('country profile contract', () => {
     expect(mmr.parliament.chambers.map((chamber) => chamber.id).sort()).toEqual(
       ['MM-LC01', 'MM-UC01'],
     );
+  });
+
+  it('accepts independently validated multi-view chamber compositions', () => {
+    expect(() =>
+      chamberSchema.parse({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'unicameral',
+        totalSeats: 290,
+        speakers: [],
+        sourceIds: ['ipu-parline'],
+        composition: {
+          basis: 'source-reported',
+          defaultViewId: 'faction',
+          retrievedAt: '2026-09-20T00:00:00.000Z',
+          views: [
+            {
+              id: 'faction',
+              label: 'By faction',
+              dimension: 'faction',
+              reportedSeats: 290,
+              entries: [
+                { partyId: 'a', party: 'A', seats: 198 },
+                { partyId: 'b', party: 'B', seats: 92 },
+              ],
+              sourceIds: ['wikipedia-example'],
+            },
+            {
+              id: 'party',
+              label: 'By party',
+              dimension: 'party',
+              reportedSeats: 290,
+              entries: [
+                { partyId: 'c', party: 'C', seats: 200 },
+                { partyId: 'd', party: 'D', seats: 90 },
+              ],
+              sourceIds: ['wikipedia-example'],
+            },
+          ],
+        },
+      }),
+    ).not.toThrow();
+  });
+
+  it('rejects composition views whose entries do not equal reportedSeats', () => {
+    expect(() =>
+      chamberSchema.parse({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'unicameral',
+        totalSeats: 290,
+        speakers: [],
+        sourceIds: ['ipu-parline'],
+        composition: {
+          basis: 'source-reported',
+          defaultViewId: 'party',
+          retrievedAt: '2026-09-20T00:00:00.000Z',
+          views: [
+            {
+              id: 'party',
+              label: 'By party',
+              dimension: 'party',
+              reportedSeats: 290,
+              entries: [{ partyId: 'a', party: 'A', seats: 289 }],
+              sourceIds: ['wikipedia-example'],
+            },
+          ],
+        },
+      }),
+    ).toThrow('Composition view entry seats must equal reportedSeats');
+  });
+
+  it('rejects composition views that exceed statutory chamber size', () => {
+    expect(() =>
+      chamberSchema.parse({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'unicameral',
+        totalSeats: 290,
+        speakers: [],
+        sourceIds: ['ipu-parline'],
+        composition: {
+          basis: 'source-reported',
+          defaultViewId: 'party',
+          retrievedAt: '2026-09-20T00:00:00.000Z',
+          views: [
+            {
+              id: 'party',
+              label: 'By party',
+              dimension: 'party',
+              reportedSeats: 291,
+              entries: [{ partyId: 'a', party: 'A', seats: 291 }],
+              sourceIds: ['wikipedia-example'],
+            },
+          ],
+        },
+      }),
+    ).toThrow('Source-reported composition view exceeds chamber size');
   });
 
   it('rejects duplicate global source IDs', () => {
@@ -87,8 +205,8 @@ describe('country profile contract', () => {
         ...parsed.parliament.chambers.flatMap(
           (chamber) => chamber.latestElection?.sourceIds ?? [],
         ),
-        ...parsed.parliament.chambers.flatMap(
-          (chamber) => chamber.composition?.sourceIds ?? [],
+        ...parsed.parliament.chambers.flatMap((chamber) =>
+          compositionSourceIds(chamber.composition),
         ),
         ...parsed.parliament.chambers.flatMap((chamber) => [
           ...(chamber.latestElection?.outcome?.seatsWonInElection.flatMap(
@@ -97,9 +215,7 @@ describe('country profile contract', () => {
           ...(chamber.latestElection?.outcome?.postElectionComposition?.flatMap(
             (entry) => entry.visual?.sourceIds ?? [],
           ) ?? []),
-          ...(chamber.composition?.entries.flatMap(
-            (entry) => entry.visual?.sourceIds ?? [],
-          ) ?? []),
+          ...compositionSourceIds(chamber.composition),
         ]),
         ...parsed.nextExpectedElections.flatMap(
           (election) => election.sourceIds,
@@ -236,8 +352,8 @@ describe('country profile contract', () => {
         ...parsed.parliament.chambers.flatMap(
           (chamber) => chamber.latestElection?.sourceIds ?? [],
         ),
-        ...parsed.parliament.chambers.flatMap(
-          (chamber) => chamber.composition?.sourceIds ?? [],
+        ...parsed.parliament.chambers.flatMap((chamber) =>
+          compositionSourceIds(chamber.composition),
         ),
         ...parsed.parliament.chambers.flatMap((chamber) => [
           ...(chamber.latestElection?.outcome?.seatsWonInElection.flatMap(
@@ -246,9 +362,7 @@ describe('country profile contract', () => {
           ...(chamber.latestElection?.outcome?.postElectionComposition?.flatMap(
             (entry) => entry.visual?.sourceIds ?? [],
           ) ?? []),
-          ...(chamber.composition?.entries.flatMap(
-            (entry) => entry.visual?.sourceIds ?? [],
-          ) ?? []),
+          ...compositionSourceIds(chamber.composition),
         ]),
         ...parsed.nextExpectedElections.flatMap(
           (election) => election.sourceIds,
