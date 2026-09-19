@@ -161,9 +161,9 @@ async function enrichSnapshotWithWikidataColors(
     if (!page) return page;
     const pageTitles = new Set(
       visualArticleTitles(
-        (extractPoliticalCompositionViews(parseInfobox(page.html)) ?? []).flatMap(
-          (view) => view.entries,
-        ),
+        (
+          extractPoliticalCompositionViews(parseInfobox(page.html)) ?? []
+        ).flatMap((view) => view.entries),
       ),
     );
     const wikidataVisuals = Object.fromEntries(
