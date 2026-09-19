@@ -190,19 +190,28 @@ function isWikipediaFallbackChamber(chamber) {
   );
 }
 
+function candidateNameMatchesChamber(candidate, chamber) {
+  const candidateNames = [candidate.name, candidate.requestedTitle]
+    .map(comparableName)
+    .filter(Boolean);
+  const chamberNames = [chamber.name, ...(chamber.aliases ?? [])]
+    .map(comparableName)
+    .filter(Boolean);
+
+  return candidateNames.some((candidateName) =>
+    chamberNames.some(
+      (chamberName) =>
+        candidateName === chamberName ||
+        (candidateName.length >= 5 &&
+          chamberName.length >= 5 &&
+          (candidateName.includes(chamberName) ||
+            chamberName.includes(candidateName))),
+    ),
+  );
+}
+
 function candidateMatchesIpu(candidate, chamber) {
-  const wikiName = comparableName(candidate.name);
-  const ipuName = comparableName(chamber.name);
-  if (wikiName && ipuName && wikiName === ipuName) return true;
-
-  const strongNameMatch =
-    wikiName &&
-    ipuName &&
-    (wikiName.includes(ipuName) || ipuName.includes(wikiName));
-
-  const kindsConflict =
-    candidate.kind && chamber.kind && candidate.kind !== chamber.kind;
-  if (strongNameMatch && !kindsConflict) return true;
+  if (candidateNameMatchesChamber(candidate, chamber)) return true;
 
   const compatibleKind =
     candidate.kind && chamber.kind && candidate.kind === chamber.kind;
@@ -392,14 +401,23 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     }))
     .filter(({ composition }) => composition);
 
+  const matchedSet = new Set(
+    matchedCandidates.map(({ candidate }) => candidate),
+  );
+  const duplicateAliases = new Set(
+    rawCandidates.filter(
+      (candidate) =>
+        !matchedSet.has(candidate) &&
+        authoritativeChambers.some((chamber) =>
+          candidateNameMatchesChamber(candidate, chamber),
+        ),
+    ),
+  );
   const seatBearingCandidates = rawCandidates.filter(
-    (candidate) => candidate.totalSeats,
+    (candidate) => candidate.totalSeats && !duplicateAliases.has(candidate),
   );
   const unmatched = seatBearingCandidates.filter(
-    (candidate) =>
-      !matchedCandidates.some(
-        ({ candidate: matched }) => matched === candidate,
-      ),
+    (candidate) => !matchedSet.has(candidate),
   );
   const withKinds = inferKinds(
     snapshot.requestedCountry,

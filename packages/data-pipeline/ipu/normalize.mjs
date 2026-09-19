@@ -369,6 +369,17 @@ function normalizeElectoralSystem(attributes, parliamentAttributes, taxonomy) {
   };
 }
 
+function chamberAliases(attributes, primaryName) {
+  return Array.from(
+    new Set(
+      [
+        english(fieldValue(attributes.chamber_name_local)),
+        english(fieldValue(attributes.chamber_name_full)),
+      ].filter((value) => value && value !== primaryName),
+    ),
+  );
+}
+
 function chamberKind(attributes, isUnicameral) {
   if (isUnicameral) return 'unicameral';
   const term = attributes.struct_parl_status?.value?.term;
@@ -477,9 +488,13 @@ export function normalizeIpuSnapshot(snapshot) {
       if (!totalSeats) {
         throw new Error(`IPU returned no chamber size for ${entity.id}`);
       }
+      const name =
+        english(fieldValue(attributes.chamber_name)) ?? entity.id;
+      const aliases = chamberAliases(attributes, name);
       const chamber = {
         id: entity.id,
-        name: english(fieldValue(attributes.chamber_name)) ?? entity.id,
+        name,
+        ...(aliases.length && { aliases }),
         kind: chamberKind(attributes, isUnicameral),
         totalSeats,
         ...(numberValue(attributes.parliamentary_term) !== undefined && {

@@ -46,6 +46,10 @@ const snapshot = {
       id: 'AU-LC01',
       attributes: {
         chamber_name: dated({ en: 'House of Representatives' }),
+        chamber_name_local: dated({ en: 'Local Assembly' }),
+        chamber_name_full: dated({
+          en: 'Local Assembly (House of Representatives)',
+        }),
         struct_parl_status: { value: { term: 'lower_chamber' } },
         statutory_members_number: dated(100),
         directly_elected_number: { value: 100 },
@@ -302,6 +306,10 @@ describe('IPU normalisation', () => {
   it('emits generic Speaker, electoral-system, and multi-entry national election data', () => {
     const normalized = normalizeIpuSnapshot(snapshot);
     const house = normalized.parliament.chambers[0];
+    expect(house.aliases).toEqual([
+      'Local Assembly',
+      'Local Assembly (House of Representatives)',
+    ]);
     expect(house.speakers[0]).toMatchObject({
       personId: 'au-example-speaker',
       name: 'Alex Example',

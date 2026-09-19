@@ -205,6 +205,7 @@ export const chamberSchema = z
   .object({
     id: z.string(),
     name: z.string(),
+    aliases: z.array(z.string()).min(1).optional(),
     kind: z.enum(['lower', 'upper', 'unicameral']),
     totalSeats: z.number().int().positive(),
     parliamentaryTermYears: z.number().positive().optional(),

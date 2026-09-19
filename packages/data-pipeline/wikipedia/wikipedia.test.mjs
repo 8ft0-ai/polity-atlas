@@ -136,10 +136,11 @@ function profile(chambers = []) {
   };
 }
 
-function ipuChamber({ id, name, kind, totalSeats }) {
+function ipuChamber({ id, name, aliases, kind, totalSeats }) {
   return {
     id,
     name,
+    ...(aliases && { aliases }),
     kind,
     totalSeats,
     speakers: [],
@@ -566,6 +567,37 @@ describe('Wikipedia chamber fallback', () => {
         houses: [
           { name: 'Pyithu Hluttaw', title: 'Pyithu Hluttaw', seats: 440 },
           { name: 'Amyotha Hluttaw', title: 'Amyotha Hluttaw', seats: 224 },
+        ],
+      }),
+      current,
+    );
+
+    expect(normalized.missingChambers).toEqual([]);
+  });
+
+  it('matches Wikipedia chamber aliases from IPU local/full names', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'House of the People',
+        aliases: ['Lok Sabha'],
+        kind: 'lower',
+        totalSeats: 545,
+      }),
+      ipuChamber({
+        id: 'EX-UC01',
+        name: 'Council of States',
+        aliases: ['Rajya Sabha'],
+        kind: 'upper',
+        totalSeats: 245,
+      }),
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          { name: 'Lok Sabha', title: 'Lok Sabha', seats: 543 },
+          { name: 'Rajya Sabha', title: 'Rajya Sabha', seats: 245 },
         ],
       }),
       current,
