@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { IpuClient } from './client.mjs';
 import { mergeIpuProfile, normalizeIpuSnapshot } from './normalize.mjs';
+import { mergeSourceRecords } from '../sources/registry.mjs';
 
 const repositoryRoot = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -18,6 +19,7 @@ const configPath = resolve(
 const profileDirectory = resolve(repositoryRoot, 'public/data/countries');
 const cacheDirectory = resolve(repositoryRoot, '.cache/ipu');
 const manifestPath = resolve(repositoryRoot, 'public/data/manifest.json');
+const sourcesPath = resolve(repositoryRoot, 'public/data/sources.json');
 const formatterPath = resolve(repositoryRoot, 'node_modules/.bin/oxfmt');
 const execFileAsync = promisify(execFile);
 
@@ -50,6 +52,8 @@ const retrievedAt =
 const buildId = option('build-id') ?? retrievedAt.slice(0, 10);
 const config = await readJson(configPath);
 const client = new IpuClient();
+const existingSourceRegistry = await readJson(sourcesPath);
+const emittedSources = [];
 
 let taxonomies;
 if (fromCache) {
@@ -71,6 +75,7 @@ for (const country of config.countries) {
   const previousProfile = await readJson(profilePath);
   const normalized = normalizeIpuSnapshot(snapshot);
   const profile = mergeIpuProfile(previousProfile, normalized, buildId);
+  emittedSources.push(normalized.source);
   preparedProfiles.push({ country, profilePath, profile });
   process.stdout.write(`Prepared ${country.iso3}\n`);
 }
@@ -96,11 +101,20 @@ for (const prepared of preparedProfiles) {
 }
 
 manifestProfiles.sort((left, right) => left.iso3.localeCompare(right.iso3));
+const mergedSources = mergeSourceRecords(existingSourceRegistry.sources, emittedSources);
+await writeJson(sourcesPath, { schemaVersion: 1, sources: mergedSources });
+await execFileAsync(formatterPath, [sourcesPath]);
+const sourcesOutput = await readFile(sourcesPath);
+
 await writeJson(manifestPath, {
-  schemaVersion: 2,
+  schemaVersion: 3,
   buildId,
   generatedAt: retrievedAt,
   profiles: manifestProfiles,
+  sourceRegistry: {
+    path: 'sources.json',
+    sha256: sha256(sourcesOutput),
+  },
 });
 await execFileAsync(formatterPath, [manifestPath]);
 process.stdout.write(
