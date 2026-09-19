@@ -60,3 +60,7 @@ Country links own click/tap selection; map drag capture deliberately does not be
 - `.github/dependabot.yml` proposes dependency updates.
 - The repository setting should require `verify` on `main`; confirm the effective rule after workflow changes.
 - Source ingestion is manual. The approved IPU pilot adapter is explicit and unauthenticated; remaining adapters still require source review. There is no scheduled ingestion, placeholder validation, or deployment workflow.
+
+## Global source registry
+
+Country profiles do not embed source metadata. They refer to stable source IDs, resolved against `public/data/sources.json`. The source registry is generated deterministically, rejects conflicting reuse of a source ID, and is independently hash-bound in the public data manifest.

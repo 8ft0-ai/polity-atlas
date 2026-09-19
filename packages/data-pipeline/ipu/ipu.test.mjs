@@ -323,20 +323,15 @@ describe('IPU normalisation', () => {
     ).toBe(true);
   });
 
-  it('replaces old parliamentary sources while preserving out-of-scope sources', () => {
+  it('replaces the parliamentary slice without embedding source metadata', () => {
     const profile = mergeIpuProfile(
       previousProfile,
       normalizeIpuSnapshot(snapshot),
       '2026-09-18',
     );
     expect(() => countryProfileSchema.parse(profile)).not.toThrow();
-    expect(profile.sources.map((source) => source.id)).toEqual([
-      'government-source',
-      'ipu-parline',
-    ]);
-    expect(profile.sources[1].attribution).toBe(
-      'Inter-Parliamentary Union: Parline, September 2026',
-    );
+    expect(profile.schemaVersion).toBe(3);
+    expect(profile).not.toHaveProperty('sources');
   });
 });
 

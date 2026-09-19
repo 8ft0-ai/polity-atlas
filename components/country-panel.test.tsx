@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import australiaProfile from '@/public/data/countries/AUS.json';
+import sourceRegistry from '@/public/data/sources.json';
 import indonesiaProfile from '@/public/data/countries/IDN.json';
 import japanProfile from '@/public/data/countries/JPN.json';
 import usaProfile from '@/public/data/countries/USA.json';
@@ -30,10 +31,11 @@ function selectProfile({
 
   vi.stubGlobal(
     'fetch',
-    vi.fn().mockResolvedValue({
+    vi.fn().mockImplementation(async (url: string) => ({
       ok: true,
-      json: async () => profile,
-    }),
+      json: async () =>
+        url.endsWith('/data/sources.json') ? sourceRegistry : profile,
+    })),
   );
 }
 
@@ -71,6 +73,42 @@ describe('CountryPanel', () => {
     expect(link).not.toHaveTextContent('[1]');
     expect(link.querySelector('svg')).not.toBeNull();
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('fails closed when the global source registry cannot be loaded', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockImplementation(async (url: string) =>
+        url.endsWith('/data/sources.json')
+          ? {
+              ok: false,
+              status: 503,
+              json: async () => ({}),
+            }
+          : {
+              ok: true,
+              json: async () => australiaProfile,
+            },
+      ),
+    );
+
+    renderPanel();
+
+    expect(
+      await screen.findByText(
+        'The validated profile or source registry could not be loaded.',
+        {},
+        { timeout: 3000 },
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(australiaProfile.government.system.value),
+    ).toBeNull();
+    expect(
+      screen.queryByRole('link', {
+        name: "Source: Australia's system of government",
+      }),
+    ).toBeNull();
   });
 
   it('shows full post-election compositions for Australian chambers', async () => {

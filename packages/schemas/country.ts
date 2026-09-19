@@ -211,8 +211,27 @@ const expectedElectionSchema = z
     }
   });
 
+export const sourceRegistrySchema = z
+  .object({
+    schemaVersion: z.literal(1),
+    sources: z.array(sourceSchema),
+  })
+  .superRefine((registry, ctx) => {
+    const seen = new Set<string>();
+    registry.sources.forEach((source, index) => {
+      if (seen.has(source.id)) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `Duplicate source id: ${source.id}`,
+          path: ['sources', index, 'id'],
+        });
+      }
+      seen.add(source.id);
+    });
+  });
+
 export const countryProfileSchema = z.object({
-  schemaVersion: z.literal(2),
+  schemaVersion: z.literal(3),
   buildId: z.string(),
   identity: z.object({
     iso2: z.string().length(2),
@@ -274,10 +293,10 @@ export const countryProfileSchema = z.object({
       }),
     )
     .optional(),
-  sources: z.array(sourceSchema),
 });
 
 export type CountryProfile = z.infer<typeof countryProfileSchema>;
 export type SourceRecord = z.infer<typeof sourceSchema>;
+export type SourceRegistry = z.infer<typeof sourceRegistrySchema>;
 export type ParliamentaryChamber = z.infer<typeof chamberSchema>;
 export type ElectionPartyResult = z.infer<typeof electionPartyResultSchema>;

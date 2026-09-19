@@ -442,7 +442,7 @@ Exit criteria: every primary entity in the canonical index can be selected by ma
 
 ### Phase 3 — Shared data platform (7–10 days)
 
-Progress as of 19 September 2026: a bounded pilot slice is implemented. All ten pilots now use a generic unauthenticated IPU adapter, ignored raw snapshot cache, canonical parliament/election normalizer, schema-v2 output, deterministic cache replay, and a hash-backed manifest. Speaker, electoral-system, latest-election, and expected-election fields are live in the UI. Country identity joins and every displayed pilot source reference are tested. Curated override infrastructure, general staleness/change reports, a deduplicated global source registry, and non-IPU adapters remain future Phase 3 work.
+Progress as of 19 September 2026: a bounded pilot slice is implemented, including a deduplicated global source registry. All ten pilots now use a generic unauthenticated IPU adapter, ignored raw snapshot cache, canonical parliament/election normalizer, schema-v3 output with global source resolution, deterministic cache replay, and a hash-backed manifest. Speaker, electoral-system, latest-election, and expected-election fields are live in the UI. Country identity joins and every displayed pilot source reference are tested. Curated fallback infrastructure, general staleness/change reports, and non-IPU adapters remain future Phase 3 work.
 
 Deliverables:
 

@@ -51,7 +51,7 @@ Pull requests and pushes to `main` run the `verify` CI job. Repository settings 
 
 ## Data and secrets
 
-Reviewed data lives in `public/data`. Keep private source credentials in ignored
+Reviewed data lives in `public/data`. Source metadata is deduplicated in `public/data/sources.json`; country profiles contain only stable `sourceIds`. Keep private source credentials in ignored
 local environment files or an approved credential store, and use them only in
 explicit ingestion commands. Never expose them through `VITE_` or
 `NEXT_PUBLIC_` variables or commit them. There is no scheduled data ingestion.

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "IN",
@@ -656,51 +656,6 @@
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
       "sourceIds": ["in-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "in-country",
-      "publisher": "Wikipedia",
-      "title": "India",
-      "url": "https://en.wikipedia.org/wiki/India",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "in-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of India",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_India",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "in-president",
-      "publisher": "President of India",
-      "title": "Profile of the President",
-      "url": "https://www.presidentofindia.gov.in/Profile",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "in-prime-minister",
-      "publisher": "Prime Minister of India",
-      "title": "Prime Minister of India",
-      "url": "https://www.pmindia.gov.in/en/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "GB",
@@ -357,51 +357,6 @@
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
       "sourceIds": ["gb-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "gb-country",
-      "publisher": "Wikipedia",
-      "title": "United Kingdom",
-      "url": "https://en.wikipedia.org/wiki/United_Kingdom",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "gb-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of the United Kingdom",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_the_United_Kingdom",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "gb-monarch",
-      "publisher": "The Royal Family",
-      "title": "The King",
-      "url": "https://www.royal.uk/the-king",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "gb-prime-minister",
-      "publisher": "GOV.UK",
-      "title": "Prime Minister",
-      "url": "https://www.gov.uk/government/ministers/prime-minister",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
     }
   ]
 }

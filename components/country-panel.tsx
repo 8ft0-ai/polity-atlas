@@ -4,10 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 import { ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { loadCountryProfile } from '@/lib/profile-data';
+import { loadCountryProfile, loadSourceRegistry } from '@/lib/profile-data';
 import { supportedProfiles } from '@/lib/countries';
 import { type CountryTab, useWorkspaceStore } from '@/lib/workspace-store';
-import type { CountryProfile } from '@/packages/schemas/country';
+import type { CountryProfile, SourceRecord } from '@/packages/schemas/country';
 
 const tabs: Array<{ value: CountryTab; label: string }> = [
   { value: 'overview', label: 'Overview' },
@@ -17,11 +17,11 @@ const tabs: Array<{ value: CountryTab; label: string }> = [
   { value: 'sources', label: 'Sources' },
 ];
 
-function Sources({ ids, profile }: { ids: string[]; profile: CountryProfile }) {
-  const sources = profile.sources.filter((source) => ids.includes(source.id));
+function Sources({ ids, sources }: { ids: string[]; sources: SourceRecord[] }) {
+  const resolvedSources = sources.filter((source) => ids.includes(source.id));
   return (
     <span className="ui-text ml-1 inline-flex flex-wrap gap-x-2 gap-y-1 text-xs">
-      {sources.map((source) => (
+      {resolvedSources.map((source) => (
         <a
           key={source.id}
           href={source.url}
@@ -36,6 +36,30 @@ function Sources({ ids, profile }: { ids: string[]; profile: CountryProfile }) {
       ))}
     </span>
   );
+}
+
+function sourceIdsForProfile(profile: CountryProfile) {
+  return new Set([
+    ...profile.government.system.sourceIds,
+    ...profile.government.headOfState.flatMap((holder) => holder.sourceIds),
+    ...profile.government.headOfGovernment.flatMap(
+      (holder) => holder.sourceIds,
+    ),
+    ...profile.parliament.name.sourceIds,
+    ...profile.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+    ...profile.parliament.chambers.flatMap((chamber) =>
+      chamber.speakers.flatMap((speaker) => speaker.sourceIds),
+    ),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) => chamber.electoralSystem.sourceIds,
+    ),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) => chamber.latestElection?.sourceIds ?? [],
+    ),
+    ...profile.nextExpectedElections.flatMap((election) => election.sourceIds),
+    ...profile.relations.flatMap((relation) => relation.sourceIds),
+    ...(profile.territories ?? []).flatMap((territory) => territory.sourceIds),
+  ]);
 }
 
 const SEMICIRCLE_CENTER_X = 100;
@@ -166,10 +190,10 @@ function humanize(value: string) {
 
 function ElectionOutcome({
   chamber,
-  profile,
+  sources,
 }: {
   chamber: CountryProfile['parliament']['chambers'][number];
-  profile: CountryProfile;
+  sources: SourceRecord[];
 }) {
   const election = chamber.latestElection;
   if (!election) {
@@ -263,7 +287,7 @@ function ElectionOutcome({
         </p>
       ))}
       <div className="mt-3">
-        <Sources ids={election.sourceIds} profile={profile} />
+        <Sources ids={election.sourceIds} sources={sources} />
       </div>
     </div>
   );
@@ -325,6 +349,11 @@ export function CountryPanel() {
   const iso3 = selectedEntityId
     ? supportedProfiles[selectedEntityId]
     : undefined;
+  const sourceRegistryQuery = useQuery({
+    queryKey: ['source-registry'],
+    queryFn: loadSourceRegistry,
+    enabled: Boolean(iso3),
+  });
   const profileQuery = useQuery({
     queryKey: ['country-profile', iso3],
     queryFn: () => loadCountryProfile(iso3!),
@@ -332,6 +361,8 @@ export function CountryPanel() {
   });
 
   if (!selectedEntityId || !selectedName) return null;
+
+  const sources = sourceRegistryQuery.data?.sources ?? [];
 
   function clearSelection() {
     clearCountry();
@@ -383,13 +414,16 @@ export function CountryPanel() {
             </p>
           </div>
         </div>
-      ) : profileQuery.isPending ? (
+      ) : profileQuery.isPending || sourceRegistryQuery.isPending ? (
         <div className="ui-text p-6 text-sm text-muted-foreground">
-          Loading verified country data…
+          Loading verified country data and sources…
         </div>
-      ) : profileQuery.isError || !profileQuery.data ? (
+      ) : profileQuery.isError ||
+        !profileQuery.data ||
+        sourceRegistryQuery.isError ||
+        !sourceRegistryQuery.data ? (
         <div className="p-6 text-sm text-destructive">
-          The validated profile could not be loaded.
+          The validated profile or source registry could not be loaded.
         </div>
       ) : (
         <Tabs
@@ -420,7 +454,7 @@ export function CountryPanel() {
                   {profileQuery.data.government.system.value}
                   <Sources
                     ids={profileQuery.data.government.system.sourceIds}
-                    profile={profileQuery.data}
+                    sources={sources}
                   />
                 </p>
               </section>
@@ -439,10 +473,7 @@ export function CountryPanel() {
                     <p className="mt-1 text-xs text-muted-foreground">
                       {holder.office} · Since {holder.since}
                     </p>
-                    <Sources
-                      ids={holder.sourceIds}
-                      profile={profileQuery.data}
-                    />
+                    <Sources ids={holder.sourceIds} sources={sources} />
                   </article>
                 ))}
               </section>
@@ -461,10 +492,7 @@ export function CountryPanel() {
                           Expected {formatDateRange(election.date)} ·{' '}
                           {humanize(election.eventType)}
                         </p>
-                        <Sources
-                          ids={election.sourceIds}
-                          profile={profileQuery.data}
-                        />
+                        <Sources ids={election.sourceIds} sources={sources} />
                       </article>
                     ))}
                   </div>
@@ -486,10 +514,7 @@ export function CountryPanel() {
                       {chamber.totalSeats} statutory seats
                     </span>
                   </div>
-                  <ElectionOutcome
-                    chamber={chamber}
-                    profile={profileQuery.data}
-                  />
+                  <ElectionOutcome chamber={chamber} sources={sources} />
 
                   <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2">
                     <section>
@@ -576,10 +601,7 @@ export function CountryPanel() {
                   </div>
 
                   <div className="mt-4">
-                    <Sources
-                      ids={chamber.sourceIds}
-                      profile={profileQuery.data}
-                    />
+                    <Sources ids={chamber.sourceIds} sources={sources} />
                   </div>
                 </section>
               ))}
@@ -609,10 +631,7 @@ export function CountryPanel() {
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">
                       National parliamentary {humanize(election.eventType)}
                     </p>
-                    <Sources
-                      ids={election.sourceIds}
-                      profile={profileQuery.data}
-                    />
+                    <Sources ids={election.sourceIds} sources={sources} />
                   </article>
                 ))
               ) : (
@@ -644,55 +663,56 @@ export function CountryPanel() {
                       {relation.note}
                     </p>
                   </div>
-                  <Sources
-                    ids={relation.sourceIds}
-                    profile={profileQuery.data}
-                  />
+                  <Sources ids={relation.sourceIds} sources={sources} />
                 </article>
               ))}
             </TabsContent>
 
             <TabsContent value="sources" className="space-y-4">
-              {profileQuery.data.sources.map((source) => (
-                <article
-                  key={source.id}
-                  className="border-b border-border pb-4"
-                >
-                  <span className="ui-text flex items-center gap-2 text-[10px] uppercase tracking-[0.07em] text-muted-foreground">
-                    {source.kind} · {source.publisher}
-                  </span>
-                  <a
-                    href={source.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 flex items-center gap-2 text-sm font-semibold hover:underline"
+              {sources
+                .filter((source) =>
+                  sourceIdsForProfile(profileQuery.data).has(source.id),
+                )
+                .map((source) => (
+                  <article
+                    key={source.id}
+                    className="border-b border-border pb-4"
                   >
-                    {source.title}
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                  {source.attribution && (
-                    <span className="mt-2 block text-xs leading-5 text-muted-foreground">
-                      {source.attribution}
+                    <span className="ui-text flex items-center gap-2 text-[10px] uppercase tracking-[0.07em] text-muted-foreground">
+                      {source.kind} · {source.publisher}
                     </span>
-                  )}
-                  {source.license && (
-                    <span className="mt-1 block text-xs text-muted-foreground">
-                      {source.license}
-                    </span>
-                  )}
-                  {source.termsUrl && (
                     <a
-                      href={source.termsUrl}
+                      href={source.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ui-text mt-2 inline-flex items-center gap-1 text-xs text-primary underline underline-offset-2"
+                      className="mt-2 flex items-center gap-2 text-sm font-semibold hover:underline"
                     >
-                      Terms of use
+                      {source.title}
                       <ExternalLink className="h-3 w-3" />
                     </a>
-                  )}
-                </article>
-              ))}
+                    {source.attribution && (
+                      <span className="mt-2 block text-xs leading-5 text-muted-foreground">
+                        {source.attribution}
+                      </span>
+                    )}
+                    {source.license && (
+                      <span className="mt-1 block text-xs text-muted-foreground">
+                        {source.license}
+                      </span>
+                    )}
+                    {source.termsUrl && (
+                      <a
+                        href={source.termsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ui-text mt-2 inline-flex items-center gap-1 text-xs text-primary underline underline-offset-2"
+                      >
+                        Terms of use
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
+                  </article>
+                ))}
             </TabsContent>
           </div>
         </Tabs>

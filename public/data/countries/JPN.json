@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "JP",
@@ -405,51 +405,6 @@
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
       "sourceIds": ["jp-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
-    },
-    {
-      "id": "jp-country",
-      "publisher": "Wikipedia",
-      "title": "Japan",
-      "url": "https://en.wikipedia.org/wiki/Japan",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "jp-emperor",
-      "publisher": "Imperial Household Agency",
-      "title": "Their Majesties the Emperor and Empress",
-      "url": "https://www.kunaicho.go.jp/en/learn/about/history/history01.html",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "jp-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of Japan",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Japan",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "jp-prime-minister",
-      "publisher": "Prime Minister's Office of Japan",
-      "title": "Designation of the Prime Minister",
-      "url": "https://japan.kantei.go.jp/105/actions/202602/_00001.html",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
     }
   ]
 }

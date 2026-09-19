@@ -26,7 +26,7 @@ The refresh command:
    party-name overrides, or country-specific editorial strings.
 7. Replaces the parliamentary and expected-election slice of each profile while
    preserving government, relation, territory, and map sourcing.
-8. Writes a sorted manifest with SHA-256 hashes for all ten profile files.
+8. Updates the global deduplicated `public/data/sources.json` registry and writes a sorted manifest with SHA-256 hashes for all ten profile files plus the registry.
 
 To reproduce output from the retained raw inputs without making network calls:
 
@@ -70,3 +70,7 @@ The remaining planned adapter order is:
 
 Review generated JSON and the manifest diff before opening a pull request. A
 failed fetch must leave the last committed public data available.
+
+## Global source registry
+
+`public/data/sources.json` is the sole public source-metadata registry. Country profiles contain only stable `sourceIds`. Generation fails if an incoming source reuses an existing ID with materially different metadata. The registry and every profile are hash-bound by `public/data/manifest.json`.
