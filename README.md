@@ -82,9 +82,11 @@ npm run data:refresh:wikipedia -- --country=AUS
 ```
 
 The Wikipedia process never replaces an IPU chamber. It resolves a
-`Parliament of X` page (following redirects/search fallback), inspects the
-infobox, follows chamber links, and adds only unmatched chambers with explicit
-Wikipedia provenance. Heads of state/government, diplomatic relations, and
+`Parliament of X` page through Wikimedia's MediaWiki REST API, using REST page
+search when the conventional title is absent, inspects the returned rendered
+HTML, follows chamber links, and adds only unmatched chambers with explicit
+Wikipedia provenance. Read-only Wikimedia access in this pipeline requires no
+API key or bearer token. Heads of state/government, diplomatic relations, and
 Natural Earth map geometry remain outside these parliament adapters.
 
 See `docs/architecture.md`, `docs/source-policy.md`, and `docs/border-policy.md` before adding a source adapter or changing political map geometry.
