@@ -75,6 +75,9 @@ describe('country profile contract', () => {
         ),
         ...parsed.parliament.name.sourceIds,
         ...parsed.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.operationalStatus?.sourceIds ?? [],
+        ),
         ...parsed.parliament.chambers.flatMap((chamber) =>
           chamber.speakers.flatMap((speaker) => speaker.sourceIds),
         ),
@@ -221,6 +224,15 @@ describe('country profile contract', () => {
       const usedSources = [
         ...parsed.parliament.name.sourceIds,
         ...parsed.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.operationalStatus?.sourceIds ?? [],
+        ),
+        ...parsed.parliament.chambers.flatMap((chamber) =>
+          chamber.speakers.flatMap((speaker) => speaker.sourceIds),
+        ),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.electoralSystem?.sourceIds ?? [],
+        ),
         ...parsed.parliament.chambers.flatMap(
           (chamber) => chamber.latestElection?.sourceIds ?? [],
         ),

@@ -227,8 +227,9 @@ function SeatBar({
       </div>
       {seatSegments.some((entry) => entry.visual) && (
         <p className="mt-3 text-[11px] leading-5 text-muted-foreground">
-          Seat colours follow the cited Wikipedia entry where available.
-          Unresolved entries use a stable Polity Atlas fallback colour.
+          Seat colours follow cited Wikipedia or Wikidata visual metadata where
+          available. Unresolved entries use a stable Polity Atlas fallback
+          colour.
         </p>
       )}
     </div>

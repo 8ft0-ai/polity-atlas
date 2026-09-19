@@ -24,7 +24,7 @@ The refresh command:
    party-name overrides, or country-specific editorial strings.
 7. Replaces the parliamentary and expected-election slice of each profile while
    preserving government, relation, territory, and map sourcing.
-8. Updates the global deduplicated `public/data/sources.json` registry and writes a sorted manifest with SHA-256 hashes for all ten profile files plus the registry.
+8. Updates the global deduplicated `public/data/sources.json` registry and writes a sorted manifest with SHA-256 hashes for all ten full profiles, all three legislature modules, and the registry.
 
 To reproduce output from the retained raw inputs without making network calls:
 
@@ -98,10 +98,13 @@ a full post-election composition. The fallback composition never becomes
 `latestElection.outcome`: it is a distinct chamber field with its own retrieval
 time and Wikipedia source IDs.
 
-Chamber matching prefers strong normalized-name evidence, then compatible
-chamber identity. When source names differ but exactly one IPU chamber has the
-same explicit lower/upper/unicameral kind, that unique kind can resolve the
-alias; seat count alone is never chamber identity. Previously generated
+Chamber matching prefers strong normalized-name evidence across the IPU primary
+name plus IPU-provided local/full chamber aliases, then compatible chamber
+identity. When source names differ but exactly one still-unmatched IPU chamber
+has the same explicit lower/upper/unicameral kind, that unique kind can resolve
+the alias. A statutory-capacity match is used only when it identifies exactly
+one still-unmatched authoritative chamber; capacity is never treated as a
+globally unique chamber identity. Previously generated
 Wikipedia fallback chambers are reconciled on every refresh and are removed
 when IPU later supplies the chamber. Added chambers may be partial records:
 unknown Speaker, electoral-system, or election fields remain unknown rather
@@ -155,7 +158,10 @@ renewal contracts embedded in a full country profile.
 
 The manifest hashes both collections separately. Adding a legislature pilot
 therefore does not widen the unrelated government, leader, territory, or
-diplomatic-relations completeness contract.
+diplomatic-relations completeness contract. IPU local/full chamber names are
+retained as reconciliation aliases, not as additional chambers. When IPU
+explicitly reports a chamber as suspended, that operational status, effective
+date, note, and IPU provenance are preserved and rendered rather than inferred.
 
 ### Seat display colours
 

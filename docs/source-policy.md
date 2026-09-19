@@ -17,9 +17,10 @@ The pinned disputed overlays in this repository come from the Natural Earth vect
 ## IPU Parline
 
 IPU Parline is the canonical source for parliament names and structures,
-registered chambers, Speakers, electoral systems, latest national parliamentary
-election outcomes, and expected national parliamentary elections in the
-ten-country pilot. When Wikipedia identifies a national chamber that IPU does
+registered chambers, source-reported chamber operational status, Speakers,
+electoral systems, latest national parliamentary election outcomes, and expected
+national parliamentary elections across the ten full-profile pilots and three
+standalone legislature pilots. When Wikipedia identifies a national chamber that IPU does
 not register, the separate Wikipedia adapter may add that missing chamber
 without replacing or modifying any IPU chamber. It does not replace sources for heads of state/government, diplomatic
 relations, territories, or Natural Earth geometry.
@@ -101,11 +102,22 @@ single unambiguous P465 colour, cited to the Wikidata item.
 For IPU-backed results this enrichment must never alter IPU party names, IDs,
 seat totals, election dates, chamber sizes, or outcome semantics.
 
-Matching must fail closed when aliases are ambiguous. Chamber aliases may use
-an exact statutory-capacity match only when that capacity identifies exactly
+Matching must fail closed when aliases are ambiguous. IPU-provided local and
+full chamber names are retained as source-reconciliation aliases. A
+statutory-capacity match may be used only when that capacity identifies exactly
 one still-unmatched authoritative chamber. Party colours never participate in
 identity matching. When no source colour resolves safely, the application uses
 a deterministic presentation fallback that carries no source claim.
 
 Do not infer ideology, political family, government/opposition status, vacancy
 status, or party identity from a colour.
+
+
+## Legislature operational status
+
+Operational status is published only when a source reports it explicitly. In
+particular, a historical election record must not be interpreted as evidence
+that a legislature is currently functioning. When IPU marks a chamber as
+suspended, Polity Atlas preserves the reported status, effective date, note, and
+IPU source ID alongside the chamber. No functioning/suspended status is inferred
+from election age, political events, or secondary-source composition alone.
