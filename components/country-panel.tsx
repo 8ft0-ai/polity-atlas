@@ -46,13 +46,18 @@ function Sources({ ids, sources }: { ids: string[]; sources: SourceRecord[] }) {
   );
 }
 
-function sourceIdsForProfile(profile: CountryProfile) {
+function sourceIdsForProfile(
+  profile: CountryProfile | LegislatureProfile,
+) {
+  const fullProfile = 'government' in profile ? profile : undefined;
   return new Set([
-    ...profile.government.system.sourceIds,
-    ...profile.government.headOfState.flatMap((holder) => holder.sourceIds),
-    ...profile.government.headOfGovernment.flatMap(
+    ...(fullProfile?.government.system.sourceIds ?? []),
+    ...(fullProfile?.government.headOfState.flatMap(
       (holder) => holder.sourceIds,
-    ),
+    ) ?? []),
+    ...(fullProfile?.government.headOfGovernment.flatMap(
+      (holder) => holder.sourceIds,
+    ) ?? []),
     ...profile.parliament.name.sourceIds,
     ...profile.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
     ...profile.parliament.chambers.flatMap((chamber) =>
@@ -64,12 +69,28 @@ function sourceIdsForProfile(profile: CountryProfile) {
     ...profile.parliament.chambers.flatMap(
       (chamber) => chamber.latestElection?.sourceIds ?? [],
     ),
+    ...profile.parliament.chambers.flatMap((chamber) => [
+      ...(chamber.latestElection?.outcome?.seatsWonInElection.flatMap(
+        (entry) => entry.visual?.sourceIds ?? [],
+      ) ?? []),
+      ...(chamber.latestElection?.outcome?.postElectionComposition?.flatMap(
+        (entry) => entry.visual?.sourceIds ?? [],
+      ) ?? []),
+    ]),
     ...profile.parliament.chambers.flatMap(
       (chamber) => chamber.composition?.sourceIds ?? [],
     ),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) =>
+        chamber.composition?.entries.flatMap(
+          (entry) => entry.visual?.sourceIds ?? [],
+        ) ?? [],
+    ),
     ...profile.nextExpectedElections.flatMap((election) => election.sourceIds),
-    ...profile.relations.flatMap((relation) => relation.sourceIds),
-    ...(profile.territories ?? []).flatMap((territory) => territory.sourceIds),
+    ...(fullProfile?.relations.flatMap((relation) => relation.sourceIds) ?? []),
+    ...(fullProfile?.territories ?? []).flatMap(
+      (territory) => territory.sourceIds,
+    ),
   ]);
 }
 
