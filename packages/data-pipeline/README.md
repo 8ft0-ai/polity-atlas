@@ -74,3 +74,40 @@ failed fetch must leave the last committed public data available.
 ## Global source registry
 
 `public/data/sources.json` is the sole public source-metadata registry. Country profiles contain only stable `sourceIds`. Generation fails if an incoming source reuses an existing ID with materially different metadata. The registry and every profile are hash-bound by `public/data/manifest.json`.
+
+
+## Wikipedia chamber fallback
+
+Wikipedia acquisition is a separate explicit process:
+
+```sh
+npm run data:refresh:wikipedia
+npm run data:refresh:wikipedia -- --from-cache
+npm run data:refresh:wikipedia -- --country=GBR
+```
+
+For each configured country the adapter resolves `Parliament of {country}`,
+following Wikipedia redirects and a bounded title search when the exact title
+does not exist. It parses the parliament infobox, follows the linked house or
+chamber pages, and compares those chambers with the already-normalized IPU
+chambers.
+
+IPU remains authoritative for every chamber it supplies. Wikipedia can add only
+a chamber that does not match an IPU chamber by normalized name or seat count;
+it never overwrites an IPU chamber. Added chambers may be partial records:
+unknown Speaker, electoral-system, or election fields remain unknown rather
+than being invented.
+
+Chamber kind is resolved in this order:
+
+1. explicit Wikipedia lower/upper/unicameral labeling;
+2. the opposite kind of a matching IPU chamber when exactly one side is
+   missing;
+3. unicameral when Wikipedia exposes exactly one chamber and IPU exposes none;
+4. as a final two-chamber heuristic, the larger chamber is treated as the lower
+   house, except for the United Kingdom where the larger chamber is treated as
+   the upper house.
+
+Raw Wikipedia snapshots are retained only under ignored
+`.cache/wikipedia`. Wikipedia page IDs are used as stable source identities so
+renames and redirects do not create duplicate source records.
