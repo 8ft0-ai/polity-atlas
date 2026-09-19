@@ -14,10 +14,20 @@ describe('global source registry', () => {
   it('deduplicates stable source identities and advances retrieval time', () => {
     const merged = mergeSourceRecords(
       [source],
-      [{ ...source, retrievedAt: '2026-09-19T00:00:00.000Z' }],
+      [
+        {
+          ...source,
+          retrievedAt: '2026-09-19T00:00:00.000Z',
+          attribution: 'Example, September 2026',
+        },
+      ],
     );
     expect(merged).toEqual([
-      { ...source, retrievedAt: '2026-09-19T00:00:00.000Z' },
+      {
+        ...source,
+        retrievedAt: '2026-09-19T00:00:00.000Z',
+        attribution: 'Example, September 2026',
+      },
     ]);
   });
 
