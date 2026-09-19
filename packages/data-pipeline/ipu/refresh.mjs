@@ -129,7 +129,7 @@ try {
   const sourcesOutput = await readFile(stagedSourcesPath);
   const stagedManifestPath = resolve(stagingDirectory, 'manifest.json');
   await writeJson(stagedManifestPath, {
-    schemaVersion: 3,
+    schemaVersion: 4,
     buildId,
     generatedAt: retrievedAt,
     profiles: manifestProfiles,

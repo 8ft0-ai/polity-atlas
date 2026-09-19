@@ -33,6 +33,32 @@ const electionPartyResultSchema = z.object({
   seats: z.number().int().nonnegative(),
 });
 
+const chamberCompositionEntrySchema = electionPartyResultSchema.extend({
+  group: z.string().optional(),
+});
+
+const chamberCompositionSchema = z
+  .object({
+    basis: z.literal('source-reported'),
+    reportedSeats: z.number().int().nonnegative(),
+    retrievedAt: z.iso.datetime(),
+    entries: z.array(chamberCompositionEntrySchema).min(1),
+    sourceIds: z.array(z.string()).min(1),
+  })
+  .superRefine((composition, ctx) => {
+    const entrySeats = composition.entries.reduce(
+      (sum, entry) => sum + entry.seats,
+      0,
+    );
+    if (entrySeats !== composition.reportedSeats) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Composition entry seats must equal reportedSeats',
+        path: ['reportedSeats'],
+      });
+    }
+  });
+
 const electionOutcomeSchema = z
   .object({
     display: z.enum(['post-election-full-composition', 'contested-seats-only']),
@@ -168,18 +194,32 @@ const electoralSystemSchema = z.object({
   sourceIds: z.array(z.string()).min(1),
 });
 
-const chamberSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  kind: z.enum(['lower', 'upper', 'unicameral']),
-  totalSeats: z.number().int().positive(),
-  parliamentaryTermYears: z.number().positive().optional(),
-  renewalFrequencyYears: z.number().positive().optional(),
-  speakers: z.array(speakerSchema),
-  electoralSystem: electoralSystemSchema.optional(),
-  latestElection: latestElectionSchema.optional(),
-  sourceIds: z.array(z.string()).min(1),
-});
+const chamberSchema = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    kind: z.enum(['lower', 'upper', 'unicameral']),
+    totalSeats: z.number().int().positive(),
+    parliamentaryTermYears: z.number().positive().optional(),
+    renewalFrequencyYears: z.number().positive().optional(),
+    speakers: z.array(speakerSchema),
+    electoralSystem: electoralSystemSchema.optional(),
+    latestElection: latestElectionSchema.optional(),
+    composition: chamberCompositionSchema.optional(),
+    sourceIds: z.array(z.string()).min(1),
+  })
+  .superRefine((chamber, ctx) => {
+    if (
+      chamber.composition &&
+      chamber.composition.reportedSeats > chamber.totalSeats
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Source-reported composition exceeds chamber size',
+        path: ['composition', 'reportedSeats'],
+      });
+    }
+  });
 
 const expectedElectionSchema = z
   .object({
@@ -231,7 +271,7 @@ export const sourceRegistrySchema = z
   });
 
 export const countryProfileSchema = z.object({
-  schemaVersion: z.literal(3),
+  schemaVersion: z.literal(4),
   buildId: z.string(),
   identity: z.object({
     iso2: z.string().length(2),
@@ -300,3 +340,6 @@ export type SourceRecord = z.infer<typeof sourceSchema>;
 export type SourceRegistry = z.infer<typeof sourceRegistrySchema>;
 export type ParliamentaryChamber = z.infer<typeof chamberSchema>;
 export type ElectionPartyResult = z.infer<typeof electionPartyResultSchema>;
+export type ChamberCompositionEntry = z.infer<
+  typeof chamberCompositionEntrySchema
+>;

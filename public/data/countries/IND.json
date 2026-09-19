@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "IN",
@@ -563,6 +563,242 @@
           "seatsAtStake": 72,
           "chamberSize": 245,
           "sourceIds": ["ipu-parline"]
+        },
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 244,
+          "retrievedAt": "2026-09-19T03:20:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-232210-nda-bjp-1",
+              "party": "BJP",
+              "seats": 117,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-inc-16",
+              "party": "INC",
+              "seats": 30,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-maitc-17",
+              "party": "MAITC",
+              "seats": 9,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-dmk-29",
+              "party": "DMK",
+              "seats": 8,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-nda-nom-15",
+              "party": "NOM",
+              "seats": 7,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-bjd-30",
+              "party": "BJD",
+              "seats": 5,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-nda-aiadmk-2",
+              "party": "AIADMK",
+              "seats": 4,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-nda-jd-u-3",
+              "party": "JD(U)",
+              "seats": 4,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-nda-ncp-4",
+              "party": "NCP",
+              "seats": 4,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-sp-18",
+              "party": "SP",
+              "seats": 4,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-nda-tdp-5",
+              "party": "TDP",
+              "seats": 4,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-ysrcp-31",
+              "party": "YSRCP",
+              "seats": 4,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-aap-32",
+              "party": "AAP",
+              "seats": 3,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-brs-33",
+              "party": "BRS",
+              "seats": 3,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-cpi-m-19",
+              "party": "CPI(M)",
+              "seats": 3,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-nda-ind-14",
+              "party": "IND",
+              "seats": 3,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-jknc-20",
+              "party": "JKNC",
+              "seats": 3,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-jmm-21",
+              "party": "JMM",
+              "seats": 3,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-rjd-22",
+              "party": "RJD",
+              "seats": 3,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-cpi-23",
+              "party": "CPI",
+              "seats": 2,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-iuml-24",
+              "party": "IUML",
+              "seats": 2,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-nda-shs-6",
+              "party": "SHS",
+              "seats": 2,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-uppl-34",
+              "party": "UPPL",
+              "seats": 2,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-nda-agp-7",
+              "party": "AGP",
+              "seats": 1,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-bsp-35",
+              "party": "BSP",
+              "seats": 1,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-dmdk-36",
+              "party": "DMDK",
+              "seats": 1,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-ind-28",
+              "party": "IND",
+              "seats": 1,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-nda-jsp-8",
+              "party": "JSP",
+              "seats": 1,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-kc-m-25",
+              "party": "KC(M)",
+              "seats": 1,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-mnm-37",
+              "party": "MNM",
+              "seats": 1,
+              "group": "Other opposition"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-ncp-sp-26",
+              "party": "NCP-SP",
+              "seats": 1,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-nda-npp-9",
+              "party": "NPP",
+              "seats": 1,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-nda-pmk-10",
+              "party": "PMK",
+              "seats": 1,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-nda-rld-11",
+              "party": "RLD",
+              "seats": 1,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-nda-rlm-12",
+              "party": "RLM",
+              "seats": 1,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-nda-rpi-a-13",
+              "party": "RPI(A)",
+              "seats": 1,
+              "group": "NDA"
+            },
+            {
+              "partyId": "wiki-232210-official-opposition-ss-ubt-27",
+              "party": "SS(UBT)",
+              "seats": 1,
+              "group": "Official Opposition"
+            },
+            {
+              "partyId": "wiki-232210-other-opposition-zpm-38",
+              "party": "ZPM",
+              "seats": 1,
+              "group": "Other opposition"
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-232210"]
         }
       }
     ]

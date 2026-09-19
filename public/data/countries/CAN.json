@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "CA",
@@ -177,7 +177,50 @@
           "compulsoryVoting": "No",
           "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": ["ipu-parline"]
+        "sourceIds": ["ipu-parline"],
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 105,
+          "retrievedAt": "2026-09-19T03:20:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-123498-ungrouped-independent-senators-group-3",
+              "party": "Independent Senators Group",
+              "seats": 38
+            },
+            {
+              "partyId": "wiki-123498-ungrouped-progressive-senate-group-4",
+              "party": "Progressive Senate Group",
+              "seats": 17
+            },
+            {
+              "partyId": "wiki-123498-ungrouped-canadian-senators-group-5",
+              "party": "Canadian Senators Group",
+              "seats": 16
+            },
+            {
+              "partyId": "wiki-123498-ungrouped-conservative-party-2",
+              "party": "Conservative Party",
+              "seats": 12
+            },
+            {
+              "partyId": "wiki-123498-ungrouped-vacant-7",
+              "party": "Vacant",
+              "seats": 11
+            },
+            {
+              "partyId": "wiki-123498-ungrouped-non-affiliated-6",
+              "party": "Non-affiliated",
+              "seats": 6
+            },
+            {
+              "partyId": "wiki-123498-ungrouped-government-representative-s-office-1",
+              "party": "Government Representative’s Office",
+              "seats": 5
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-123498"]
+        }
       }
     ]
   },

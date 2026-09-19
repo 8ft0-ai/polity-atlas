@@ -104,7 +104,7 @@ for (const country of countries) {
     ? ` (${normalized.diagnostics.join(', ')})`
     : '';
   process.stdout.write(
-    `Prepared ${country.iso3}: +${normalized.missingChambers.length} chamber(s)${diagnosticSuffix}\n`,
+    `Prepared ${country.iso3}: +${normalized.missingChambers.length} chamber(s), ${normalized.chamberCompositions.length} composition fallback(s)${diagnosticSuffix}\n`,
   );
 }
 
@@ -168,7 +168,7 @@ try {
   const sourcesOutput = await readFile(stagedSourcesPath);
   const stagedManifestPath = resolve(stagingDirectory, 'manifest.json');
   await writeJson(stagedManifestPath, {
-    schemaVersion: 3,
+    schemaVersion: 4,
     buildId,
     generatedAt: retrievedAt,
     profiles: manifestProfiles,

@@ -274,7 +274,7 @@ Header:
 Tabs:
 
 - **Overview:** government system, head of state, head of government, capital, legislature summary, and all available next expected parliamentary elections.
-- **Parliament:** one card per chamber with statutory seats, Speaker, electoral system, and an accessible latest-election visualization that clearly distinguishes full post-election composition from contested-seat-only partial renewals.
+- **Parliament:** one card per chamber with statutory seats, Speaker, electoral system, an accessible latest-election visualization, and a separately disclosed source-reported chamber composition where IPU lacks a full party-seat split.
 - **Parties:** dense table with name, abbreviation, chamber seats, leader, status, and expandable sourced description.
 - **Elections:** multiple expected national parliamentary chamber/renewal dates where available, status label, scope, and source. Future adapters may add confirmed or non-national events without changing the collection shape.
 - **Relations:** inbound/outbound mission status, location, accreditation, and a map legend.
@@ -442,7 +442,7 @@ Exit criteria: every primary entity in the canonical index can be selected by ma
 
 ### Phase 3 — Shared data platform (7–10 days)
 
-Progress as of 19 September 2026: a bounded pilot slice is implemented, including a deduplicated global source registry. All ten pilots now use a generic unauthenticated IPU adapter, ignored raw snapshot cache, canonical parliament/election normalizer, schema-v3 output with global source resolution, deterministic cache replay, and a hash-backed manifest. Speaker, electoral-system, latest-election, and expected-election fields are live in the UI. Country identity joins and every displayed pilot source reference are tested. A separate reusable Wikipedia acquisition path now supplies chamber-level fallback when IPU omits a national chamber. Wikipedia acquisition uses the MediaWiki REST API, retains exact page/revision metadata in the ignored cache, and requires no API key. General staleness/change reports and further non-IPU adapters remain future Phase 3 work.
+Progress as of 19 September 2026: a bounded pilot slice is implemented, including a deduplicated global source registry. All ten pilots now use a generic unauthenticated IPU adapter, ignored raw snapshot cache, canonical parliament/election normalizer, schema-v4 output with global source resolution, deterministic cache replay, and a hash-backed manifest. Speaker, electoral-system, latest-election, and expected-election fields are live in the UI. Country identity joins and every displayed pilot source reference are tested. A separate reusable Wikipedia acquisition path now supplies chamber-level fallback when IPU omits a national chamber and source-reported party-seat composition when a matched IPU chamber lacks a full split. Wikipedia acquisition uses the MediaWiki REST API, retains exact page/revision metadata in the ignored cache, and requires no API key. The UI keeps Wikipedia composition distinct from IPU election outcomes and cites the Wikipedia chamber page directly. General staleness/change reports and further non-IPU adapters remain future Phase 3 work.
 
 Deliverables:
 

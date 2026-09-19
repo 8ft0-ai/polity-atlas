@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "ID",
@@ -177,6 +177,14 @@
           },
           "sourceIds": ["ipu-parline"]
         }
+      },
+      {
+        "id": "wiki-idn-regional-representative-council",
+        "name": "Regional Representative Council",
+        "kind": "upper",
+        "totalSeats": 152,
+        "speakers": [],
+        "sourceIds": ["wikipedia-en-page-3211155", "wikipedia-en-page-617979"]
       }
     ]
   },

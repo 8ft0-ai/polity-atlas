@@ -2,6 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import australiaProfile from '@/public/data/countries/AUS.json';
 import sourceRegistry from '@/public/data/sources.json';
+import chinaProfile from '@/public/data/countries/CHN.json';
 import indonesiaProfile from '@/public/data/countries/IDN.json';
 import japanProfile from '@/public/data/countries/JPN.json';
 import usaProfile from '@/public/data/countries/USA.json';
@@ -151,6 +152,44 @@ describe('CountryPanel', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Milton Dick')).toBeInTheDocument();
     expect(screen.getByText(/Alternative Vote \(AV\)/)).toBeInTheDocument();
+  });
+
+  it('shows a disclosed Wikipedia chamber composition when IPU lacks a full split', async () => {
+    selectProfile({
+      entityId: 'state:m49:156',
+      m49: '156',
+      name: 'China',
+      profile: chinaProfile,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+
+    renderPanel();
+
+    expect(
+      await screen.findByText('Source-reported chamber composition'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Wikipedia party-seat breakdown'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('2977 seats contested')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /2847 seats are represented in this source breakdown of 3000 statutory seats/,
+      ),
+    ).toBeInTheDocument();
+
+    const composition = screen.getByLabelText(
+      "National People's Congress source-reported chamber composition semicircle",
+    );
+    expect(composition.querySelectorAll('[data-party-segment]').length).toBe(9);
+    expect(
+      screen.getByRole('link', {
+        name: "Source: National People's Congress",
+      }),
+    ).toHaveAttribute(
+      'href',
+      "https://en.wikipedia.org/wiki/National_People's_Congress",
+    );
   });
 
   it('uses IPU full composition for a partial renewal when it is supplied', async () => {

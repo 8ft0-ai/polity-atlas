@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "GB",
@@ -276,7 +276,87 @@
           "compulsoryVoting": "No",
           "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": ["ipu-parline"]
+        "sourceIds": ["ipu-parline"],
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 798,
+          "retrievedAt": "2026-09-19T03:20:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-13658-hm-official-opposition-conservative-party-3",
+              "party": "Conservative Party",
+              "seats": 247,
+              "group": "HM Official Opposition"
+            },
+            {
+              "partyId": "wiki-13658-hm-government-labour-party-2",
+              "party": "Labour Party",
+              "seats": 233,
+              "group": "HM Government"
+            },
+            {
+              "partyId": "wiki-13658-crossbench-crossbenchers-11",
+              "party": "Crossbenchers",
+              "seats": 155,
+              "group": "Crossbench"
+            },
+            {
+              "partyId": "wiki-13658-other-groups-liberal-democrats-4",
+              "party": "Liberal Democrats",
+              "seats": 80,
+              "group": "Other groups"
+            },
+            {
+              "partyId": "wiki-13658-other-groups-non-affiliated-10",
+              "party": "Non-affiliated",
+              "seats": 43,
+              "group": "Other groups"
+            },
+            {
+              "partyId": "wiki-13658-lords-spiritual-bishops-1",
+              "party": "Bishops",
+              "seats": 25,
+              "group": "Lords Spiritual"
+            },
+            {
+              "partyId": "wiki-13658-other-groups-democratic-unionist-party-5",
+              "party": "Democratic Unionist Party",
+              "seats": 6,
+              "group": "Other groups"
+            },
+            {
+              "partyId": "wiki-13658-other-groups-ulster-unionist-party-6",
+              "party": "Ulster Unionist Party",
+              "seats": 3,
+              "group": "Other groups"
+            },
+            {
+              "partyId": "wiki-13658-other-groups-green-party-of-england-and-wales-7",
+              "party": "Green Party of England and Wales",
+              "seats": 2,
+              "group": "Other groups"
+            },
+            {
+              "partyId": "wiki-13658-other-groups-plaid-cymru-8",
+              "party": "Plaid Cymru",
+              "seats": 2,
+              "group": "Other groups"
+            },
+            {
+              "partyId": "wiki-13658-other-groups-independents-9",
+              "party": "Independents",
+              "seats": 1,
+              "group": "Other groups"
+            },
+            {
+              "partyId": "wiki-13658-presiding-officer-lord-speaker-12",
+              "party": "Lord Speaker",
+              "seats": 1,
+              "group": "Presiding officer"
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-13658"]
+        }
       }
     ]
   },

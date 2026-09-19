@@ -78,15 +78,25 @@ Parliament of {country}
   -> infobox house links
   -> chamber-page infoboxes
   -> compare against normalized IPU chambers
-  -> add unmatched chambers only
-  -> global source registry + manifest
+  -> add unmatched chambers
+  -> enrich matched chambers with source-reported composition only when IPU
+     lacks a full split
+  -> global source registry + schema-v4 profiles + manifest
 ```
 
 The comparison happens at chamber granularity. A country can therefore retain
 one or more IPU chambers while receiving an additional Wikipedia-backed chamber
-that IPU does not register. Existing IPU chambers are never rewritten by this
-path. Fallback chambers may be structurally partial; unavailable Speaker,
-electoral-system, and election fields remain absent.
+that IPU does not register. A matched IPU chamber may also receive an optional
+schema-v4 `composition` object when IPU lacks a full party-seat split. That
+object has `basis: source-reported`, its own retrieval timestamp, terminal
+party/group seat entries, and Wikipedia source IDs.
+
+The composition object is deliberately separate from `latestElection`.
+Wikipedia political-group data therefore cannot silently become a historical
+election outcome. A later IPU refresh preserves the fallback while IPU still
+lacks a full composition and removes it once IPU supplies one. Fallback
+chambers may remain structurally partial; unavailable Speaker, electoral-system,
+and election fields remain absent.
 
 House kind is taken from explicit source labeling first, then inferred from the
 opposite kind of an existing IPU chamber. Seat-count classification is only a

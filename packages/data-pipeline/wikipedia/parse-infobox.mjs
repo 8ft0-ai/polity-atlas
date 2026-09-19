@@ -1,10 +1,16 @@
 import { JSDOM } from 'jsdom';
 
 function cleanText(value) {
-  return value
+  let text = value
     .replace(/\[[^\]]*\]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+
+  if (text.startsWith('.mw-parser-output') && text.includes('}')) {
+    text = text.slice(text.lastIndexOf('}') + 1).trim();
+  }
+
+  return text;
 }
 
 function titleFromHref(href) {
@@ -12,6 +18,72 @@ function titleFromHref(href) {
   const match = href.match(/(?:^\.\/|\/wiki\/)([^#?]+)/);
   if (!match) return undefined;
   return decodeURIComponent(match[1].replaceAll('_', ' '));
+}
+
+function parseSeatLabel(value) {
+  const text = cleanText(value).replace(/^[•*–—-]\s*/, '');
+  const match = text.match(/^(.+?)\s*\(([\d,]+)\)\s*$/);
+  if (!match) return undefined;
+  const seats = Number(match[2].replaceAll(',', ''));
+  if (!Number.isInteger(seats) || seats < 0) return undefined;
+  return { label: cleanText(match[1]), seats };
+}
+
+function ownText(element) {
+  const clone = element.cloneNode(true);
+  for (const nested of clone.querySelectorAll(
+    'ul, ol, style, script, link, sup.reference',
+  )) {
+    nested.remove();
+  }
+  return cleanText(clone.textContent ?? '');
+}
+
+function headingText(element) {
+  const tag = element.tagName;
+  if (!['B', 'STRONG', 'DIV', 'P', 'H1', 'H2', 'H3', 'H4'].includes(tag)) {
+    return undefined;
+  }
+  const directEmphasis = element.matches('b, strong')
+    ? element
+    : element.querySelector(':scope > b, :scope > strong');
+  const text = cleanText((directEmphasis ?? element).textContent ?? '');
+  if (!text || text.length > 120) return undefined;
+  const label = parseSeatLabel(text)?.label ?? text;
+  return cleanText(label.replace(/\s*\([\d,]+\)\s*/g, ' '));
+}
+
+function nearestGroupLabel(element, root) {
+  for (
+    let ancestor = element.parentElement;
+    ancestor && ancestor !== root;
+    ancestor = ancestor.parentElement
+  ) {
+    if (ancestor.matches('li, dd')) {
+      const group = parseSeatLabel(ownText(ancestor));
+      if (group) return group.label;
+    }
+  }
+
+  let current = element;
+  while (current && current !== root) {
+    if (current.parentElement?.matches('ul, ol, dl')) {
+      current = current.parentElement;
+    }
+
+    for (
+      let sibling = current.previousElementSibling;
+      sibling;
+      sibling = sibling.previousElementSibling
+    ) {
+      if (sibling.matches('link, style, br, ul, ol, dl, li, dd')) continue;
+      const label = headingText(sibling);
+      if (label) return label;
+    }
+    current = current.parentElement;
+  }
+
+  return undefined;
 }
 
 export function parseInfobox(html) {
@@ -37,6 +109,7 @@ export function parseInfobox(html) {
     rows.push({
       label,
       text: cleanText(dataCell.textContent ?? ''),
+      html: dataCell.innerHTML,
       links,
     });
   }
@@ -64,9 +137,62 @@ export function extractExplicitChamberKind(parsed) {
   const row = parsed.rows.find((entry) =>
     /^(type|house type|chamber type)$/i.test(entry.label),
   );
-  const text = `${row?.text ?? ''} ${parsed.text}`.toLowerCase();
+  if (!row) return undefined;
+
+  const text = row.text.toLowerCase();
   if (/\bupper house\b/.test(text)) return 'upper';
   if (/\blower house\b/.test(text)) return 'lower';
   if (/\bunicameral\b/.test(text)) return 'unicameral';
   return undefined;
+}
+
+export function extractPoliticalComposition(parsed) {
+  const row = parsed.rows.find((entry) =>
+    /(?:^|\s)political groups?$|^political parties$|^party composition$|^composition$|^seats by party$/i.test(
+      entry.label,
+    ),
+  );
+  if (!row?.html) return undefined;
+
+  const document = new JSDOM(`<body>${row.html}</body>`).window.document;
+  const root = document.body;
+  const entries = [];
+
+  const leafItems = [...root.querySelectorAll('li, dd')].filter(
+    (item) => !item.querySelector('li, dd'),
+  );
+  for (const item of leafItems) {
+    const result = parseSeatLabel(ownText(item));
+    if (!result) continue;
+    entries.push({
+      party: result.label,
+      seats: result.seats,
+      ...(nearestGroupLabel(item, root) && {
+        group: nearestGroupLabel(item, root),
+      }),
+    });
+  }
+
+  if (!entries.length) {
+    const blocks = [...root.querySelectorAll('div, p')].filter(
+      (element) => !element.querySelector('div, p, ul, ol'),
+    );
+    for (const block of blocks) {
+      const result = parseSeatLabel(block.textContent ?? '');
+      if (!result) continue;
+      entries.push({ party: result.label, seats: result.seats });
+    }
+  }
+
+  const unique = new Map();
+  for (const entry of entries) {
+    const key = [
+      entry.party.toLowerCase(),
+      entry.group?.toLowerCase() ?? '',
+      entry.seats,
+    ].join('\u0000');
+    if (!unique.has(key)) unique.set(key, entry);
+  }
+
+  return unique.size ? [...unique.values()] : undefined;
 }

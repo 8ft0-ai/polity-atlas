@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "FR",
@@ -290,6 +290,59 @@
           "seatsAtStake": 170,
           "chamberSize": 348,
           "sourceIds": ["ipu-parline"]
+        },
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 348,
+          "retrievedAt": "2026-09-19T03:20:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-567323-ungrouped-sr-1",
+              "party": "SR",
+              "seats": 130
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-s-2",
+              "party": "S",
+              "seats": 65
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-uc-3",
+              "party": "UC",
+              "seats": 59
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-lirt-4",
+              "party": "LIRT",
+              "seats": 20
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-rdpi-5",
+              "party": "RDPI",
+              "seats": 19
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-crce-6",
+              "party": "CRCE",
+              "seats": 18
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-rdse-7",
+              "party": "RDSE",
+              "seats": 17
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-e-8",
+              "party": "E",
+              "seats": 16
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-rasnag-9",
+              "party": "RASNAG",
+              "seats": 4
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-567323"]
         }
       }
     ]

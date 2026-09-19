@@ -1,6 +1,7 @@
 import {
   extractExplicitChamberKind,
   extractHouseLinks,
+  extractPoliticalComposition,
   extractSeatCount,
   parseInfobox,
 } from './parse-infobox.mjs';
@@ -35,7 +36,61 @@ function wikipediaSource(page, retrievedAt) {
     retrievedAt,
     kind: 'reference',
     attribution: `Wikipedia contributors, "${page.title}"`,
+    ...(page.license?.title && { license: page.license.title }),
   };
+}
+
+function compositionEntryId(pageId, party, group, index) {
+  return [
+    'wiki',
+    pageId,
+    slug(group ?? 'ungrouped'),
+    slug(party) || 'entry',
+    index + 1,
+  ].join('-');
+}
+
+function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
+  if (!candidate.compositionEntries?.length) return undefined;
+
+  const entries = candidate.compositionEntries
+    .map((entry, index) => ({
+      partyId: compositionEntryId(
+        candidate.pageId,
+        entry.party,
+        entry.group,
+        index,
+      ),
+      party: entry.party,
+      seats: entry.seats,
+      ...(entry.group && { group: entry.group }),
+    }))
+    .sort(
+      (left, right) =>
+        right.seats - left.seats || left.party.localeCompare(right.party),
+    );
+  const reportedSeats = entries.reduce((sum, entry) => sum + entry.seats, 0);
+  if (reportedSeats > chamberSize) return undefined;
+
+  return {
+    basis: 'source-reported',
+    reportedSeats,
+    retrievedAt,
+    entries,
+    sourceIds: [candidate.source.id],
+  };
+}
+
+function hasIpuFullComposition(chamber) {
+  return Boolean(
+    chamber.latestElection?.outcome?.postElectionComposition?.length,
+  );
+}
+
+function isWikipediaFallbackComposition(composition) {
+  return composition?.sourceIds?.some((sourceId) =>
+    sourceId.startsWith('wikipedia-en-page-'),
+  );
 }
 
 function isWikipediaFallbackChamber(chamber) {
@@ -50,12 +105,12 @@ function isWikipediaFallbackChamber(chamber) {
 function candidateMatchesIpu(candidate, chamber) {
   const wikiName = comparableName(candidate.name);
   const ipuName = comparableName(chamber.name);
+  if (wikiName && ipuName && wikiName === ipuName) return true;
+
   const strongNameMatch =
     wikiName &&
     ipuName &&
-    (wikiName === ipuName ||
-      wikiName.includes(ipuName) ||
-      ipuName.includes(wikiName));
+    (wikiName.includes(ipuName) || ipuName.includes(wikiName));
 
   const kindsConflict =
     candidate.kind && chamber.kind && candidate.kind !== chamber.kind;
@@ -69,6 +124,22 @@ function candidateMatchesIpu(candidate, chamber) {
     candidate.totalSeats !== undefined &&
     candidate.totalSeats === chamber.totalSeats
   );
+}
+
+function findMatchingChamber(candidate, chambers) {
+  const direct = chambers.find((chamber) =>
+    candidateMatchesIpu(candidate, chamber),
+  );
+  if (direct) return direct;
+
+  if (candidate.kind) {
+    const sameKind = chambers.filter(
+      (chamber) => chamber.kind === candidate.kind,
+    );
+    if (sameKind.length === 1) return sameKind[0];
+  }
+
+  return undefined;
 }
 
 function inferKinds(country, candidates, existingChambers) {
@@ -129,6 +200,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   if (!snapshot.parliamentPage) {
     return {
       missingChambers: [],
+      chamberCompositions: [],
       sources: [],
       diagnostics: ['NO_WIKIPEDIA_PARLIAMENT_PAGE'],
     };
@@ -148,8 +220,10 @@ export function normalizeWikipediaParliament(snapshot, profile) {
         houseLinks.find((link) => link.title === page.requestedTitle)?.text ||
         page.title,
       requestedTitle: page.requestedTitle,
+      pageId: page.pageId,
       totalSeats: extractSeatCount(parsed),
       kind: extractExplicitChamberKind(parsed),
+      compositionEntries: extractPoliticalComposition(parsed),
       source: wikipediaSource(page, snapshot.retrievedAt),
     };
   });
@@ -161,8 +235,10 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       rawCandidates.push({
         name: snapshot.parliamentPage.title,
         requestedTitle: snapshot.parliamentPage.title,
+        pageId: snapshot.parliamentPage.pageId,
         totalSeats: parentSeats,
         kind: 'unicameral',
+        compositionEntries: extractPoliticalComposition(parliamentParsed),
         source: parentSource,
       });
     }
@@ -171,13 +247,32 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   const authoritativeChambers = profile.parliament.chambers.filter(
     (chamber) => !isWikipediaFallbackChamber(chamber),
   );
+  const matchedCandidates = rawCandidates
+    .map((candidate) => ({
+      candidate,
+      chamber: findMatchingChamber(candidate, authoritativeChambers),
+    }))
+    .filter(({ chamber }) => chamber);
+
+  const chamberCompositions = matchedCandidates
+    .filter(({ chamber }) => !hasIpuFullComposition(chamber))
+    .map(({ candidate, chamber }) => ({
+      chamberId: chamber.id,
+      composition: sourceReportedComposition(
+        candidate,
+        snapshot.retrievedAt,
+        chamber.totalSeats,
+      ),
+    }))
+    .filter(({ composition }) => composition);
+
   const seatBearingCandidates = rawCandidates.filter(
     (candidate) => candidate.totalSeats,
   );
   const unmatched = seatBearingCandidates.filter(
     (candidate) =>
-      !authoritativeChambers.some((chamber) =>
-        candidateMatchesIpu(candidate, chamber),
+      !matchedCandidates.some(
+        ({ candidate: matched }) => matched === candidate,
       ),
   );
   const withKinds = inferKinds(
@@ -196,6 +291,17 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       kind: candidate.kind,
       totalSeats: candidate.totalSeats,
       speakers: [],
+      ...(sourceReportedComposition(
+        candidate,
+        snapshot.retrievedAt,
+        candidate.totalSeats,
+      ) && {
+        composition: sourceReportedComposition(
+          candidate,
+          snapshot.retrievedAt,
+          candidate.totalSeats,
+        ),
+      }),
       sourceIds: [...new Set([parentSource.id, candidate.source.id])],
     }))
     .sort((left, right) => {
@@ -206,9 +312,13 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       );
     });
 
-  const sourceIds = new Set(
-    missingChambers.flatMap((chamber) => chamber.sourceIds),
-  );
+  const sourceIds = new Set([
+    ...missingChambers.flatMap((chamber) => chamber.sourceIds),
+    ...missingChambers.flatMap(
+      (chamber) => chamber.composition?.sourceIds ?? [],
+    ),
+    ...chamberCompositions.flatMap(({ composition }) => composition.sourceIds),
+  ]);
   const sources = [
     parentSource,
     ...rawCandidates.map((candidate) => candidate.source),
@@ -221,6 +331,15 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     .sort((left, right) => left.id.localeCompare(right.id));
 
   const diagnostics = [];
+  for (const { candidate, chamber } of matchedCandidates) {
+    const entries = candidate.compositionEntries ?? [];
+    const reportedSeats = entries.reduce((sum, entry) => sum + entry.seats, 0);
+    if (entries.length && reportedSeats > chamber.totalSeats) {
+      diagnostics.push(
+        `COMPOSITION_EXCEEDS_CHAMBER:${candidate.name}:${reportedSeats}/${chamber.totalSeats}`,
+      );
+    }
+  }
   for (const candidate of rawCandidates) {
     if (!candidate.totalSeats) {
       diagnostics.push(`NO_SEAT_COUNT:${candidate.name}`);
@@ -230,7 +349,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     if (!candidate.kind) diagnostics.push(`NO_CHAMBER_KIND:${candidate.name}`);
   }
 
-  return { missingChambers, sources, diagnostics };
+  return { missingChambers, chamberCompositions, sources, diagnostics };
 }
 
 export function mergeWikipediaChambers(profile, normalized, buildId) {
@@ -239,12 +358,30 @@ export function mergeWikipediaChambers(profile, normalized, buildId) {
     (chamber) => !isWikipediaFallbackChamber(chamber),
   );
 
+  const compositions = new Map(
+    (normalized.chamberCompositions ?? []).map(({ chamberId, composition }) => [
+      chamberId,
+      composition,
+    ]),
+  );
+  const enrichedChambers = authoritativeChambers.map((chamber) => {
+    const next = { ...chamber };
+    if (isWikipediaFallbackComposition(next.composition)) {
+      delete next.composition;
+    }
+    if (!hasIpuFullComposition(next) && compositions.has(next.id)) {
+      next.composition = compositions.get(next.id);
+    }
+    return next;
+  });
+
   return {
     ...profile,
+    schemaVersion: 4,
     buildId,
     parliament: {
       ...profile.parliament,
-      chambers: [...authoritativeChambers, ...normalized.missingChambers].sort(
+      chambers: [...enrichedChambers, ...normalized.missingChambers].sort(
         (left, right) =>
           order[left.kind] - order[right.kind] ||
           left.name.localeCompare(right.name),
