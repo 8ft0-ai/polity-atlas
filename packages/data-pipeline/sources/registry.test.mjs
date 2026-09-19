@@ -40,6 +40,24 @@ describe('global source registry', () => {
     );
   });
 
+  it('allows a stable Wikipedia page id to follow a page move', () => {
+    const oldPage = {
+      ...source,
+      id: 'wikipedia-en-page-123',
+      publisher: 'Wikipedia',
+      title: 'Old title',
+      url: 'https://en.wikipedia.org/wiki/Old_title',
+      kind: 'reference',
+    };
+    const movedPage = {
+      ...oldPage,
+      title: 'New title',
+      url: 'https://en.wikipedia.org/wiki/New_title',
+      retrievedAt: '2026-09-19T00:00:00.000Z',
+    };
+    expect(mergeSourceRecords([oldPage], [movedPage])).toEqual([movedPage]);
+  });
+
   it('rejects materially conflicting reuse of a source id', () => {
     expect(() =>
       mergeSourceRecords([source], [{ ...source, title: 'Different source' }]),
