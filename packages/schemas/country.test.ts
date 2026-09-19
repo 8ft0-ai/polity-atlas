@@ -11,9 +11,10 @@ import idn from '@/public/data/countries/IDN.json';
 import ind from '@/public/data/countries/IND.json';
 import jpn from '@/public/data/countries/JPN.json';
 import manifest from '@/public/data/manifest.json';
+import sourceRegistry from '@/public/data/sources.json';
 import nzl from '@/public/data/countries/NZL.json';
 import usa from '@/public/data/countries/USA.json';
-import { countryProfileSchema } from './country';
+import { countryProfileSchema, sourceRegistrySchema } from './country';
 
 const pilotProfiles = [aus, nzl, can, usa, gbr, fra, chn, ind, idn, jpn];
 
@@ -30,7 +31,8 @@ describe('country profile contract', () => {
   it('keeps every displayed fact attached to a known source', () => {
     for (const profile of pilotProfiles) {
       const parsed = countryProfileSchema.parse(profile);
-      const knownSources = new Set(parsed.sources.map((source) => source.id));
+      const registry = sourceRegistrySchema.parse(sourceRegistry);
+      const knownSources = new Set(registry.sources.map((source) => source.id));
       const usedSources = [
         ...parsed.government.system.sourceIds,
         ...parsed.government.headOfState.flatMap((holder) => holder.sourceIds),
@@ -95,7 +97,8 @@ describe('country profile contract', () => {
           (election) => election.sourceIds,
         ),
       ]);
-      const parliamentarySources = parsed.sources.filter((source) =>
+      const registry = sourceRegistrySchema.parse(sourceRegistry);
+      const parliamentarySources = registry.sources.filter((source) =>
         parliamentarySourceIds.has(source.id),
       );
       expect(parliamentarySources).not.toHaveLength(0);
@@ -149,12 +152,19 @@ describe('country profile contract', () => {
   });
 
   it('publishes all ten pilots in a deterministic, hash-backed manifest', () => {
-    expect(manifest.schemaVersion).toBe(2);
+    expect(manifest.schemaVersion).toBe(3);
     expect(manifest.profiles).toHaveLength(10);
     expect(manifest.profiles.map((profile) => profile.iso3)).toEqual(
       [...pilotProfiles]
         .map((profile) => profile.identity.iso3)
         .sort((left, right) => left.localeCompare(right)),
+    );
+
+    const sourceContent = readFileSync(
+      resolve(process.cwd(), 'public/data', manifest.sourceRegistry.path),
+    );
+    expect(createHash('sha256').update(sourceContent).digest('hex')).toBe(
+      manifest.sourceRegistry.sha256,
     );
 
     for (const entry of manifest.profiles) {
