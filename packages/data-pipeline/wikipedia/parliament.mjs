@@ -1,7 +1,7 @@
 import {
   extractExplicitChamberKind,
   extractHouseLinks,
-  extractPoliticalComposition,
+  extractPoliticalCompositionViews,
   extractSeatCount,
   parseInfobox,
 } from './parse-infobox.mjs';
@@ -40,55 +40,72 @@ function wikipediaSource(page, retrievedAt) {
   };
 }
 
-function compositionEntryId(pageId, party, group, index) {
+function compositionEntryId(pageId, viewId, party, group, index) {
   return [
     'wiki',
     pageId,
+    ...(viewId && viewId !== 'composition' ? [slug(viewId)] : []),
     slug(group ?? 'ungrouped'),
     slug(party) || 'entry',
     index + 1,
   ].join('-');
 }
 
-function compositionEntriesForPage(page, parsed, retrievedAt) {
-  const pageSource = wikipediaSource(page, retrievedAt);
-  return (extractPoliticalComposition(parsed) ?? []).map((entry) => {
-    const entryWikidata =
-      entry.articleTitle &&
-      !isGenericPoliticalLabel(entry.party) &&
-      !isGenericPoliticalLabel(entry.articleTitle)
-        ? page.wikidataVisuals?.[entry.articleTitle]
-        : undefined;
-    const groupWikidata = (entry.groupArticleTitles ?? [])
-      .map((articleTitle) => ({
-        articleTitle,
-        value: page.wikidataVisuals?.[articleTitle],
-      }))
-      .filter(({ value }) => value);
+function enrichCompositionEntry(page, pageSource, entry) {
+  const entryWikidata =
+    entry.articleTitle &&
+    !isGenericPoliticalLabel(entry.party) &&
+    !isGenericPoliticalLabel(entry.articleTitle)
+      ? page.wikidataVisuals?.[entry.articleTitle]
+      : undefined;
+  const groupWikidata = (entry.groupArticleTitles ?? [])
+    .map((articleTitle) => ({
+      articleTitle,
+      value: page.wikidataVisuals?.[articleTitle],
+    }))
+    .filter(({ value }) => value);
 
-    return {
-      ...entry,
-      ...(entryWikidata
-        ? {
-            visual: {
-              color: entryWikidata.color,
-              method: 'wikidata-p465',
-              source: entryWikidata.source,
-            },
-          }
-        : entry.visual
-          ? { visual: { ...entry.visual, source: pageSource } }
-          : {}),
-      ...(groupWikidata.length && {
-        groupVisuals: groupWikidata.map(({ articleTitle, value }) => ({
-          articleTitle,
-          color: value.color,
-          method: 'wikidata-p465',
-          source: value.source,
-        })),
-      }),
-    };
-  });
+  return {
+    ...entry,
+    ...(entryWikidata
+      ? {
+          visual: {
+            color: entryWikidata.color,
+            method: 'wikidata-p465',
+            source: entryWikidata.source,
+          },
+        }
+      : entry.visual
+        ? { visual: { ...entry.visual, source: pageSource } }
+        : {}),
+    ...(groupWikidata.length && {
+      groupVisuals: groupWikidata.map(({ articleTitle, value }) => ({
+        articleTitle,
+        color: value.color,
+        method: 'wikidata-p465',
+        source: value.source,
+      })),
+    }),
+  };
+}
+
+function compositionViewsForPage(page, parsed, retrievedAt) {
+  const pageSource = wikipediaSource(page, retrievedAt);
+  return (extractPoliticalCompositionViews(parsed) ?? []).map((view) => ({
+    ...view,
+    entries: view.entries.map((entry) =>
+      enrichCompositionEntry(page, pageSource, entry),
+    ),
+  }));
+}
+
+function preferredCompositionEntries(views) {
+  if (!views?.length) return [];
+  return (
+    views.find((view) => view.dimension === 'party')?.entries ??
+    views[0].entries ??
+    []
+  );
 }
 
 export function visualArticleTitles(entries) {
@@ -102,13 +119,14 @@ export function visualArticleTitles(entries) {
   return [...titles].sort((left, right) => left.localeCompare(right));
 }
 
-function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
-  if (!candidate.compositionEntries?.length) return undefined;
+function normalizedCompositionView(candidate, view, chamberSize) {
+  if (!view?.entries?.length || view.containsNestedAggregates) return undefined;
 
-  const entries = candidate.compositionEntries
+  const entries = view.entries
     .map((entry, index) => ({
       partyId: compositionEntryId(
         candidate.pageId,
+        view.id,
         entry.party,
         entry.group,
         index,
@@ -116,28 +134,80 @@ function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
       party: entry.party,
       seats: entry.seats,
       ...(entry.group && { group: entry.group }),
-      ...(entry.visual && {
-        visual: {
-          color: entry.visual.color,
-          method: entry.visual.method,
-          sourceIds: [entry.visual.source.id],
-        },
-      }),
+      ...(!isGenericPoliticalLabel(entry.party) &&
+        entry.visual && {
+          visual: {
+            color: entry.visual.color,
+            method: entry.visual.method,
+            sourceIds: [entry.visual.source.id],
+          },
+        }),
     }))
     .sort(
       (left, right) =>
         right.seats - left.seats || left.party.localeCompare(right.party),
     );
+
   const reportedSeats = entries.reduce((sum, entry) => sum + entry.seats, 0);
-  if (reportedSeats > chamberSize) return undefined;
+  if (!entries.length || reportedSeats > chamberSize) return undefined;
 
   return {
-    basis: 'source-reported',
+    id: view.id,
+    label: view.label,
+    dimension: view.dimension,
     reportedSeats,
-    retrievedAt,
     entries,
     sourceIds: [candidate.source.id],
   };
+}
+
+function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
+  const views = (candidate.compositionViews ?? [])
+    .map((view) => normalizedCompositionView(candidate, view, chamberSize))
+    .filter(Boolean);
+  if (!views.length) return undefined;
+
+  if (
+    views.length === 1 &&
+    candidate.compositionViews?.length === 1 &&
+    candidate.compositionViews[0].id === 'composition'
+  ) {
+    const [view] = views;
+    return {
+      basis: 'source-reported',
+      reportedSeats: view.reportedSeats,
+      retrievedAt,
+      entries: view.entries,
+      sourceIds: view.sourceIds,
+    };
+  }
+
+  const preferred =
+    views.find((view) => view.dimension === 'faction') ??
+    views.find((view) => view.dimension === 'party') ??
+    views[0];
+
+  return {
+    basis: 'source-reported',
+    defaultViewId: preferred.id,
+    retrievedAt,
+    views,
+  };
+}
+
+function compositionSourceIds(composition) {
+  if (!composition) return [];
+  return 'views' in composition
+    ? composition.views.flatMap((view) => [
+        ...view.sourceIds,
+        ...view.entries.flatMap((entry) => entry.visual?.sourceIds ?? []),
+      ])
+    : [
+        ...composition.sourceIds,
+        ...composition.entries.flatMap(
+          (entry) => entry.visual?.sourceIds ?? [],
+        ),
+      ];
 }
 
 function comparableParty(value) {
