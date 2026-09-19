@@ -55,7 +55,7 @@ describe('country profile contract', () => {
           chamber.speakers.flatMap((speaker) => speaker.sourceIds),
         ),
         ...parsed.parliament.chambers.flatMap(
-          (chamber) => chamber.electoralSystem.sourceIds,
+          (chamber) => chamber.electoralSystem?.sourceIds ?? [],
         ),
         ...parsed.parliament.chambers.flatMap(
           (chamber) => chamber.latestElection?.sourceIds ?? [],
