@@ -405,6 +405,53 @@ describe('Wikipedia chamber fallback', () => {
     expect(merged.parliament.chambers).toEqual([lower, upper]);
   });
 
+  it('matches a uniquely typed chamber despite source aliases and seat-count drift', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'House of the People',
+        kind: 'lower',
+        totalSeats: 545,
+      }),
+      ipuChamber({
+        id: 'EX-UC01',
+        name: 'Council of States',
+        kind: 'upper',
+        totalSeats: 245,
+      }),
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'Lok Sabha',
+            title: 'Lok Sabha',
+            seats: 543,
+            kind: 'lower',
+            compositionHtml:
+              '<tr><th>Political groups</th><td><ul><li>Party A (540)</li></ul></td></tr>',
+          },
+          {
+            name: 'Council of States',
+            title: 'Council of States',
+            seats: 245,
+            kind: 'upper',
+          },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-19');
+
+    expect(normalized.missingChambers).toEqual([]);
+    expect(merged.parliament.chambers).toHaveLength(2);
+    expect(
+      merged.parliament.chambers.find((chamber) => chamber.id === 'EX-LC01')
+        ?.composition?.reportedSeats,
+    ).toBe(540);
+  });
+
   it('does not use equal seat count alone to identify an IPU chamber', () => {
     const current = profile([
       ipuChamber({
@@ -569,6 +616,13 @@ describe('Wikipedia chamber fallback', () => {
       reportedSeats: 2847,
     });
     expect(merged.parliament.chambers[0].composition.entries).toHaveLength(9);
+    expect(
+      new Set(
+        merged.parliament.chambers[0].composition.entries.map(
+          (entry) => entry.partyId,
+        ),
+      ).size,
+    ).toBe(9);
     expect(() => countryProfileSchema.parse(merged)).not.toThrow();
   });
 
