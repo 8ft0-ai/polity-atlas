@@ -323,6 +323,28 @@ describe('IPU normalisation', () => {
     ).toBe(true);
   });
 
+  it('classifies an appointed chamber as an appointment renewal', () => {
+    const appointed = structuredClone(snapshot);
+    appointed.chambers[0].attributes.not_directly_elected = { value: true };
+    delete appointed.chambers[0].attributes.directly_elected_number;
+    appointed.chambers[0].attributes.appointed_members_number = { value: 100 };
+
+    const normalized = normalizeIpuSnapshot(appointed);
+    expect(
+      normalized.nextExpectedElections.find(
+        (election) => election.chamberId === 'AU-LC01',
+      )?.eventType,
+    ).toBe('appointment-renewal');
+    expect(
+      normalized.parliament.chambers.find(
+        (chamber) => chamber.id === 'AU-LC01',
+      )?.electoralSystem,
+    ).toMatchObject({
+      directlyElected: false,
+      appointedSeats: 100,
+    });
+  });
+
   it('preserves a fallback composition only while IPU lacks a full composition', () => {
     const noFull = structuredClone(snapshot);
     noFull.electionsByChamber['AU-LC01'][0].attributes.seats_per_parties.value =
