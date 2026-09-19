@@ -1,7 +1,8 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import australiaProfile from '@/public/data/countries/AUS.json';
 import sourceRegistry from '@/public/data/sources.json';
+import iranLegislature from '@/public/data/legislatures/IRN.json';
 import myanmarLegislature from '@/public/data/legislatures/MMR.json';
 import saudiLegislature from '@/public/data/legislatures/SAU.json';
 import chinaProfile from '@/public/data/countries/CHN.json';
@@ -327,6 +328,50 @@ describe('CountryPanel', () => {
       screen.getAllByText(
         'This is the full chamber immediately after the latest election reported by IPU. It is not necessarily the current composition.',
       ).length,
+    ).toBeGreaterThan(0);
+  });
+
+  it('switches Iran between validated faction and party views without rendering multiple semicircles', async () => {
+    selectProfile({
+      entityId: 'state:m49:364',
+      m49: '364',
+      name: 'Iran',
+      profile: iranLegislature,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+
+    renderPanel();
+
+    const selector = await screen.findByRole('combobox', {
+      name: 'Islamic Consultative Assembly composition view',
+    });
+    expect(selector).toHaveValue('faction');
+    expect(screen.getByText('Principlists')).toBeInTheDocument();
+    expect(screen.queryByText('FIRS')).toBeNull();
+    expect(
+      screen.getAllByLabelText(
+        /Islamic Consultative Assembly source-reported chamber composition.*semicircle/,
+      ),
+    ).toHaveLength(1);
+    expect(
+      screen.getByText('This composition covers all 290 statutory seats.'),
+    ).toBeInTheDocument();
+
+    fireEvent.change(selector, { target: { value: 'party' } });
+
+    expect(selector).toHaveValue('party');
+    expect(await screen.findByText('FIRS')).toBeInTheDocument();
+    expect(screen.queryByText('Principlists')).toBeNull();
+    expect(
+      screen.getAllByLabelText(
+        /Islamic Consultative Assembly source-reported chamber composition.*semicircle/,
+      ),
+    ).toHaveLength(1);
+    expect(screen.getByText('254')).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('link', {
+        name: 'Source: Islamic Consultative Assembly',
+      }).length,
     ).toBeGreaterThan(0);
   });
 
