@@ -2,6 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import australiaProfile from '@/public/data/countries/AUS.json';
 import sourceRegistry from '@/public/data/sources.json';
+import myanmarLegislature from '@/public/data/legislatures/MMR.json';
 import saudiLegislature from '@/public/data/legislatures/SAU.json';
 import chinaProfile from '@/public/data/countries/CHN.json';
 import indonesiaProfile from '@/public/data/countries/IDN.json';
@@ -140,7 +141,7 @@ describe('CountryPanel', () => {
         `[data-party-segment="${result?.partyId}"]`,
       ),
     ).toHaveAttribute('stroke', result?.visual?.color);
-    expect(screen.getByText(result!.party)).toBeInTheDocument();
+    expect(screen.getAllByText(result!.party).length).toBeGreaterThan(0);
   });
 
   it('shows full post-election compositions for Australian chambers', async () => {
@@ -167,7 +168,7 @@ describe('CountryPanel', () => {
     expect(screen.getByText('40 of 76 seats contested')).toBeInTheDocument();
     expect(
       screen.getAllByText(
-        'This is the full chamber immediately after the latest election or renewal reported by IPU. It is not necessarily the current composition.',
+        'This is the full chamber immediately after the latest election reported by IPU. It is not necessarily the current composition.',
       ).length,
     ).toBeGreaterThan(0);
     const senateSemicircle = await screen.findByLabelText(
@@ -248,7 +249,7 @@ describe('CountryPanel', () => {
     ).not.toBeNull();
     expect(
       screen.getAllByText(
-        'This is the full chamber immediately after the latest election or renewal reported by IPU. It is not necessarily the current composition.',
+        'This is the full chamber immediately after the latest election reported by IPU. It is not necessarily the current composition.',
       ).length,
     ).toBeGreaterThan(0);
   });
@@ -276,6 +277,24 @@ describe('CountryPanel', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('150 of 151 seats renewed')).toBeInTheDocument();
     expect(screen.getByText('Appointed: 151')).toBeInTheDocument();
+  });
+
+  it('surfaces IPU suspension evidence for Myanmar instead of implying a functioning legislature', async () => {
+    selectProfile({
+      entityId: 'state:m49:104',
+      m49: '104',
+      name: 'Myanmar',
+      profile: myanmarLegislature,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+
+    renderPanel();
+
+    expect(await screen.findAllByText('Suspended')).toHaveLength(2);
+    expect(screen.getAllByText('Since 2022-03-01')).toHaveLength(2);
+    expect(
+      screen.getAllByText(/currently no functioning parliament in Myanmar/i),
+    ).toHaveLength(2);
   });
 
   it('shows IPU attribution, licence, and terms in the source index', async () => {
