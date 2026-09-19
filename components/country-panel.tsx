@@ -287,6 +287,7 @@ function selectPrimaryComposition(
   const outcome = election?.outcome;
 
   if (
+    election &&
     outcome?.display === 'post-election-full-composition' &&
     outcome.postElectionComposition?.length
   ) {
@@ -313,16 +314,16 @@ function selectPrimaryComposition(
     };
   }
 
-  if (outcome?.seatsWonInElection.length) {
+  if (election && outcome?.seatsWonInElection.length) {
     return {
       kind: 'contested-seats',
       entries: outcome.seatsWonInElection,
       totalSeats:
-        election?.seatsAtStake ?? entrySeatTotal(outcome.seatsWonInElection),
+        election.seatsAtStake ?? entrySeatTotal(outcome.seatsWonInElection),
       reportedSeats: entrySeatTotal(outcome.seatsWonInElection),
-      sourceIds: election?.sourceIds ?? [],
+      sourceIds: election.sourceIds,
       label: `${chamber.name} contested-seat result`,
-      date: election?.date,
+      date: election.date,
     };
   }
 
