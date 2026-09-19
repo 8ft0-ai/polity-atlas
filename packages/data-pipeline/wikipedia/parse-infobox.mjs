@@ -48,7 +48,7 @@ function nearestGroupLabel(element, root) {
       sibling;
       sibling = sibling.previousElementSibling
     ) {
-      if (sibling.matches('ul, ol')) continue;
+      if (sibling.matches('li, ul, ol')) continue;
       const group = parseSeatLabel(sibling.textContent ?? '');
       if (group) return group.label;
     }
