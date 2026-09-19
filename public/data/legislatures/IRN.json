@@ -66,6 +66,201 @@
           "seatsAtStake": 290,
           "chamberSize": 290,
           "sourceIds": ["ipu-parline"]
+        },
+        "composition": {
+          "basis": "source-reported",
+          "defaultViewId": "faction",
+          "retrievedAt": "2026-09-19T15:22:05.000Z",
+          "views": [
+            {
+              "id": "faction",
+              "label": "By faction",
+              "dimension": "faction",
+              "reportedSeats": 290,
+              "entries": [
+                {
+                  "partyId": "wiki-383276-faction-ungrouped-principlists-1",
+                  "party": "Principlists",
+                  "seats": 198,
+                  "visual": {
+                    "color": "#4169E1",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q17173896-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-faction-ungrouped-independents-3",
+                  "party": "Independents",
+                  "seats": 44
+                },
+                {
+                  "partyId": "wiki-383276-faction-ungrouped-reformists-2",
+                  "party": "Reformists",
+                  "seats": 43,
+                  "visual": {
+                    "color": "#008560",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q73509-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-faction-ungrouped-vacant-4",
+                  "party": "Vacant",
+                  "seats": 5
+                }
+              ],
+              "sourceIds": ["wikipedia-en-page-383276"]
+            },
+            {
+              "id": "party",
+              "label": "By party",
+              "dimension": "party",
+              "reportedSeats": 290,
+              "entries": [
+                {
+                  "partyId": "wiki-383276-party-ungrouped-independents-14",
+                  "party": "Independents",
+                  "seats": 254
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-firs-1",
+                  "party": "FIRS",
+                  "seats": 15,
+                  "visual": {
+                    "color": "#B0C4DE",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q5505887-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-vacant-15",
+                  "party": "Vacant",
+                  "seats": 5
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-icp-2",
+                  "party": "ICP",
+                  "seats": 3,
+                  "visual": {
+                    "color": "#009900",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q2843214-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-pjpii-3",
+                  "party": "PJPII",
+                  "seats": 2,
+                  "visual": {
+                    "color": "#186D34",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q24883905-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-spir-4",
+                  "party": "SPIR",
+                  "seats": 2,
+                  "visual": {
+                    "color": "#444444",
+                    "method": "wikipedia-entry",
+                    "sourceIds": ["wikipedia-en-page-383276"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-afil-13",
+                  "party": "AFIL",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#E27324",
+                    "method": "wikipedia-entry",
+                    "sourceIds": ["wikipedia-en-page-383276"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-djp-6",
+                  "party": "DJP",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#6B1D0D",
+                    "method": "wikipedia-entry",
+                    "sourceIds": ["wikipedia-en-page-383276"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-ecp-10",
+                  "party": "ECP",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#E20C23",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q655126-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-iapi-9",
+                  "party": "IAPI",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#B0E9FF",
+                    "method": "wikipedia-entry",
+                    "sourceIds": ["wikipedia-en-page-383276"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-ise-8",
+                  "party": "ISE",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#FDEE00",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q1410626-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-mdp-11",
+                  "party": "MDP",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#B666D2",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q6888510-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-sdir-5",
+                  "party": "SDIR",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#1963A4",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q10860765-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-uiipp-12",
+                  "party": "UIIPP",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#77B5FE",
+                    "method": "wikidata-p465",
+                    "sourceIds": ["wikidata-item-q20110042-p465"]
+                  }
+                },
+                {
+                  "partyId": "wiki-383276-party-ungrouped-yekta-7",
+                  "party": "YEKTA",
+                  "seats": 1,
+                  "visual": {
+                    "color": "#FDEE00",
+                    "method": "wikipedia-entry",
+                    "sourceIds": ["wikipedia-en-page-383276"]
+                  }
+                }
+              ],
+              "sourceIds": ["wikipedia-en-page-383276"]
+            }
+          ]
         }
       }
     ]
