@@ -277,12 +277,11 @@ function compositionViewSections(root) {
       selected.set(candidate.dimension, candidate);
     }
   }
-  return [...selected.values()].sort(
-    (left, right) =>
-      left.element.compareDocumentPosition(right.element) &
-      left.element.ownerDocument.defaultView.Node.DOCUMENT_POSITION_FOLLOWING
-        ? -1
-        : 1,
+  return [...selected.values()].sort((left, right) =>
+    left.element.compareDocumentPosition(right.element) &
+    left.element.ownerDocument.defaultView.Node.DOCUMENT_POSITION_FOLLOWING
+      ? -1
+      : 1,
   );
 }
 
@@ -406,7 +405,7 @@ export function extractPoliticalComposition(parsed) {
   if (!views?.length) return undefined;
   if (views.length === 1) return views[0].entries;
   return (
-    views.find((view) => view.dimension === 'party')?.entries ?? views[0].entries
+    views.find((view) => view.dimension === 'party')?.entries ??
+    views[0].entries
   );
 }
-
