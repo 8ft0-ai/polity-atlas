@@ -38,19 +38,37 @@ function wikipediaSource(page, retrievedAt) {
   };
 }
 
+function isWikipediaFallbackChamber(chamber) {
+  return (
+    chamber.id?.startsWith('wiki-') ||
+    chamber.sourceIds?.some((sourceId) =>
+      sourceId.startsWith('wikipedia-en-page-'),
+    )
+  );
+}
+
 function candidateMatchesIpu(candidate, chamber) {
   const wikiName = comparableName(candidate.name);
   const ipuName = comparableName(chamber.name);
-  if (
+  const strongNameMatch =
     wikiName &&
     ipuName &&
     (wikiName === ipuName ||
       wikiName.includes(ipuName) ||
-      ipuName.includes(wikiName))
-  ) {
-    return true;
-  }
-  return candidate.totalSeats === chamber.totalSeats;
+      ipuName.includes(wikiName));
+
+  if (strongNameMatch) return true;
+
+  const compatibleKind =
+    candidate.kind &&
+    chamber.kind &&
+    candidate.kind === chamber.kind;
+
+  return (
+    Boolean(compatibleKind) &&
+    candidate.totalSeats !== undefined &&
+    candidate.totalSeats === chamber.totalSeats
+  );
 }
 
 function inferKinds(country, candidates, existingChambers) {
@@ -123,22 +141,20 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     snapshot.retrievedAt,
   );
 
-  const rawCandidates = snapshot.chamberPages
-    .map((page) => {
-      const parsed = parseInfobox(page.html);
-      return {
-        name:
-          houseLinks.find((link) => link.title === page.requestedTitle)?.text ||
-          page.title,
-        requestedTitle: page.requestedTitle,
-        totalSeats: extractSeatCount(parsed),
-        kind: extractExplicitChamberKind(parsed),
-        source: wikipediaSource(page, snapshot.retrievedAt),
-      };
-    })
-    .filter((candidate) => candidate.totalSeats);
+  const rawCandidates = snapshot.chamberPages.map((page) => {
+    const parsed = parseInfobox(page.html);
+    return {
+      name:
+        houseLinks.find((link) => link.title === page.requestedTitle)?.text ||
+        page.title,
+      requestedTitle: page.requestedTitle,
+      totalSeats: extractSeatCount(parsed),
+      kind: extractExplicitChamberKind(parsed),
+      source: wikipediaSource(page, snapshot.retrievedAt),
+    };
+  });
 
-  if (!rawCandidates.length) {
+  if (!rawCandidates.some((candidate) => candidate.totalSeats)) {
     const parentSeats = extractSeatCount(parliamentParsed);
     const parentKind = extractExplicitChamberKind(parliamentParsed);
     if (parentSeats && parentKind === 'unicameral') {
@@ -152,16 +168,22 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     }
   }
 
-  const unmatched = rawCandidates.filter(
+  const authoritativeChambers = profile.parliament.chambers.filter(
+    (chamber) => !isWikipediaFallbackChamber(chamber),
+  );
+  const seatBearingCandidates = rawCandidates.filter(
+    (candidate) => candidate.totalSeats,
+  );
+  const unmatched = seatBearingCandidates.filter(
     (candidate) =>
-      !profile.parliament.chambers.some((chamber) =>
+      !authoritativeChambers.some((chamber) =>
         candidateMatchesIpu(candidate, chamber),
       ),
   );
   const withKinds = inferKinds(
     snapshot.requestedCountry,
     unmatched,
-    profile.parliament.chambers,
+    authoritativeChambers,
   );
 
   const missingChambers = withKinds
@@ -199,7 +221,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     .sort((left, right) => left.id.localeCompare(right.id));
 
   const diagnostics = [];
-  for (const candidate of unmatched) {
+  for (const candidate of rawCandidates) {
     if (!candidate.totalSeats) {
       diagnostics.push(`NO_SEAT_COUNT:${candidate.name}`);
     }
@@ -212,16 +234,18 @@ export function normalizeWikipediaParliament(snapshot, profile) {
 }
 
 export function mergeWikipediaChambers(profile, normalized, buildId) {
-  if (!normalized.missingChambers.length) return { ...profile, buildId };
-
   const order = { lower: 0, unicameral: 0, upper: 1 };
+  const authoritativeChambers = profile.parliament.chambers.filter(
+    (chamber) => !isWikipediaFallbackChamber(chamber),
+  );
+
   return {
     ...profile,
     buildId,
     parliament: {
       ...profile.parliament,
       chambers: [
-        ...profile.parliament.chambers,
+        ...authoritativeChambers,
         ...normalized.missingChambers,
       ].sort(
         (left, right) =>
