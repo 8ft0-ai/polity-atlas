@@ -21,6 +21,7 @@ import {
   chamberSchema,
   countryProfileSchema,
   legislatureProfileSchema,
+  type ParliamentaryChamber,
   sourceRegistrySchema,
 } from './country';
 
@@ -28,13 +29,7 @@ const pilotProfiles = [aus, nzl, can, usa, gbr, fra, chn, ind, idn, jpn];
 const legislaturePilots = [irn, sau, mmr];
 
 function compositionSourceIds(
-  composition:
-    | ReturnType<
-        typeof countryProfileSchema.parse
-      >['parliament']['chambers'][number]['composition']
-    | ReturnType<
-        typeof legislatureProfileSchema.parse
-      >['parliament']['chambers'][number]['composition'],
+  composition: ParliamentaryChamber['composition'],
 ) {
   if (!composition) return [];
   return 'views' in composition
