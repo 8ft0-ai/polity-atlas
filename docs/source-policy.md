@@ -103,6 +103,15 @@ single unambiguous P465 colour, cited to the Wikidata item. For IPU-backed
 results this enrichment must never alter IPU party names, IDs,
 seat totals, election dates, chamber sizes, or outcome semantics.
 
+An exact article link on an aggregate political-group heading may identify a
+coalition whose member parties are listed separately below it. A resolved
+colour may be reused across chambers when the IPU party ID is identical or the
+matched Wikipedia article identity is exact. Generic groupings such as
+independent, vacant, other, or crossbench are not cross-chamber identities.
+When active source colours conflict, they are not propagated or overwritten
+unless a single unambiguous Wikidata P465 value for the exact entity resolves
+the conflict.
+
 Matching must fail closed when aliases are ambiguous. IPU-provided local and
 full chamber names are retained as source-reconciliation aliases. A
 statutory-capacity match may be used only when that capacity identifies exactly

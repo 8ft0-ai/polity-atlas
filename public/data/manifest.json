@@ -1,12 +1,12 @@
 {
   "schemaVersion": 5,
   "buildId": "2026-09-19",
-  "generatedAt": "2026-09-19T04:35:00.000Z",
+  "generatedAt": "2026-09-19T06:18:58.000Z",
   "profiles": [
     {
       "iso3": "AUS",
       "path": "countries/AUS.json",
-      "sha256": "0373f7b18bbb8ab8b190b5eca59cc944ac3c3c381d15c641d4ce8415ed1a43f0"
+      "sha256": "0737b021e14cca51e798fdc5364fc17c5a0902c5a7c8afddb876c2499aa40bb0"
     },
     {
       "iso3": "CAN",
@@ -51,7 +51,7 @@
     {
       "iso3": "USA",
       "path": "countries/USA.json",
-      "sha256": "f5af6bcb05b6df5b58dec5985dc21cc3063b7e97b311549e1428491f1e2404d2"
+      "sha256": "348e6fe651b0c9450e4f5c011b0d1a768719163957bd4c98e20f56f6c454c4d9"
     }
   ],
   "legislatures": [
@@ -73,6 +73,6 @@
   ],
   "sourceRegistry": {
     "path": "sources.json",
-    "sha256": "f8517bcfbf87b4348bc7baba3ab112388df3af02c9bff2325e2e3e8d29b2f409"
+    "sha256": "9296b59e317ecbe21d218251750ec6b1fa10f800144c20d28e35a3336410c3a7"
   }
 }

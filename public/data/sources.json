@@ -317,6 +317,16 @@
       "kind": "official"
     },
     {
+      "id": "wikidata-item-q1065320-p465",
+      "publisher": "Wikidata",
+      "title": "Wikidata item Q1065320: sRGB color hex triplet (P465)",
+      "url": "https://www.wikidata.org/wiki/Q1065320",
+      "retrievedAt": "2026-09-19T06:18:58.000Z",
+      "kind": "reference",
+      "attribution": "Wikidata contributors",
+      "license": "Creative Commons CC0 1.0 Universal"
+    },
+    {
       "id": "wikidata-item-q464103-p465",
       "publisher": "Wikidata",
       "title": "Wikidata item Q464103: sRGB color hex triplet (P465)",
@@ -361,7 +371,7 @@
       "publisher": "Wikipedia",
       "title": "Australian Senate",
       "url": "https://en.wikipedia.org/wiki/Australian_Senate",
-      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "retrievedAt": "2026-09-19T06:18:58.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Australian Senate\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -371,7 +381,7 @@
       "publisher": "Wikipedia",
       "title": "United States House of Representatives",
       "url": "https://en.wikipedia.org/wiki/United_States_House_of_Representatives",
-      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "retrievedAt": "2026-09-19T06:18:58.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"United States House of Representatives\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -411,7 +421,7 @@
       "publisher": "Wikipedia",
       "title": "United States Senate",
       "url": "https://en.wikipedia.org/wiki/United_States_Senate",
-      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "retrievedAt": "2026-09-19T06:18:58.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"United States Senate\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -521,7 +531,7 @@
       "publisher": "Wikipedia",
       "title": "Australian House of Representatives",
       "url": "https://en.wikipedia.org/wiki/Australian_House_of_Representatives",
-      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "retrievedAt": "2026-09-19T06:18:58.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Australian House of Representatives\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"

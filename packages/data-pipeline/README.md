@@ -173,8 +173,15 @@ through Wikidata and use its unambiguous P465 sRGB value. There is no fuzzy
 party-name lookup.
 
 For a safely matched IPU party, only this display colour is copied; the IPU
-party identity and seat count are unchanged. Ambiguous or multi-valued Wikidata
-colours are left unresolved. The UI hashes the stable party/entry ID to select a
-repeatable fallback colour, so reordering rows cannot change unresolved colours.
+party identity and seat count are unchanged. Exact article links retained on an
+aggregate political-group heading may identify a coalition even when the
+source lists its member parties as separate leaf entries. Across chambers, a
+colour is propagated only through a shared IPU party ID or exact Wikipedia
+article identity. Generic labels such as independent or vacant are not treated
+as cross-chamber entities, and conflicting source colours are not propagated or
+overwritten unless one exact Wikidata P465 identity colour disambiguates them.
+Ambiguous or multi-valued Wikidata colours are left unresolved. The UI hashes
+the stable party/entry ID to select a repeatable fallback colour, so reordering
+rows cannot change unresolved colours.
 
 Colour is visual metadata, not evidence of ideology or party identity.

@@ -144,5 +144,9 @@ supply a `visual.color` on the corresponding result when the rendered chamber
 entry exposes a colour and matching is unambiguous. Wikipedia composition
 fallbacks can carry the same colour on their own entries. If the exact
 Wikipedia-linked party article has no rendered swatch, one unambiguous Wikidata
-P465 value may supply visual metadata with its own source ID. The renderer falls
-back to a deterministic stable colour when no sourced colour exists.
+P465 value may supply visual metadata with its own source ID. Exact article
+identities on aggregate group headings are retained for coalition matching.
+Within one country, sourced colours are reconciled across chambers by shared
+IPU party ID or exact Wikipedia article identity, excluding generic group
+labels. The renderer falls back to a deterministic stable colour when no
+sourced colour exists.

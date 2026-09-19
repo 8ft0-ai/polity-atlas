@@ -10,6 +10,7 @@ import {
 import {
   mergeWikipediaChambers,
   normalizeWikipediaParliament,
+  visualArticleTitles,
 } from './parliament.mjs';
 
 function parliamentHtml(houses) {
@@ -178,6 +179,9 @@ function snapshot({
       title: house.title,
       requestedTitle: house.title,
       url: `https://en.wikipedia.org/wiki/${house.title.replaceAll(' ', '_')}`,
+      ...(house.wikidataVisuals && {
+        wikidataVisuals: house.wikidataVisuals,
+      }),
       html: chamberHtml({
         seats: house.seats,
         kind: house.kind,
@@ -322,6 +326,60 @@ describe('Wikipedia infobox parsing', () => {
       seats: 1,
       group: 'Presiding officer',
     });
+  });
+
+  it('preserves exact article identities attached to aggregate groups', () => {
+    const parsed = parseInfobox(
+      chamberHtml({
+        seats: 100,
+        kind: 'lower',
+        compositionHtml: `
+          <tr>
+            <th>Political groups</th>
+            <td>
+              <p>
+                <b><a href="./Official_Opposition_(Example)">Opposition</a> (40)</b><br>
+                <a href="./Example_Coalition">Coalition</a>
+              </p>
+              <ul>
+                <li><a href="./Example_Liberal_Party">Liberal</a> (30)</li>
+                <li><a href="./Example_National_Party">National</a> (10)</li>
+              </ul>
+            </td>
+          </tr>
+        `,
+      }),
+    );
+    const entries = extractPoliticalComposition(parsed);
+
+    expect(entries).toEqual([
+      {
+        party: 'Liberal',
+        seats: 30,
+        group: 'Opposition',
+        groupArticleTitles: [
+          'Official Opposition (Example)',
+          'Example Coalition',
+        ],
+        articleTitle: 'Example Liberal Party',
+      },
+      {
+        party: 'National',
+        seats: 10,
+        group: 'Opposition',
+        groupArticleTitles: [
+          'Official Opposition (Example)',
+          'Example Coalition',
+        ],
+        articleTitle: 'Example National Party',
+      },
+    ]);
+    expect(visualArticleTitles(entries)).toEqual([
+      'Example Coalition',
+      'Example Liberal Party',
+      'Example National Party',
+      'Official Opposition (Example)',
+    ]);
   });
 });
 
@@ -823,6 +881,321 @@ describe('Wikipedia chamber fallback', () => {
     );
 
     expect(normalized.chamberCompositions).toEqual([]);
+  });
+
+  it('reuses one sourced colour for the same IPU party across chambers', () => {
+    const lower = ipuChamber({
+      id: 'EX-LC01',
+      name: 'House',
+      kind: 'lower',
+      totalSeats: 100,
+    });
+    const upper = ipuChamber({
+      id: 'EX-UC01',
+      name: 'Senate',
+      kind: 'upper',
+      totalSeats: 50,
+    });
+    for (const chamber of [lower, upper]) {
+      chamber.latestElection = {
+        id: `${chamber.id}-E1`,
+        date: { from: '2026-01-01' },
+        scope: 'full-renewal',
+        seatsAtStake: chamber.totalSeats,
+        chamberSize: chamber.totalSeats,
+        outcome: {
+          display: 'post-election-full-composition',
+          seatsWonInElection: [
+            {
+              partyId: 'exa-republican-party',
+              party: 'Republican Party',
+              seats: chamber.totalSeats,
+            },
+          ],
+          postElectionComposition: [
+            {
+              partyId: 'exa-republican-party',
+              party: 'Republican Party',
+              seats: chamber.totalSeats,
+            },
+          ],
+        },
+        sourceIds: ['ipu-parline'],
+      };
+    }
+
+    const current = profile([lower, upper]);
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'House',
+            title: 'House',
+            seats: 100,
+            kind: 'lower',
+            compositionHtml: `
+              <tr><th>Political groups</th><td><ul>
+                <li><a href="./Republican_Party_(Example)">Republican</a> (100)</li>
+              </ul></td></tr>
+            `,
+          },
+          {
+            name: 'Senate',
+            title: 'Senate',
+            seats: 50,
+            kind: 'upper',
+            compositionHtml: `
+              <tr><th>Political groups</th><td><ul>
+                <li>
+                  <span class="legend-color" style="background-color:#E81B23"></span>
+                  <a href="./Republican_Party_(Example)">Republican</a> (50)
+                </li>
+              </ul></td></tr>
+            `,
+          },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-19');
+    const colours = merged.parliament.chambers.map(
+      (chamber) =>
+        chamber.latestElection.outcome.postElectionComposition[0].visual,
+    );
+
+    expect(colours).toEqual([
+      {
+        color: '#E81B23',
+        method: 'wikipedia-entry',
+        sourceIds: ['wikipedia-en-page-3'],
+      },
+      {
+        color: '#E81B23',
+        method: 'wikipedia-entry',
+        sourceIds: ['wikipedia-en-page-3'],
+      },
+    ]);
+  });
+
+  it('uses an exact group sitelink colour for a safely identified coalition', () => {
+    const lower = ipuChamber({
+      id: 'EX-LC01',
+      name: 'House',
+      kind: 'lower',
+      totalSeats: 100,
+    });
+    const upper = ipuChamber({
+      id: 'EX-UC01',
+      name: 'Senate',
+      kind: 'upper',
+      totalSeats: 50,
+    });
+    const coalitionResults = [
+      {
+        chamber: lower,
+        partyId: 'exa-liberal-national-coalition',
+        party: 'Liberal National coalition',
+        seats: 40,
+      },
+      {
+        chamber: upper,
+        partyId: 'exa-note-coalition-opposition',
+        party: 'Coalition (opposition)',
+        seats: 20,
+      },
+    ];
+    for (const { chamber, partyId, party, seats } of coalitionResults) {
+      chamber.latestElection = {
+        id: `${chamber.id}-E1`,
+        date: { from: '2026-01-01' },
+        scope: 'full-renewal',
+        seatsAtStake: chamber.totalSeats,
+        chamberSize: chamber.totalSeats,
+        outcome: {
+          display: 'post-election-full-composition',
+          seatsWonInElection: [{ partyId, party, seats }],
+          postElectionComposition: [{ partyId, party, seats }],
+        },
+        sourceIds: ['ipu-parline'],
+      };
+    }
+    upper.latestElection.outcome.seatsWonInElection = [
+      {
+        partyId: 'exa-liberal-party',
+        party: 'Liberal Party',
+        seats: 10,
+      },
+    ];
+
+    const groupComposition = `
+      <tr><th>Political groups</th><td>
+        <p>
+          <b><a href="./Opposition_(Example)">Opposition</a> (40)</b><br>
+          <a href="./Liberal–National_Coalition">Coalition</a>
+        </p>
+        <ul>
+          <li>
+            <span class="legend-color" style="background-color:#080CAB"></span>
+            <a href="./Example_Liberal_Party">Liberal</a> (30)
+          </li>
+          <li><a href="./Example_National_Party">National</a> (10)</li>
+        </ul>
+      </td></tr>
+    `;
+    const coalitionWikidata = {
+      color: '#00557C',
+      itemId: 'Q123',
+      source: {
+        id: 'wikidata-item-q123-p465',
+        publisher: 'Wikidata',
+        title: 'Wikidata item Q123: sRGB color hex triplet (P465)',
+        url: 'https://www.wikidata.org/wiki/Q123',
+        retrievedAt: '2026-09-19T00:00:00.000Z',
+        kind: 'reference',
+        attribution: 'Wikidata contributors',
+        license: 'Creative Commons CC0 1.0 Universal',
+      },
+    };
+    const current = profile([lower, upper]);
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'House',
+            title: 'House',
+            seats: 100,
+            kind: 'lower',
+            compositionHtml: groupComposition,
+            wikidataVisuals: {
+              'Liberal–National Coalition': coalitionWikidata,
+            },
+          },
+          {
+            name: 'Senate',
+            title: 'Senate',
+            seats: 50,
+            kind: 'upper',
+            compositionHtml: groupComposition,
+            wikidataVisuals: {
+              'Liberal–National Coalition': coalitionWikidata,
+            },
+          },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-19');
+
+    expect(
+      merged.parliament.chambers.map(
+        (chamber) =>
+          chamber.latestElection.outcome.postElectionComposition[0].visual,
+      ),
+    ).toEqual([
+      {
+        color: '#00557C',
+        method: 'wikidata-p465',
+        sourceIds: ['wikidata-item-q123-p465'],
+      },
+      {
+        color: '#00557C',
+        method: 'wikidata-p465',
+        sourceIds: ['wikidata-item-q123-p465'],
+      },
+    ]);
+    expect(normalized.sources).toContainEqual(coalitionWikidata.source);
+    expect(
+      merged.parliament.chambers[1].latestElection.outcome.seatsWonInElection[0]
+        .visual,
+    ).toEqual({
+      color: '#080CAB',
+      method: 'wikipedia-entry',
+      sourceIds: ['wikipedia-en-page-3'],
+    });
+  });
+
+  it('does not treat generic independent labels as one cross-chamber entity', () => {
+    const lower = ipuChamber({
+      id: 'EX-LC01',
+      name: 'House',
+      kind: 'lower',
+      totalSeats: 100,
+    });
+    const upper = ipuChamber({
+      id: 'EX-UC01',
+      name: 'Senate',
+      kind: 'upper',
+      totalSeats: 50,
+    });
+    for (const [index, chamber] of [lower, upper].entries()) {
+      chamber.latestElection = {
+        id: `${chamber.id}-E1`,
+        date: { from: '2026-01-01' },
+        scope: 'full-renewal',
+        seatsAtStake: chamber.totalSeats,
+        chamberSize: chamber.totalSeats,
+        outcome: {
+          display: 'post-election-full-composition',
+          seatsWonInElection: [
+            {
+              partyId: `exa-independent-${index}`,
+              party: 'Independent',
+              seats: 1,
+            },
+          ],
+          postElectionComposition: [
+            {
+              partyId: `exa-independent-${index}`,
+              party: 'Independent',
+              seats: 1,
+            },
+          ],
+        },
+        sourceIds: ['ipu-parline'],
+      };
+    }
+
+    const current = profile([lower, upper]);
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'House',
+            title: 'House',
+            seats: 100,
+            kind: 'lower',
+            compositionHtml: `
+              <tr><th>Political groups</th><td><ul><li>
+                <span class="legend-color" style="background-color:#888888"></span>
+                <a href="./Independent_politician">Independent</a> (1)
+              </li></ul></td></tr>
+            `,
+          },
+          {
+            name: 'Senate',
+            title: 'Senate',
+            seats: 50,
+            kind: 'upper',
+            compositionHtml: `
+              <tr><th>Political groups</th><td><ul>
+                <li><a href="./Independent_politician">Independent</a> (1)</li>
+              </ul></td></tr>
+            `,
+          },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-19');
+
+    expect(
+      merged.parliament.chambers[0].latestElection.outcome
+        .postElectionComposition[0].visual?.color,
+    ).toBe('#888888');
+    expect(
+      merged.parliament.chambers[1].latestElection.outcome
+        .postElectionComposition[0].visual,
+    ).toBeUndefined();
   });
 
   it('rejects a parsed source composition that exceeds statutory chamber size', () => {

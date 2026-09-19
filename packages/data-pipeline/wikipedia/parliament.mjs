@@ -53,27 +53,50 @@ function compositionEntryId(pageId, party, group, index) {
 function compositionEntriesForPage(page, parsed, retrievedAt) {
   const pageSource = wikipediaSource(page, retrievedAt);
   return (extractPoliticalComposition(parsed) ?? []).map((entry) => {
-    if (entry.visual) {
-      return {
-        ...entry,
-        visual: { ...entry.visual, source: pageSource },
-      };
-    }
-
-    const wikidata = entry.articleTitle
+    const entryWikidata = entry.articleTitle
       ? page.wikidataVisuals?.[entry.articleTitle]
       : undefined;
-    return wikidata
-      ? {
-          ...entry,
+    const groupWikidata = (entry.groupArticleTitles ?? [])
+      .map((articleTitle) => ({
+        articleTitle,
+        value: page.wikidataVisuals?.[articleTitle],
+      }))
+      .filter(({ value }) => value);
+
+    return {
+      ...entry,
+      ...(entry.visual && {
+        visual: { ...entry.visual, source: pageSource },
+      }),
+      ...(!entry.visual &&
+        entryWikidata && {
           visual: {
-            color: wikidata.color,
+            color: entryWikidata.color,
             method: 'wikidata-p465',
-            source: wikidata.source,
+            source: entryWikidata.source,
           },
-        }
-      : entry;
+        }),
+      ...(groupWikidata.length && {
+        groupVisuals: groupWikidata.map(({ articleTitle, value }) => ({
+          articleTitle,
+          color: value.color,
+          method: 'wikidata-p465',
+          source: value.source,
+        })),
+      }),
+    };
   });
+}
+
+export function visualArticleTitles(entries) {
+  const titles = new Set();
+  for (const entry of entries ?? []) {
+    if (!entry.visual && entry.articleTitle) titles.add(entry.articleTitle);
+    for (const articleTitle of entry.groupArticleTitles ?? []) {
+      titles.add(articleTitle);
+    }
+  }
+  return [...titles].sort((left, right) => left.localeCompare(right));
 }
 
 function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
@@ -126,47 +149,180 @@ function comparableParty(value) {
     .trim();
 }
 
-function visualForIpuResult(result, entries) {
+function comparablePartyMatches(left, right) {
+  return (
+    left === right ||
+    (left.length >= 5 &&
+      right.length >= 5 &&
+      (left.includes(right) || right.includes(left)))
+  );
+}
+
+function isGenericPoliticalLabel(value) {
+  return /^(?:independent|independents|independent politician|non affiliated|non partisan|non partisans|nonpartisan|nonpartisans|unaffiliated|other|others|vacant|vacancy|vacancies|crossbench|crossbenchers)$/.test(
+    comparableParty(value),
+  );
+}
+
+function distinctVisual(visuals) {
+  const byIdentity = new Map();
+  for (const visual of visuals.filter(Boolean)) {
+    const key = [visual.color, visual.method, visual.source.id].join('\u0000');
+    byIdentity.set(key, visual);
+  }
+  return byIdentity.size === 1 ? [...byIdentity.values()][0] : undefined;
+}
+
+function identityForIpuResult(result, entries) {
   const resultKey = comparableParty(result.party);
-  const matches = entries.filter((entry) => {
+  const directMatches = entries.filter((entry) => {
     const candidates = [entry.party, entry.articleTitle]
       .filter(Boolean)
       .map(comparableParty)
       .filter(Boolean);
-    return candidates.some(
-      (candidate) =>
-        candidate === resultKey ||
-        (candidate.length >= 5 &&
-          resultKey.length >= 5 &&
-          (candidate.includes(resultKey) || resultKey.includes(candidate))),
+    return candidates.some((candidate) =>
+      comparablePartyMatches(candidate, resultKey),
     );
   });
-  if (matches.length !== 1 || !matches[0].visual) return undefined;
-  return matches[0].visual;
+
+  const groupMatches = entries.filter((entry) => {
+    const candidates = [entry.group, ...(entry.groupArticleTitles ?? [])]
+      .filter(Boolean)
+      .map(comparableParty)
+      .filter(Boolean);
+    return candidates.some((candidate) =>
+      comparablePartyMatches(candidate, resultKey),
+    );
+  });
+
+  const direct = directMatches.length === 1 ? directMatches[0] : undefined;
+  const groupVisual = direct
+    ? undefined
+    : distinctVisual(
+        groupMatches
+          .flatMap((entry) => entry.groupVisuals ?? [])
+          .filter((visual) =>
+            comparablePartyMatches(
+              comparableParty(visual.articleTitle),
+              resultKey,
+            ),
+          ),
+      );
+  const articleTitles = new Set();
+  if (direct?.articleTitle) articleTitles.add(direct.articleTitle);
+  if (groupVisual?.articleTitle) articleTitles.add(groupVisual.articleTitle);
+
+  return {
+    visual: direct?.visual ?? groupVisual,
+    entityKeys: isGenericPoliticalLabel(result.party)
+      ? []
+      : [
+          `ipu-party:${result.partyId}`,
+          ...[...articleTitles].map(
+            (articleTitle) => `wikipedia-article:${articleTitle}`,
+          ),
+        ],
+  };
 }
 
-function extractChamberVisuals(candidate, chamber) {
+function extractChamberVisualObservations(candidate, chamber) {
   const entries = candidate.compositionEntries ?? [];
   const outcome = chamber.latestElection?.outcome;
-  if (!outcome || !entries.length) return undefined;
+  if (!outcome || !entries.length) return [];
 
-  const visuals = new Map();
+  const observations = new Map();
   for (const result of [
     ...(outcome.seatsWonInElection ?? []),
     ...(outcome.postElectionComposition ?? []),
   ]) {
-    const visual = visualForIpuResult(result, entries);
-    if (visual) {
-      visuals.set(result.partyId, {
-        color: visual.color,
-        method: visual.method,
-        sourceIds: [visual.source.id],
-      });
+    if (observations.has(result.partyId)) continue;
+    const identity = identityForIpuResult(result, entries);
+    observations.set(result.partyId, {
+      chamberId: chamber.id,
+      partyId: result.partyId,
+      entityKeys: identity.entityKeys,
+      ...(identity.visual && { visual: identity.visual }),
+    });
+  }
+  return [...observations.values()];
+}
+
+function selectCanonicalVisual(visuals) {
+  if (!visuals.length) return undefined;
+  const colors = new Set(visuals.map((visual) => visual.color));
+  if (colors.size === 1) {
+    return [...visuals].sort(
+      (left, right) =>
+        Number(right.method === 'wikidata-p465') -
+          Number(left.method === 'wikidata-p465') ||
+        left.source.id.localeCompare(right.source.id),
+    )[0];
+  }
+
+  const wikidata = visuals.filter(
+    (visual) => visual.method === 'wikidata-p465',
+  );
+  return new Set(wikidata.map((visual) => visual.color)).size === 1
+    ? wikidata.sort((left, right) =>
+        left.source.id.localeCompare(right.source.id),
+      )[0]
+    : undefined;
+}
+
+function consolidateChamberVisuals(observations) {
+  const byEntityKey = new Map();
+  observations.forEach((observation, index) => {
+    for (const key of observation.entityKeys) {
+      const indexes = byEntityKey.get(key) ?? [];
+      indexes.push(index);
+      byEntityKey.set(key, indexes);
+    }
+  });
+
+  const visited = new Set();
+  for (let index = 0; index < observations.length; index += 1) {
+    if (visited.has(index)) continue;
+    const component = [];
+    const pending = [index];
+    while (pending.length) {
+      const current = pending.pop();
+      if (visited.has(current)) continue;
+      visited.add(current);
+      component.push(current);
+      for (const key of observations[current].entityKeys) {
+        pending.push(...(byEntityKey.get(key) ?? []));
+      }
+    }
+
+    const canonical = selectCanonicalVisual(
+      component
+        .map((componentIndex) => observations[componentIndex].visual)
+        .filter(Boolean),
+    );
+    if (!canonical) continue;
+    for (const componentIndex of component) {
+      const current = observations[componentIndex];
+      if (!current.visual || current.visual.color !== canonical.color) {
+        current.visual = canonical;
+      }
     }
   }
-  return visuals.size
-    ? { chamberId: chamber.id, visuals: Object.fromEntries(visuals) }
-    : undefined;
+
+  const byChamber = new Map();
+  for (const observation of observations) {
+    if (!observation.visual) continue;
+    const visuals = byChamber.get(observation.chamberId) ?? {};
+    visuals[observation.partyId] = {
+      color: observation.visual.color,
+      method: observation.visual.method,
+      sourceIds: [observation.visual.source.id],
+    };
+    byChamber.set(observation.chamberId, visuals);
+  }
+  return [...byChamber.entries()].map(([chamberId, visuals]) => ({
+    chamberId,
+    visuals,
+  }));
 }
 
 function hasIpuFullComposition(chamber) {
@@ -385,9 +541,11 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     authoritativeChambers,
   );
 
-  const chamberVisuals = matchedCandidates
-    .map(({ candidate, chamber }) => extractChamberVisuals(candidate, chamber))
-    .filter(Boolean);
+  const chamberVisuals = consolidateChamberVisuals(
+    matchedCandidates.flatMap(({ candidate, chamber }) =>
+      extractChamberVisualObservations(candidate, chamber),
+    ),
+  );
 
   const chamberCompositions = matchedCandidates
     .filter(({ chamber }) => !hasIpuFullComposition(chamber))
@@ -480,7 +638,9 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     ...rawCandidates.map((candidate) => candidate.source),
     ...rawCandidates.flatMap((candidate) =>
       candidate.compositionEntries.flatMap((entry) =>
-        entry.visual?.source ? [entry.visual.source] : [],
+        [entry.visual, ...(entry.groupVisuals ?? [])]
+          .filter((visual) => visual?.source)
+          .map((visual) => visual.source),
       ),
     ),
   ]
