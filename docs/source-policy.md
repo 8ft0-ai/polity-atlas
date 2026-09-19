@@ -51,3 +51,7 @@ For partial renewals, show a full post-election chamber only when IPU explicitly
 provides that breakdown. Otherwise show the contested seats with both the seats
 at stake and the statutory chamber size. Never combine prior results to invent
 a current or post-election full composition.
+
+## Global source identity
+
+Public source metadata is stored once in `public/data/sources.json`. Country profiles contain stable source IDs only. A source ID must not be reused for materially different publisher, title, URL, attribution, terms, licence, or source-kind metadata. Retrieval timestamps may advance when the same source is refreshed.
