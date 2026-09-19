@@ -316,6 +316,10 @@ function ElectionOutcome({
     ? election?.chamberSize
     : election?.seatsAtStake;
   const isPartial = election?.scope === 'partial-renewal';
+  const isDirectlyElected = chamber.electoralSystem?.directlyElected !== false;
+  const isAppointed =
+    chamber.electoralSystem?.directlyElected === false &&
+    Boolean(chamber.electoralSystem.appointedSeats);
 
   if (!election && !chamber.composition) {
     return (
@@ -332,19 +336,27 @@ function ElectionOutcome({
         <>
           <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
             {hasFullComposition
-              ? 'Post-election composition'
-              : isPartial
-                ? 'Latest partial election result'
-                : 'Most recent election outcome'}
+              ? isDirectlyElected
+                ? 'Post-election composition'
+                : 'Post-renewal composition'
+              : isAppointed
+                ? 'Latest appointment / renewal'
+                : !isDirectlyElected
+                  ? 'Latest indirect renewal'
+                  : isPartial
+                    ? 'Latest partial election result'
+                    : 'Most recent election outcome'}
           </p>
           <p className="mt-1 text-sm font-semibold">
             {formatDateRange(election.date)}
           </p>
           {election.seatsAtStake && (
             <p className="ui-text mt-1 text-xs text-muted-foreground">
-              {isPartial
-                ? `${election.seatsAtStake} of ${election.chamberSize} seats contested`
-                : `${election.seatsAtStake} seats contested`}
+              {!isDirectlyElected
+                ? `${election.seatsAtStake} of ${election.chamberSize} seats renewed`
+                : isPartial
+                  ? `${election.seatsAtStake} of ${election.chamberSize} seats contested`
+                  : `${election.seatsAtStake} seats contested`}
             </p>
           )}
 
@@ -360,15 +372,17 @@ function ElectionOutcome({
             />
           ) : (
             <p className="mt-3 text-sm text-muted-foreground">
-              The cited election source does not report a structured party-seat
-              outcome for this record.
+              The cited {isDirectlyElected ? 'election' : 'renewal'} source
+              does not report a structured party-seat outcome for this record.
             </p>
           )}
 
           <p className="mt-3 text-xs leading-5 text-muted-foreground">
             {hasFullComposition
-              ? 'This is the full chamber immediately after the latest election or renewal reported by IPU. It is not necessarily the current composition.'
-              : 'These figures cover only the seats decided in this election or renewal. They must not be read as the full or current chamber composition.'}
+              ? `This is the full chamber immediately after the latest ${isDirectlyElected ? 'election' : 'renewal'} reported by IPU. It is not necessarily the current composition.`
+              : isDirectlyElected
+                ? 'These figures cover only the seats decided in this election or renewal. They must not be read as the full or current chamber composition.'
+                : 'This record describes a non-direct renewal. It must not be read as a popular election result.'}
           </p>
 
           {hasFullComposition &&
@@ -409,7 +423,7 @@ function ElectionOutcome({
         </>
       ) : (
         <p className="text-sm text-muted-foreground">
-          No recent parliamentary election record is available from the cited
+          No recent legislature renewal record is available from the cited
           sources.
         </p>
       )}
