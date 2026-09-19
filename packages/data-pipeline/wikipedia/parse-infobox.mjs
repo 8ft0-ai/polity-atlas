@@ -29,6 +29,62 @@ function parseSeatLabel(value) {
   return { label: cleanText(match[1]), seats };
 }
 
+function canonicalHexColor(value) {
+  const raw = value?.trim();
+  if (!raw) return undefined;
+
+  const short = raw.match(/^#([0-9a-f]{3})$/i);
+  if (short) {
+    return `#${short[1]
+      .split('')
+      .map((digit) => digit + digit)
+      .join('')
+      .toUpperCase()}`;
+  }
+
+  const full = raw.match(/^#([0-9a-f]{6})$/i);
+  if (full) return `#${full[1].toUpperCase()}`;
+
+  const rgb = raw.match(
+    /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})(?:\s*,\s*(?:1(?:\.0+)?|0?\.\d+))?\s*\)$/i,
+  );
+  if (!rgb) return undefined;
+  const channels = rgb.slice(1, 4).map(Number);
+  if (channels.some((channel) => channel < 0 || channel > 255)) {
+    return undefined;
+  }
+  return `#${channels
+    .map((channel) => channel.toString(16).padStart(2, '0'))
+    .join('')
+    .toUpperCase()}`;
+}
+
+function entryVisual(element) {
+  const candidates = [
+    element,
+    ...element.querySelectorAll(
+      '.legend-color, .legend-colour, .legend, [style*="background"]',
+    ),
+  ];
+  for (const candidate of candidates) {
+    const style = candidate.getAttribute?.('style') ?? '';
+    const match = style.match(
+      /(?:background-color|background)\s*:\s*([^;!]+)/i,
+    );
+    const color = canonicalHexColor(match?.[1]);
+    if (color) return { color, method: 'wikipedia-entry' };
+  }
+  return undefined;
+}
+
+function linkedArticleTitle(element) {
+  for (const link of element.querySelectorAll('a[href]')) {
+    const title = titleFromHref(link.getAttribute('href'));
+    if (title) return title;
+  }
+  return undefined;
+}
+
 function ownText(element) {
   const clone = element.cloneNode(true);
   for (const nested of clone.querySelectorAll(
@@ -164,12 +220,15 @@ export function extractPoliticalComposition(parsed) {
   for (const item of leafItems) {
     const result = parseSeatLabel(ownText(item));
     if (!result) continue;
+    const group = nearestGroupLabel(item, root);
+    const visual = entryVisual(item);
+    const articleTitle = linkedArticleTitle(item);
     entries.push({
       party: result.label,
       seats: result.seats,
-      ...(nearestGroupLabel(item, root) && {
-        group: nearestGroupLabel(item, root),
-      }),
+      ...(group && { group }),
+      ...(articleTitle && { articleTitle }),
+      ...(visual && { visual }),
     });
   }
 
@@ -180,7 +239,14 @@ export function extractPoliticalComposition(parsed) {
     for (const block of blocks) {
       const result = parseSeatLabel(block.textContent ?? '');
       if (!result) continue;
-      entries.push({ party: result.label, seats: result.seats });
+      const visual = entryVisual(block);
+      const articleTitle = linkedArticleTitle(block);
+      entries.push({
+        party: result.label,
+        seats: result.seats,
+        ...(articleTitle && { articleTitle }),
+        ...(visual && { visual }),
+      });
     }
   }
 
