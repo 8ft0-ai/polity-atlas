@@ -1,10 +1,16 @@
 import { JSDOM } from 'jsdom';
 
 function cleanText(value) {
-  return value
+  let text = value
     .replace(/\[[^\]]*\]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+
+  if (text.startsWith('.mw-parser-output') && text.includes('}')) {
+    text = text.slice(text.lastIndexOf('}') + 1).trim();
+  }
+
+  return text;
 }
 
 function titleFromHref(href) {
@@ -132,7 +138,9 @@ export function extractExplicitChamberKind(parsed) {
   const row = parsed.rows.find((entry) =>
     /^(type|house type|chamber type)$/i.test(entry.label),
   );
-  const text = `${row?.text ?? ''} ${parsed.text}`.toLowerCase();
+  if (!row) return undefined;
+
+  const text = row.text.toLowerCase();
   if (/\bupper house\b/.test(text)) return 'upper';
   if (/\blower house\b/.test(text)) return 'lower';
   if (/\bunicameral\b/.test(text)) return 'unicameral';
