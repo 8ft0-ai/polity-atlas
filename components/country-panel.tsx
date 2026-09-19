@@ -387,10 +387,10 @@ function ElectionOutcome({
     Boolean(chamber.electoralSystem.appointedSeats);
   const hasRenewalList = Boolean(
     election &&
-      isPartial &&
-      primary &&
-      primary.kind !== 'contested-seats' &&
-      outcome?.seatsWonInElection.length,
+    isPartial &&
+    primary &&
+    primary.kind !== 'contested-seats' &&
+    outcome?.seatsWonInElection.length,
   );
 
   if (!election && !primary) {
@@ -461,7 +461,8 @@ function ElectionOutcome({
           </p>
           {primary.kind === 'source-reported' && primary.retrievedAt && (
             <p className="ui-text mt-1 text-xs text-muted-foreground">
-              Composition snapshot retrieved {formatRetrievedAt(primary.retrievedAt)}
+              Composition snapshot retrieved{' '}
+              {formatRetrievedAt(primary.retrievedAt)}
             </p>
           )}
           {primary.kind !== 'source-reported' && primary.date && (
