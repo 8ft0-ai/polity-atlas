@@ -27,13 +27,20 @@ export const sourceSchema = z.object({
   license: z.string().optional(),
 });
 
-const electionPartyResultSchema = z.object({
+const seatVisualSchema = z.object({
+  color: z.string().regex(/^#[0-9A-F]{6}$/),
+  method: z.enum(['wikipedia-entry', 'wikidata-p465']),
+  sourceIds: z.array(z.string()).min(1),
+});
+
+export const electionPartyResultSchema = z.object({
   partyId: z.string(),
   party: z.string(),
   seats: z.number().int().nonnegative(),
+  visual: seatVisualSchema.optional(),
 });
 
-const chamberCompositionEntrySchema = electionPartyResultSchema.extend({
+export const chamberCompositionEntrySchema = electionPartyResultSchema.extend({
   group: z.string().optional(),
 });
 
@@ -194,7 +201,7 @@ const electoralSystemSchema = z.object({
   sourceIds: z.array(z.string()).min(1),
 });
 
-const chamberSchema = z
+export const chamberSchema = z
   .object({
     id: z.string(),
     name: z.string(),
@@ -221,7 +228,7 @@ const chamberSchema = z
     }
   });
 
-const expectedElectionSchema = z
+export const expectedElectionSchema = z
   .object({
     id: z.string(),
     level: z.literal('national'),
@@ -270,8 +277,25 @@ export const sourceRegistrySchema = z
     });
   });
 
+export const legislatureSchema = z.object({
+  ...legislatureSchema.shape,
+});
+
+export const legislatureProfileSchema = z.object({
+  schemaVersion: z.literal(1),
+  buildId: z.string(),
+  identity: z.object({
+    entityId: z.string(),
+    iso2: z.string().length(2),
+    iso3: z.string().length(3),
+    m49: z.string().length(3),
+    name: z.string(),
+  }),
+  ...legislatureSchema.shape,
+});
+
 export const countryProfileSchema = z.object({
-  schemaVersion: z.literal(4),
+  schemaVersion: z.literal(5),
   buildId: z.string(),
   identity: z.object({
     iso2: z.string().length(2),
@@ -336,6 +360,7 @@ export const countryProfileSchema = z.object({
 });
 
 export type CountryProfile = z.infer<typeof countryProfileSchema>;
+export type LegislatureProfile = z.infer<typeof legislatureProfileSchema>;
 export type SourceRecord = z.infer<typeof sourceSchema>;
 export type SourceRegistry = z.infer<typeof sourceRegistrySchema>;
 export type ParliamentaryChamber = z.infer<typeof chamberSchema>;
