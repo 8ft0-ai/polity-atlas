@@ -62,8 +62,9 @@ Public source metadata is stored once in `public/data/sources.json`. Country pro
 
 Wikipedia is a reference-source fallback for missing national parliamentary
 chambers, not a co-equal source with IPU. The adapter starts from
-`Parliament of {country}`, follows canonical redirects or a bounded title
-search, parses the page infobox, and follows linked chamber pages.
+`Parliament of {country}` and uses Wikimedia's MediaWiki REST API for page
+retrieval and bounded page-search fallback. It parses the rendered HTML returned
+by REST and follows linked chamber pages through the same API.
 
 A Wikipedia chamber is added only when it cannot be matched to an IPU chamber.
 The adapter must not convert current political-group listings into historical
@@ -74,3 +75,10 @@ Wikipedia source records use the stable English Wikipedia page ID. A page move
 may therefore update its title and canonical URL without changing source
 identity. Every added chamber retains both the parliament-page and chamber-page
 source IDs where they are distinct.
+
+
+The current read-only MediaWiki REST workflow requires no API key. Requests are
+unauthenticated and carry the Polity Atlas User-Agent. REST snapshots preserve
+the page/revision/licence metadata supplied by Wikimedia in the ignored local
+cache. Phase 1 intentionally does not change the political-data schema or use
+Wikidata as a substitute for Wikipedia article infobox content.
