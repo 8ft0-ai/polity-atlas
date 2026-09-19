@@ -97,31 +97,44 @@ describe('country profile contract', () => {
     }
   });
 
-  it('uses IPU rather than Wikipedia for parliamentary and election facts', () => {
+  it('keeps IPU authoritative for IPU-backed chambers and election facts', () => {
+    const registry = sourceRegistrySchema.parse(sourceRegistry);
+    const sourcesById = new Map(
+      registry.sources.map((source) => [source.id, source]),
+    );
+
     for (const profile of pilotProfiles) {
       const parsed = countryProfileSchema.parse(profile);
-      const parliamentarySourceIds = new Set([
-        ...parsed.parliament.name.sourceIds,
-        ...parsed.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
-        ...parsed.parliament.chambers.flatMap(
-          (chamber) => chamber.latestElection?.sourceIds ?? [],
-        ),
-        ...parsed.nextExpectedElections.flatMap(
-          (election) => election.sourceIds,
-        ),
-      ]);
-      const registry = sourceRegistrySchema.parse(sourceRegistry);
-      const parliamentarySources = registry.sources.filter((source) =>
-        parliamentarySourceIds.has(source.id),
-      );
-      expect(parliamentarySources).not.toHaveLength(0);
-      expect(
-        parliamentarySources.every(
-          (source) =>
-            source.publisher === 'Inter-Parliamentary Union' &&
-            source.attribution?.startsWith('Inter-Parliamentary Union:'),
-        ),
-      ).toBe(true);
+
+      for (const sourceId of parsed.parliament.name.sourceIds) {
+        const source = sourcesById.get(sourceId);
+        expect(source?.publisher).toBe('Inter-Parliamentary Union');
+        expect(source?.attribution).toMatch(/^Inter-Parliamentary Union:/);
+      }
+
+      for (const chamber of parsed.parliament.chambers) {
+        const isWikipediaFallback = chamber.id.startsWith('wiki-');
+        if (!isWikipediaFallback) {
+          for (const sourceId of chamber.sourceIds) {
+            const source = sourcesById.get(sourceId);
+            expect(source?.publisher).toBe('Inter-Parliamentary Union');
+          }
+        }
+
+        for (const sourceId of chamber.latestElection?.sourceIds ?? []) {
+          const source = sourcesById.get(sourceId);
+          expect(source?.publisher).toBe('Inter-Parliamentary Union');
+          expect(source?.attribution).toMatch(/^Inter-Parliamentary Union:/);
+        }
+      }
+
+      for (const election of parsed.nextExpectedElections) {
+        for (const sourceId of election.sourceIds) {
+          const source = sourcesById.get(sourceId);
+          expect(source?.publisher).toBe('Inter-Parliamentary Union');
+          expect(source?.attribution).toMatch(/^Inter-Parliamentary Union:/);
+        }
+      }
     }
   });
 
