@@ -312,6 +312,98 @@
             "The number of seats for the Constitutional Democratic Party of Japan includes one female member who won a by-election in Tokyo prefecture.\n\nParliamentary groups in the House of Councillors (As of 25 August 2025)\n- Liberal Democratic Party (LDP): 100\n- Constitutional Democratic Party of Japan (CDP) - Social Democratic Party (SDP) – Independents: 42\n- The Democratic Party and The Shin-Ryokufukai (DP-SR): 25\n- Komeito (KP): 21\n- Nippon Ishin (Japan Innovation Party): 19\n- Sanseito: 15\n- Japanese Communist Party (JCP): 7\n- Reiwa Shinsengumi: 6\n- Okinawa Whirlwind (OW): 2\n- Conservative Party of Japan: 2\n- Independents: 9"
           ],
           "sourceIds": ["ipu-parline"]
+        },
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 246,
+          "retrievedAt": "2026-09-19T03:00:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-217779-mw-parser-output-legend-page-break-inside-avoid-break-inside-avoid-column-mw-parser-output-legend-color-display-inline-block-min-width-1-25em-height-1-25em-line-height-1-25-margin-1px-0-text-align-center-border-1px-solid-black-background-color-transparent-color-black-mw-parser-output-legend-text-ldp",
+              "party": ".mw-parser-output .legend{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .legend-color{display:inline-block;min-width:1.25em;height:1.25em;line-height:1.25;margin:1px 0;text-align:center;border:1px solid black;background-color:transparent;color:black}.mw-parser-output .legend-text{} LDP",
+              "seats": 101,
+              "group": "Government"
+            },
+            {
+              "partyId": "wiki-217779-cdp",
+              "party": "CDP",
+              "seats": 40,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-dpfp",
+              "party": "DPFP",
+              "seats": 25,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-komeito",
+              "party": "Kōmeitō",
+              "seats": 21,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-ishin",
+              "party": "Ishin",
+              "seats": 19,
+              "group": "Government"
+            },
+            {
+              "partyId": "wiki-217779-sanseito",
+              "party": "Sanseitō",
+              "seats": 15,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-jcp",
+              "party": "JCP",
+              "seats": 7,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-life",
+              "party": "Life",
+              "seats": 5,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-independent",
+              "party": "Independent",
+              "seats": 4,
+              "group": "Unaffiliated"
+            },
+            {
+              "partyId": "wiki-217779-cpj",
+              "party": "CPJ",
+              "seats": 2,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-okinawa-whirlwind",
+              "party": "Okinawa Whirlwind",
+              "seats": 2,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-sdp",
+              "party": "SDP",
+              "seats": 2,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-team-mirai",
+              "party": "Team Mirai",
+              "seats": 2,
+              "group": "Opposition"
+            },
+            {
+              "partyId": "wiki-217779-vacant",
+              "party": "Vacant",
+              "seats": 1,
+              "group": "Vacant"
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-217779"]
         }
       }
     ]

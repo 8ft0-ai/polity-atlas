@@ -1,7 +1,7 @@
 {
   "schemaVersion": 4,
   "buildId": "2026-09-19",
-  "generatedAt": "2026-09-19T02:50:00.000Z",
+  "generatedAt": "2026-09-19T03:00:00.000Z",
   "profiles": [
     {
       "iso3": "AUS",
@@ -11,37 +11,37 @@
     {
       "iso3": "CAN",
       "path": "countries/CAN.json",
-      "sha256": "1769be9fc4714f2c244d9ded12581f282b932ca941860afb8dbb7f2eef7619d1"
+      "sha256": "3eb8d5645ea5808205e2c40301c2adf0ba77ad6f1a05059f970018038ce20812"
     },
     {
       "iso3": "CHN",
       "path": "countries/CHN.json",
-      "sha256": "091be91012dcbd49a46403eda36cef9f11bd95ddfc64335026f36ee6b4cf8550"
+      "sha256": "d4c12f9fe1e6b6c51b41e8a887b6b6c8f7e010a6e548b37d70e8c56a1f2943b8"
     },
     {
       "iso3": "FRA",
       "path": "countries/FRA.json",
-      "sha256": "2b7342004fa9f0388ea2c54720da56fe0a49477c7570d66e1a2fb5505719f274"
+      "sha256": "e78970e07dd92b833548e53998eb73b2905df8d603f75541ed74a96fdfc31c30"
     },
     {
       "iso3": "GBR",
       "path": "countries/GBR.json",
-      "sha256": "db5ce11563f3ff73d1487000c0f44cb07b080d3d5d8e3fa54265abf9acc8a50f"
+      "sha256": "22740e139b8fa2b9420f1bd2875670f5b66706c9d92e2967d45ead9adb50751d"
     },
     {
       "iso3": "IDN",
       "path": "countries/IDN.json",
-      "sha256": "d18f1083729fa0d468f943a07688097cf40c23203cc4fe99024d749cbbdb3723"
+      "sha256": "460e350a16ca9241f1fcb3aab0020679f53dca5b9816b64c88255c1a61046670"
     },
     {
       "iso3": "IND",
       "path": "countries/IND.json",
-      "sha256": "b49d0e61b584fa0d553762d771ff9e0ac89a1cd899cb51b94ee45b706e6076c1"
+      "sha256": "289dea4a9f599260c4745535ce42493eb5dc338ca669d127f85aae48507e07f9"
     },
     {
       "iso3": "JPN",
       "path": "countries/JPN.json",
-      "sha256": "94e5f3842eb9d4d4d2432f862de6521e29e0ac4ce6aa215e0d91a0e9a68b4f00"
+      "sha256": "6706ebb4d9b4b69466c733e8753d04ec186779d11f380b7fc93d0b3e8f40b515"
     },
     {
       "iso3": "NZL",
@@ -56,6 +56,6 @@
   ],
   "sourceRegistry": {
     "path": "sources.json",
-    "sha256": "61932e3cffd85d98988a5d1ec2260775b012c80c50d930ffa97d60e03d9122f8"
+    "sha256": "6ae73c413f2888547c8185e8dd7cd3412fb7897c8d5a7bb2297ac872d08bd0fe"
   }
 }

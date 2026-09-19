@@ -187,7 +187,7 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 580,
-          "retrievedAt": "2026-09-19T02:50:00.000Z",
+          "retrievedAt": "2026-09-19T03:00:00.000Z",
           "entries": [
             {
               "partyId": "wiki-737841-pdi-p",
@@ -211,7 +211,7 @@
               "partyId": "wiki-737841-nasdem",
               "party": "NasDem",
               "seats": 69,
-              "group": "Confidence and supply"
+              "group": "KIM+"
             },
             {
               "partyId": "wiki-737841-pkb",
@@ -223,7 +223,7 @@
               "partyId": "wiki-737841-pks",
               "party": "PKS",
               "seats": 53,
-              "group": "Confidence and supply"
+              "group": "KIM+"
             },
             {
               "partyId": "wiki-737841-pan",
