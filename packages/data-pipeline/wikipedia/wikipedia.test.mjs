@@ -177,7 +177,7 @@ describe('Wikipedia chamber fallback', () => {
     expect(() => countryProfileSchema.parse(merged)).not.toThrow();
   });
 
-  it('does not duplicate a Wikipedia chamber that matches an IPU chamber by seats', () => {
+  it('does not duplicate a Wikipedia chamber that strongly matches an IPU chamber by name', () => {
     const current = profile([
       ipuChamber({
         id: 'EX-LC01',
@@ -201,6 +201,137 @@ describe('Wikipedia chamber fallback', () => {
       }),
       current,
     );
+    expect(normalized.missingChambers).toEqual([]);
+  });
+
+  it('replaces a previously generated Wikipedia fallback on refresh', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'lower',
+        totalSeats: 400,
+      }),
+      {
+        id: 'wiki-exa-council',
+        name: 'Council',
+        kind: 'upper',
+        totalSeats: 100,
+        speakers: [],
+        sourceIds: ['wikipedia-en-page-1', 'wikipedia-en-page-3'],
+      },
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          { name: 'Assembly', title: 'Assembly', seats: 400 },
+          { name: 'Council', title: 'Council', seats: 120 },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-20');
+
+    expect(normalized.missingChambers).toHaveLength(1);
+    expect(merged.parliament.chambers).toHaveLength(2);
+    expect(merged.parliament.chambers[1]).toMatchObject({
+      id: 'wiki-exa-council',
+      name: 'Council',
+      kind: 'upper',
+      totalSeats: 120,
+    });
+  });
+
+  it('removes a Wikipedia fallback when IPU later registers that chamber', () => {
+    const lower = ipuChamber({
+      id: 'EX-LC01',
+      name: 'Assembly',
+      kind: 'lower',
+      totalSeats: 400,
+    });
+    const upper = ipuChamber({
+      id: 'EX-UC01',
+      name: 'Council',
+      kind: 'upper',
+      totalSeats: 120,
+    });
+    const current = profile([
+      lower,
+      upper,
+      {
+        id: 'wiki-exa-council',
+        name: 'Council',
+        kind: 'upper',
+        totalSeats: 100,
+        speakers: [],
+        sourceIds: ['wikipedia-en-page-1', 'wikipedia-en-page-3'],
+      },
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          { name: 'Assembly', title: 'Assembly', seats: 400 },
+          { name: 'Council', title: 'Council', seats: 120 },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-20');
+
+    expect(normalized.missingChambers).toEqual([]);
+    expect(merged.parliament.chambers).toEqual([lower, upper]);
+  });
+
+  it('does not use equal seat count alone to identify an IPU chamber', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'lower',
+        totalSeats: 100,
+      }),
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          { name: 'Assembly', title: 'Assembly', seats: 100 },
+          { name: 'Council', title: 'Council', seats: 100 },
+        ],
+      }),
+      current,
+    );
+
+    expect(normalized.missingChambers).toEqual([
+      expect.objectContaining({
+        name: 'Council',
+        kind: 'upper',
+        totalSeats: 100,
+      }),
+    ]);
+  });
+
+  it('reports a chamber page whose infobox has no seat count', () => {
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          { name: 'Assembly', title: 'Assembly', seats: 400 },
+          { name: 'Council', title: 'Council', seats: undefined },
+        ],
+      }),
+      profile([
+        ipuChamber({
+          id: 'EX-LC01',
+          name: 'Assembly',
+          kind: 'lower',
+          totalSeats: 400,
+        }),
+      ]),
+    );
+
+    expect(normalized.diagnostics).toContain('NO_SEAT_COUNT:Council');
     expect(normalized.missingChambers).toEqual([]);
   });
 
