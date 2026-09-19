@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -429,9 +429,6 @@ function ElectionOutcome({
   const [selectedViewId, setSelectedViewId] = useState(
     compositionDefaultViewId,
   );
-  useEffect(() => {
-    setSelectedViewId(compositionDefaultViewId);
-  }, [chamber.id, compositionDefaultViewId]);
   const availableViews = compositionViews(chamber.composition);
   const primary = selectPrimaryComposition(chamber, selectedViewId);
   const isPartial = election?.scope === 'partial-renewal';
