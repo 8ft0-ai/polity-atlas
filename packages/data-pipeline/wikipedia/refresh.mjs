@@ -132,7 +132,7 @@ async function enrichSnapshotWithWikidataColors(
   const titles = new Set();
 
   for (const page of pages) {
-    const entries = extractPoliticalComposition(parseInfobox(page.html));
+    const entries = extractPoliticalComposition(parseInfobox(page.html)) ?? [];
     for (const entry of entries) {
       if (!entry.visual && entry.articleTitle) titles.add(entry.articleTitle);
     }
@@ -147,7 +147,7 @@ async function enrichSnapshotWithWikidataColors(
   function enrichPage(page) {
     if (!page) return page;
     const pageTitles = new Set(
-      extractPoliticalComposition(parseInfobox(page.html))
+      (extractPoliticalComposition(parseInfobox(page.html)) ?? [])
         .filter((entry) => !entry.visual && entry.articleTitle)
         .map((entry) => entry.articleTitle),
     );

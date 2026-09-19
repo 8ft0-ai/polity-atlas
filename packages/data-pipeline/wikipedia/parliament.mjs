@@ -52,7 +52,7 @@ function compositionEntryId(pageId, party, group, index) {
 
 function compositionEntriesForPage(page, parsed, retrievedAt) {
   const pageSource = wikipediaSource(page, retrievedAt);
-  return extractPoliticalComposition(parsed).map((entry) => {
+  return (extractPoliticalComposition(parsed) ?? []).map((entry) => {
     if (entry.visual) {
       return {
         ...entry,
