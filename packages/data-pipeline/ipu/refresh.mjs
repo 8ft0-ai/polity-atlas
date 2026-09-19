@@ -135,9 +135,12 @@ for (const country of targets) {
   process.stdout.write(`Prepared ${country.iso3} (${country.mode})\n`);
 }
 
+const uniqueEmittedSources = [
+  ...new Map(emittedSources.map((source) => [source.id, source])).values(),
+];
 const mergedSources = mergeSourceRecords(
   existingSourceRegistry.sources,
-  emittedSources,
+  uniqueEmittedSources,
 );
 
 await mkdir(cacheDirectory, { recursive: true });
