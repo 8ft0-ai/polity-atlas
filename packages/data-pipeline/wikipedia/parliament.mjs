@@ -1,0 +1,225 @@
+import {
+  extractExplicitChamberKind,
+  extractHouseLinks,
+  extractSeatCount,
+  parseInfobox,
+} from './parse-infobox.mjs';
+
+function slug(value) {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function comparableName(value) {
+  return value
+    .toLowerCase()
+    .replace(/\b(the|parliament|national|federal|australian|canadian|british|french|indian|indonesian|japanese|new zealand|united states)\b/g, ' ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function wikipediaSource(page, retrievedAt) {
+  return {
+    id: `wikipedia-en-page-${page.pageId}`,
+    publisher: 'Wikipedia',
+    title: page.title,
+    url: page.url,
+    retrievedAt,
+    kind: 'reference',
+    attribution: `Wikipedia contributors, "${page.title}"`,
+  };
+}
+
+function candidateMatchesIpu(candidate, chamber) {
+  const wikiName = comparableName(candidate.name);
+  const ipuName = comparableName(chamber.name);
+  if (
+    wikiName &&
+    ipuName &&
+    (wikiName === ipuName ||
+      wikiName.includes(ipuName) ||
+      ipuName.includes(wikiName))
+  ) {
+    return true;
+  }
+  return candidate.totalSeats === chamber.totalSeats;
+}
+
+function inferKinds(country, candidates, existingChambers) {
+  const remainingKinds = new Set(['lower', 'upper']);
+  for (const chamber of existingChambers) {
+    remainingKinds.delete(chamber.kind);
+  }
+
+  const inferred = candidates.map((candidate) => ({ ...candidate }));
+  for (const candidate of inferred) {
+    if (candidate.kind) remainingKinds.delete(candidate.kind);
+  }
+
+  const unknown = inferred.filter((candidate) => !candidate.kind);
+  if (!unknown.length) return inferred;
+
+  if (
+    existingChambers.length === 0 &&
+    inferred.length === 1 &&
+    unknown.length === 1
+  ) {
+    unknown[0].kind = 'unicameral';
+    return inferred;
+  }
+
+  if (remainingKinds.size === unknown.length && unknown.length === 1) {
+    unknown[0].kind = [...remainingKinds][0];
+    return inferred;
+  }
+
+  if (unknown.length === 2 && unknown.every((candidate) => candidate.totalSeats)) {
+    const bySeats = [...unknown].sort(
+      (left, right) => left.totalSeats - right.totalSeats,
+    );
+    const smaller = bySeats[0];
+    const larger = bySeats[1];
+
+    // Fallback only when Wikipedia does not explicitly label the chambers and
+    // no IPU chamber kind can disambiguate them. The normal bicameral heuristic
+    // is the larger chamber as lower house; the United Kingdom is the explicit
+    // exception because its upper house is larger.
+    if (country.iso3 === 'GBR') {
+      smaller.kind = 'lower';
+      larger.kind = 'upper';
+    } else {
+      smaller.kind = 'upper';
+      larger.kind = 'lower';
+    }
+  }
+
+  return inferred;
+}
+
+export function normalizeWikipediaParliament(snapshot, profile) {
+  if (!snapshot.parliamentPage) {
+    return {
+      missingChambers: [],
+      sources: [],
+      diagnostics: ['NO_WIKIPEDIA_PARLIAMENT_PAGE'],
+    };
+  }
+
+  const parliamentParsed = parseInfobox(snapshot.parliamentPage.html);
+  const houseLinks = extractHouseLinks(parliamentParsed);
+  const parentSource = wikipediaSource(
+    snapshot.parliamentPage,
+    snapshot.retrievedAt,
+  );
+
+  const rawCandidates = snapshot.chamberPages
+    .map((page) => {
+      const parsed = parseInfobox(page.html);
+      return {
+        name:
+          houseLinks.find((link) => link.title === page.requestedTitle)?.text ||
+          page.title,
+        requestedTitle: page.requestedTitle,
+        totalSeats: extractSeatCount(parsed),
+        kind: extractExplicitChamberKind(parsed),
+        source: wikipediaSource(page, snapshot.retrievedAt),
+      };
+    })
+    .filter((candidate) => candidate.totalSeats);
+
+  if (!rawCandidates.length) {
+    const parentSeats = extractSeatCount(parliamentParsed);
+    const parentKind = extractExplicitChamberKind(parliamentParsed);
+    if (parentSeats && parentKind === 'unicameral') {
+      rawCandidates.push({
+        name: snapshot.parliamentPage.title,
+        requestedTitle: snapshot.parliamentPage.title,
+        totalSeats: parentSeats,
+        kind: 'unicameral',
+        source: parentSource,
+      });
+    }
+  }
+
+  const unmatched = rawCandidates.filter(
+    (candidate) =>
+      !profile.parliament.chambers.some((chamber) =>
+        candidateMatchesIpu(candidate, chamber),
+      ),
+  );
+  const withKinds = inferKinds(
+    snapshot.requestedCountry,
+    unmatched,
+    profile.parliament.chambers,
+  );
+
+  const missingChambers = withKinds
+    .filter((candidate) => candidate.kind && candidate.totalSeats)
+    .map((candidate) => ({
+      id: `wiki-${snapshot.requestedCountry.iso3.toLowerCase()}-${slug(
+        candidate.name,
+      )}`,
+      name: candidate.name,
+      kind: candidate.kind,
+      totalSeats: candidate.totalSeats,
+      speakers: [],
+      sourceIds: [...new Set([parentSource.id, candidate.source.id])],
+    }))
+    .sort((left, right) => {
+      const order = { lower: 0, unicameral: 0, upper: 1 };
+      return (
+        order[left.kind] - order[right.kind] ||
+        left.name.localeCompare(right.name)
+      );
+    });
+
+  const sourceIds = new Set(
+    missingChambers.flatMap((chamber) => chamber.sourceIds),
+  );
+  const sources = [parentSource, ...rawCandidates.map((candidate) => candidate.source)]
+    .filter((source, index, all) =>
+      sourceIds.has(source.id) &&
+      all.findIndex((candidate) => candidate.id === source.id) === index,
+    )
+    .sort((left, right) => left.id.localeCompare(right.id));
+
+  const diagnostics = [];
+  for (const candidate of unmatched) {
+    if (!candidate.totalSeats) {
+      diagnostics.push(`NO_SEAT_COUNT:${candidate.name}`);
+    }
+  }
+  for (const candidate of withKinds) {
+    if (!candidate.kind) diagnostics.push(`NO_CHAMBER_KIND:${candidate.name}`);
+  }
+
+  return { missingChambers, sources, diagnostics };
+}
+
+export function mergeWikipediaChambers(profile, normalized, buildId) {
+  if (!normalized.missingChambers.length) return { ...profile, buildId };
+
+  const order = { lower: 0, unicameral: 0, upper: 1 };
+  return {
+    ...profile,
+    buildId,
+    parliament: {
+      ...profile.parliament,
+      chambers: [
+        ...profile.parliament.chambers,
+        ...normalized.missingChambers,
+      ].sort(
+        (left, right) =>
+          order[left.kind] - order[right.kind] ||
+          left.name.localeCompare(right.name),
+      ),
+    },
+  };
+}
+
+export { extractHouseLinks };
