@@ -51,7 +51,7 @@ function sourceIdsForProfile(profile: CountryProfile) {
       chamber.speakers.flatMap((speaker) => speaker.sourceIds),
     ),
     ...profile.parliament.chambers.flatMap(
-      (chamber) => chamber.electoralSystem.sourceIds,
+      (chamber) => chamber.electoralSystem?.sourceIds ?? [],
     ),
     ...profile.parliament.chambers.flatMap(
       (chamber) => chamber.latestElection?.sourceIds ?? [],
