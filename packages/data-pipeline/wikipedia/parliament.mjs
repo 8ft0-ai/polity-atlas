@@ -119,7 +119,7 @@ function visualForIpuResult(result, entries) {
   return matches[0].visual;
 }
 
-function chamberVisuals(candidate, chamber) {
+function extractChamberVisuals(candidate, chamber) {
   const entries = candidate.compositionEntries ?? [];
   const outcome = chamber.latestElection?.outcome;
   if (!outcome || !entries.length) return undefined;
@@ -318,7 +318,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     .filter(({ chamber }) => chamber);
 
   const chamberVisuals = matchedCandidates
-    .map(({ candidate, chamber }) => chamberVisuals(candidate, chamber))
+    .map(({ candidate, chamber }) => extractChamberVisuals(candidate, chamber))
     .filter(Boolean);
 
   const chamberCompositions = matchedCandidates
