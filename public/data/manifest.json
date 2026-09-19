@@ -1,57 +1,61 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "generatedAt": "2026-09-19T00:00:00.000Z",
   "profiles": [
     {
       "iso3": "AUS",
       "path": "countries/AUS.json",
-      "sha256": "785fc337c6f0f045dc5a5ca29a342cbd0e4a71176136070da194e2350ddf5ce0"
+      "sha256": "9c90cce241f9a0a564ac6cc8563bf6470dd29f3737d95af718b1422937c2dd50"
     },
     {
       "iso3": "CAN",
       "path": "countries/CAN.json",
-      "sha256": "b7fdc494c685326184bf0c0b8329bf80205c22bee6eacd515462dbc16bc4a9ca"
+      "sha256": "60dbade58a9b7f886ccbc3b83773f825bfe7b1011e09bc0f22dfed2f143c8f14"
     },
     {
       "iso3": "CHN",
       "path": "countries/CHN.json",
-      "sha256": "6b3a0671b1f29bba4ba09ebed1c7ad7c9d181d46a2c5e9dd683b51bad16c25c4"
+      "sha256": "b44d3daf8dbdcba087768e924f03fcfe0c6eff61e42dcc5b41cbd5237e6bb959"
     },
     {
       "iso3": "FRA",
       "path": "countries/FRA.json",
-      "sha256": "62bb073f4b798b79d1a7b82aa5cade818b2444c868c98a4af07966c5ab46187d"
+      "sha256": "9ccdf355ad84389fd447b3683eb619af12c1d76c211a6dca35701c37ccbbfb35"
     },
     {
       "iso3": "GBR",
       "path": "countries/GBR.json",
-      "sha256": "26fadd211e8bd9968d6d2e8fb90f98bb3f1d96acb31e276cc2a6b05eca9b9402"
+      "sha256": "16ec81b145c6bb6f795b17d2de5d9a345846aa5c6226cbc8ed2ec83a62bda033"
     },
     {
       "iso3": "IDN",
       "path": "countries/IDN.json",
-      "sha256": "13e70dcf2bd2ecc89ba9f3fccb36876af45ed0bdc665f768fbe70ccd39d521be"
+      "sha256": "2ef3998939f4de5773dcc8dea6e1670cccc9d0c5e350ef4c00c670b26262d78a"
     },
     {
       "iso3": "IND",
       "path": "countries/IND.json",
-      "sha256": "b67bcce0f8a3e9f92e231e24added5e45da5529906888ed7b2a8984887276046"
+      "sha256": "02eb1c99a1e79e8adc2cc780a590a01b513239bc44d5845582974749a8b36007"
     },
     {
       "iso3": "JPN",
       "path": "countries/JPN.json",
-      "sha256": "689797618bba18b240223feb8cc66bf8ddcd21414518a3d063fe115e11c26f23"
+      "sha256": "5488d5823c1055415f52ae2bab4d041f0a45482539a97dc91e5caf55a34e261d"
     },
     {
       "iso3": "NZL",
       "path": "countries/NZL.json",
-      "sha256": "e7eb3b654887dce4cc8a0189c0e3dbd3eed5526a7b53a4d8a6632c97c7a14304"
+      "sha256": "3d319c9effc7835f0bf4e68b7a84dc076a0ff1ed8a6f1e1f9cb7f94b8d3564ac"
     },
     {
       "iso3": "USA",
       "path": "countries/USA.json",
-      "sha256": "15202b26ec6a7653741add004b1977fc513e92c32f4ea2a3ba1e7832390a3b9f"
+      "sha256": "23f097fe4713ccc6e7a9d43aef77e1b7f2fbe44ce12626d16f49e846c966cbd4"
     }
-  ]
+  ],
+  "sourceRegistry": {
+    "path": "sources.json",
+    "sha256": "89241219a7d8a26e2f1ed2350d806ee45a9dc03e12287afe5bfa6292516b0ec0"
+  }
 }
