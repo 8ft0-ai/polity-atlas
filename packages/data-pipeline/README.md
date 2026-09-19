@@ -93,13 +93,35 @@ parsed for the parliament infobox; linked house or chamber pages are retrieved
 through the same REST page resource and compared with already-normalized IPU
 chambers.
 
-IPU remains authoritative for every chamber it supplies. Wikipedia can add only
-a chamber that does not match an IPU chamber using strong normalized-name
-evidence or compatible chamber-kind plus seat-count evidence; seat count alone
-is never treated as chamber identity. Previously generated Wikipedia fallback
-chambers are reconciled on every refresh and are removed when IPU later supplies
-the chamber. Added chambers may be partial records: unknown Speaker,
-electoral-system, or election fields remain unknown rather than being invented.
+IPU remains authoritative for every chamber it supplies. Wikipedia can add a
+chamber that does not match an IPU chamber and can enrich a matched chamber with
+a separate source-reported party-seat composition only when IPU does not provide
+a full post-election composition. The fallback composition never becomes
+`latestElection.outcome`: it is a distinct chamber field with its own retrieval
+time and Wikipedia source IDs.
+
+Chamber matching prefers strong normalized-name evidence, then compatible
+chamber identity. When source names differ but exactly one IPU chamber has the
+same explicit lower/upper/unicameral kind, that unique kind can resolve the
+alias; seat count alone is never chamber identity. Previously generated
+Wikipedia fallback chambers are reconciled on every refresh and are removed
+when IPU later supplies the chamber. Added chambers may be partial records:
+unknown Speaker, electoral-system, or election fields remain unknown rather
+than being invented.
+
+For composition precedence:
+
+1. if IPU supplies a full post-election composition, use IPU and do not publish
+   a Wikipedia composition fallback;
+2. if IPU supplies an election record but no full party-seat split, retain that
+   IPU election record and separately publish a safely parsed Wikipedia
+   source-reported composition;
+3. if a Wikipedia composition sums to more than the chamber's statutory seat
+   count, reject it;
+4. if the source breakdown sums to fewer than the statutory seats, display the
+   reported total without inferring that the remainder are vacancies;
+5. never convert Wikipedia's current political-group listing into a historical
+   election result.
 
 Chamber kind is resolved in this order:
 
