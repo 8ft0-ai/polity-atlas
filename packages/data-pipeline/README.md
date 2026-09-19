@@ -92,10 +92,12 @@ chamber pages, and compares those chambers with the already-normalized IPU
 chambers.
 
 IPU remains authoritative for every chamber it supplies. Wikipedia can add only
-a chamber that does not match an IPU chamber by normalized name or seat count;
-it never overwrites an IPU chamber. Added chambers may be partial records:
-unknown Speaker, electoral-system, or election fields remain unknown rather
-than being invented.
+a chamber that does not match an IPU chamber using strong normalized-name
+evidence or compatible chamber-kind plus seat-count evidence; seat count alone
+is never treated as chamber identity. Previously generated Wikipedia fallback
+chambers are reconciled on every refresh and are removed when IPU later supplies
+the chamber. Added chambers may be partial records: unknown Speaker,
+electoral-system, or election fields remain unknown rather than being invented.
 
 Chamber kind is resolved in this order:
 
