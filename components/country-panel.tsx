@@ -58,6 +58,9 @@ function sourceIdsForProfile(profile: CountryProfile | LegislatureProfile) {
     ) ?? []),
     ...profile.parliament.name.sourceIds,
     ...profile.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) => chamber.operationalStatus?.sourceIds ?? [],
+    ),
     ...profile.parliament.chambers.flatMap((chamber) =>
       chamber.speakers.flatMap((speaker) => speaker.sourceIds),
     ),
@@ -618,67 +621,69 @@ export function CountryPanel() {
             </TabsList>
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
-            <TabsContent value="overview" className="space-y-6">
-              <section>
-                <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">
-                  Government
-                </p>
-                <p className="mt-2 text-[15px] leading-6">
-                  {fullProfile!.government.system.value}
-                  <Sources
-                    ids={fullProfile!.government.system.sourceIds}
-                    sources={sources}
-                  />
-                </p>
-              </section>
-              <section className="grid grid-cols-2 gap-3">
-                {(fullProfile ? officeHolderCards(fullProfile) : []).map(
-                  (holder) => (
-                    <article
-                      key={holder.key}
-                      className="border border-border bg-background/45 p-3"
-                    >
-                      <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-                        {holder.roles.join(' · ')}
-                      </p>
-                      <h2 className="mt-2 text-sm font-semibold">
-                        {holder.name}
-                      </h2>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        {holder.office} · Since {holder.since}
-                      </p>
-                      <Sources ids={holder.sourceIds} sources={sources} />
-                    </article>
-                  ),
-                )}
-              </section>
-              <section className="border-t border-border pt-4">
-                <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">
-                  Next expected parliamentary elections
-                </p>
-                {profileQuery.data.nextExpectedElections.length ? (
-                  <div className="mt-3 space-y-3">
-                    {profileQuery.data.nextExpectedElections.map((election) => (
-                      <article key={election.id}>
-                        <h2 className="text-sm font-semibold">
-                          {election.chamberName}
-                        </h2>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          Expected {formatDateRange(election.date)} ·{' '}
-                          {humanize(election.eventType)}
-                        </p>
-                        <Sources ids={election.sourceIds} sources={sources} />
-                      </article>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    No expected parliamentary election date is currently
-                    available from IPU.
+            {fullProfile && (
+              <TabsContent value="overview" className="space-y-6">
+                <section>
+                  <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                    Government
                   </p>
-                )}
-              </section>
-            </TabsContent>
+                  <p className="mt-2 text-[15px] leading-6">
+                    {fullProfile!.government.system.value}
+                    <Sources
+                      ids={fullProfile!.government.system.sourceIds}
+                      sources={sources}
+                    />
+                  </p>
+                </section>
+                <section className="grid grid-cols-2 gap-3">
+                  {(fullProfile ? officeHolderCards(fullProfile) : []).map(
+                    (holder) => (
+                      <article
+                        key={holder.key}
+                        className="border border-border bg-background/45 p-3"
+                      >
+                        <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                          {holder.roles.join(' · ')}
+                        </p>
+                        <h2 className="mt-2 text-sm font-semibold">
+                          {holder.name}
+                        </h2>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {holder.office} · Since {holder.since}
+                        </p>
+                        <Sources ids={holder.sourceIds} sources={sources} />
+                      </article>
+                    ),
+                  )}
+                </section>
+                <section className="border-t border-border pt-4">
+                  <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                    Next expected parliamentary elections
+                  </p>
+                  {profileQuery.data.nextExpectedElections.length ? (
+                    <div className="mt-3 space-y-3">
+                      {profileQuery.data.nextExpectedElections.map((election) => (
+                        <article key={election.id}>
+                          <h2 className="text-sm font-semibold">
+                            {election.chamberName}
+                          </h2>
+                          <p className="mt-1 text-sm text-muted-foreground">
+                            Expected {formatDateRange(election.date)} ·{' '}
+                            {humanize(election.eventType)}
+                          </p>
+                          <Sources ids={election.sourceIds} sources={sources} />
+                        </article>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                      No expected parliamentary election date is currently
+                      available from IPU.
+                    </p>
+                  )}
+                </section>
+              </TabsContent>
+            )}
 
             <TabsContent value="parliament" className="space-y-4">
               {profileQuery.data.parliament.chambers.map((chamber) => (
@@ -689,6 +694,28 @@ export function CountryPanel() {
                       {chamber.totalSeats} statutory seats
                     </span>
                   </div>
+                  {chamber.operationalStatus?.state === 'suspended' && (
+                    <div className="mt-4 border border-border bg-muted/45 p-3">
+                      <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                        Legislature status
+                      </p>
+                      <p className="mt-1 text-sm font-semibold">Suspended</p>
+                      {chamber.operationalStatus.since && (
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Since {chamber.operationalStatus.since}
+                        </p>
+                      )}
+                      {chamber.operationalStatus.note && (
+                        <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                          {chamber.operationalStatus.note}
+                        </p>
+                      )}
+                      <Sources
+                        ids={chamber.operationalStatus.sourceIds}
+                        sources={sources}
+                      />
+                    </div>
+                  )}
                   <ElectionOutcome chamber={chamber} sources={sources} />
 
                   <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2">
@@ -831,31 +858,33 @@ export function CountryPanel() {
               )}
             </TabsContent>
 
-            <TabsContent value="relations" className="space-y-3">
-              <p className="text-sm leading-6 text-muted-foreground">
-                Related countries are highlighted on the map while this tab is
-                active.
-              </p>
-              {(fullProfile?.relations ?? []).map((relation) => (
-                <article
-                  key={relation.m49}
-                  className="flex items-start justify-between gap-4 border-b border-border py-3 first:pt-0"
-                >
-                  <div>
-                    <h2 className="text-sm font-semibold">
-                      {relation.country}
-                    </h2>
-                    <p className="ui-text mt-1 text-[11px] uppercase tracking-[0.06em] text-muted-foreground">
-                      {relation.status.replaceAll('-', ' ')}
-                    </p>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {relation.note}
-                    </p>
-                  </div>
-                  <Sources ids={relation.sourceIds} sources={sources} />
-                </article>
-              ))}
-            </TabsContent>
+            {fullProfile && (
+              <TabsContent value="relations" className="space-y-3">
+                <p className="text-sm leading-6 text-muted-foreground">
+                  Related countries are highlighted on the map while this tab is
+                  active.
+                </p>
+                {(fullProfile?.relations ?? []).map((relation) => (
+                  <article
+                    key={relation.m49}
+                    className="flex items-start justify-between gap-4 border-b border-border py-3 first:pt-0"
+                  >
+                    <div>
+                      <h2 className="text-sm font-semibold">
+                        {relation.country}
+                      </h2>
+                      <p className="ui-text mt-1 text-[11px] uppercase tracking-[0.06em] text-muted-foreground">
+                        {relation.status.replaceAll('-', ' ')}
+                      </p>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        {relation.note}
+                      </p>
+                    </div>
+                    <Sources ids={relation.sourceIds} sources={sources} />
+                  </article>
+                ))}
+              </TabsContent>
+            )}
 
             <TabsContent value="sources" className="space-y-4">
               {sources
