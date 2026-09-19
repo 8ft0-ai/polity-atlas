@@ -423,6 +423,14 @@ function ElectionOutcome({
   );
 }
 
+type BriefingProfile = CountryProfile | LegislatureProfile;
+
+function isCountryProfile(
+  profile: BriefingProfile,
+): profile is CountryProfile {
+  return 'government' in profile;
+}
+
 type OfficeHolder = CountryProfile['government']['headOfState'][number];
 
 type OfficeHolderCard = OfficeHolder & {
@@ -488,12 +496,12 @@ export function CountryPanel() {
     queryFn: loadSourceRegistry,
     enabled: Boolean(iso3),
   });
-  const profileQuery = useQuery({
+  const profileQuery = useQuery<BriefingProfile>({
     queryKey: [
       fullIso3 ? 'country-profile' : 'legislature-profile',
       iso3,
     ],
-    queryFn: () =>
+    queryFn: async (): Promise<BriefingProfile> =>
       fullIso3
         ? loadCountryProfile(fullIso3)
         : loadLegislatureProfile(legislatureIso3!),
@@ -504,7 +512,7 @@ export function CountryPanel() {
 
   const sources = sourceRegistryQuery.data?.sources ?? [];
   const fullProfile =
-    profileQuery.data && 'government' in profileQuery.data
+    profileQuery.data && isCountryProfile(profileQuery.data)
       ? profileQuery.data
       : undefined;
   const visibleTabs = fullProfile
