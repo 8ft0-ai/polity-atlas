@@ -44,7 +44,7 @@ export const chamberCompositionEntrySchema = electionPartyResultSchema.extend({
   group: z.string().optional(),
 });
 
-const chamberCompositionSchema = z
+const legacyChamberCompositionSchema = z
   .object({
     basis: z.literal('source-reported'),
     reportedSeats: z.number().int().nonnegative(),
@@ -65,6 +65,62 @@ const chamberCompositionSchema = z
       });
     }
   });
+
+export const chamberCompositionViewSchema = z
+  .object({
+    id: z.string().min(1),
+    label: z.string().min(1),
+    dimension: z.enum(['party', 'faction', 'coalition', 'membership-role']),
+    reportedSeats: z.number().int().nonnegative(),
+    entries: z.array(chamberCompositionEntrySchema).min(1),
+    sourceIds: z.array(z.string()).min(1),
+  })
+  .superRefine((view, ctx) => {
+    const entrySeats = view.entries.reduce(
+      (sum, entry) => sum + entry.seats,
+      0,
+    );
+    if (entrySeats !== view.reportedSeats) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Composition view entry seats must equal reportedSeats',
+        path: ['reportedSeats'],
+      });
+    }
+  });
+
+const multiViewChamberCompositionSchema = z
+  .object({
+    basis: z.literal('source-reported'),
+    defaultViewId: z.string().min(1),
+    retrievedAt: z.iso.datetime(),
+    views: z.array(chamberCompositionViewSchema).min(1),
+  })
+  .superRefine((composition, ctx) => {
+    const ids = new Set<string>();
+    composition.views.forEach((view, index) => {
+      if (ids.has(view.id)) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `Duplicate composition view id: ${view.id}`,
+          path: ['views', index, 'id'],
+        });
+      }
+      ids.add(view.id);
+    });
+    if (!ids.has(composition.defaultViewId)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'defaultViewId must identify a published composition view',
+        path: ['defaultViewId'],
+      });
+    }
+  });
+
+const chamberCompositionSchema = z.union([
+  multiViewChamberCompositionSchema,
+  legacyChamberCompositionSchema,
+]);
 
 const electionOutcomeSchema = z
   .object({
@@ -225,10 +281,22 @@ export const chamberSchema = z
     sourceIds: z.array(z.string()).min(1),
   })
   .superRefine((chamber, ctx) => {
-    if (
-      chamber.composition &&
-      chamber.composition.reportedSeats > chamber.totalSeats
-    ) {
+    if (!chamber.composition) return;
+
+    if ('views' in chamber.composition) {
+      chamber.composition.views.forEach((view, index) => {
+        if (view.reportedSeats > chamber.totalSeats) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Source-reported composition view exceeds chamber size',
+            path: ['composition', 'views', index, 'reportedSeats'],
+          });
+        }
+      });
+      return;
+    }
+
+    if (chamber.composition.reportedSeats > chamber.totalSeats) {
       ctx.addIssue({
         code: 'custom',
         message: 'Source-reported composition exceeds chamber size',
