@@ -186,7 +186,7 @@ describe('CountryPanel', () => {
       }),
     ).toHaveAttribute(
       'href',
-      'https://en.wikipedia.org/wiki/National_People%27s_Congress',
+      'https://en.wikipedia.org/wiki/National_People's_Congress',
     );
   });
 
