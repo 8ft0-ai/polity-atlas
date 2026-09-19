@@ -4,14 +4,22 @@ import { useQuery } from '@tanstack/react-query';
 import { ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { loadCountryProfile, loadSourceRegistry } from '@/lib/profile-data';
-import { supportedProfiles } from '@/lib/countries';
+import {
+  loadCountryProfile,
+  loadLegislatureProfile,
+  loadSourceRegistry,
+} from '@/lib/profile-data';
+import { supportedLegislatures, supportedProfiles } from '@/lib/countries';
 import { type CountryTab, useWorkspaceStore } from '@/lib/workspace-store';
-import type { CountryProfile, SourceRecord } from '@/packages/schemas/country';
+import type {
+  CountryProfile,
+  LegislatureProfile,
+  SourceRecord,
+} from '@/packages/schemas/country';
 
 const tabs: Array<{ value: CountryTab; label: string }> = [
   { value: 'overview', label: 'Overview' },
-  { value: 'parliament', label: 'Parliament' },
+  { value: 'parliament', label: 'Legislature' },
   { value: 'elections', label: 'Elections' },
   { value: 'relations', label: 'Relations' },
   { value: 'sources', label: 'Sources' },
