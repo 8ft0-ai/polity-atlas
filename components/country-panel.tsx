@@ -42,7 +42,9 @@ function sourceIdsForProfile(profile: CountryProfile) {
   return new Set([
     ...profile.government.system.sourceIds,
     ...profile.government.headOfState.flatMap((holder) => holder.sourceIds),
-    ...profile.government.headOfGovernment.flatMap((holder) => holder.sourceIds),
+    ...profile.government.headOfGovernment.flatMap(
+      (holder) => holder.sourceIds,
+    ),
     ...profile.parliament.name.sourceIds,
     ...profile.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
     ...profile.parliament.chambers.flatMap((chamber) =>
@@ -467,10 +469,7 @@ export function CountryPanel() {
                     <p className="mt-1 text-xs text-muted-foreground">
                       {holder.office} · Since {holder.since}
                     </p>
-                    <Sources
-                      ids={holder.sourceIds}
-                      sources={sources}
-                    />
+                    <Sources ids={holder.sourceIds} sources={sources} />
                   </article>
                 ))}
               </section>
@@ -489,10 +488,7 @@ export function CountryPanel() {
                           Expected {formatDateRange(election.date)} ·{' '}
                           {humanize(election.eventType)}
                         </p>
-                        <Sources
-                          ids={election.sourceIds}
-                          sources={sources}
-                        />
+                        <Sources ids={election.sourceIds} sources={sources} />
                       </article>
                     ))}
                   </div>
@@ -601,10 +597,7 @@ export function CountryPanel() {
                   </div>
 
                   <div className="mt-4">
-                    <Sources
-                      ids={chamber.sourceIds}
-                      sources={sources}
-                    />
+                    <Sources ids={chamber.sourceIds} sources={sources} />
                   </div>
                 </section>
               ))}
@@ -634,10 +627,7 @@ export function CountryPanel() {
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">
                       National parliamentary {humanize(election.eventType)}
                     </p>
-                    <Sources
-                      ids={election.sourceIds}
-                      sources={sources}
-                    />
+                    <Sources ids={election.sourceIds} sources={sources} />
                   </article>
                 ))
               ) : (
@@ -669,10 +659,7 @@ export function CountryPanel() {
                       {relation.note}
                     </p>
                   </div>
-                  <Sources
-                    ids={relation.sourceIds}
-                    sources={sources}
-                  />
+                  <Sources ids={relation.sourceIds} sources={sources} />
                 </article>
               ))}
             </TabsContent>
@@ -683,45 +670,45 @@ export function CountryPanel() {
                   sourceIdsForProfile(profileQuery.data).has(source.id),
                 )
                 .map((source) => (
-                <article
-                  key={source.id}
-                  className="border-b border-border pb-4"
-                >
-                  <span className="ui-text flex items-center gap-2 text-[10px] uppercase tracking-[0.07em] text-muted-foreground">
-                    {source.kind} · {source.publisher}
-                  </span>
-                  <a
-                    href={source.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 flex items-center gap-2 text-sm font-semibold hover:underline"
+                  <article
+                    key={source.id}
+                    className="border-b border-border pb-4"
                   >
-                    {source.title}
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                  {source.attribution && (
-                    <span className="mt-2 block text-xs leading-5 text-muted-foreground">
-                      {source.attribution}
+                    <span className="ui-text flex items-center gap-2 text-[10px] uppercase tracking-[0.07em] text-muted-foreground">
+                      {source.kind} · {source.publisher}
                     </span>
-                  )}
-                  {source.license && (
-                    <span className="mt-1 block text-xs text-muted-foreground">
-                      {source.license}
-                    </span>
-                  )}
-                  {source.termsUrl && (
                     <a
-                      href={source.termsUrl}
+                      href={source.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ui-text mt-2 inline-flex items-center gap-1 text-xs text-primary underline underline-offset-2"
+                      className="mt-2 flex items-center gap-2 text-sm font-semibold hover:underline"
                     >
-                      Terms of use
+                      {source.title}
                       <ExternalLink className="h-3 w-3" />
                     </a>
-                  )}
-                </article>
-              ))}
+                    {source.attribution && (
+                      <span className="mt-2 block text-xs leading-5 text-muted-foreground">
+                        {source.attribution}
+                      </span>
+                    )}
+                    {source.license && (
+                      <span className="mt-1 block text-xs text-muted-foreground">
+                        {source.license}
+                      </span>
+                    )}
+                    {source.termsUrl && (
+                      <a
+                        href={source.termsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ui-text mt-2 inline-flex items-center gap-1 text-xs text-primary underline underline-offset-2"
+                      >
+                        Terms of use
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
+                  </article>
+                ))}
             </TabsContent>
           </div>
         </Tabs>

@@ -101,7 +101,10 @@ for (const prepared of preparedProfiles) {
 }
 
 manifestProfiles.sort((left, right) => left.iso3.localeCompare(right.iso3));
-const mergedSources = mergeSourceRecords(existingSourceRegistry.sources, emittedSources);
+const mergedSources = mergeSourceRecords(
+  existingSourceRegistry.sources,
+  emittedSources,
+);
 await writeJson(sourcesPath, { schemaVersion: 1, sources: mergedSources });
 await execFileAsync(formatterPath, [sourcesPath]);
 const sourcesOutput = await readFile(sourcesPath);

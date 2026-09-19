@@ -14,9 +14,7 @@
       "value": "Federal parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "ca-country"
-      ],
+      "sourceIds": ["ca-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "Governor General",
         "name": "Louise Arbour",
         "since": "2026-06-08",
-        "sourceIds": [
-          "ca-governor-general"
-        ]
+        "sourceIds": ["ca-governor-general"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Mark Carney",
         "since": "2025-03-14",
-        "sourceIds": [
-          "ca-prime-minister"
-        ]
+        "sourceIds": ["ca-prime-minister"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "Parliament of Canada - Parlement du Canada",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": [
-        "ipu-parline"
-      ],
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
@@ -72,28 +64,19 @@
             "stateRank": "Fifth",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": [
-            "Plurality/majority",
-            "First Past The Post (FPTP)"
-          ],
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
           "directlyElectedSeats": 343,
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "CA-LC01-E20250428",
           "title": "Canada House of Commons April 2025 Election",
@@ -160,9 +143,7 @@
               }
             ]
           },
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       },
       {
@@ -185,9 +166,7 @@
             "stateRank": "Fourth",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
@@ -196,13 +175,9 @@
           "appointedSeats": 105,
           "eligibilityAge": 30,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ]
+        "sourceIds": ["ipu-parline"]
       }
     ]
   },
@@ -217,9 +192,7 @@
       "date": {
         "from": "2029-10-15"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -228,81 +201,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "ca-missions"
-      ]
+      "sourceIds": ["ca-missions"]
     }
   ]
 }

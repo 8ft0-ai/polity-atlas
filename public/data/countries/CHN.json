@@ -14,9 +14,7 @@
       "value": "Unitary one-party socialist republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "cn-country"
-      ],
+      "sourceIds": ["cn-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "President",
         "name": "Xi Jinping",
         "since": "2013-03-14",
-        "sourceIds": [
-          "cn-president"
-        ]
+        "sourceIds": ["cn-president"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Premier",
         "name": "Li Qiang",
         "since": "2023-03-11",
-        "sourceIds": [
-          "cn-premier"
-        ]
+        "sourceIds": ["cn-premier"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "National People's Congress",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": [
-        "ipu-parline"
-      ],
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
@@ -72,9 +64,7 @@
             "stateRank": "Third",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
@@ -83,13 +73,9 @@
           "indirectlyElectedSeats": 3000,
           "eligibilityAge": 18,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "CN-LC01-E20230305",
           "title": "China National People's Congress March 2023 Election",
@@ -99,9 +85,7 @@
           "scope": "full-renewal",
           "seatsAtStake": 2977,
           "chamberSize": 3000,
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       }
     ]
@@ -117,9 +101,7 @@
       "date": {
         "from": "2028-03-05"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -128,81 +110,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "cn-missions"
-      ]
+      "sourceIds": ["cn-missions"]
     }
   ]
 }

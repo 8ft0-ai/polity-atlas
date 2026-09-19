@@ -33,10 +33,7 @@ describe('global source registry', () => {
 
   it('rejects materially conflicting reuse of a source id', () => {
     expect(() =>
-      mergeSourceRecords(
-        [source],
-        [{ ...source, title: 'Different source' }],
-      ),
+      mergeSourceRecords([source], [{ ...source, title: 'Different source' }]),
     ).toThrow('Conflicting source metadata for example');
   });
 });

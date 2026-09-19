@@ -14,9 +14,7 @@
       "value": "Unitary semi-presidential republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "fr-country"
-      ],
+      "sourceIds": ["fr-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "President",
         "name": "Emmanuel Macron",
         "since": "2017-05-14",
-        "sourceIds": [
-          "fr-president"
-        ]
+        "sourceIds": ["fr-president"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Sébastien Lecornu",
         "since": "2026-02-26",
-        "sourceIds": [
-          "fr-prime-minister"
-        ]
+        "sourceIds": ["fr-prime-minister"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "Parliament",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": [
-        "ipu-parline"
-      ],
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
@@ -72,28 +64,19 @@
             "stateRank": "Fourth",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": [
-            "Plurality/majority",
-            "Two-Round System (TRS)"
-          ],
+          "systems": ["Plurality/majority", "Two-Round System (TRS)"],
           "directlyElectedSeats": 577,
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "FR-LC01-E20240630",
           "title": "France National Assembly June 2024 Election",
@@ -261,9 +244,7 @@
               }
             ]
           },
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       },
       {
@@ -287,9 +268,7 @@
             "stateRank": "Second",
             "becomesInterimHeadOfState": true,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
@@ -298,13 +277,9 @@
           "indirectlyElectedSeats": 348,
           "eligibilityAge": 24,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "FR-UC01-E20230924",
           "title": "France Senate September 2023 Election",
@@ -314,9 +289,7 @@
           "scope": "partial-renewal",
           "seatsAtStake": 170,
           "chamberSize": 348,
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       }
     ]
@@ -332,9 +305,7 @@
       "date": {
         "from": "2026-09-30"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "id": "FR-LC01:2029-06-30",
@@ -346,9 +317,7 @@
       "date": {
         "from": "2029-06-30"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -357,81 +326,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     }
   ]
 }

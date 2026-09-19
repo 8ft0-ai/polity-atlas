@@ -14,9 +14,7 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "nz-country"
-      ],
+      "sourceIds": ["nz-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "Governor-General",
         "name": "Cindy Kiro",
         "since": "2021-10-21",
-        "sourceIds": [
-          "nz-governor-general"
-        ]
+        "sourceIds": ["nz-governor-general"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Christopher Luxon",
         "since": "2023-11-27",
-        "sourceIds": [
-          "nz-prime-minister"
-        ]
+        "sourceIds": ["nz-prime-minister"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "House of Representatives",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": [
-        "ipu-parline"
-      ],
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
@@ -72,28 +64,19 @@
             "stateRank": "Third",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": [
-            "Mixed system",
-            "Mixed Member Proportional System (MMP)"
-          ],
+          "systems": ["Mixed system", "Mixed Member Proportional System (MMP)"],
           "directlyElectedSeats": 123,
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "NZ-LC01-E20231014",
           "title": "New Zealand House of Representatives October 2023 Election",
@@ -170,9 +153,7 @@
               }
             ]
           },
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       }
     ]
@@ -188,9 +169,7 @@
       "date": {
         "from": "2026-11-07"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -199,81 +178,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "nz-missions"
-      ]
+      "sourceIds": ["nz-missions"]
     }
   ]
 }

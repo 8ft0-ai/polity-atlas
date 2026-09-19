@@ -14,9 +14,7 @@
       "value": "Federal parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "au-system"
-      ],
+      "sourceIds": ["au-system"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "Governor-General",
         "name": "Sam Mostyn",
         "since": "2024-07-01",
-        "sourceIds": [
-          "au-governor-general"
-        ]
+        "sourceIds": ["au-governor-general"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Anthony Albanese",
         "since": "2022-05-23",
-        "sourceIds": [
-          "au-prime-minister"
-        ]
+        "sourceIds": ["au-prime-minister"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "Parliament",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": [
-        "ipu-parline"
-      ],
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
@@ -72,28 +64,19 @@
             "stateRank": "Fourth",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": [
-            "Plurality/majority",
-            "Alternative Vote (AV)"
-          ],
+          "systems": ["Plurality/majority", "Alternative Vote (AV)"],
           "directlyElectedSeats": 150,
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "Yes",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "AU-LC01-E20250503",
           "title": "Australia House of Representatives May 2025 Election",
@@ -170,9 +153,7 @@
               }
             ]
           },
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       },
       {
@@ -197,9 +178,7 @@
             "stateRank": "Third",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
@@ -212,13 +191,9 @@
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "Yes",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "AU-UC01-E20250503",
           "title": "Australia Senate May 2025 Election",
@@ -323,9 +298,7 @@
           "notes": [
             "The number of seats won by the Greens above includes a senator who joined the ALP after the elections."
           ],
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       }
     ]
@@ -341,9 +314,7 @@
       "date": {
         "from": "2028-05-31"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "id": "AU-UC01:2028-05-31",
@@ -355,9 +326,7 @@
       "date": {
         "from": "2028-05-31"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -366,81 +335,63 @@
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Australian high commission network demonstration",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Australian high commission network demonstration",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
-      "sourceIds": [
-        "au-missions"
-      ]
+      "sourceIds": ["au-missions"]
     }
   ]
 }

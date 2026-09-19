@@ -14,9 +14,7 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "gb-country"
-      ],
+      "sourceIds": ["gb-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "King",
         "name": "Charles III",
         "since": "2022-09-08",
-        "sourceIds": [
-          "gb-monarch"
-        ]
+        "sourceIds": ["gb-monarch"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Andy Burnham",
         "since": "2026-07-20",
-        "sourceIds": [
-          "gb-prime-minister"
-        ]
+        "sourceIds": ["gb-prime-minister"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "UK Parliament",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": [
-        "ipu-parline"
-      ],
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
@@ -72,28 +64,19 @@
             "stateRank": "Seventh",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": [
-            "Plurality/majority",
-            "First Past The Post (FPTP)"
-          ],
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
           "directlyElectedSeats": 650,
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "GB-LC01-E20240704",
           "title": "United Kingdom House of Commons July 2024 Election",
@@ -260,9 +243,7 @@
               }
             ]
           },
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       },
       {
@@ -284,9 +265,7 @@
             "stateRank": "Other",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
@@ -295,13 +274,9 @@
           "appointedSeats": 730,
           "eligibilityAge": 21,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ]
+        "sourceIds": ["ipu-parline"]
       }
     ]
   },
@@ -316,9 +291,7 @@
       "date": {
         "from": "2029-07-31"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "relations": [
@@ -327,81 +300,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "gb-missions"
-      ]
+      "sourceIds": ["gb-missions"]
     }
   ]
 }

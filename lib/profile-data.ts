@@ -21,7 +21,9 @@ export async function loadSourceRegistry(): Promise<SourceRegistry> {
   const response = await fetch('/data/sources.json');
 
   if (!response.ok) {
-    throw new Error(`Source registry request failed with status ${response.status}`);
+    throw new Error(
+      `Source registry request failed with status ${response.status}`,
+    );
   }
 
   return sourceRegistrySchema.parse(await response.json());
