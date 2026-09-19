@@ -64,6 +64,13 @@ function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
       party: entry.party,
       seats: entry.seats,
       ...(entry.group && { group: entry.group }),
+      ...(entry.visual && {
+        visual: {
+          color: entry.visual.color,
+          method: entry.visual.method,
+          sourceIds: [candidate.source.id],
+        },
+      }),
     }))
     .sort(
       (left, right) =>
@@ -79,6 +86,61 @@ function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
     entries,
     sourceIds: [candidate.source.id],
   };
+}
+
+function comparableParty(value) {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/\b(the|party|political|of|and)\b/g, ' ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function visualForIpuResult(result, entries) {
+  const resultKey = comparableParty(result.party);
+  const matches = entries.filter((entry) => {
+    const candidates = [entry.party, entry.articleTitle]
+      .filter(Boolean)
+      .map(comparableParty)
+      .filter(Boolean);
+    return candidates.some(
+      (candidate) =>
+        candidate === resultKey ||
+        (candidate.length >= 5 &&
+          resultKey.length >= 5 &&
+          (candidate.includes(resultKey) || resultKey.includes(candidate))),
+    );
+  });
+  if (matches.length !== 1 || !matches[0].visual) return undefined;
+  return matches[0].visual;
+}
+
+function chamberVisuals(candidate, chamber) {
+  const entries = candidate.compositionEntries ?? [];
+  const outcome = chamber.latestElection?.outcome;
+  if (!outcome || !entries.length) return undefined;
+
+  const visuals = new Map();
+  for (const result of [
+    ...(outcome.seatsWonInElection ?? []),
+    ...(outcome.postElectionComposition ?? []),
+  ]) {
+    const visual = visualForIpuResult(result, entries);
+    if (visual) {
+      visuals.set(result.partyId, {
+        color: visual.color,
+        method: visual.method,
+        sourceIds: [candidate.source.id],
+      });
+    }
+  }
+  return visuals.size
+    ? { chamberId: chamber.id, visuals: Object.fromEntries(visuals) }
+    : undefined;
 }
 
 function hasIpuFullComposition(chamber) {
@@ -201,6 +263,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     return {
       missingChambers: [],
       chamberCompositions: [],
+      chamberVisuals: [],
       sources: [],
       diagnostics: ['NO_WIKIPEDIA_PARLIAMENT_PAGE'],
     };
@@ -253,6 +316,10 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       chamber: findMatchingChamber(candidate, authoritativeChambers),
     }))
     .filter(({ chamber }) => chamber);
+
+  const chamberVisuals = matchedCandidates
+    .map(({ candidate, chamber }) => chamberVisuals(candidate, chamber))
+    .filter(Boolean);
 
   const chamberCompositions = matchedCandidates
     .filter(({ chamber }) => !hasIpuFullComposition(chamber))
@@ -318,6 +385,9 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       (chamber) => chamber.composition?.sourceIds ?? [],
     ),
     ...chamberCompositions.flatMap(({ composition }) => composition.sourceIds),
+    ...chamberVisuals.flatMap(({ visuals }) =>
+      Object.values(visuals).flatMap((visual) => visual.sourceIds),
+    ),
   ]);
   const sources = [
     parentSource,
@@ -349,7 +419,13 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     if (!candidate.kind) diagnostics.push(`NO_CHAMBER_KIND:${candidate.name}`);
   }
 
-  return { missingChambers, chamberCompositions, sources, diagnostics };
+  return {
+    missingChambers,
+    chamberCompositions,
+    chamberVisuals,
+    sources,
+    diagnostics,
+  };
 }
 
 export function mergeWikipediaChambers(profile, normalized, buildId) {
@@ -364,8 +440,43 @@ export function mergeWikipediaChambers(profile, normalized, buildId) {
       composition,
     ]),
   );
+  const visuals = new Map(
+    (normalized.chamberVisuals ?? []).map(({ chamberId, visuals }) => [
+      chamberId,
+      visuals,
+    ]),
+  );
+
+  function applyVisuals(results, chamberId) {
+    const byParty = visuals.get(chamberId);
+    if (!results?.length || !byParty) return results;
+    return results.map((result) =>
+      byParty[result.partyId]
+        ? { ...result, visual: byParty[result.partyId] }
+        : result,
+    );
+  }
+
   const enrichedChambers = authoritativeChambers.map((chamber) => {
     const next = { ...chamber };
+    if (next.latestElection?.outcome && visuals.has(next.id)) {
+      next.latestElection = {
+        ...next.latestElection,
+        outcome: {
+          ...next.latestElection.outcome,
+          seatsWonInElection: applyVisuals(
+            next.latestElection.outcome.seatsWonInElection,
+            next.id,
+          ),
+          ...(next.latestElection.outcome.postElectionComposition && {
+            postElectionComposition: applyVisuals(
+              next.latestElection.outcome.postElectionComposition,
+              next.id,
+            ),
+          }),
+        },
+      };
+    }
     if (isWikipediaFallbackComposition(next.composition)) {
       delete next.composition;
     }
@@ -377,7 +488,7 @@ export function mergeWikipediaChambers(profile, normalized, buildId) {
 
   return {
     ...profile,
-    schemaVersion: 4,
+    schemaVersion: 'government' in profile ? 5 : 1,
     buildId,
     parliament: {
       ...profile.parliament,
