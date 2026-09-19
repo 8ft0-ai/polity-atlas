@@ -29,9 +29,10 @@ npm run dev
 ```
 
 Open the localhost address printed by the development server (usually
-`http://localhost:3000`). The map, all ten bundled full profiles, and the three legislature-only modules
-load without source API credentials. To stop the server, press Ctrl+C. Local source
-data changes should be reviewed before committing.
+`http://localhost:3000`). The map, all ten bundled full profiles, and the three
+legislature-only modules load without source API credentials. To stop the
+server, press Ctrl+C. Local source data changes should be reviewed before
+committing.
 
 Verification:
 
@@ -64,7 +65,8 @@ npm run data:refresh:ipu
 
 Raw responses are retained only in the ignored `.cache/ipu` directory. The
 command validates ISO joins, updates the ten full profiles plus three
-legislature modules, and rebuilds the hash-backed manifest. A cached rerun is available for deterministic review:
+legislature modules, and rebuilds the hash-backed manifest. A cached rerun is
+available for deterministic review:
 
 ```sh
 npm run data:refresh:ipu -- --from-cache
@@ -110,9 +112,8 @@ result. It first uses the corresponding rendered Wikipedia legislature entry;
 when that exact entry links to an English Wikipedia party article but has no
 swatch, it may use one unambiguous Wikidata P465 value from the exact sitelink
 identity. A missing or ambiguous colour never changes a party identity or seat
-count: the UI uses a stable deterministic fallback colour instead. Wikipedia-backed composition fallbacks retain their own
-Wikipedia provenance.
-
+count: the UI uses a stable deterministic fallback colour instead.
+Wikipedia-backed composition fallbacks retain their own Wikipedia provenance.
 
 IPU-provided local/full chamber names are retained as reconciliation aliases so
 different source naming does not create duplicate chambers. Source-reported
