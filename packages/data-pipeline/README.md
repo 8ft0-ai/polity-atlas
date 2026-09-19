@@ -75,7 +75,6 @@ failed fetch must leave the last committed public data available.
 
 `public/data/sources.json` is the sole public source-metadata registry. Country profiles contain only stable `sourceIds`. Generation fails if an incoming source reuses an existing ID with materially different metadata. The registry and every profile are hash-bound by `public/data/manifest.json`.
 
-
 ## Wikipedia chamber fallback
 
 Wikipedia acquisition is a separate explicit process:

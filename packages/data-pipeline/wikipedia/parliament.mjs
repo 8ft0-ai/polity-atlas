@@ -17,7 +17,10 @@ function slug(value) {
 function comparableName(value) {
   return value
     .toLowerCase()
-    .replace(/\b(the|parliament|national|federal|australian|canadian|british|french|indian|indonesian|japanese|new zealand|united states)\b/g, ' ')
+    .replace(
+      /\b(the|parliament|national|federal|australian|canadian|british|french|indian|indonesian|japanese|new zealand|united states)\b/g,
+      ' ',
+    )
     .replace(/[^a-z0-9]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -78,7 +81,10 @@ function inferKinds(country, candidates, existingChambers) {
     return inferred;
   }
 
-  if (unknown.length === 2 && unknown.every((candidate) => candidate.totalSeats)) {
+  if (
+    unknown.length === 2 &&
+    unknown.every((candidate) => candidate.totalSeats)
+  ) {
     const bySeats = [...unknown].sort(
       (left, right) => left.totalSeats - right.totalSeats,
     );
@@ -181,10 +187,14 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   const sourceIds = new Set(
     missingChambers.flatMap((chamber) => chamber.sourceIds),
   );
-  const sources = [parentSource, ...rawCandidates.map((candidate) => candidate.source)]
-    .filter((source, index, all) =>
-      sourceIds.has(source.id) &&
-      all.findIndex((candidate) => candidate.id === source.id) === index,
+  const sources = [
+    parentSource,
+    ...rawCandidates.map((candidate) => candidate.source),
+  ]
+    .filter(
+      (source, index, all) =>
+        sourceIds.has(source.id) &&
+        all.findIndex((candidate) => candidate.id === source.id) === index,
     )
     .sort((left, right) => left.id.localeCompare(right.id));
 

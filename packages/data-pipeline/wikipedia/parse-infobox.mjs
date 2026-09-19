@@ -1,7 +1,10 @@
 import { JSDOM } from 'jsdom';
 
 function cleanText(value) {
-  return value.replace(/\[[^\]]*\]/g, '').replace(/\s+/g, ' ').trim();
+  return value
+    .replace(/\[[^\]]*\]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function titleFromHref(href) {
@@ -17,8 +20,12 @@ export function parseInfobox(html) {
   if (!infobox) return { rows: [], text: '' };
 
   const rows = [];
-  for (const row of infobox.querySelectorAll(':scope > tbody > tr, :scope > tr')) {
-    const label = cleanText(row.querySelector(':scope > th')?.textContent ?? '');
+  for (const row of infobox.querySelectorAll(
+    ':scope > tbody > tr, :scope > tr',
+  )) {
+    const label = cleanText(
+      row.querySelector(':scope > th')?.textContent ?? '',
+    );
     const dataCell = row.querySelector(':scope > td');
     if (!label || !dataCell) continue;
     const links = [...dataCell.querySelectorAll('a')]

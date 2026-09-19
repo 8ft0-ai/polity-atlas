@@ -65,7 +65,6 @@ Country links own click/tap selection; map drag capture deliberately does not be
 
 Country profiles do not embed source metadata. They refer to stable source IDs, resolved against `public/data/sources.json`. The source registry is generated deterministically, rejects conflicting reuse of a source ID, and is independently hash-bound in the public data manifest.
 
-
 ## Wikipedia chamber-completion boundary
 
 Wikipedia acquisition is deliberately separate from the IPU refresh. It is a

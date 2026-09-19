@@ -208,8 +208,18 @@ describe('Wikipedia chamber fallback', () => {
     const normalized = normalizeWikipediaParliament(
       snapshot({
         houses: [
-          { name: 'Small House', title: 'Small House', seats: 100, kind: 'lower' },
-          { name: 'Large House', title: 'Large House', seats: 400, kind: 'upper' },
+          {
+            name: 'Small House',
+            title: 'Small House',
+            seats: 100,
+            kind: 'lower',
+          },
+          {
+            name: 'Large House',
+            title: 'Large House',
+            seats: 400,
+            kind: 'upper',
+          },
         ],
       }),
       profile(),

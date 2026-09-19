@@ -3,7 +3,10 @@ const DEFAULT_USER_AGENT =
   'Polity-Atlas/0.1 (+https://github.com/8ft0-ai/polity-atlas)';
 
 function normalizedTitle(value) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
 }
 
 export class WikipediaClient {
