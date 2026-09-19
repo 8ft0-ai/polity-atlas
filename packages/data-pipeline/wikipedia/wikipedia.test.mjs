@@ -226,6 +226,33 @@ describe('Wikipedia infobox parsing', () => {
       group: 'Democratic Parties',
     });
     expect(entries.reduce((sum, entry) => sum + entry.seats, 0)).toBe(2847);
+    expect(entries[0].party).not.toContain('.mw-parser-output');
+  });
+
+  it('removes Wikimedia TemplateStyles text from a leaf party label', () => {
+    const parsed = parseInfobox(
+      chamberHtml({
+        seats: 100,
+        kind: 'upper',
+        compositionHtml: `
+          <tr>
+            <th>Political groups</th>
+            <td>
+              <ul>
+                <li>
+                  .mw-parser-output .legend{color:black}.mw-parser-output .legend-text{}
+                  Example Party (100)
+                </li>
+              </ul>
+            </td>
+          </tr>
+        `,
+      }),
+    );
+
+    expect(extractPoliticalComposition(parsed)).toEqual([
+      { party: 'Example Party', seats: 100 },
+    ]);
   });
 
   it('uses structural group headings that do not contain seat totals', () => {
@@ -296,6 +323,41 @@ describe('Wikipedia chamber fallback', () => {
     expect(merged.parliament.chambers).toHaveLength(2);
     expect(merged.parliament.chambers[0]).toEqual(existing);
     expect(() => countryProfileSchema.parse(merged)).not.toThrow();
+  });
+
+  it('matches an exact chamber name even when Wikipedia type metadata conflicts', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'House of Representatives',
+        kind: 'lower',
+        totalSeats: 580,
+      }),
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'House of Representatives',
+            title: 'House of Representatives',
+            seats: 580,
+            kind: 'unicameral',
+            compositionHtml:
+              '<tr><th>Political groups</th><td><ul><li>Party A (580)</li></ul></td></tr>',
+          },
+        ],
+      }),
+      current,
+    );
+
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-19');
+    expect(normalized.missingChambers).toEqual([]);
+    expect(merged.parliament.chambers).toHaveLength(1);
+    expect(merged.parliament.chambers[0]).toMatchObject({
+      id: 'EX-LC01',
+      composition: { reportedSeats: 580 },
+    });
   });
 
   it('does not duplicate a Wikipedia chamber that strongly matches an IPU chamber by name', () => {
