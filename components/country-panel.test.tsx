@@ -342,15 +342,18 @@ describe('CountryPanel', () => {
 
     renderPanel();
 
+    const iranChamber = iranLegislature.parliament.chambers[0];
     const selector = await screen.findByRole('combobox', {
-      name: 'Islamic Consultative Assembly composition view',
+      name: `${iranChamber.name} composition view`,
     });
     expect(selector).toHaveValue('faction');
     expect(screen.getByText('Principlists')).toBeInTheDocument();
     expect(screen.queryByText('FIRS')).toBeNull();
     expect(
       screen.getAllByLabelText(
-        /Islamic Consultative Assembly source-reported chamber composition.*semicircle/,
+        new RegExp(
+          `${iranChamber.name} source-reported chamber composition.*semicircle`,
+        ),
       ),
     ).toHaveLength(1);
     expect(
@@ -364,7 +367,9 @@ describe('CountryPanel', () => {
     expect(screen.queryByText('Principlists')).toBeNull();
     expect(
       screen.getAllByLabelText(
-        /Islamic Consultative Assembly source-reported chamber composition.*semicircle/,
+        new RegExp(
+          `${iranChamber.name} source-reported chamber composition.*semicircle`,
+        ),
       ),
     ).toHaveLength(1);
     expect(screen.getByText('254')).toBeInTheDocument();
