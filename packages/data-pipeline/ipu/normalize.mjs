@@ -527,6 +527,56 @@ export function normalizeIpuSnapshot(snapshot) {
   };
 }
 
+function preserveResultVisuals(nextResults, previousResults) {
+  if (!nextResults?.length || !previousResults?.length) return nextResults;
+  const previousById = new Map(
+    previousResults
+      .filter((result) => result.visual)
+      .map((result) => [result.partyId, result.visual]),
+  );
+  return nextResults.map((result) =>
+    previousById.has(result.partyId)
+      ? { ...result, visual: previousById.get(result.partyId) }
+      : result,
+  );
+}
+
+function preserveElectionVisuals(nextElection, previousElection) {
+  if (!nextElection?.outcome || !previousElection?.outcome) return nextElection;
+  return {
+    ...nextElection,
+    outcome: {
+      ...nextElection.outcome,
+      seatsWonInElection: preserveResultVisuals(
+        nextElection.outcome.seatsWonInElection,
+        previousElection.outcome.seatsWonInElection,
+      ),
+      ...(nextElection.outcome.postElectionComposition && {
+        postElectionComposition: preserveResultVisuals(
+          nextElection.outcome.postElectionComposition,
+          previousElection.outcome.postElectionComposition,
+        ),
+      }),
+    },
+  };
+}
+
+export function createIpuLegislatureProfile(country, normalized, buildId) {
+  return {
+    schemaVersion: 1,
+    buildId,
+    identity: {
+      entityId: country.entityId,
+      iso2: country.iso2,
+      iso3: country.iso3,
+      m49: country.m49,
+      name: country.name,
+    },
+    parliament: normalized.parliament,
+    nextExpectedElections: normalized.nextExpectedElections,
+  };
+}
+
 export function mergeIpuProfile(profile, normalized, buildId) {
   const previousChambers = new Map(
     profile.parliament.chambers.map((chamber) => [chamber.id, chamber]),
@@ -536,13 +586,24 @@ export function mergeIpuProfile(profile, normalized, buildId) {
     const hasFullIpuComposition = Boolean(
       chamber.latestElection?.outcome?.postElectionComposition?.length,
     );
-    return !hasFullIpuComposition && previous?.composition
-      ? { ...chamber, composition: previous.composition }
+    const withVisuals = previous?.latestElection
+      ? {
+          ...chamber,
+          ...(chamber.latestElection && {
+            latestElection: preserveElectionVisuals(
+              chamber.latestElection,
+              previous.latestElection,
+            ),
+          }),
+        }
       : chamber;
+    return !hasFullIpuComposition && previous?.composition
+      ? { ...withVisuals, composition: previous.composition }
+      : withVisuals;
   });
 
   return {
-    schemaVersion: 4,
+    schemaVersion: 5,
     buildId,
     identity: profile.identity,
     government: profile.government,
