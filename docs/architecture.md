@@ -4,7 +4,7 @@ Polity Atlas runs on a developer's machine. GitHub stores reviewed code and data
 
 - `app` and `components` contain the Vinext/React interface using Next-style App Router conventions.
 - `packages/schemas` holds the shared, versioned data contract.
-- `packages/data-pipeline` contains explicit local source adapters and normalisers. The bounded Phase 3 IPU path is implemented under `packages/data-pipeline/ipu`.
+- `packages/data-pipeline` contains explicit local source adapters and normalisers. The bounded Phase 3 IPU path is implemented under `packages/data-pipeline/ipu`; reusable Wikipedia acquisition and chamber fallback live under `packages/data-pipeline/wikipedia`.
 - `public/data` contains reviewed, citation-bearing JSON loaded by the browser.
 - `npm run dev` serves the application on localhost; `npm run build` creates a local export in `dist/client`.
 
@@ -64,3 +64,29 @@ Country links own click/tap selection; map drag capture deliberately does not be
 ## Global source registry
 
 Country profiles do not embed source metadata. They refer to stable source IDs, resolved against `public/data/sources.json`. The source registry is generated deterministically, rejects conflicting reuse of a source ID, and is independently hash-bound in the public data manifest.
+
+## Wikipedia chamber-completion boundary
+
+Wikipedia acquisition is deliberately separate from the IPU refresh. It is a
+fallback completion path, not an override layer.
+
+```text
+Parliament of {country}
+  -> canonical Wikipedia page
+  -> infobox house links
+  -> chamber-page infoboxes
+  -> compare against normalized IPU chambers
+  -> add unmatched chambers only
+  -> global source registry + manifest
+```
+
+The comparison happens at chamber granularity. A country can therefore retain
+one or more IPU chambers while receiving an additional Wikipedia-backed chamber
+that IPU does not register. Existing IPU chambers are never rewritten by this
+path. Fallback chambers may be structurally partial; unavailable Speaker,
+electoral-system, and election fields remain absent.
+
+House kind is taken from explicit source labeling first, then inferred from the
+opposite kind of an existing IPU chamber. Seat-count classification is only a
+last resort for two unlabeled Wikipedia chambers: larger is treated as lower,
+with the United Kingdom as the explicit larger-upper-house exception.

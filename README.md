@@ -71,8 +71,20 @@ the hash-backed manifest. A cached rerun is available for deterministic review:
 npm run data:refresh:ipu -- --from-cache
 ```
 
-IPU supplies national parliament and parliamentary-renewal data only. Heads of
-state/government, diplomatic relations, and Natural Earth map geometry remain
-outside the IPU adapter.
+IPU supplies national parliament and parliamentary-renewal data only. A separate
+Wikipedia fallback can inspect the national parliament page and add chambers that
+IPU does not register:
+
+```sh
+npm run data:refresh:wikipedia
+npm run data:refresh:wikipedia -- --from-cache
+npm run data:refresh:wikipedia -- --country=AUS
+```
+
+The Wikipedia process never replaces an IPU chamber. It resolves a
+`Parliament of X` page (following redirects/search fallback), inspects the
+infobox, follows chamber links, and adds only unmatched chambers with explicit
+Wikipedia provenance. Heads of state/government, diplomatic relations, and
+Natural Earth map geometry remain outside these parliament adapters.
 
 See `docs/architecture.md`, `docs/source-policy.md`, and `docs/border-policy.md` before adding a source adapter or changing political map geometry.
