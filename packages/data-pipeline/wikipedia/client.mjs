@@ -96,22 +96,51 @@ export class WikipediaClient {
     });
     if (exact) return exact;
 
-    const search = await this.searchPages(requestedTitle, 10);
-    const requestedNeedle = normalizedTitle(requestedTitle);
     const countryNeedle = normalizedTitle(countryName);
+    const queries = [
+      requestedTitle,
+      `legislature ${countryName}`,
+      `national assembly ${countryName}`,
+      `consultative assembly ${countryName}`,
+      `congress ${countryName}`,
+    ];
+    const candidates = new Map();
+    for (const query of queries) {
+      for (const entry of await this.searchPages(query, 10)) {
+        candidates.set(entry.id ?? entry.key ?? entry.title, entry);
+      }
+    }
 
-    const candidate =
-      search.find(
-        (entry) =>
-          normalizedTitle(entry.title ?? entry.key ?? '') === requestedNeedle,
-      ) ??
-      search.find((entry) => {
+    const legislativeTerms =
+      /\b(parliament|assembly|congress|council|legislature|majlis|hluttaw|shura)\b/;
+    const rejectedTerms =
+      /\b(election|building|history|constituenc|list of|speaker)\b/;
+    const ranked = [...candidates.values()]
+      .map((entry) => {
         const title = normalizedTitle(entry.title ?? entry.key ?? '');
-        return title.includes('parliament') && title.includes(countryNeedle);
-      });
-    if (!candidate) return undefined;
+        const context = normalizedTitle(
+          [entry.title, entry.description, entry.excerpt]
+            .filter(Boolean)
+            .join(' '),
+        );
+        let score = 0;
+        if (legislativeTerms.test(title)) score += 8;
+        if (context.includes(countryNeedle)) score += 6;
+        if (title.includes(countryNeedle)) score += 4;
+        if (rejectedTerms.test(title)) score -= 8;
+        return { entry, score };
+      })
+      .filter(({ score }) => score >= 8)
+      .sort(
+        (left, right) =>
+          right.score - left.score ||
+          String(left.entry.title).localeCompare(String(right.entry.title)),
+      );
 
-    return this.fetchPageWithHtml(candidate.key ?? candidate.title);
+    const candidate = ranked[0]?.entry;
+    return candidate
+      ? this.fetchPageWithHtml(candidate.key ?? candidate.title)
+      : undefined;
   }
 
   async fetchParliamentSnapshot(country, retrievedAt) {
