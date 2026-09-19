@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "buildId": "2026-09-19",
-  "generatedAt": "2026-09-19T13:49:26.000Z",
+  "generatedAt": "2026-09-19T15:22:05.000Z",
   "profiles": [
     {
       "iso3": "AUS",
@@ -58,7 +58,7 @@
     {
       "iso3": "IRN",
       "path": "legislatures/IRN.json",
-      "sha256": "7368689bdcf635fe0bc7acdc89ec20cb8404bf60a7b6351c5e8ed22d31f69a9b"
+      "sha256": "289b88189b49bc4ddacfac58639491e3f7d56c7c35debace0c0ae207110fb85f"
     },
     {
       "iso3": "MMR",
@@ -73,6 +73,6 @@
   ],
   "sourceRegistry": {
     "path": "sources.json",
-    "sha256": "b585bd3b4bba1d2658250f148d935c0baaaa458298f96d9c5a6c66d91bd55189"
+    "sha256": "97801bb698a41bfc499ef93a7e9827a81ce6c30b3e91141a1ec61633992a4636"
   }
 }
