@@ -188,27 +188,47 @@ function candidateMatchesIpu(candidate, chamber) {
   );
 }
 
-function findMatchingChamber(candidate, chambers) {
-  const direct = chambers.find((chamber) =>
-    candidateMatchesIpu(candidate, chamber),
-  );
-  if (direct) return direct;
+function matchCandidates(candidates, chambers) {
+  const matched = [];
+  const usedChamberIds = new Set();
+  const usedCandidates = new Set();
 
-  if (candidate.kind) {
-    const sameKind = chambers.filter(
+  function availableChambers() {
+    return chambers.filter((chamber) => !usedChamberIds.has(chamber.id));
+  }
+
+  function bind(candidate, chamber) {
+    matched.push({ candidate, chamber });
+    usedCandidates.add(candidate);
+    usedChamberIds.add(chamber.id);
+  }
+
+  for (const candidate of candidates) {
+    const direct = availableChambers().find((chamber) =>
+      candidateMatchesIpu(candidate, chamber),
+    );
+    if (direct) bind(candidate, direct);
+  }
+
+  for (const candidate of candidates) {
+    if (usedCandidates.has(candidate) || !candidate.kind) continue;
+    const sameKind = availableChambers().filter(
       (chamber) => chamber.kind === candidate.kind,
     );
-    if (sameKind.length === 1) return sameKind[0];
+    if (sameKind.length === 1) bind(candidate, sameKind[0]);
   }
 
-  if (candidate.totalSeats !== undefined) {
-    const sameCapacity = chambers.filter(
+  for (const candidate of candidates) {
+    if (usedCandidates.has(candidate) || candidate.totalSeats === undefined) {
+      continue;
+    }
+    const sameCapacity = availableChambers().filter(
       (chamber) => chamber.totalSeats === candidate.totalSeats,
     );
-    if (sameCapacity.length === 1) return sameCapacity[0];
+    if (sameCapacity.length === 1) bind(candidate, sameCapacity[0]);
   }
 
-  return undefined;
+  return matched;
 }
 
 function inferKinds(country, candidates, existingChambers) {
@@ -317,12 +337,10 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   const authoritativeChambers = profile.parliament.chambers.filter(
     (chamber) => !isWikipediaFallbackChamber(chamber),
   );
-  const matchedCandidates = rawCandidates
-    .map((candidate) => ({
-      candidate,
-      chamber: findMatchingChamber(candidate, authoritativeChambers),
-    }))
-    .filter(({ chamber }) => chamber);
+  const matchedCandidates = matchCandidates(
+    rawCandidates,
+    authoritativeChambers,
+  );
 
   const chamberVisuals = matchedCandidates
     .map(({ candidate, chamber }) => extractChamberVisuals(candidate, chamber))
