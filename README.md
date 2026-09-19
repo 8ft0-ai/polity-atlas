@@ -72,8 +72,9 @@ npm run data:refresh:ipu -- --from-cache
 ```
 
 IPU supplies national parliament and parliamentary-renewal data only. A separate
-Wikipedia fallback can inspect the national parliament page and add chambers that
-IPU does not register:
+Wikipedia fallback can inspect national parliament and chamber pages, add a
+chamber that IPU does not register, and provide a source-reported party-seat
+composition when IPU does not provide a full chamber split:
 
 ```sh
 npm run data:refresh:wikipedia
@@ -81,12 +82,14 @@ npm run data:refresh:wikipedia -- --from-cache
 npm run data:refresh:wikipedia -- --country=AUS
 ```
 
-The Wikipedia process never replaces an IPU chamber. It resolves a
-`Parliament of X` page through Wikimedia's MediaWiki REST API, using REST page
-search when the conventional title is absent, inspects the returned rendered
-HTML, follows chamber links, and adds only unmatched chambers with explicit
-Wikipedia provenance. Read-only Wikimedia access in this pipeline requires no
-API key or bearer token. Heads of state/government, diplomatic relations, and
+The Wikipedia process never replaces an IPU chamber or an IPU full
+post-election composition. It resolves a `Parliament of X` page through
+Wikimedia's MediaWiki REST API, follows chamber links, and uses the rendered
+infobox structure for two bounded fallbacks: unmatched national chambers and a
+separate `source-reported` chamber composition when a matched IPU chamber has
+no full party-seat split. The UI labels that composition as Wikipedia-sourced
+and keeps it distinct from the historical election outcome. Read-only Wikimedia
+access requires no API key or bearer token. Heads of state/government, diplomatic relations, and
 Natural Earth map geometry remain outside these parliament adapters.
 
 See `docs/architecture.md`, `docs/source-policy.md`, and `docs/border-policy.md` before adding a source adapter or changing political map geometry.
