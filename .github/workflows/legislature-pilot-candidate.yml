@@ -42,6 +42,8 @@ jobs:
             --data-urlencode 'limit=2' \
             | head -c 4000
           echo
+          curl -fsS 'https://www.wikidata.org/wiki/Special:EntityData/Q216082.json' > /tmp/wikidata-alp.json
+          node -e "const d=require('/tmp/wikidata-alp.json'); console.log('WIKIDATA_P465', JSON.stringify(d.entities.Q216082.claims.P465 ?? []));"
       - run: npm run data:refresh:wikipedia -- --retrieved-at=2026-09-19T04:35:00.000Z --build-id=2026-09-19
       - run: npm run format
       - run: npm run data:validate
