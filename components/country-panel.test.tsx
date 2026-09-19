@@ -102,9 +102,7 @@ describe('CountryPanel', () => {
       ),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText(
-        australiaProfile.government.system.value,
-      ),
+      screen.queryByText(australiaProfile.government.system.value),
     ).toBeNull();
     expect(
       screen.queryByRole('link', {
