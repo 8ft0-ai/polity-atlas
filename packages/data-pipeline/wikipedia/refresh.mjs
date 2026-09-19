@@ -60,7 +60,7 @@ async function fetchSnapshot(client, country, retrievedAt) {
   ];
   const chamberPages = [];
   for (const requestedTitle of uniqueTitles) {
-    const page = await client.fetchParsedPage(requestedTitle);
+    const page = await client.fetchPageWithHtml(requestedTitle);
     chamberPages.push({ ...page, requestedTitle });
   }
 
