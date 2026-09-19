@@ -308,7 +308,7 @@ function identityForIpuResult(result, entries) {
 }
 
 function extractChamberVisualObservations(candidate, chamber) {
-  const entries = candidate.compositionEntries ?? [];
+  const entries = preferredCompositionEntries(candidate.compositionViews);
   const outcome = chamber.latestElection?.outcome;
   if (!outcome || !entries.length) return [];
 
@@ -414,7 +414,7 @@ function hasIpuFullComposition(chamber) {
 }
 
 function isWikipediaFallbackComposition(composition) {
-  return composition?.sourceIds?.some((sourceId) =>
+  return compositionSourceIds(composition).some((sourceId) =>
     sourceId.startsWith('wikipedia-en-page-'),
   );
 }
@@ -578,6 +578,11 @@ export function normalizeWikipediaParliament(snapshot, profile) {
 
   const rawCandidates = snapshot.chamberPages.map((page) => {
     const parsed = parseInfobox(page.html);
+    const compositionViews = compositionViewsForPage(
+      page,
+      parsed,
+      snapshot.retrievedAt,
+    );
     return {
       name:
         houseLinks.find((link) => link.title === page.requestedTitle)?.text ||
@@ -586,11 +591,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       pageId: page.pageId,
       totalSeats: extractSeatCount(parsed),
       kind: extractExplicitChamberKind(parsed),
-      compositionEntries: compositionEntriesForPage(
-        page,
-        parsed,
-        snapshot.retrievedAt,
-      ),
+      compositionViews,
       source: wikipediaSource(page, snapshot.retrievedAt),
     };
   });
@@ -605,7 +606,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
         pageId: parentPage.pageId,
         totalSeats: parentSeats,
         kind: 'unicameral',
-        compositionEntries: compositionEntriesForPage(
+        compositionViews: compositionViewsForPage(
           parentPage,
           parliamentParsed,
           snapshot.retrievedAt,
@@ -698,18 +699,11 @@ export function normalizeWikipediaParliament(snapshot, profile) {
 
   const sourceIds = new Set([
     ...missingChambers.flatMap((chamber) => chamber.sourceIds),
-    ...missingChambers.flatMap(
-      (chamber) => chamber.composition?.sourceIds ?? [],
-    ),
-    ...chamberCompositions.flatMap(({ composition }) => composition.sourceIds),
-    ...missingChambers.flatMap(
-      (chamber) =>
-        chamber.composition?.entries.flatMap(
-          (entry) => entry.visual?.sourceIds ?? [],
-        ) ?? [],
+    ...missingChambers.flatMap((chamber) =>
+      compositionSourceIds(chamber.composition),
     ),
     ...chamberCompositions.flatMap(({ composition }) =>
-      composition.entries.flatMap((entry) => entry.visual?.sourceIds ?? []),
+      compositionSourceIds(composition),
     ),
     ...chamberVisuals.flatMap(({ visuals }) =>
       Object.values(visuals).flatMap((visual) => visual.sourceIds),
@@ -719,10 +713,12 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     parentSource,
     ...rawCandidates.map((candidate) => candidate.source),
     ...rawCandidates.flatMap((candidate) =>
-      candidate.compositionEntries.flatMap((entry) =>
-        [entry.visual, ...(entry.groupVisuals ?? [])]
-          .filter((visual) => visual?.source)
-          .map((visual) => visual.source),
+      (candidate.compositionViews ?? []).flatMap((view) =>
+        view.entries.flatMap((entry) =>
+          [entry.visual, ...(entry.groupVisuals ?? [])]
+            .filter((visual) => visual?.source)
+            .map((visual) => visual.source),
+        ),
       ),
     ),
   ]
@@ -735,12 +731,23 @@ export function normalizeWikipediaParliament(snapshot, profile) {
 
   const diagnostics = [];
   for (const { candidate, chamber } of matchedCandidates) {
-    const entries = candidate.compositionEntries ?? [];
-    const reportedSeats = entries.reduce((sum, entry) => sum + entry.seats, 0);
-    if (entries.length && reportedSeats > chamber.totalSeats) {
-      diagnostics.push(
-        `COMPOSITION_EXCEEDS_CHAMBER:${candidate.name}:${reportedSeats}/${chamber.totalSeats}`,
+    for (const view of candidate.compositionViews ?? []) {
+      const reportedSeats = view.entries.reduce(
+        (sum, entry) => sum + entry.seats,
+        0,
       );
+      if (view.containsNestedAggregates) {
+        diagnostics.push(
+          `COMPOSITION_VIEW_NESTED_AGGREGATES:${candidate.name}:${view.id}`,
+        );
+      }
+      if (view.entries.length && reportedSeats > chamber.totalSeats) {
+        diagnostics.push(
+          view.id === 'composition'
+            ? `COMPOSITION_EXCEEDS_CHAMBER:${candidate.name}:${reportedSeats}/${chamber.totalSeats}`
+            : `COMPOSITION_VIEW_EXCEEDS_CHAMBER:${candidate.name}:${view.id}:${reportedSeats}/${chamber.totalSeats}`,
+        );
+      }
     }
   }
   for (const candidate of rawCandidates) {
