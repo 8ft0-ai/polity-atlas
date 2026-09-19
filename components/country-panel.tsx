@@ -426,6 +426,12 @@ function ElectionOutcome({
                   : `${election.seatsAtStake} seats contested`}
             </p>
           )}
+          {!isDirectlyElected && (
+            <p className="mt-3 text-xs leading-5 text-muted-foreground">
+              This record describes a non-direct renewal. It must not be read as
+              a popular election result.
+            </p>
+          )}
           <div className="mt-3">
             <Sources ids={election.sourceIds} sources={sources} />
           </div>
