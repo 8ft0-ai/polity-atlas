@@ -179,7 +179,11 @@ export function extractPoliticalComposition(parsed) {
 
   const unique = new Map();
   for (const entry of entries) {
-    const key = `${entry.party.toLowerCase()}\u0000${entry.seats}`;
+    const key = [
+      entry.party.toLowerCase(),
+      entry.group?.toLowerCase() ?? '',
+      entry.seats,
+    ].join('\u0000');
     if (!unique.has(key)) unique.set(key, entry);
   }
 
