@@ -25,7 +25,11 @@ function parseSeatLabel(value) {
 
 function ownText(element) {
   const clone = element.cloneNode(true);
-  for (const nested of clone.querySelectorAll('ul, ol')) nested.remove();
+  for (const nested of clone.querySelectorAll(
+    'ul, ol, style, script, link, sup.reference',
+  )) {
+    nested.remove();
+  }
   return cleanText(clone.textContent ?? '');
 }
 
