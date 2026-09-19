@@ -105,12 +105,12 @@ function isWikipediaFallbackChamber(chamber) {
 function candidateMatchesIpu(candidate, chamber) {
   const wikiName = comparableName(candidate.name);
   const ipuName = comparableName(chamber.name);
+  if (wikiName && ipuName && wikiName === ipuName) return true;
+
   const strongNameMatch =
     wikiName &&
     ipuName &&
-    (wikiName === ipuName ||
-      wikiName.includes(ipuName) ||
-      ipuName.includes(wikiName));
+    (wikiName.includes(ipuName) || ipuName.includes(wikiName));
 
   const kindsConflict =
     candidate.kind && chamber.kind && candidate.kind !== chamber.kind;
