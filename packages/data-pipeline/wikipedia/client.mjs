@@ -60,7 +60,7 @@ export class WikipediaClient {
       list: 'search',
       srnamespace: 0,
       srlimit: 10,
-      srsearch: `intitle:"${requestedTitle}"`,
+      srsearch: `intitle:Parliament ${countryName}`,
     });
     const countryNeedle = normalizedTitle(countryName);
     const candidate = search.query?.search?.find((entry) => {
