@@ -359,6 +359,18 @@ function extractCompositionEntries(root) {
   };
 }
 
+function withoutViewHeadingGroup(entry, viewLabel) {
+  if (
+    !entry.group ||
+    cleanText(entry.group).toLowerCase() !== cleanText(viewLabel).toLowerCase()
+  ) {
+    return entry;
+  }
+  const { group: _group, groupArticleTitles: _groupArticleTitles, ...rest } =
+    entry;
+  return rest;
+}
+
 export function extractPoliticalCompositionViews(parsed) {
   const row = compositionRow(parsed);
   if (!row?.html) return undefined;
@@ -375,7 +387,9 @@ export function extractPoliticalCompositionViews(parsed) {
           id: dimension,
           label,
           dimension,
-          entries: parsedView.entries,
+          entries: parsedView.entries.map((entry) =>
+            withoutViewHeadingGroup(entry, label),
+          ),
           ...(parsedView.containsNestedAggregates && {
             containsNestedAggregates: true,
           }),
