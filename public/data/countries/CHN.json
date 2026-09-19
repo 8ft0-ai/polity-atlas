@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "CN",
@@ -14,7 +14,9 @@
       "value": "Unitary one-party socialist republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["cn-country"],
+      "sourceIds": [
+        "cn-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Xi Jinping",
         "since": "2013-03-14",
-        "sourceIds": ["cn-president"]
+        "sourceIds": [
+          "cn-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Premier",
         "name": "Li Qiang",
         "since": "2023-03-11",
-        "sourceIds": ["cn-premier"]
+        "sourceIds": [
+          "cn-premier"
+        ]
       }
     ]
   },
@@ -39,7 +45,9 @@
       "value": "National People's Congress",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": ["ipu-parline"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
@@ -64,7 +72,9 @@
             "stateRank": "Third",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
@@ -73,9 +83,13 @@
           "indirectlyElectedSeats": 3000,
           "eligibilityAge": 18,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "CN-LC01-E20230305",
           "title": "China National People's Congress March 2023 Election",
@@ -85,7 +99,9 @@
           "scope": "full-renewal",
           "seatsAtStake": 2977,
           "chamberSize": 3000,
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       }
     ]
@@ -101,7 +117,9 @@
       "date": {
         "from": "2028-03-05"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -110,108 +128,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
+      "sourceIds": [
+        "cn-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["cn-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "cn-country",
-      "publisher": "Wikipedia",
-      "title": "China",
-      "url": "https://en.wikipedia.org/wiki/China",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "cn-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of China",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_China",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "cn-premier",
-      "publisher": "State Council of the People's Republic of China",
-      "title": "Institutions — State Council leaders",
-      "url": "https://english.www.gov.cn/institutions",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "cn-president",
-      "publisher": "State Council of the People's Republic of China",
-      "title": "Chinese President Xi Jinping at the 18th BRICS Summit",
-      "url": "https://english.www.gov.cn/news/202609/13/content_WS6aa662e4c6d00ca5f9a0d2c2.html",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+      "sourceIds": [
+        "cn-missions"
+      ]
     }
   ]
 }
