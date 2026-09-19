@@ -6,52 +6,52 @@
     {
       "iso3": "AUS",
       "path": "countries/AUS.json",
-      "sha256": "9c90cce241f9a0a564ac6cc8563bf6470dd29f3737d95af718b1422937c2dd50"
+      "sha256": "fac79119a39dd4c35fedbed4ab129a5a112286d55bbf1c42ed4b393e9bda4c2c"
     },
     {
       "iso3": "CAN",
       "path": "countries/CAN.json",
-      "sha256": "60dbade58a9b7f886ccbc3b83773f825bfe7b1011e09bc0f22dfed2f143c8f14"
+      "sha256": "83e655a1761b8b3856d3ef1b578ee8e8e2454e02c1d4be6131b4f3c6523a24dd"
     },
     {
       "iso3": "CHN",
       "path": "countries/CHN.json",
-      "sha256": "b44d3daf8dbdcba087768e924f03fcfe0c6eff61e42dcc5b41cbd5237e6bb959"
+      "sha256": "fb2324458f6b3320be4a35c1f611a2d4d18fb57de767b4b4d618cb8f248b96d4"
     },
     {
       "iso3": "FRA",
       "path": "countries/FRA.json",
-      "sha256": "9ccdf355ad84389fd447b3683eb619af12c1d76c211a6dca35701c37ccbbfb35"
+      "sha256": "e6e848dcc3470d303c405af0581c71f2a09a77260c9dca9421e30badf660f631"
     },
     {
       "iso3": "GBR",
       "path": "countries/GBR.json",
-      "sha256": "16ec81b145c6bb6f795b17d2de5d9a345846aa5c6226cbc8ed2ec83a62bda033"
+      "sha256": "338afd2710d6f12b4f2ca2789792184c27ff659f267dde80d238116a081db334"
     },
     {
       "iso3": "IDN",
       "path": "countries/IDN.json",
-      "sha256": "2ef3998939f4de5773dcc8dea6e1670cccc9d0c5e350ef4c00c670b26262d78a"
+      "sha256": "a1ee9aa3bb80fabaabe4ca1f23b5dba2ab08f35165b361eb82eeae5909db3ea4"
     },
     {
       "iso3": "IND",
       "path": "countries/IND.json",
-      "sha256": "02eb1c99a1e79e8adc2cc780a590a01b513239bc44d5845582974749a8b36007"
+      "sha256": "9ab6e50d16617ffbb0f1862bd447e2b0ddeff2b0563807ff3da837a4b0ff7171"
     },
     {
       "iso3": "JPN",
       "path": "countries/JPN.json",
-      "sha256": "5488d5823c1055415f52ae2bab4d041f0a45482539a97dc91e5caf55a34e261d"
+      "sha256": "763958f26e2c4e09f6703793f1404984626c7bbf4a3e33a87d9ce279fd0a417d"
     },
     {
       "iso3": "NZL",
       "path": "countries/NZL.json",
-      "sha256": "3d319c9effc7835f0bf4e68b7a84dc076a0ff1ed8a6f1e1f9cb7f94b8d3564ac"
+      "sha256": "ebf290f4988f1e46eba523bac94bd05841188adbe0fc4fc829a90fc686fac22e"
     },
     {
       "iso3": "USA",
       "path": "countries/USA.json",
-      "sha256": "23f097fe4713ccc6e7a9d43aef77e1b7f2fbe44ce12626d16f49e846c966cbd4"
+      "sha256": "730b06e8180b0decd33b56e3a2e35398699a30137579a3a8e7b506dd5c2f3d9f"
     }
   ],
   "sourceRegistry": {
