@@ -203,7 +203,15 @@ describe('CountryPanel', () => {
     expect(
       screen.getByText('Wikipedia party-seat breakdown'),
     ).toBeInTheDocument();
-    expect(screen.getByText('2977 seats contested')).toBeInTheDocument();
+    expect(screen.getByText('Latest indirect renewal')).toBeInTheDocument();
+    expect(
+      screen.getByText('2977 of 3000 seats renewed'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'This record describes a non-direct renewal. It must not be read as a popular election result.',
+      ),
+    ).toBeInTheDocument();
     expect(
       screen.getByText(
         /2847 seats are represented in this source breakdown of 3000 statutory seats/,
