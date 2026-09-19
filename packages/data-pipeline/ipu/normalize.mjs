@@ -361,13 +361,13 @@ function chamberKind(attributes, isUnicameral) {
 }
 
 function eventType(chamber, scope) {
-  if (scope === 'partial-renewal') return 'partial-renewal';
-  if (scope === 'full-renewal') return 'full-renewal';
   if (!chamber.electoralSystem.directlyElected) {
     return chamber.electoralSystem.appointedSeats
       ? 'appointment-renewal'
       : 'indirect-renewal';
   }
+  if (scope === 'partial-renewal') return 'partial-renewal';
+  if (scope === 'full-renewal') return 'full-renewal';
   return 'other';
 }
 
