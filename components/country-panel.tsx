@@ -199,7 +199,7 @@ function ElectionOutcome({
   if (!election) {
     return (
       <p className="mt-4 text-sm text-muted-foreground">
-        No recent parliamentary election record is available from IPU.
+        No recent parliamentary election record is available from the cited sources.
       </p>
     );
   }
@@ -248,7 +248,7 @@ function ElectionOutcome({
         />
       ) : (
         <p className="mt-3 text-sm text-muted-foreground">
-          IPU does not report a structured party-seat outcome for this record.
+          The cited sources do not report a structured party-seat outcome for this record.
         </p>
       )}
 
@@ -551,7 +551,7 @@ export function CountryPanel() {
                         </div>
                       ) : (
                         <p className="mt-2 text-xs text-muted-foreground">
-                          No Speaker data is currently available from IPU.
+                          No Speaker data is currently available from the cited sources.
                         </p>
                       )}
                     </section>
@@ -560,43 +560,51 @@ export function CountryPanel() {
                       <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
                         Electoral system
                       </p>
-                      <p className="mt-2 text-sm font-semibold">
-                        {chamber.electoralSystem.systems.join(' · ') ||
-                          (chamber.electoralSystem.directlyElected
-                            ? 'Direct election'
-                            : 'Not directly elected')}
-                      </p>
-                      <div className="ui-text mt-2 space-y-1 text-xs text-muted-foreground">
-                        {chamber.electoralSystem.votingAge !== undefined && (
-                          <p>Voting age: {chamber.electoralSystem.votingAge}</p>
-                        )}
-                        {chamber.electoralSystem.eligibilityAge !==
-                          undefined && (
-                          <p>
-                            Eligibility age:{' '}
-                            {chamber.electoralSystem.eligibilityAge}
+                      {chamber.electoralSystem ? (
+                        <>
+                          <p className="mt-2 text-sm font-semibold">
+                            {chamber.electoralSystem.systems.join(' · ') ||
+                              (chamber.electoralSystem.directlyElected
+                                ? 'Direct election'
+                                : 'Not directly elected')}
                           </p>
-                        )}
-                        {chamber.electoralSystem.compulsoryVoting && (
-                          <p>
-                            Compulsory voting:{' '}
-                            {chamber.electoralSystem.compulsoryVoting}
-                          </p>
-                        )}
-                        {chamber.electoralSystem.directlyElectedSeats !==
-                          undefined && (
-                          <p>
-                            Directly elected:{' '}
-                            {chamber.electoralSystem.directlyElectedSeats}
-                          </p>
-                        )}
-                        {chamber.electoralSystem.appointedSeats !==
-                          undefined && (
-                          <p>
-                            Appointed: {chamber.electoralSystem.appointedSeats}
-                          </p>
-                        )}
-                      </div>
+                          <div className="ui-text mt-2 space-y-1 text-xs text-muted-foreground">
+                            {chamber.electoralSystem.votingAge !== undefined && (
+                              <p>Voting age: {chamber.electoralSystem.votingAge}</p>
+                            )}
+                            {chamber.electoralSystem.eligibilityAge !==
+                              undefined && (
+                              <p>
+                                Eligibility age:{' '}
+                                {chamber.electoralSystem.eligibilityAge}
+                              </p>
+                            )}
+                            {chamber.electoralSystem.compulsoryVoting && (
+                              <p>
+                                Compulsory voting:{' '}
+                                {chamber.electoralSystem.compulsoryVoting}
+                              </p>
+                            )}
+                            {chamber.electoralSystem.directlyElectedSeats !==
+                              undefined && (
+                              <p>
+                                Directly elected:{' '}
+                                {chamber.electoralSystem.directlyElectedSeats}
+                              </p>
+                            )}
+                            {chamber.electoralSystem.appointedSeats !==
+                              undefined && (
+                              <p>
+                                Appointed: {chamber.electoralSystem.appointedSeats}
+                              </p>
+                            )}
+                          </div>
+                        </>
+                      ) : (
+                        <p className="mt-2 text-xs text-muted-foreground">
+                          No electoral-system data is currently available from the cited sources.
+                        </p>
+                      )}
                     </section>
                   </div>
 
