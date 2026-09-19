@@ -110,7 +110,7 @@ async function fetchSnapshot(client, country, retrievedAt, profile) {
 
   const chamberPages = [];
   const seenPageIds = new Set();
-  for (const requestedTitle of [...new Set(titles)]) {
+  for (const requestedTitle of new Set(titles)) {
     const page = await resolveNamedPage(client, requestedTitle, country.name);
     if (!page || seenPageIds.has(page.pageId)) continue;
     seenPageIds.add(page.pageId);
