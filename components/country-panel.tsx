@@ -109,6 +109,14 @@ const PARTY_COLORS = [
   '#6b7280',
 ] as const;
 
+function fallbackPartyColor(partyId: string) {
+  let hash = 0;
+  for (const character of partyId) {
+    hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+  }
+  return PARTY_COLORS[hash % PARTY_COLORS.length];
+}
+
 function semicircleArcPath(startFraction: number, endFraction: number) {
   const startAngle = Math.PI + startFraction * Math.PI;
   const endAngle = Math.PI + endFraction * Math.PI;
@@ -134,6 +142,11 @@ function SeatBar({
     party: string;
     seats: number;
     group?: string;
+    visual?: {
+      color: string;
+      method: 'wikipedia-entry' | 'wikidata-p465';
+      sourceIds: string[];
+    };
   }>;
   totalSeats: number;
   label: string;
@@ -147,7 +160,7 @@ function SeatBar({
 
     return {
       ...group,
-      color: PARTY_COLORS[index % PARTY_COLORS.length],
+      color: group.visual?.color ?? fallbackPartyColor(group.partyId),
       startFraction,
       endFraction,
     };
@@ -211,6 +224,12 @@ function SeatBar({
           </div>
         ))}
       </div>
+      {seatSegments.some((entry) => entry.visual) && (
+        <p className="mt-3 text-[11px] leading-5 text-muted-foreground">
+          Seat colours follow the cited Wikipedia entry where available.
+          Unresolved entries use a stable Polity Atlas fallback colour.
+        </p>
+      )}
     </div>
   );
 }
