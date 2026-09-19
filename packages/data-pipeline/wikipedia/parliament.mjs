@@ -201,6 +201,13 @@ function findMatchingChamber(candidate, chambers) {
     if (sameKind.length === 1) return sameKind[0];
   }
 
+  if (candidate.totalSeats !== undefined) {
+    const sameCapacity = chambers.filter(
+      (chamber) => chamber.totalSeats === candidate.totalSeats,
+    );
+    if (sameCapacity.length === 1) return sameCapacity[0];
+  }
+
   return undefined;
 }
 
