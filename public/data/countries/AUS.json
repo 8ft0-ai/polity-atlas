@@ -102,7 +102,12 @@
               {
                 "partyId": "au-liberal_national_coalition",
                 "party": "Liberal National coalition",
-                "seats": 43
+                "seats": 43,
+                "visual": {
+                  "color": "#00557C",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1065320-p465"]
+                }
               },
               {
                 "partyId": "au-independents",
@@ -159,7 +164,12 @@
               {
                 "partyId": "au-liberal_national_coalition",
                 "party": "Liberal National coalition",
-                "seats": 43
+                "seats": 43,
+                "visual": {
+                  "color": "#00557C",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1065320-p465"]
+                }
               },
               {
                 "partyId": "au-independents",
@@ -346,7 +356,12 @@
               {
                 "partyId": "au-uc01-e20250503-note-coalition-opposition",
                 "party": "Coalition (opposition)",
-                "seats": 27
+                "seats": 27,
+                "visual": {
+                  "color": "#00557C",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1065320-p465"]
+                }
               },
               {
                 "partyId": "au-uc01-e20250503-note-australian-greens",

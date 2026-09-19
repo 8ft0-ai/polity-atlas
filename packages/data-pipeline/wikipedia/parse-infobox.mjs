@@ -77,12 +77,25 @@ function entryVisual(element) {
   return undefined;
 }
 
-function linkedArticleTitle(element) {
+function linkedArticleTitles(element) {
+  const titles = [];
   for (const link of element.querySelectorAll('a[href]')) {
-    const title = titleFromHref(link.getAttribute('href'));
-    if (title) return title;
+    const href = link.getAttribute('href');
+    if (href?.includes('#')) continue;
+    const title = titleFromHref(href);
+    if (title && !titles.includes(title)) titles.push(title);
   }
-  return undefined;
+  return titles;
+}
+
+function linkedArticleTitle(element) {
+  return linkedArticleTitles(element)[0];
+}
+
+function ownArticleTitles(element) {
+  const clone = element.cloneNode(true);
+  for (const nested of clone.querySelectorAll('ul, ol, dl')) nested.remove();
+  return linkedArticleTitles(clone);
 }
 
 function ownText(element) {
@@ -109,7 +122,7 @@ function headingText(element) {
   return cleanText(label.replace(/\s*\([\d,]+\)\s*/g, ' '));
 }
 
-function nearestGroupLabel(element, root) {
+function nearestGroup(element, root) {
   for (
     let ancestor = element.parentElement;
     ancestor && ancestor !== root;
@@ -117,7 +130,13 @@ function nearestGroupLabel(element, root) {
   ) {
     if (ancestor.matches('li, dd')) {
       const group = parseSeatLabel(ownText(ancestor));
-      if (group) return group.label;
+      if (group) {
+        const articleTitles = ownArticleTitles(ancestor);
+        return {
+          label: group.label,
+          ...(articleTitles.length && { articleTitles }),
+        };
+      }
     }
   }
 
@@ -134,7 +153,13 @@ function nearestGroupLabel(element, root) {
     ) {
       if (sibling.matches('link, style, br, ul, ol, dl, li, dd')) continue;
       const label = headingText(sibling);
-      if (label) return label;
+      if (label) {
+        const articleTitles = linkedArticleTitles(sibling);
+        return {
+          label,
+          ...(articleTitles.length && { articleTitles }),
+        };
+      }
     }
     current = current.parentElement;
   }
@@ -220,13 +245,16 @@ export function extractPoliticalComposition(parsed) {
   for (const item of leafItems) {
     const result = parseSeatLabel(ownText(item));
     if (!result) continue;
-    const group = nearestGroupLabel(item, root);
+    const group = nearestGroup(item, root);
     const visual = entryVisual(item);
     const articleTitle = linkedArticleTitle(item);
     entries.push({
       party: result.label,
       seats: result.seats,
-      ...(group && { group }),
+      ...(group && { group: group.label }),
+      ...(group?.articleTitles && {
+        groupArticleTitles: group.articleTitles,
+      }),
       ...(articleTitle && { articleTitle }),
       ...(visual && { visual }),
     });

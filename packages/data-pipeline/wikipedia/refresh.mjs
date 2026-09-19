@@ -11,6 +11,7 @@ import {
   extractHouseLinks,
   mergeWikipediaChambers,
   normalizeWikipediaParliament,
+  visualArticleTitles,
 } from './parliament.mjs';
 import { extractPoliticalComposition, parseInfobox } from './parse-infobox.mjs';
 
@@ -133,9 +134,7 @@ async function enrichSnapshotWithWikidataColors(
 
   for (const page of pages) {
     const entries = extractPoliticalComposition(parseInfobox(page.html)) ?? [];
-    for (const entry of entries) {
-      if (!entry.visual && entry.articleTitle) titles.add(entry.articleTitle);
-    }
+    for (const title of visualArticleTitles(entries)) titles.add(title);
   }
 
   if (!titles.size) return snapshot;
@@ -156,9 +155,9 @@ async function enrichSnapshotWithWikidataColors(
   function enrichPage(page) {
     if (!page) return page;
     const pageTitles = new Set(
-      (extractPoliticalComposition(parseInfobox(page.html)) ?? [])
-        .filter((entry) => !entry.visual && entry.articleTitle)
-        .map((entry) => entry.articleTitle),
+      visualArticleTitles(
+        extractPoliticalComposition(parseInfobox(page.html)) ?? [],
+      ),
     );
     const wikidataVisuals = Object.fromEntries(
       Array.from(pageTitles)
