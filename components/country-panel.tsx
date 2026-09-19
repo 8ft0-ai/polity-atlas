@@ -4,10 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 import { ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { loadCountryProfile } from '@/lib/profile-data';
+import { loadCountryProfile, loadSourceRegistry } from '@/lib/profile-data';
 import { supportedProfiles } from '@/lib/countries';
 import { type CountryTab, useWorkspaceStore } from '@/lib/workspace-store';
-import type { CountryProfile } from '@/packages/schemas/country';
+import type { CountryProfile, SourceRecord } from '@/packages/schemas/country';
 
 const tabs: Array<{ value: CountryTab; label: string }> = [
   { value: 'overview', label: 'Overview' },
@@ -17,11 +17,11 @@ const tabs: Array<{ value: CountryTab; label: string }> = [
   { value: 'sources', label: 'Sources' },
 ];
 
-function Sources({ ids, profile }: { ids: string[]; profile: CountryProfile }) {
-  const sources = profile.sources.filter((source) => ids.includes(source.id));
+function Sources({ ids, sources }: { ids: string[]; sources: SourceRecord[] }) {
+  const resolvedSources = sources.filter((source) => ids.includes(source.id));
   return (
     <span className="ui-text ml-1 inline-flex flex-wrap gap-x-2 gap-y-1 text-xs">
-      {sources.map((source) => (
+      {resolvedSources.map((source) => (
         <a
           key={source.id}
           href={source.url}
@@ -36,6 +36,28 @@ function Sources({ ids, profile }: { ids: string[]; profile: CountryProfile }) {
       ))}
     </span>
   );
+}
+
+function sourceIdsForProfile(profile: CountryProfile) {
+  return new Set([
+    ...profile.government.system.sourceIds,
+    ...profile.government.headOfState.flatMap((holder) => holder.sourceIds),
+    ...profile.government.headOfGovernment.flatMap((holder) => holder.sourceIds),
+    ...profile.parliament.name.sourceIds,
+    ...profile.parliament.chambers.flatMap((chamber) => chamber.sourceIds),
+    ...profile.parliament.chambers.flatMap((chamber) =>
+      chamber.speakers.flatMap((speaker) => speaker.sourceIds),
+    ),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) => chamber.electoralSystem.sourceIds,
+    ),
+    ...profile.parliament.chambers.flatMap(
+      (chamber) => chamber.latestElection?.sourceIds ?? [],
+    ),
+    ...profile.nextExpectedElections.flatMap((election) => election.sourceIds),
+    ...profile.relations.flatMap((relation) => relation.sourceIds),
+    ...(profile.territories ?? []).flatMap((territory) => territory.sourceIds),
+  ]);
 }
 
 const SEMICIRCLE_CENTER_X = 100;
@@ -166,10 +188,10 @@ function humanize(value: string) {
 
 function ElectionOutcome({
   chamber,
-  profile,
+  sources,
 }: {
   chamber: CountryProfile['parliament']['chambers'][number];
-  profile: CountryProfile;
+  sources: SourceRecord[];
 }) {
   const election = chamber.latestElection;
   if (!election) {
@@ -263,7 +285,7 @@ function ElectionOutcome({
         </p>
       ))}
       <div className="mt-3">
-        <Sources ids={election.sourceIds} profile={profile} />
+        <Sources ids={election.sourceIds} sources={sources} />
       </div>
     </div>
   );
@@ -325,6 +347,10 @@ export function CountryPanel() {
   const iso3 = selectedEntityId
     ? supportedProfiles[selectedEntityId]
     : undefined;
+  const sourceRegistryQuery = useQuery({
+    queryKey: ['source-registry'],
+    queryFn: loadSourceRegistry,
+  });
   const profileQuery = useQuery({
     queryKey: ['country-profile', iso3],
     queryFn: () => loadCountryProfile(iso3!),
@@ -332,6 +358,8 @@ export function CountryPanel() {
   });
 
   if (!selectedEntityId || !selectedName) return null;
+
+  const sources = sourceRegistryQuery.data?.sources ?? [];
 
   function clearSelection() {
     clearCountry();
@@ -420,7 +448,7 @@ export function CountryPanel() {
                   {profileQuery.data.government.system.value}
                   <Sources
                     ids={profileQuery.data.government.system.sourceIds}
-                    profile={profileQuery.data}
+                    sources={sources}
                   />
                 </p>
               </section>
@@ -441,7 +469,7 @@ export function CountryPanel() {
                     </p>
                     <Sources
                       ids={holder.sourceIds}
-                      profile={profileQuery.data}
+                      sources={sources}
                     />
                   </article>
                 ))}
@@ -463,7 +491,7 @@ export function CountryPanel() {
                         </p>
                         <Sources
                           ids={election.sourceIds}
-                          profile={profileQuery.data}
+                          sources={sources}
                         />
                       </article>
                     ))}
@@ -486,10 +514,7 @@ export function CountryPanel() {
                       {chamber.totalSeats} statutory seats
                     </span>
                   </div>
-                  <ElectionOutcome
-                    chamber={chamber}
-                    profile={profileQuery.data}
-                  />
+                  <ElectionOutcome chamber={chamber} sources={sources} />
 
                   <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2">
                     <section>
@@ -578,7 +603,7 @@ export function CountryPanel() {
                   <div className="mt-4">
                     <Sources
                       ids={chamber.sourceIds}
-                      profile={profileQuery.data}
+                      sources={sources}
                     />
                   </div>
                 </section>
@@ -611,7 +636,7 @@ export function CountryPanel() {
                     </p>
                     <Sources
                       ids={election.sourceIds}
-                      profile={profileQuery.data}
+                      sources={sources}
                     />
                   </article>
                 ))
@@ -646,14 +671,18 @@ export function CountryPanel() {
                   </div>
                   <Sources
                     ids={relation.sourceIds}
-                    profile={profileQuery.data}
+                    sources={sources}
                   />
                 </article>
               ))}
             </TabsContent>
 
             <TabsContent value="sources" className="space-y-4">
-              {profileQuery.data.sources.map((source) => (
+              {sources
+                .filter((source) =>
+                  sourceIdsForProfile(profileQuery.data).has(source.id),
+                )
+                .map((source) => (
                 <article
                   key={source.id}
                   className="border-b border-border pb-4"
