@@ -3,6 +3,7 @@ import { countryProfileSchema } from '../../schemas/country.ts';
 import {
   extractExplicitChamberKind,
   extractHouseLinks,
+  extractPoliticalComposition,
   extractSeatCount,
   parseInfobox,
 } from './parse-infobox.mjs';
@@ -31,20 +32,46 @@ function parliamentHtml(houses) {
   `;
 }
 
-function chamberHtml({ seats, kind }) {
+function chamberHtml({ seats, kind, compositionHtml = '' }) {
   return `
     <table class="infobox">
       <tbody>
         ${kind ? `<tr><th>Type</th><td>${kind} house</td></tr>` : ''}
-        <tr><th>Seats</th><td>${seats}</td></tr>
+        <tr><th>Seats</th><td>${seats ?? ''}</td></tr>
+        ${compositionHtml}
       </tbody>
     </table>
   `;
 }
 
+function politicalGroupsRow() {
+  return `
+    <tr>
+      <th>Political groups</th>
+      <td>
+        <div><b>Ruling Party (2,478)</b></div>
+        <ul>
+          <li>CCP and Nonpartisan (2,478)</li>
+        </ul>
+        <div><b>Democratic Parties (369)</b></div>
+        <ul>
+          <li>Jiusan Society (61)</li>
+          <li>CPWDP (60)</li>
+          <li>CDL (55)</li>
+          <li>CAPD (54)</li>
+          <li>CNDCA (44)</li>
+          <li>RCCK (43)</li>
+          <li>CZGP (39)</li>
+          <li>TDSL (13)</li>
+        </ul>
+      </td>
+    </tr>
+  `;
+}
+
 function profile(chambers = []) {
   return {
-    schemaVersion: 3,
+    schemaVersion: 4,
     buildId: '2026-09-19',
     identity: {
       iso2: 'EX',
@@ -121,7 +148,11 @@ function snapshot({
       title: house.title,
       requestedTitle: house.title,
       url: `https://en.wikipedia.org/wiki/${house.title.replaceAll(' ', '_')}`,
-      html: chamberHtml({ seats: house.seats, kind: house.kind }),
+      html: chamberHtml({
+        seats: house.seats,
+        kind: house.kind,
+        compositionHtml: house.compositionHtml,
+      }),
     })),
   };
 }
@@ -142,6 +173,30 @@ describe('Wikipedia infobox parsing', () => {
     const chamber = parseInfobox(chamberHtml({ seats: 400, kind: 'lower' }));
     expect(extractSeatCount(chamber)).toBe(400);
     expect(extractExplicitChamberKind(chamber)).toBe('lower');
+  });
+
+  it('parses nested political-group totals without double-counting aggregates', () => {
+    const parsed = parseInfobox(
+      chamberHtml({
+        seats: 3000,
+        kind: 'unicameral',
+        compositionHtml: politicalGroupsRow(),
+      }),
+    );
+    const entries = extractPoliticalComposition(parsed);
+
+    expect(entries).toHaveLength(9);
+    expect(entries).toContainEqual({
+      party: 'CCP and Nonpartisan',
+      seats: 2478,
+      group: 'Ruling Party',
+    });
+    expect(entries).toContainEqual({
+      party: 'Jiusan Society',
+      seats: 61,
+      group: 'Democratic Parties',
+    });
+    expect(entries.reduce((sum, entry) => sum + entry.seats, 0)).toBe(2847);
   });
 });
 
@@ -406,6 +461,126 @@ describe('Wikipedia chamber fallback', () => {
       { name: 'House of Commons', kind: 'lower' },
       { name: 'House of Lords', kind: 'upper' },
     ]);
+  });
+
+  it('enriches a matched IPU chamber when IPU has no full party split', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'unicameral',
+        totalSeats: 3000,
+      }),
+    ]);
+    current.parliament.chambers[0].latestElection = {
+      id: 'EX-E1',
+      date: { from: '2023-03-05' },
+      scope: 'full-renewal',
+      seatsAtStake: 2977,
+      chamberSize: 3000,
+      sourceIds: ['ipu-parline'],
+    };
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'Assembly',
+            title: 'Assembly',
+            seats: 3000,
+            kind: 'unicameral',
+            compositionHtml: politicalGroupsRow(),
+          },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-19');
+
+    expect(normalized.chamberCompositions).toHaveLength(1);
+    expect(merged.parliament.chambers[0].composition).toMatchObject({
+      basis: 'source-reported',
+      reportedSeats: 2847,
+    });
+    expect(merged.parliament.chambers[0].composition.entries).toHaveLength(9);
+    expect(() => countryProfileSchema.parse(merged)).not.toThrow();
+  });
+
+  it('does not attach Wikipedia composition when IPU already provides a full composition', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'unicameral',
+        totalSeats: 3000,
+      }),
+    ]);
+    current.parliament.chambers[0].latestElection = {
+      id: 'EX-E1',
+      date: { from: '2023-03-05' },
+      scope: 'full-renewal',
+      seatsAtStake: 3000,
+      chamberSize: 3000,
+      outcome: {
+        display: 'post-election-full-composition',
+        seatsWonInElection: [
+          { partyId: 'party-a', party: 'Party A', seats: 3000 },
+        ],
+        postElectionComposition: [
+          { partyId: 'party-a', party: 'Party A', seats: 3000 },
+        ],
+      },
+      sourceIds: ['ipu-parline'],
+    };
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'Assembly',
+            title: 'Assembly',
+            seats: 3000,
+            kind: 'unicameral',
+            compositionHtml: politicalGroupsRow(),
+          },
+        ],
+      }),
+      current,
+    );
+
+    expect(normalized.chamberCompositions).toEqual([]);
+  });
+
+  it('rejects a parsed source composition that exceeds statutory chamber size', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'unicameral',
+        totalSeats: 100,
+      }),
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'Assembly',
+            title: 'Assembly',
+            seats: 100,
+            kind: 'unicameral',
+            compositionHtml:
+              '<tr><th>Political groups</th><td><ul><li>Party A (80)</li><li>Party B (40)</li></ul></td></tr>',
+          },
+        ],
+      }),
+      current,
+    );
+
+    expect(normalized.chamberCompositions).toEqual([]);
+    expect(normalized.diagnostics).toContain(
+      'COMPOSITION_EXCEEDS_CHAMBER:Assembly:120/100',
+    );
   });
 
   it('keeps Wikipedia provenance on every added chamber', () => {
