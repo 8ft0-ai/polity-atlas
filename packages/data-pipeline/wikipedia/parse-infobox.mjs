@@ -29,13 +29,23 @@ function ownText(element) {
   return cleanText(clone.textContent ?? '');
 }
 
+function headingText(element) {
+  const tag = element.tagName;
+  if (!['B', 'STRONG', 'DIV', 'P', 'H1', 'H2', 'H3', 'H4'].includes(tag)) {
+    return undefined;
+  }
+  const text = cleanText(element.textContent ?? '');
+  if (!text || text.length > 120) return undefined;
+  return parseSeatLabel(text)?.label ?? text;
+}
+
 function nearestGroupLabel(element, root) {
   for (
     let ancestor = element.parentElement;
     ancestor && ancestor !== root;
     ancestor = ancestor.parentElement
   ) {
-    if (ancestor.tagName === 'LI') {
+    if (ancestor.matches('li, dd')) {
       const group = parseSeatLabel(ownText(ancestor));
       if (group) return group.label;
     }
@@ -43,14 +53,18 @@ function nearestGroupLabel(element, root) {
 
   let current = element;
   while (current && current !== root) {
+    if (current.parentElement?.matches('ul, ol, dl')) {
+      current = current.parentElement;
+    }
+
     for (
       let sibling = current.previousElementSibling;
       sibling;
       sibling = sibling.previousElementSibling
     ) {
-      if (sibling.matches('li, ul, ol')) continue;
-      const group = parseSeatLabel(sibling.textContent ?? '');
-      if (group) return group.label;
+      if (sibling.matches('link, style, br, ul, ol, dl, li, dd')) continue;
+      const label = headingText(sibling);
+      if (label) return label;
     }
     current = current.parentElement;
   }
@@ -118,7 +132,7 @@ export function extractExplicitChamberKind(parsed) {
 
 export function extractPoliticalComposition(parsed) {
   const row = parsed.rows.find((entry) =>
-    /^(political groups?|political parties|party composition|composition|seats by party)$/i.test(
+    /(?:^|\s)political groups?$|^political parties$|^party composition$|^composition$|^seats by party$/i.test(
       entry.label,
     ),
   );
@@ -128,8 +142,8 @@ export function extractPoliticalComposition(parsed) {
   const root = document.body;
   const entries = [];
 
-  const leafItems = [...root.querySelectorAll('li')].filter(
-    (item) => !item.querySelector('li'),
+  const leafItems = [...root.querySelectorAll('li, dd')].filter(
+    (item) => !item.querySelector('li, dd'),
   );
   for (const item of leafItems) {
     const result = parseSeatLabel(ownText(item));
