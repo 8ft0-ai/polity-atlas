@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "US",
@@ -14,7 +14,9 @@
       "value": "Federal presidential constitutional republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["us-country"],
+      "sourceIds": [
+        "us-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Donald Trump",
         "since": "2025-01-20",
-        "sourceIds": ["us-president"]
+        "sourceIds": [
+          "us-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "President",
         "name": "Donald Trump",
         "since": "2025-01-20",
-        "sourceIds": ["us-president"]
+        "sourceIds": [
+          "us-president"
+        ]
       }
     ]
   },
@@ -39,7 +45,9 @@
       "value": "Congress",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": ["ipu-parline"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
@@ -64,19 +72,28 @@
             "stateRank": "Third",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "systems": [
+            "Plurality/majority",
+            "First Past The Post (FPTP)"
+          ],
           "directlyElectedSeats": 435,
           "votingAge": 18,
           "eligibilityAge": 25,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "US-LC01-E20241105",
           "title": "United States of America House of Representatives November 2024 Election",
@@ -113,7 +130,9 @@
               }
             ]
           },
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       },
       {
@@ -138,7 +157,9 @@
             "stateRank": "Second",
             "becomesInterimHeadOfState": true,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           },
           {
             "personId": "us-chuck-grassley",
@@ -155,19 +176,28 @@
             "stateRank": "Second",
             "becomesInterimHeadOfState": true,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "systems": [
+            "Plurality/majority",
+            "First Past The Post (FPTP)"
+          ],
           "directlyElectedSeats": 100,
           "votingAge": 18,
           "eligibilityAge": 30,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "US-UC01-E20241105",
           "title": "United States of America Senate November 2024 Election",
@@ -204,7 +234,9 @@
               }
             ]
           },
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       }
     ]
@@ -220,7 +252,9 @@
       "date": {
         "from": "2026-11-03"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     },
     {
       "id": "US-UC01:2026-11-03",
@@ -232,7 +266,9 @@
       "date": {
         "from": "2026-11-03"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -241,100 +277,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
+      "sourceIds": [
+        "us-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["us-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
-    },
-    {
-      "id": "us-country",
-      "publisher": "Wikipedia",
-      "title": "United States",
-      "url": "https://en.wikipedia.org/wiki/United_States",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "us-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of the United States",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_the_United_States",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "us-president",
-      "publisher": "The White House",
-      "title": "President Donald J. Trump",
-      "url": "https://www.whitehouse.gov/administration/donald-j-trump/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
+      "sourceIds": [
+        "us-missions"
+      ]
     }
   ]
 }
