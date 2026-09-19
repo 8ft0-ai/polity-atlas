@@ -108,8 +108,8 @@
                 "seats": 99,
                 "visual": {
                   "color": "#00BFFF",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q10225-p465"]
                 }
               },
               {
@@ -118,8 +118,8 @@
                 "seats": 37,
                 "visual": {
                   "color": "#FF2222",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1546941-p465"]
                 }
               },
               {
@@ -135,16 +135,21 @@
               {
                 "partyId": "in-dravida_munnetra_kazhagam_dmk",
                 "party": "Dravida Munnetra Kazhagam (DMK)",
-                "seats": 22
+                "seats": 22,
+                "visual": {
+                  "color": "#DD1100",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1255973-p465"]
+                }
               },
               {
                 "partyId": "in-telugu_desam_party_tdp",
                 "party": "Telugu Desam Party (TDP)",
                 "seats": 16,
                 "visual": {
-                  "color": "#FFED00",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FFFF00",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q2279320-p465"]
                 }
               },
               {
@@ -160,7 +165,12 @@
               {
                 "partyId": "in-nationalist-congress-party-party-sharadchandra-pawar-(ncpsp)",
                 "party": "Nationalist Congress Party Party – Sharadchandra Pawar (NCPSP)",
-                "seats": 8
+                "seats": 8,
+                "visual": {
+                  "color": "#0029B0",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-275456"]
+                }
               },
               {
                 "partyId": "in-independents",
@@ -185,7 +195,12 @@
               {
                 "partyId": "in-rashtriya_janata_dal_rjd",
                 "party": "Rashtriya Janata Dal (RJD)",
-                "seats": 4
+                "seats": 4,
+                "visual": {
+                  "color": "#008000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q3176919-p465"]
+                }
               },
               {
                 "partyId": "in-yuvajana_sramika_rythu_congress_party_ysrcp",
@@ -197,9 +212,9 @@
                 "party": "Aam Aadmi Party (AAP)",
                 "seats": 3,
                 "visual": {
-                  "color": "#0072B0",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#266BBA",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q129844-p465"]
                 }
               },
               {
@@ -207,9 +222,9 @@
                 "party": "Indian Union Muslim League (IUML)",
                 "seats": 3,
                 "visual": {
-                  "color": "#006600",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#008000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q3196786-p465"]
                 }
               },
               {
@@ -217,9 +232,9 @@
                 "party": "Jharkhand Mukti Morcha (JMM)",
                 "seats": 3,
                 "visual": {
-                  "color": "#337316",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#CC3333",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q3273397-p465"]
                 }
               },
               {
@@ -237,9 +252,9 @@
                 "party": "Jammu and Kashmir National Conference (J&KNC)",
                 "seats": 2,
                 "visual": {
-                  "color": "#922B3E",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FF3D3D",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1626979-p465"]
                 }
               },
               {
@@ -247,9 +262,9 @@
                 "party": "Janasena Party – JnP",
                 "seats": 2,
                 "visual": {
-                  "color": "#E8232A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#E62715",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q15940677-p465"]
                 }
               },
               {
@@ -262,9 +277,9 @@
                 "party": "Rashtriya Lok Dal (RLD)",
                 "seats": 2,
                 "visual": {
-                  "color": "#006400",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#330066",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q5961363-p465"]
                 }
               },
               {
@@ -273,8 +288,8 @@
                 "seats": 2,
                 "visual": {
                   "color": "#1E90FF",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q7928160-p465"]
                 }
               },
               {
@@ -292,9 +307,9 @@
                 "party": "AJSU Party (AJSU)",
                 "seats": 1,
                 "visual": {
-                  "color": "#6827B5",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FF33FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q4729039-p465"]
                 }
               },
               {
@@ -302,9 +317,9 @@
                 "party": "All India Majlis-E-Ittehadul Muslimeen  (AIMIM)",
                 "seats": 1,
                 "visual": {
-                  "color": "#0C6B4B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#009F3C",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q2837501-p465"]
                 }
               },
               {
@@ -352,20 +367,30 @@
                 "party": "Kerala Congress (M) (KC(M))",
                 "seats": 1,
                 "visual": {
-                  "color": "#809FFF",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#CC6600",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q3595134-p465"]
                 }
               },
               {
                 "partyId": "in-marumalarchi-dravida-munnetra-kazhagam-(mdmk)",
                 "party": "Marumalarchi Dravida Munnetra Kazhagam (MDMK)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#996699",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q195119-p465"]
+                }
               },
               {
                 "partyId": "in-nationalist_congress_party_ncp",
                 "party": "Nationalist Congress Party (NCP)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#00B2B2",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1561861-p465"]
+                }
               },
               {
                 "partyId": "in-rashtriya_loktantrik_party_rlp_",
@@ -382,24 +407,29 @@
                 "party": "Revolutionary Socialist Party (RSP)",
                 "seats": 1,
                 "visual": {
-                  "color": "#D84C4C",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FF0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1635587-p465"]
                 }
               },
               {
                 "partyId": "in-shiromani_akali_dal_sad",
                 "party": "Shiromani Akali Dal (SAD)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#0F204A",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q148034-p465"]
+                }
               },
               {
                 "partyId": "in-sikkim_krantikari_morcha_skm_",
                 "party": "Sikkim Krantikari Morcha (SKM)",
                 "seats": 1,
                 "visual": {
-                  "color": "#ED1E26",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FF0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q4801137-p465"]
                 }
               },
               {
@@ -445,8 +475,8 @@
                 "seats": 99,
                 "visual": {
                   "color": "#00BFFF",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q10225-p465"]
                 }
               },
               {
@@ -455,8 +485,8 @@
                 "seats": 37,
                 "visual": {
                   "color": "#FF2222",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1546941-p465"]
                 }
               },
               {
@@ -472,16 +502,21 @@
               {
                 "partyId": "in-dravida_munnetra_kazhagam_dmk",
                 "party": "Dravida Munnetra Kazhagam (DMK)",
-                "seats": 22
+                "seats": 22,
+                "visual": {
+                  "color": "#DD1100",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1255973-p465"]
+                }
               },
               {
                 "partyId": "in-telugu_desam_party_tdp",
                 "party": "Telugu Desam Party (TDP)",
                 "seats": 16,
                 "visual": {
-                  "color": "#FFED00",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FFFF00",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q2279320-p465"]
                 }
               },
               {
@@ -497,7 +532,12 @@
               {
                 "partyId": "in-nationalist-congress-party-party-sharadchandra-pawar-(ncpsp)",
                 "party": "Nationalist Congress Party Party – Sharadchandra Pawar (NCPSP)",
-                "seats": 8
+                "seats": 8,
+                "visual": {
+                  "color": "#0029B0",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-275456"]
+                }
               },
               {
                 "partyId": "in-independents",
@@ -522,7 +562,12 @@
               {
                 "partyId": "in-rashtriya_janata_dal_rjd",
                 "party": "Rashtriya Janata Dal (RJD)",
-                "seats": 4
+                "seats": 4,
+                "visual": {
+                  "color": "#008000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q3176919-p465"]
+                }
               },
               {
                 "partyId": "in-yuvajana_sramika_rythu_congress_party_ysrcp",
@@ -534,9 +579,9 @@
                 "party": "Aam Aadmi Party (AAP)",
                 "seats": 3,
                 "visual": {
-                  "color": "#0072B0",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#266BBA",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q129844-p465"]
                 }
               },
               {
@@ -544,9 +589,9 @@
                 "party": "Indian Union Muslim League (IUML)",
                 "seats": 3,
                 "visual": {
-                  "color": "#006600",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#008000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q3196786-p465"]
                 }
               },
               {
@@ -554,9 +599,9 @@
                 "party": "Jharkhand Mukti Morcha (JMM)",
                 "seats": 3,
                 "visual": {
-                  "color": "#337316",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#CC3333",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q3273397-p465"]
                 }
               },
               {
@@ -574,9 +619,9 @@
                 "party": "Jammu and Kashmir National Conference (J&KNC)",
                 "seats": 2,
                 "visual": {
-                  "color": "#922B3E",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FF3D3D",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1626979-p465"]
                 }
               },
               {
@@ -584,9 +629,9 @@
                 "party": "Janasena Party – JnP",
                 "seats": 2,
                 "visual": {
-                  "color": "#E8232A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#E62715",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q15940677-p465"]
                 }
               },
               {
@@ -599,9 +644,9 @@
                 "party": "Rashtriya Lok Dal (RLD)",
                 "seats": 2,
                 "visual": {
-                  "color": "#006400",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#330066",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q5961363-p465"]
                 }
               },
               {
@@ -610,8 +655,8 @@
                 "seats": 2,
                 "visual": {
                   "color": "#1E90FF",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q7928160-p465"]
                 }
               },
               {
@@ -629,9 +674,9 @@
                 "party": "AJSU Party (AJSU)",
                 "seats": 1,
                 "visual": {
-                  "color": "#6827B5",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FF33FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q4729039-p465"]
                 }
               },
               {
@@ -639,9 +684,9 @@
                 "party": "All India Majlis-E-Ittehadul Muslimeen  (AIMIM)",
                 "seats": 1,
                 "visual": {
-                  "color": "#0C6B4B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#009F3C",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q2837501-p465"]
                 }
               },
               {
@@ -689,20 +734,30 @@
                 "party": "Kerala Congress (M) (KC(M))",
                 "seats": 1,
                 "visual": {
-                  "color": "#809FFF",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#CC6600",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q3595134-p465"]
                 }
               },
               {
                 "partyId": "in-marumalarchi-dravida-munnetra-kazhagam-(mdmk)",
                 "party": "Marumalarchi Dravida Munnetra Kazhagam (MDMK)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#996699",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q195119-p465"]
+                }
               },
               {
                 "partyId": "in-nationalist_congress_party_ncp",
                 "party": "Nationalist Congress Party (NCP)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#00B2B2",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1561861-p465"]
+                }
               },
               {
                 "partyId": "in-rashtriya_loktantrik_party_rlp_",
@@ -719,24 +774,29 @@
                 "party": "Revolutionary Socialist Party (RSP)",
                 "seats": 1,
                 "visual": {
-                  "color": "#D84C4C",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FF0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1635587-p465"]
                 }
               },
               {
                 "partyId": "in-shiromani_akali_dal_sad",
                 "party": "Shiromani Akali Dal (SAD)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#0F204A",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q148034-p465"]
+                }
               },
               {
                 "partyId": "in-sikkim_krantikari_morcha_skm_",
                 "party": "Sikkim Krantikari Morcha (SKM)",
                 "seats": 1,
                 "visual": {
-                  "color": "#ED1E26",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-275456"]
+                  "color": "#FF0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q4801137-p465"]
                 }
               },
               {
@@ -819,7 +879,7 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 244,
-          "retrievedAt": "2026-09-19T04:35:00.000Z",
+          "retrievedAt": "2026-09-19T13:42:16.000Z",
           "entries": [
             {
               "partyId": "wiki-232210-nda-bjp-1",
@@ -839,8 +899,8 @@
               "group": "Official Opposition",
               "visual": {
                 "color": "#00BFFF",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q10225-p465"]
               }
             },
             {
@@ -860,9 +920,9 @@
               "seats": 8,
               "group": "Other opposition",
               "visual": {
-                "color": "#FA2223",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#DD1100",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q1255973-p465"]
               }
             },
             {
@@ -882,9 +942,9 @@
               "seats": 5,
               "group": "Other opposition",
               "visual": {
-                "color": "#70A548",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#006400",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q859993-p465"]
               }
             },
             {
@@ -894,8 +954,8 @@
               "group": "NDA",
               "visual": {
                 "color": "#009933",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q651141-p465"]
               }
             },
             {
@@ -905,8 +965,8 @@
               "group": "NDA",
               "visual": {
                 "color": "#003366",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q904827-p465"]
               }
             },
             {
@@ -915,9 +975,9 @@
               "seats": 4,
               "group": "NDA",
               "visual": {
-                "color": "#FFC0CB",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#00B2B2",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q1561861-p465"]
               }
             },
             {
@@ -927,8 +987,8 @@
               "group": "Official Opposition",
               "visual": {
                 "color": "#FF2222",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q1546941-p465"]
               }
             },
             {
@@ -937,9 +997,9 @@
               "seats": 4,
               "group": "NDA",
               "visual": {
-                "color": "#FFED00",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#FFFF00",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q2279320-p465"]
               }
             },
             {
@@ -949,8 +1009,8 @@
               "group": "Other opposition",
               "visual": {
                 "color": "#1569C7",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q8046035-p465"]
               }
             },
             {
@@ -959,9 +1019,9 @@
               "seats": 3,
               "group": "Other opposition",
               "visual": {
-                "color": "#0072B0",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#266BBA",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q129844-p465"]
               }
             },
             {
@@ -970,9 +1030,9 @@
               "seats": 3,
               "group": "Other opposition",
               "visual": {
-                "color": "#F84996",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#FFC0CB",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q3518390-p465"]
               }
             },
             {
@@ -981,9 +1041,9 @@
               "seats": 3,
               "group": "Official Opposition",
               "visual": {
-                "color": "#CC0D0D",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#FF0000",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q234277-p465"]
               }
             },
             {
@@ -1003,9 +1063,9 @@
               "seats": 3,
               "group": "Official Opposition",
               "visual": {
-                "color": "#922B3E",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#FF3D3D",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q1626979-p465"]
               }
             },
             {
@@ -1014,9 +1074,9 @@
               "seats": 3,
               "group": "Official Opposition",
               "visual": {
-                "color": "#337316",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#CC3333",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q3273397-p465"]
               }
             },
             {
@@ -1025,9 +1085,9 @@
               "seats": 3,
               "group": "Official Opposition",
               "visual": {
-                "color": "#056D05",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#008000",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q3176919-p465"]
               }
             },
             {
@@ -1036,9 +1096,9 @@
               "seats": 2,
               "group": "Official Opposition",
               "visual": {
-                "color": "#F50222",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#FF0000",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q837159-p465"]
               }
             },
             {
@@ -1047,9 +1107,9 @@
               "seats": 2,
               "group": "Official Opposition",
               "visual": {
-                "color": "#006600",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#008000",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q3196786-p465"]
               }
             },
             {
@@ -1091,9 +1151,9 @@
               "seats": 1,
               "group": "Other opposition",
               "visual": {
-                "color": "#22409A",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#0000FF",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q803681-p465"]
               }
             },
             {
@@ -1102,9 +1162,9 @@
               "seats": 1,
               "group": "Other opposition",
               "visual": {
-                "color": "#FFD700",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#008080",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q1200751-p465"]
               }
             },
             {
@@ -1124,9 +1184,9 @@
               "seats": 1,
               "group": "NDA",
               "visual": {
-                "color": "#E8232A",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#E62715",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q15940677-p465"]
               }
             },
             {
@@ -1135,9 +1195,9 @@
               "seats": 1,
               "group": "Official Opposition",
               "visual": {
-                "color": "#89BADF",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#CC9900",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q3690757-p465"]
               }
             },
             {
@@ -1168,9 +1228,9 @@
               "seats": 1,
               "group": "NDA",
               "visual": {
-                "color": "#F5AD00",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#DB7093",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q6974870-p465"]
               }
             },
             {
@@ -1179,9 +1239,9 @@
               "seats": 1,
               "group": "NDA",
               "visual": {
-                "color": "#FFFF00",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#99FF00",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q1887353-p465"]
               }
             },
             {
@@ -1190,9 +1250,9 @@
               "seats": 1,
               "group": "NDA",
               "visual": {
-                "color": "#006400",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-232210"]
+                "color": "#330066",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q5961363-p465"]
               }
             },
             {

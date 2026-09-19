@@ -97,7 +97,12 @@
               {
                 "partyId": "fr-new-popular-front-(nfp)-ug",
                 "party": "New Popular Front (NFP)/UG",
-                "seats": 178
+                "seats": 178,
+                "visual": {
+                  "color": "#FB2C59",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q126487286-p465"]
+                }
               },
               {
                 "partyId": "fr-ensemble_presidential_majority_",
@@ -164,9 +169,9 @@
                 "party": "Socialist Party (PS)",
                 "seats": 2,
                 "visual": {
-                  "color": "#E3265B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-299616"]
+                  "color": "#CC0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q2236823-p465"]
                 }
               },
               {
@@ -194,7 +199,12 @@
               {
                 "partyId": "fr-new-popular-front-(nfp)-ug",
                 "party": "New Popular Front (NFP)/UG",
-                "seats": 178
+                "seats": 178,
+                "visual": {
+                  "color": "#FB2C59",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q126487286-p465"]
+                }
               },
               {
                 "partyId": "fr-ensemble_presidential_majority_",
@@ -261,9 +271,9 @@
                 "party": "Socialist Party (PS)",
                 "seats": 2,
                 "visual": {
-                  "color": "#E3265B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-299616"]
+                  "color": "#CC0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q2236823-p465"]
                 }
               },
               {
@@ -339,7 +349,7 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 348,
-          "retrievedAt": "2026-09-19T04:35:00.000Z",
+          "retrievedAt": "2026-09-19T13:42:16.000Z",
           "entries": [
             {
               "partyId": "wiki-567323-ungrouped-sr-1",

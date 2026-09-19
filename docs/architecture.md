@@ -116,9 +116,10 @@ cache and do not change the country schema in this phase.
 Wikidata is not used to obtain parliamentary infobox HTML or political facts:
 seat and political-group structures remain Wikipedia article content and IPU
 remains authoritative for IPU-backed chamber/election facts. For display colour
-only, an entry with no Wikipedia swatch may follow its exact English-Wikipedia
-sitelink to a Wikidata item and use one unambiguous P465 sRGB value. This
-enrichment is optional and non-blocking.
+only, every entry with an exact English-Wikipedia sitelink is resolved to a
+Wikidata item. One unambiguous P465 sRGB value is the canonical entity colour
+and overrides chamber-local swatches; the rendered swatch remains the fallback
+when P465 is absent or ambiguous. This enrichment is optional and non-blocking.
 
 ## Generated legislature module boundary
 
@@ -143,10 +144,10 @@ authority for an IPU chamber's party result and seat numbers. Wikimedia can
 supply a `visual.color` on the corresponding result when the rendered chamber
 entry exposes a colour and matching is unambiguous. Wikipedia composition
 fallbacks can carry the same colour on their own entries. If the exact
-Wikipedia-linked party article has no rendered swatch, one unambiguous Wikidata
-P465 value may supply visual metadata with its own source ID. Exact article
-identities on aggregate group headings are retained for coalition matching.
-Within one country, sourced colours are reconciled across chambers by shared
-IPU party ID or exact Wikipedia article identity, excluding generic group
-labels. The renderer falls back to a deterministic stable colour when no
-sourced colour exists.
+Wikipedia-linked party article has one unambiguous Wikidata P465 value, that
+entity colour overrides chamber-local swatches and supplies visual metadata
+with its own source ID. Exact article identities on aggregate group headings are
+retained for coalition matching. Sourced colours are otherwise reconciled
+across chambers by shared IPU party ID or exact Wikipedia article identity,
+excluding generic group labels. The renderer falls back to a deterministic
+stable colour when no sourced colour exists.

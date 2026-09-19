@@ -381,6 +381,28 @@ describe('Wikipedia infobox parsing', () => {
       'Official Opposition (Example)',
     ]);
   });
+
+  it('requests entity colours even when a chamber entry has a swatch', () => {
+    const parsed = parseInfobox(
+      chamberHtml({
+        seats: 100,
+        kind: 'lower',
+        compositionHtml: `
+          <tr><th>Political groups</th><td><ul><li>
+            <span class="legend-color" style="background-color:#123456"></span>
+            <a href="./Example_Labour_Party">Labour Party</a> (100)
+          </li></ul></td></tr>
+        `,
+      }),
+    );
+    const entries = extractPoliticalComposition(parsed);
+
+    expect(entries[0].visual).toEqual({
+      color: '#123456',
+      method: 'wikipedia-entry',
+    });
+    expect(visualArticleTitles(entries)).toEqual(['Example Labour Party']);
+  });
 });
 
 describe('Wikipedia chamber fallback', () => {
@@ -977,6 +999,123 @@ describe('Wikipedia chamber fallback', () => {
     ]);
   });
 
+  it('uses an exact Wikidata entity colour instead of chamber-local swatches', () => {
+    const lower = ipuChamber({
+      id: 'EX-LC01',
+      name: 'House',
+      kind: 'lower',
+      totalSeats: 100,
+    });
+    const upper = ipuChamber({
+      id: 'EX-UC01',
+      name: 'Senate',
+      kind: 'upper',
+      totalSeats: 50,
+    });
+    for (const chamber of [lower, upper]) {
+      chamber.latestElection = {
+        id: `${chamber.id}-E1`,
+        date: { from: '2026-01-01' },
+        scope: 'full-renewal',
+        seatsAtStake: chamber.totalSeats,
+        chamberSize: chamber.totalSeats,
+        outcome: {
+          display: 'post-election-full-composition',
+          seatsWonInElection: [
+            {
+              partyId: 'exa-labour-party',
+              party: 'Labour Party',
+              seats: chamber.totalSeats,
+            },
+          ],
+          postElectionComposition: [
+            {
+              partyId: 'exa-labour-party',
+              party: 'Labour Party',
+              seats: chamber.totalSeats,
+            },
+          ],
+        },
+        sourceIds: ['ipu-parline'],
+      };
+    }
+    const wikidataVisual = {
+      color: '#E4003B',
+      itemId: 'Q456',
+      source: {
+        id: 'wikidata-item-q456-p465',
+        publisher: 'Wikidata',
+        title: 'Wikidata item Q456: sRGB color hex triplet (P465)',
+        url: 'https://www.wikidata.org/wiki/Q456',
+        retrievedAt: '2026-09-19T00:00:00.000Z',
+        kind: 'reference',
+        attribution: 'Wikidata contributors',
+        license: 'Creative Commons CC0 1.0 Universal',
+      },
+    };
+    const compositionHtml = (color) => `
+      <tr><th>Political groups</th><td><ul>
+        <li>
+          <span class="legend-color" style="background-color:${color}"></span>
+          <a href="./Labour_Party_(Example)">Labour Party</a> (1)
+        </li>
+        <li>
+          <span class="legend-color" style="background-color:#FF0000"></span>
+          <a href="./Social_Democratic_and_Labour_Party_(Example)">Social Democratic and Labour Party</a> (1)
+        </li>
+      </ul></td></tr>
+    `;
+
+    const current = profile([lower, upper]);
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'House',
+            title: 'House',
+            seats: 100,
+            kind: 'lower',
+            compositionHtml: compositionHtml('#111111'),
+            wikidataVisuals: {
+              'Labour Party (Example)': wikidataVisual,
+            },
+          },
+          {
+            name: 'Senate',
+            title: 'Senate',
+            seats: 50,
+            kind: 'upper',
+            compositionHtml: compositionHtml('#222222'),
+            wikidataVisuals: {
+              'Labour Party (Example)': wikidataVisual,
+            },
+          },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-19');
+
+    expect(
+      merged.parliament.chambers.map(
+        (chamber) =>
+          chamber.latestElection.outcome.postElectionComposition[0].visual,
+      ),
+    ).toEqual([
+      {
+        color: '#E4003B',
+        method: 'wikidata-p465',
+        sourceIds: ['wikidata-item-q456-p465'],
+      },
+      {
+        color: '#E4003B',
+        method: 'wikidata-p465',
+        sourceIds: ['wikidata-item-q456-p465'],
+      },
+    ]);
+    expect(normalized.sources).toContainEqual(wikidataVisual.source);
+  });
+
   it('uses an exact group sitelink colour for a safely identified coalition', () => {
     const lower = ipuChamber({
       id: 'EX-LC01',
@@ -1156,6 +1295,20 @@ describe('Wikipedia chamber fallback', () => {
     }
 
     const current = profile([lower, upper]);
+    const genericWikidata = {
+      color: '#DDDDDD',
+      itemId: 'Q327591',
+      source: {
+        id: 'wikidata-item-q327591-p465',
+        publisher: 'Wikidata',
+        title: 'Wikidata item Q327591: sRGB color hex triplet (P465)',
+        url: 'https://www.wikidata.org/wiki/Q327591',
+        retrievedAt: '2026-09-19T00:00:00.000Z',
+        kind: 'reference',
+        attribution: 'Wikidata contributors',
+        license: 'Creative Commons CC0 1.0 Universal',
+      },
+    };
     const normalized = normalizeWikipediaParliament(
       snapshot({
         houses: [
@@ -1170,6 +1323,9 @@ describe('Wikipedia chamber fallback', () => {
                 <a href="./Independent_politician">Independent</a> (1)
               </li></ul></td></tr>
             `,
+            wikidataVisuals: {
+              'Independent politician': genericWikidata,
+            },
           },
           {
             name: 'Senate',
@@ -1181,6 +1337,9 @@ describe('Wikipedia chamber fallback', () => {
                 <li><a href="./Independent_politician">Independent</a> (1)</li>
               </ul></td></tr>
             `,
+            wikidataVisuals: {
+              'Independent politician': genericWikidata,
+            },
           },
         ],
       }),

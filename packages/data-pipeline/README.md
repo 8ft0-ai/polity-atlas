@@ -167,10 +167,11 @@ date, note, and IPU provenance are preserved and rendered rather than inferred.
 
 Wikimedia rendered infobox entries may contain an adjacent colour swatch. The
 parser canonicalizes safe `#RGB`, `#RRGGBB`, and `rgb(...)` values to
-uppercase `#RRGGBB`. When a rendered entry has no swatch but links to an
-English Wikipedia party article, the refresh may resolve that exact sitelink
-through Wikidata and use its unambiguous P465 sRGB value. There is no fuzzy
-party-name lookup.
+uppercase `#RRGGBB`. Every rendered entry that links to an English Wikipedia
+party article is resolved through Wikidata. Its unambiguous P465 sRGB value is
+the canonical entity colour and overrides chamber-local swatches; a rendered
+swatch remains the fallback when P465 is absent or ambiguous. There is no fuzzy
+party-name lookup or country-specific colour table.
 
 For a safely matched IPU party, only this display colour is copied; the IPU
 party identity and seat count are unchanged. Exact article links retained on an

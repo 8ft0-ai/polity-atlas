@@ -6,6 +6,7 @@ function response(status, body) {
     status,
     ok: status >= 200 && status < 300,
     json: async () => body,
+    text: async () => (typeof body === 'string' ? body : JSON.stringify(body)),
   };
 }
 
@@ -55,7 +56,9 @@ describe('WikipediaClient Wikimedia REST acquisition', () => {
     expect(String(url)).not.toContain('w/api.php');
     expect(String(url)).not.toContain('action=');
     expect(options.headers.Authorization).toBeUndefined();
+    expect(options.headers['Accept-Encoding']).toBe('identity');
     expect(options.headers['User-Agent']).toContain('Polity-Atlas');
+    expect(options.redirect).toBe('manual');
 
     expect(snapshot.acquisition).toEqual({
       provider: 'Wikimedia',
@@ -75,6 +78,36 @@ describe('WikipediaClient Wikimedia REST acquisition', () => {
       url: 'https://en.wikipedia.org/wiki/Parliament_of_Example',
       html: '<table class="infobox"></table>',
     });
+  });
+
+  it('follows a same-origin Wikimedia redirect exposed only in HTML', async () => {
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(
+        response(
+          307,
+          '<!doctype html><a href="/w/rest.php/v1/page/Parliament_of_the_United_Kingdom/with_html?redirect=no">redirect</a>',
+        ),
+      )
+      .mockResolvedValueOnce(
+        response(
+          200,
+          restPage({
+            id: 13964,
+            key: 'Parliament_of_the_United_Kingdom',
+            title: 'Parliament of the United Kingdom',
+          }),
+        ),
+      );
+    const client = new WikipediaClient({ fetchImpl });
+
+    const page = await client.fetchPageWithHtml('Parliament of United Kingdom');
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(String(fetchImpl.mock.calls[1][0])).toBe(
+      'https://en.wikipedia.org/w/rest.php/v1/page/Parliament_of_the_United_Kingdom/with_html?redirect=no',
+    );
+    expect(page.title).toBe('Parliament of the United Kingdom');
   });
 
   it('falls back to REST page search when the conventional title is absent', async () => {

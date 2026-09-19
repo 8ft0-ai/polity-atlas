@@ -87,5 +87,8 @@ describe('Wikidata visual metadata', () => {
       },
     });
     expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(fetchImpl.mock.calls[0][1].headers['Accept-Encoding']).toBe(
+      'identity',
+    );
   });
 });

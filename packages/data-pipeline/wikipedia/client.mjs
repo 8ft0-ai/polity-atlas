@@ -14,6 +14,11 @@ function canonicalArticleUrl(page) {
   return `https://en.wikipedia.org/wiki/${encodeURIComponent(key)}`;
 }
 
+function redirectFromHtml(html) {
+  const href = html.match(/<a\s+href=["']([^"']+)["']/i)?.[1];
+  return href?.replaceAll('&amp;', '&');
+}
+
 function pageSnapshot(page) {
   if (!page?.id || !page?.title || typeof page.html !== 'string') {
     throw new Error('Wikimedia REST page response is missing required fields');
@@ -54,22 +59,51 @@ export class WikipediaClient {
   }
 
   async request(path, { allowNotFound = false } = {}) {
-    const url = new URL(path.replace(/^\//, ''), this.restBaseUrl);
-    const response = await this.fetchImpl(url, {
-      headers: {
-        Accept: 'application/json',
-        'User-Agent': DEFAULT_USER_AGENT,
-      },
-      signal: AbortSignal.timeout(this.timeoutMs),
-    });
+    let url = new URL(path.replace(/^\//, ''), this.restBaseUrl);
+    const allowedOrigin = new URL(this.restBaseUrl).origin;
 
-    if (allowNotFound && response.status === 404) return undefined;
-    if (!response.ok) {
-      throw new Error(
-        `Wikimedia REST request failed (${response.status}) for ${url}`,
-      );
+    for (let redirects = 0; redirects <= 5; redirects += 1) {
+      const response = await this.fetchImpl(url, {
+        redirect: 'manual',
+        headers: {
+          Accept: 'application/json',
+          'Accept-Encoding': 'identity',
+          'User-Agent': DEFAULT_USER_AGENT,
+        },
+        signal: AbortSignal.timeout(this.timeoutMs),
+      });
+
+      if ([301, 302, 303, 307, 308].includes(response.status)) {
+        const headerLocation = response.headers?.get?.('location');
+        const bodyLocation = headerLocation
+          ? undefined
+          : redirectFromHtml(await response.text());
+        const location = headerLocation ?? bodyLocation;
+        if (!location) {
+          throw new Error(
+            `Wikimedia REST redirect (${response.status}) is missing a target for ${url}`,
+          );
+        }
+        const nextUrl = new URL(location, url);
+        if (nextUrl.origin !== allowedOrigin) {
+          throw new Error(
+            `Wikimedia REST redirect left the allowed origin: ${nextUrl}`,
+          );
+        }
+        url = nextUrl;
+        continue;
+      }
+
+      if (allowNotFound && response.status === 404) return undefined;
+      if (!response.ok) {
+        throw new Error(
+          `Wikimedia REST request failed (${response.status}) for ${url}`,
+        );
+      }
+      return response.json();
     }
-    return response.json();
+
+    throw new Error(`Wikimedia REST redirect limit exceeded for ${url}`);
   }
 
   async fetchPageWithHtml(title, { allowNotFound = false } = {}) {

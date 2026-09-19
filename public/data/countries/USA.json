@@ -94,9 +94,9 @@
                 "party": "Republican Party",
                 "seats": 220,
                 "visual": {
-                  "color": "#E81B23",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-24909346"]
+                  "color": "#E9151E",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q29468-p465"]
                 }
               },
               {
@@ -104,9 +104,9 @@
                 "party": "Democratic Party",
                 "seats": 215,
                 "visual": {
-                  "color": "#0044C9",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-19468510"]
+                  "color": "#003CBA",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q29552-p465"]
                 }
               }
             ],
@@ -116,9 +116,9 @@
                 "party": "Republican Party",
                 "seats": 220,
                 "visual": {
-                  "color": "#E81B23",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-24909346"]
+                  "color": "#E9151E",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q29468-p465"]
                 }
               },
               {
@@ -126,9 +126,9 @@
                 "party": "Democratic Party",
                 "seats": 215,
                 "visual": {
-                  "color": "#0044C9",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-19468510"]
+                  "color": "#003CBA",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q29552-p465"]
                 }
               }
             ]
@@ -205,9 +205,9 @@
                 "party": "Democratic Party",
                 "seats": 19,
                 "visual": {
-                  "color": "#0044C9",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-24909346"]
+                  "color": "#003CBA",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q29552-p465"]
                 }
               },
               {
@@ -215,9 +215,9 @@
                 "party": "Republican Party",
                 "seats": 15,
                 "visual": {
-                  "color": "#E81B23",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-24909346"]
+                  "color": "#E9151E",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q29468-p465"]
                 }
               }
             ],
@@ -227,9 +227,9 @@
                 "party": "Republican Party",
                 "seats": 53,
                 "visual": {
-                  "color": "#E81B23",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-24909346"]
+                  "color": "#E9151E",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q29468-p465"]
                 }
               },
               {
@@ -237,9 +237,9 @@
                 "party": "Democratic Party",
                 "seats": 47,
                 "visual": {
-                  "color": "#0044C9",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-24909346"]
+                  "color": "#003CBA",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q29552-p465"]
                 }
               }
             ]
