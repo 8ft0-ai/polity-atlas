@@ -528,12 +528,28 @@ export function normalizeIpuSnapshot(snapshot) {
 }
 
 export function mergeIpuProfile(profile, normalized, buildId) {
+  const previousChambers = new Map(
+    profile.parliament.chambers.map((chamber) => [chamber.id, chamber]),
+  );
+  const chambers = normalized.parliament.chambers.map((chamber) => {
+    const previous = previousChambers.get(chamber.id);
+    const hasFullIpuComposition = Boolean(
+      chamber.latestElection?.outcome?.postElectionComposition?.length,
+    );
+    return !hasFullIpuComposition && previous?.composition
+      ? { ...chamber, composition: previous.composition }
+      : chamber;
+  });
+
   return {
-    schemaVersion: 3,
+    schemaVersion: 4,
     buildId,
     identity: profile.identity,
     government: profile.government,
-    parliament: normalized.parliament,
+    parliament: {
+      ...normalized.parliament,
+      chambers,
+    },
     nextExpectedElections: normalized.nextExpectedElections,
     relations: profile.relations,
     ...(profile.territories && { territories: profile.territories }),
