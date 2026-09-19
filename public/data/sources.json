@@ -317,6 +317,16 @@
       "kind": "official"
     },
     {
+      "id": "wikidata-item-q464103-p465",
+      "publisher": "Wikidata",
+      "title": "Wikidata item Q464103: sRGB color hex triplet (P465)",
+      "url": "https://www.wikidata.org/wiki/Q464103",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikidata contributors",
+      "license": "Creative Commons CC0 1.0 Universal"
+    },
+    {
       "id": "wikipedia-en-page-123498",
       "publisher": "Wikipedia",
       "title": "Senate of Canada",
@@ -491,7 +501,7 @@
       "publisher": "Wikipedia",
       "title": "Parliament of India",
       "url": "https://en.wikipedia.org/wiki/Parliament_of_India",
-      "retrievedAt": "2026-09-19T03:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Parliament of India\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"

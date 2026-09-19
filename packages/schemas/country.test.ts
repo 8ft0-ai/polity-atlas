@@ -47,9 +47,9 @@ describe('country profile contract', () => {
     expect(irn.parliament.chambers).toHaveLength(1);
     expect(sau.parliament.chambers).toHaveLength(1);
     expect(mmr.parliament.chambers).toHaveLength(2);
-    expect(
-      mmr.parliament.chambers.map((chamber) => chamber.id).sort(),
-    ).toEqual(['MM-LC01', 'MM-UC01']);
+    expect(mmr.parliament.chambers.map((chamber) => chamber.id).sort()).toEqual(
+      ['MM-LC01', 'MM-UC01'],
+    );
   });
 
   it('rejects duplicate global source IDs', () => {

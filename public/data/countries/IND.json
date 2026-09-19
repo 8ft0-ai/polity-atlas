@@ -769,6 +769,517 @@
         }
       },
       {
+        "id": "wiki-ind-lok-sabha",
+        "name": "Lok Sabha",
+        "kind": "lower",
+        "totalSeats": 543,
+        "speakers": [],
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 540,
+          "retrievedAt": "2026-09-19T04:35:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-275456-nda-bjp-1",
+              "party": "BJP",
+              "seats": 240,
+              "group": "NDA",
+              "visual": {
+                "color": "#FF9933",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-inc-16",
+              "party": "INC",
+              "seats": 98,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#00BFFF",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-sp-17",
+              "party": "SP",
+              "seats": 37,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#FF2222",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-dmk-35",
+              "party": "DMK",
+              "seats": 22,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#FA2223",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-ncpi-2",
+              "party": "NCPI",
+              "seats": 20,
+              "group": "NDA",
+              "visual": {
+                "color": "#F5FFAF",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-tdp-3",
+              "party": "TDP",
+              "seats": 16,
+              "group": "NDA",
+              "visual": {
+                "color": "#FFED00",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-shs-4",
+              "party": "SHS",
+              "seats": 13,
+              "group": "NDA",
+              "visual": {
+                "color": "#E37405",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-jd-u-5",
+              "party": "JD(U)",
+              "seats": 12,
+              "group": "NDA",
+              "visual": {
+                "color": "#003366",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-maitc-18",
+              "party": "MAITC",
+              "seats": 8,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#13D6B6",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-ncp-sp-19",
+              "party": "NCP-SP",
+              "seats": 8,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#0029B0",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-ljp-rv-6",
+              "party": "LJP(RV)",
+              "seats": 5,
+              "group": "NDA",
+              "visual": {
+                "color": "#5B006A",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-cpi-m-20",
+              "party": "CPI(M)",
+              "seats": 4,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#CC0D0D",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-rjd-21",
+              "party": "RJD",
+              "seats": 4,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#056D05",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-ysrcp-36",
+              "party": "YSRCP",
+              "seats": 4,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#1569C7",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-aap-37",
+              "party": "AAP",
+              "seats": 3,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#0072B0",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-ind-34",
+              "party": "IND",
+              "seats": 3,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#DCDCDC",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-iuml-22",
+              "party": "IUML",
+              "seats": 3,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#006600",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-jmm-23",
+              "party": "JMM",
+              "seats": 3,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#337316",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-ss-ubt-24",
+              "party": "SS(UBT)",
+              "seats": 3,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#FD7D24",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-ad-wpd-38",
+              "party": "AD(WPD)",
+              "seats": 2,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#FFC305",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-cpi-25",
+              "party": "CPI",
+              "seats": 2,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#F50222",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-cpi-ml-l-26",
+              "party": "CPI(ML)L",
+              "seats": 2,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#C41301",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-jd-s-7",
+              "party": "JD(S)",
+              "seats": 2,
+              "group": "NDA",
+              "visual": {
+                "color": "#02865A",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-jknc-27",
+              "party": "JKNC",
+              "seats": 2,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#922B3E",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-jsp-8",
+              "party": "JSP",
+              "seats": 2,
+              "group": "NDA",
+              "visual": {
+                "color": "#E8232A",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-rld-9",
+              "party": "RLD",
+              "seats": 2,
+              "group": "NDA",
+              "visual": {
+                "color": "#006400",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-vck-28",
+              "party": "VCK",
+              "seats": 2,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#1E90FF",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-ad-s-10",
+              "party": "AD(S)",
+              "seats": 1,
+              "group": "NDA",
+              "visual": {
+                "color": "#26176D",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-agp-11",
+              "party": "AGP",
+              "seats": 1,
+              "group": "NDA",
+              "visual": {
+                "color": "#99CCFF",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-aimim-39",
+              "party": "AIMIM",
+              "seats": 1,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#0C6B4B",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-ajsu-12",
+              "party": "AJSU",
+              "seats": 1,
+              "group": "NDA",
+              "visual": {
+                "color": "#6827B5",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-asp-kr-40",
+              "party": "ASP(KR)",
+              "seats": 1,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#030F89",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-bap-29",
+              "party": "BAP",
+              "seats": 1,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#FF0000",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-ham-s-13",
+              "party": "HAM(S)",
+              "seats": 1,
+              "group": "NDA",
+              "visual": {
+                "color": "#F5D62A",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-ind-45",
+              "party": "IND",
+              "seats": 1,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#DCDCDC",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-jkaip-41",
+              "party": "JKAIP",
+              "seats": 1,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#4AF336",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-kec-30",
+              "party": "KEC",
+              "seats": 1,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#809FFF",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-mdmk-31",
+              "party": "MDMK",
+              "seats": 1,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#FC0000",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-ncp-14",
+              "party": "NCP",
+              "seats": 1,
+              "group": "NDA",
+              "visual": {
+                "color": "#FFC0CB",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-rlp-33",
+              "party": "RLP",
+              "seats": 1,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#FFD42A",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-official-opposition-rsp-32",
+              "party": "RSP",
+              "seats": 1,
+              "group": "Official Opposition",
+              "visual": {
+                "color": "#D84C4C",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-sad-42",
+              "party": "SAD",
+              "seats": 1,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#0F204A",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-nda-skm-15",
+              "party": "SKM",
+              "seats": 1,
+              "group": "NDA",
+              "visual": {
+                "color": "#ED1E26",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-uppl-43",
+              "party": "UPPL",
+              "seats": 1,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#FAED09",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            },
+            {
+              "partyId": "wiki-275456-other-opposition-zpm-44",
+              "party": "ZPM",
+              "seats": 1,
+              "group": "Other Opposition",
+              "visual": {
+                "color": "#FFF700",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-275456"]
+              }
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-275456"]
+        },
+        "sourceIds": ["wikipedia-en-page-410238", "wikipedia-en-page-275456"]
+      },
+      {
         "id": "IN-UC01",
         "name": "Council of States",
         "kind": "upper",
@@ -1249,7 +1760,7 @@
       "level": "national",
       "chamberId": "IN-UC01",
       "chamberName": "Council of States",
-      "eventType": "partial-renewal",
+      "eventType": "appointment-renewal",
       "status": "expected",
       "date": {
         "from": "2028-03-31"

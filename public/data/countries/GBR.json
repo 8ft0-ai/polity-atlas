@@ -197,7 +197,12 @@
               {
                 "partyId": "gb-speaker",
                 "party": "The Speaker",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#000000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q464103-p465"]
+                }
               },
               {
                 "partyId": "gb-trade-unionist-voice",
@@ -324,7 +329,12 @@
               {
                 "partyId": "gb-speaker",
                 "party": "The Speaker",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#000000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q464103-p465"]
+                }
               },
               {
                 "partyId": "gb-trade-unionist-voice",

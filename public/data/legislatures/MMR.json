@@ -23,6 +23,12 @@
         "kind": "lower",
         "totalSeats": 440,
         "parliamentaryTermYears": 5,
+        "operationalStatus": {
+          "state": "suspended",
+          "since": "2022-03-01",
+          "note": "The Parliament of Myanmar, the Pyidaungsu Hluttaw (Assembly of the Union), comprising the Pyithu Hluttaw (House of Representatives) and the Amyotha Hluttaw (House of Nationalities), had its most recent elections in November 2020. \r\n\nThe military staged a coup on 1 February 2021, the day on which the newly elected parliament was due to be sworn in. Consequently, there is currently no functioning parliament in Myanmar.",
+          "sourceIds": ["ipu-parline"]
+        },
         "speakers": [
           {
             "acting": false,
@@ -186,192 +192,17 @@
         }
       },
       {
-        "id": "wiki-mmr-pyithu-hluttaw",
-        "name": "Pyithu Hluttaw",
-        "kind": "lower",
-        "totalSeats": 440,
-        "speakers": [],
-        "composition": {
-          "basis": "source-reported",
-          "reportedSeats": 440,
-          "retrievedAt": "2026-09-19T04:35:00.000Z",
-          "entries": [
-            {
-              "partyId": "wiki-29739592-ungrouped-usdp-1",
-              "party": "USDP",
-              "seats": 231,
-              "visual": {
-                "color": "#00623D",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-tatmadaw-2",
-              "party": "Tatmadaw",
-              "seats": 110,
-              "visual": {
-                "color": "#000000",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-vacant-vacant-15",
-              "party": "Vacant",
-              "seats": 67,
-              "group": "Vacant",
-              "visual": {
-                "color": "#FFFFFF",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-sndp-3",
-              "party": "SNDP",
-              "seats": 7,
-              "visual": {
-                "color": "#D7CD8A",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-mup-5",
-              "party": "MUP",
-              "seats": 5,
-              "visual": {
-                "color": "#C13830",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-pno-4",
-              "party": "PNO",
-              "seats": 5,
-              "visual": {
-                "color": "#28166F",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-nnp-7",
-              "party": "NNP",
-              "seats": 4,
-              "visual": {
-                "color": "#FF0000",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-nup-6",
-              "party": "NUP",
-              "seats": 4,
-              "visual": {
-                "color": "#2188CA",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-dndp-8",
-              "party": "DNDP",
-              "seats": 1,
-              "visual": {
-                "color": "#EB1D27",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-independent-14",
-              "party": "Independent",
-              "seats": 1,
-              "visual": {
-                "color": "#C0C0C0",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-inlp-10",
-              "party": "INLP",
-              "seats": 1,
-              "visual": {
-                "color": "#7E0D05",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-kndp-9",
-              "party": "KNDP",
-              "seats": 1,
-              "visual": {
-                "color": "#4B83B2",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-kspp-11",
-              "party": "KSPP",
-              "seats": 1,
-              "visual": {
-                "color": "#1D7706",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-rnp-13",
-              "party": "RNP",
-              "seats": 1,
-              "visual": {
-                "color": "#EF2B2D",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            },
-            {
-              "partyId": "wiki-29739592-ungrouped-ssp-12",
-              "party": "SSP",
-              "seats": 1,
-              "visual": {
-                "color": "#CE000C",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-29739592"]
-              }
-            }
-          ],
-          "sourceIds": ["wikipedia-en-page-29739592"]
-        },
-        "sourceIds": [
-          "wikipedia-en-page-29739324",
-          "wikipedia-en-page-29739592"
-        ]
-      },
-      {
-        "id": "wiki-mmr-amyotha-hluttaw",
-        "name": "Amyotha Hluttaw",
-        "kind": "upper",
-        "totalSeats": 224,
-        "speakers": [],
-        "sourceIds": [
-          "wikipedia-en-page-29739324",
-          "wikipedia-en-page-29739530"
-        ]
-      },
-      {
         "id": "MM-UC01",
         "name": "House of Nationalities",
         "kind": "upper",
         "totalSeats": 224,
         "parliamentaryTermYears": 5,
+        "operationalStatus": {
+          "state": "suspended",
+          "since": "2022-03-01",
+          "note": "The Parliament of Myanmar, the Pyidaungsu Hluttaw (Assembly of the Union), comprising the Pyithu Hluttaw (House of Representatives) and the Amyotha Hluttaw (House of Nationalities), had its most recent elections in November 2020. \r\n\nThe military staged a coup on 1 February 2021, the day on which the newly elected parliament was due to be sworn in. Consequently, there is currently no functioning parliament in Myanmar.",
+          "sourceIds": ["ipu-parline"]
+        },
         "speakers": [
           {
             "officialTitle": "Président de la Chambre des nationalités",
@@ -416,7 +247,12 @@
               {
                 "partyId": "mm-union_solidarity_and_development_party_usdp",
                 "party": "Union Solidarity and Development Party (USDP)",
-                "seats": 7
+                "seats": 7,
+                "visual": {
+                  "color": "#00623D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
               },
               {
                 "partyId": "mm-arakan_national_party_anp",
@@ -431,7 +267,12 @@
               {
                 "partyId": "mm-mon_unity_party",
                 "party": "Mon Unity Party",
-                "seats": 3
+                "seats": 3,
+                "visual": {
+                  "color": "#C13830",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
               },
               {
                 "partyId": "mm-shan_national_league_for_democracy_snld_",
@@ -451,7 +292,12 @@
               {
                 "partyId": "mm-pa_o_national_organisation_pa_o_no",
                 "party": "Pa-O National Organisation (Pa O NO)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#28166F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
               }
             ],
             "postElectionComposition": [
@@ -463,7 +309,12 @@
               {
                 "partyId": "mm-union_solidarity_and_development_party_usdp",
                 "party": "Union Solidarity and Development Party (USDP)",
-                "seats": 7
+                "seats": 7,
+                "visual": {
+                  "color": "#00623D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
               },
               {
                 "partyId": "mm-arakan_national_party_anp",
@@ -478,7 +329,12 @@
               {
                 "partyId": "mm-mon_unity_party",
                 "party": "Mon Unity Party",
-                "seats": 3
+                "seats": 3,
+                "visual": {
+                  "color": "#C13830",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
               },
               {
                 "partyId": "mm-shan_national_league_for_democracy_snld_",
@@ -498,7 +354,12 @@
               {
                 "partyId": "mm-pa_o_national_organisation_pa_o_no",
                 "party": "Pa-O National Organisation (Pa O NO)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#28166F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739530"]
+                }
               }
             ]
           },

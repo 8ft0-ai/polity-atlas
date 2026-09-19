@@ -118,7 +118,6 @@ political-group structures needed by later phases are Wikipedia article
 content. Wikidata may be added later as an entity-identity supplement without
 replacing MediaWiki REST for article rendering.
 
-
 ## Generated legislature module boundary
 
 Legislature data is now a reusable module rather than requiring a complete

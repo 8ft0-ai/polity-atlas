@@ -375,8 +375,8 @@ function ElectionOutcome({
             />
           ) : (
             <p className="mt-3 text-sm text-muted-foreground">
-              The cited {isDirectlyElected ? 'election' : 'renewal'} source
-              does not report a structured party-seat outcome for this record.
+              The cited {isDirectlyElected ? 'election' : 'renewal'} source does
+              not report a structured party-seat outcome for this record.
             </p>
           )}
 
@@ -662,18 +662,23 @@ export function CountryPanel() {
                   </p>
                   {profileQuery.data.nextExpectedElections.length ? (
                     <div className="mt-3 space-y-3">
-                      {profileQuery.data.nextExpectedElections.map((election) => (
-                        <article key={election.id}>
-                          <h2 className="text-sm font-semibold">
-                            {election.chamberName}
-                          </h2>
-                          <p className="mt-1 text-sm text-muted-foreground">
-                            Expected {formatDateRange(election.date)} ·{' '}
-                            {humanize(election.eventType)}
-                          </p>
-                          <Sources ids={election.sourceIds} sources={sources} />
-                        </article>
-                      ))}
+                      {profileQuery.data.nextExpectedElections.map(
+                        (election) => (
+                          <article key={election.id}>
+                            <h2 className="text-sm font-semibold">
+                              {election.chamberName}
+                            </h2>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                              Expected {formatDateRange(election.date)} ·{' '}
+                              {humanize(election.eventType)}
+                            </p>
+                            <Sources
+                              ids={election.sourceIds}
+                              sources={sources}
+                            />
+                          </article>
+                        ),
+                      )}
                     </div>
                   ) : (
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">

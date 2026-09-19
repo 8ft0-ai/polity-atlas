@@ -137,9 +137,7 @@ describe('CountryPanel', () => {
       'House of Representatives post-election composition semicircle',
     );
     expect(
-      semicircle.querySelector(
-        `[data-party-segment="${result?.partyId}"]`,
-      ),
+      semicircle.querySelector(`[data-party-segment="${result?.partyId}"]`),
     ).toHaveAttribute('stroke', result?.visual?.color);
     expect(screen.getAllByText(result!.party).length).toBeGreaterThan(0);
   });
@@ -204,9 +202,7 @@ describe('CountryPanel', () => {
       screen.getByText('Wikipedia party-seat breakdown'),
     ).toBeInTheDocument();
     expect(screen.getByText('Latest indirect renewal')).toBeInTheDocument();
-    expect(
-      screen.getByText('2977 of 3000 seats renewed'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('2977 of 3000 seats renewed')).toBeInTheDocument();
     expect(
       screen.getByText(
         'This record describes a non-direct renewal. It must not be read as a popular election result.',
@@ -279,7 +275,9 @@ describe('CountryPanel', () => {
     ).toBeInTheDocument();
     expect(screen.queryByRole('tab', { name: 'Overview' })).toBeNull();
     expect(screen.queryByRole('tab', { name: 'Relations' })).toBeNull();
-    expect(screen.getByRole('tab', { name: 'Legislature' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('tab', { name: 'Legislature' }),
+    ).toBeInTheDocument();
     expect(
       screen.getByText('Latest appointment / renewal'),
     ).toBeInTheDocument();

@@ -144,7 +144,6 @@ header. If authenticated Wikimedia access is introduced later it must be a
 separate reviewed credential change, not an implicit requirement of this
 pipeline.
 
-
 ## Standalone legislature pilots
 
 `packages/data-pipeline/config/pilot-countries.json` defines the ten countries

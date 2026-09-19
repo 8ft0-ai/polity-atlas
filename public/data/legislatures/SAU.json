@@ -70,7 +70,7 @@
       "level": "national",
       "chamberId": "SA-LC01",
       "chamberName": "Shura Council",
-      "eventType": "full-renewal",
+      "eventType": "appointment-renewal",
       "status": "expected",
       "date": {
         "from": "2028-08-31"

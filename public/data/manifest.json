@@ -16,17 +16,17 @@
     {
       "iso3": "CHN",
       "path": "countries/CHN.json",
-      "sha256": "9a0807491059fd5499bcf658b651fb3f0bdd6df74d6092a25da3143c74d6ceef"
+      "sha256": "1e2e325ea59a13e0f66e22649aef46bebbf8e9e08eafec300a7956a4abea19da"
     },
     {
       "iso3": "FRA",
       "path": "countries/FRA.json",
-      "sha256": "78616a80ce7fb1ececbe1c68d7e9e27f31661824e8de1043a1003003a92da9f1"
+      "sha256": "60add147399d629e71d35db7dff27f15b5b19faf8d238604b36d34b8391938a1"
     },
     {
       "iso3": "GBR",
       "path": "countries/GBR.json",
-      "sha256": "b02d37e75c5d6f91b6b0e1a607c09c6b35750e4d59e529eaddbcfcb3b9b9f038"
+      "sha256": "7235c1577caec4a8f315bf68101911bb823f7a668a76788d83f23f82eba0adac"
     },
     {
       "iso3": "IDN",
@@ -36,7 +36,7 @@
     {
       "iso3": "IND",
       "path": "countries/IND.json",
-      "sha256": "9ba84e501eff9d5b1197a91a1dcd7d767961f9860ea60252dd4b1164ac886583"
+      "sha256": "6b9c15f02573159ee30ee6733dd96da08457ad8c838f647e291b213a76b838c3"
     },
     {
       "iso3": "JPN",
@@ -63,16 +63,16 @@
     {
       "iso3": "MMR",
       "path": "legislatures/MMR.json",
-      "sha256": "42c506c8b3c967375d5a9ae38447c49c5a1827119281b78e34a466f8f9db4a8a"
+      "sha256": "1f1049d1faf4d146fb5ff68ab7cf7dd0a1dea8fc78a0db596d5d067f84bae95e"
     },
     {
       "iso3": "SAU",
       "path": "legislatures/SAU.json",
-      "sha256": "e97d2b50a02aba08834e5870bb1586fa595a2f027d9f1d1692ff7f9302ee0b8e"
+      "sha256": "573ee3f5bbf3f198b4cedeb8af06309b2073d20607f07868167af1e26c3ed711"
     }
   ],
   "sourceRegistry": {
     "path": "sources.json",
-    "sha256": "6d5eb00ab342f6c1ba8d9f47bdc66fe8a4b9571d29e762f7d15c433e54899bd8"
+    "sha256": "f8517bcfbf87b4348bc7baba3ab112388df3af02c9bff2325e2e3e8d29b2f409"
   }
 }

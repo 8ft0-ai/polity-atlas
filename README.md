@@ -93,7 +93,6 @@ Natural Earth map geometry remain outside these parliament adapters.
 
 See `docs/architecture.md`, `docs/source-policy.md`, and `docs/border-policy.md` before adding a source adapter or changing political map geometry.
 
-
 ## Legislature modules and colours
 
 The user-facing country tab is **Legislature**. The internal workspace key remains

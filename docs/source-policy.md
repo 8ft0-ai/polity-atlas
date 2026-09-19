@@ -89,7 +89,6 @@ an exact English-Wikipedia sitelink binding. Schema v5 models Wikipedia
 party-seat data as a separate `source-reported` chamber composition with inline
 provenance and an explicit UI disclosure that it is not an IPU election result.
 
-
 ## Party and parliamentary display colours
 
 A colour shown beside a parliamentary party/group is contextual display

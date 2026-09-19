@@ -188,7 +188,7 @@
       "level": "national",
       "chamberId": "CN-LC01",
       "chamberName": "National People's Congress",
-      "eventType": "full-renewal",
+      "eventType": "indirect-renewal",
       "status": "expected",
       "date": {
         "from": "2028-03-05"

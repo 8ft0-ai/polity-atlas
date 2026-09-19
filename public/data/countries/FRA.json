@@ -438,7 +438,7 @@
       "level": "national",
       "chamberId": "FR-UC01",
       "chamberName": "Senate",
-      "eventType": "partial-renewal",
+      "eventType": "indirect-renewal",
       "status": "expected",
       "date": {
         "from": "2026-09-30"

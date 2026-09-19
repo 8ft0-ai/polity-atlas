@@ -336,9 +336,8 @@ describe('IPU normalisation', () => {
       )?.eventType,
     ).toBe('appointment-renewal');
     expect(
-      normalized.parliament.chambers.find(
-        (chamber) => chamber.id === 'AU-LC01',
-      )?.electoralSystem,
+      normalized.parliament.chambers.find((chamber) => chamber.id === 'AU-LC01')
+        ?.electoralSystem,
     ).toMatchObject({
       directlyElected: false,
       appointedSeats: 100,
