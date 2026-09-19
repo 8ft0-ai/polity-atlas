@@ -303,6 +303,22 @@ function normalizeSpeakers(attributes, people, taxonomy) {
   });
 }
 
+function normalizeOperationalStatus(attributes) {
+  const suspension = currentSeries(attributes.is_suspended_chamber);
+  if (suspension?.value !== true) return undefined;
+
+  return {
+    state: 'suspended',
+    ...(isoDate(suspension.date_from) && {
+      since: isoDate(suspension.date_from),
+    }),
+    ...(english(suspension.annotation?.notes) && {
+      note: english(suspension.annotation.notes),
+    }),
+    sourceIds: [IPU_SOURCE_ID],
+  };
+}
+
 function normalizeElectoralSystem(attributes, parliamentAttributes, taxonomy) {
   const systemTerms =
     fieldValue(attributes.electoral_systems) ??
@@ -471,6 +487,9 @@ export function normalizeIpuSnapshot(snapshot) {
         }),
         ...(numberValue(attributes.frequency_renewal) !== undefined && {
           renewalFrequencyYears: numberValue(attributes.frequency_renewal),
+        }),
+        ...(normalizeOperationalStatus(attributes) && {
+          operationalStatus: normalizeOperationalStatus(attributes),
         }),
         speakers: normalizeSpeakers(attributes, people, taxonomy),
         electoralSystem: normalizeElectoralSystem(
