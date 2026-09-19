@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "GB",
@@ -276,7 +276,86 @@
           "compulsoryVoting": "No",
           "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": ["ipu-parline"]
+        "sourceIds": ["ipu-parline"],
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 798,
+          "retrievedAt": "2026-09-19T02:50:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-13658-conservative-party",
+              "party": "Conservative Party",
+              "seats": 247,
+              "group": "Labour Party"
+            },
+            {
+              "partyId": "wiki-13658-labour-party",
+              "party": "Labour Party",
+              "seats": 233,
+              "group": "Bishops"
+            },
+            {
+              "partyId": "wiki-13658-crossbenchers",
+              "party": "Crossbenchers",
+              "seats": 155,
+              "group": "Liberal Democrats (80) Democratic Unionist Party (6) Ulster Unionist Party (3) Green Party of England and Wales (2) Plaid Cymru (2) Independents (1) Non-affiliated"
+            },
+            {
+              "partyId": "wiki-13658-liberal-democrats",
+              "party": "Liberal Democrats",
+              "seats": 80,
+              "group": "Conservative Party"
+            },
+            {
+              "partyId": "wiki-13658-non-affiliated",
+              "party": "Non-affiliated",
+              "seats": 43,
+              "group": "Conservative Party"
+            },
+            {
+              "partyId": "wiki-13658-bishops",
+              "party": "Bishops",
+              "seats": 25
+            },
+            {
+              "partyId": "wiki-13658-democratic-unionist-party",
+              "party": "Democratic Unionist Party",
+              "seats": 6,
+              "group": "Conservative Party"
+            },
+            {
+              "partyId": "wiki-13658-ulster-unionist-party",
+              "party": "Ulster Unionist Party",
+              "seats": 3,
+              "group": "Conservative Party"
+            },
+            {
+              "partyId": "wiki-13658-green-party-of-england-and-wales",
+              "party": "Green Party of England and Wales",
+              "seats": 2,
+              "group": "Conservative Party"
+            },
+            {
+              "partyId": "wiki-13658-plaid-cymru",
+              "party": "Plaid Cymru",
+              "seats": 2,
+              "group": "Conservative Party"
+            },
+            {
+              "partyId": "wiki-13658-independents",
+              "party": "Independents",
+              "seats": 1,
+              "group": "Conservative Party"
+            },
+            {
+              "partyId": "wiki-13658-lord-speaker",
+              "party": "Lord Speaker",
+              "seats": 1,
+              "group": "Crossbenchers"
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-13658"]
+        }
       }
     ]
   },

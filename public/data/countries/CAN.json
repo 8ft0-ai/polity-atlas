@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "CA",
@@ -177,7 +177,50 @@
           "compulsoryVoting": "No",
           "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": ["ipu-parline"]
+        "sourceIds": ["ipu-parline"],
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 105,
+          "retrievedAt": "2026-09-19T02:50:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-123498-independent-senators-group",
+              "party": "Independent Senators Group",
+              "seats": 38
+            },
+            {
+              "partyId": "wiki-123498-progressive-senate-group",
+              "party": "Progressive Senate Group",
+              "seats": 17
+            },
+            {
+              "partyId": "wiki-123498-canadian-senators-group",
+              "party": "Canadian Senators Group",
+              "seats": 16
+            },
+            {
+              "partyId": "wiki-123498-conservative-party",
+              "party": "Conservative Party",
+              "seats": 12
+            },
+            {
+              "partyId": "wiki-123498-vacant",
+              "party": "Vacant",
+              "seats": 11
+            },
+            {
+              "partyId": "wiki-123498-non-affiliated",
+              "party": "Non-affiliated",
+              "seats": 6
+            },
+            {
+              "partyId": "wiki-123498-mw-parser-output-legend-page-break-inside-avoid-break-inside-avoid-column-mw-parser-output-legend-color-display-inline-block-min-width-1-25em-height-1-25em-line-height-1-25-margin-1px-0-text-align-center-border-1px-solid-black-background-color-transparent-color-black-mw-parser-output-legend-text-government-representative-s-office",
+              "party": ".mw-parser-output .legend{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .legend-color{display:inline-block;min-width:1.25em;height:1.25em;line-height:1.25;margin:1px 0;text-align:center;border:1px solid black;background-color:transparent;color:black}.mw-parser-output .legend-text{} Government Representative’s Office",
+              "seats": 5
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-123498"]
+        }
       }
     ]
   },

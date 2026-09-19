@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "ID",
@@ -177,6 +177,78 @@
           },
           "sourceIds": ["ipu-parline"]
         }
+      },
+      {
+        "id": "wiki-idn-house-of-representatives",
+        "name": "House of Representatives",
+        "kind": "lower",
+        "totalSeats": 580,
+        "speakers": [],
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 580,
+          "retrievedAt": "2026-09-19T02:50:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-737841-pdi-p",
+              "party": "PDI-P",
+              "seats": 110,
+              "group": "Check and balance"
+            },
+            {
+              "partyId": "wiki-737841-golkar",
+              "party": "Golkar",
+              "seats": 102,
+              "group": "Government"
+            },
+            {
+              "partyId": "wiki-737841-gerindra",
+              "party": "Gerindra",
+              "seats": 86,
+              "group": "Government"
+            },
+            {
+              "partyId": "wiki-737841-nasdem",
+              "party": "NasDem",
+              "seats": 69,
+              "group": "Confidence and supply"
+            },
+            {
+              "partyId": "wiki-737841-pkb",
+              "party": "PKB",
+              "seats": 68,
+              "group": "Government"
+            },
+            {
+              "partyId": "wiki-737841-pks",
+              "party": "PKS",
+              "seats": 53,
+              "group": "Confidence and supply"
+            },
+            {
+              "partyId": "wiki-737841-pan",
+              "party": "PAN",
+              "seats": 48,
+              "group": "Government"
+            },
+            {
+              "partyId": "wiki-737841-democratic",
+              "party": "Democratic",
+              "seats": 44,
+              "group": "Government"
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-737841"]
+        },
+        "sourceIds": ["wikipedia-en-page-3211155", "wikipedia-en-page-737841"]
+      },
+      {
+        "id": "wiki-idn-regional-representative-council",
+        "name": "Regional Representative Council",
+        "kind": "upper",
+        "totalSeats": 152,
+        "speakers": [],
+        "sourceIds": ["wikipedia-en-page-3211155", "wikipedia-en-page-617979"]
       }
     ]
   },

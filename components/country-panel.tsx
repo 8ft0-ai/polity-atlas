@@ -220,7 +220,9 @@ function ChamberComposition({
         .map((source) => source.publisher),
     ),
   ];
-  const sourceLabel = publishers.length ? publishers.join(' / ') : 'Cited source';
+  const sourceLabel = publishers.length
+    ? publishers.join(' / ')
+    : 'Cited source';
 
   return (
     <div className="mt-4 border-t border-border pt-4">
@@ -259,7 +261,7 @@ function ElectionOutcome({
   const outcome = election?.outcome;
   const hasFullComposition = Boolean(
     outcome?.display === 'post-election-full-composition' &&
-      outcome.postElectionComposition,
+    outcome.postElectionComposition,
   );
   const primaryEntries = hasFullComposition
     ? outcome?.postElectionComposition

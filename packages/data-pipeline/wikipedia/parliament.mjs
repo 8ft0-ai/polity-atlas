@@ -292,9 +292,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     ...missingChambers.flatMap(
       (chamber) => chamber.composition?.sourceIds ?? [],
     ),
-    ...chamberCompositions.flatMap(
-      ({ composition }) => composition.sourceIds,
-    ),
+    ...chamberCompositions.flatMap(({ composition }) => composition.sourceIds),
   ]);
   const sources = [
     parentSource,
