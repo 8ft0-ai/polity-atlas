@@ -139,10 +139,19 @@ async function enrichSnapshotWithWikidataColors(
   }
 
   if (!titles.size) return snapshot;
-  const resolved = await wikidataClient.colorsByWikipediaTitles(
-    Array.from(titles),
-    retrievedAt,
-  );
+
+  let resolved;
+  try {
+    resolved = await wikidataClient.colorsByWikipediaTitles(
+      Array.from(titles),
+      retrievedAt,
+    );
+  } catch (error) {
+    process.stderr.write(
+      `WIKIDATA_COLOR_ENRICHMENT_SKIPPED: ${error instanceof Error ? error.message : String(error)}\n`,
+    );
+    return snapshot;
+  }
 
   function enrichPage(page) {
     if (!page) return page;
