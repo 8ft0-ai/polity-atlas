@@ -60,6 +60,9 @@ describe('country profile contract', () => {
         ...parsed.parliament.chambers.flatMap(
           (chamber) => chamber.latestElection?.sourceIds ?? [],
         ),
+        ...parsed.parliament.chambers.flatMap(
+          (chamber) => chamber.composition?.sourceIds ?? [],
+        ),
         ...parsed.nextExpectedElections.flatMap(
           (election) => election.sourceIds,
         ),
@@ -162,7 +165,7 @@ describe('country profile contract', () => {
   });
 
   it('publishes all ten pilots in a deterministic, hash-backed manifest', () => {
-    expect(manifest.schemaVersion).toBe(3);
+    expect(manifest.schemaVersion).toBe(4);
     expect(manifest.profiles).toHaveLength(10);
     expect(manifest.profiles.map((profile) => profile.iso3)).toEqual(
       [...pilotProfiles]
