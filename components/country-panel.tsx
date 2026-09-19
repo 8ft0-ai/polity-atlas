@@ -327,7 +327,8 @@ function ElectionOutcome({
 
           {hasFullComposition &&
             isPartial &&
-            outcome?.seatsWonInElection.length > 0 && (
+            outcome &&
+            outcome.seatsWonInElection.length > 0 && (
               <div className="mt-4 border-t border-border pt-3">
                 <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
                   Seats decided in this renewal
