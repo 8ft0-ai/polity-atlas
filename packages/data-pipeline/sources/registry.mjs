@@ -8,6 +8,8 @@ export function mergeSourceRecords(existingSources, incomingSources) {
       const stableIncoming = { ...source };
       delete stableExisting.retrievedAt;
       delete stableIncoming.retrievedAt;
+      delete stableExisting.attribution;
+      delete stableIncoming.attribution;
       if (JSON.stringify(stableExisting) !== JSON.stringify(stableIncoming)) {
         throw new Error(`Conflicting source metadata for ${source.id}`);
       }
