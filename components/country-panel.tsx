@@ -423,7 +423,9 @@ function ElectionOutcome({
 }) {
   const election = chamber.latestElection;
   const outcome = election?.outcome;
-  const compositionDefaultViewId = defaultCompositionViewId(chamber.composition);
+  const compositionDefaultViewId = defaultCompositionViewId(
+    chamber.composition,
+  );
   const [selectedViewId, setSelectedViewId] = useState(
     compositionDefaultViewId,
   );
@@ -439,10 +441,10 @@ function ElectionOutcome({
     Boolean(chamber.electoralSystem.appointedSeats);
   const hasRenewalList = Boolean(
     election &&
-      isPartial &&
-      primary &&
-      primary.kind !== 'contested-seats' &&
-      outcome?.seatsWonInElection.length,
+    isPartial &&
+    primary &&
+    primary.kind !== 'contested-seats' &&
+    outcome?.seatsWonInElection.length,
   );
 
   if (!election && !primary) {
@@ -536,7 +538,8 @@ function ElectionOutcome({
             )}
           {primary.kind === 'source-reported' && primary.retrievedAt && (
             <p className="ui-text mt-1 text-xs text-muted-foreground">
-              Composition snapshot retrieved {formatRetrievedAt(primary.retrievedAt)}
+              Composition snapshot retrieved{' '}
+              {formatRetrievedAt(primary.retrievedAt)}
             </p>
           )}
           {primary.kind !== 'source-reported' && primary.date && (
@@ -995,119 +998,3 @@ export function CountryPanel() {
                 </section>
               ))}
             </TabsContent>
-
-            <TabsContent value="elections" className="space-y-3">
-              <p className="text-sm leading-6 text-muted-foreground">
-                IPU entries cover national parliamentary chambers and renewals
-                only. Expected dates may be calculated from law or practice and
-                are not announcements of a polling day.
-              </p>
-              {profileQuery.data.nextExpectedElections.length ? (
-                profileQuery.data.nextExpectedElections.map((election) => (
-                  <article
-                    key={election.id}
-                    className="border border-border p-4"
-                  >
-                    <div className="ui-text flex items-center justify-between gap-3 text-xs">
-                      <span className="uppercase tracking-[0.06em] text-muted-foreground">
-                        {election.status}
-                      </span>
-                      <span>{formatDateRange(election.date)}</span>
-                    </div>
-                    <h2 className="mt-3 text-base font-semibold">
-                      {election.chamberName}
-                    </h2>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                      National parliamentary {humanize(election.eventType)}
-                    </p>
-                    <Sources ids={election.sourceIds} sources={sources} />
-                  </article>
-                ))
-              ) : (
-                <p className="border border-border p-4 text-sm text-muted-foreground">
-                  No expected parliamentary election date is currently available
-                  from IPU.
-                </p>
-              )}
-            </TabsContent>
-
-            {fullProfile && (
-              <TabsContent value="relations" className="space-y-3">
-                <p className="text-sm leading-6 text-muted-foreground">
-                  Related countries are highlighted on the map while this tab is
-                  active.
-                </p>
-                {(fullProfile?.relations ?? []).map((relation) => (
-                  <article
-                    key={relation.m49}
-                    className="flex items-start justify-between gap-4 border-b border-border py-3 first:pt-0"
-                  >
-                    <div>
-                      <h2 className="text-sm font-semibold">
-                        {relation.country}
-                      </h2>
-                      <p className="ui-text mt-1 text-[11px] uppercase tracking-[0.06em] text-muted-foreground">
-                        {relation.status.replaceAll('-', ' ')}
-                      </p>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        {relation.note}
-                      </p>
-                    </div>
-                    <Sources ids={relation.sourceIds} sources={sources} />
-                  </article>
-                ))}
-              </TabsContent>
-            )}
-
-            <TabsContent value="sources" className="space-y-4">
-              {sources
-                .filter((source) =>
-                  sourceIdsForProfile(profileQuery.data).has(source.id),
-                )
-                .map((source) => (
-                  <article
-                    key={source.id}
-                    className="border-b border-border pb-4"
-                  >
-                    <span className="ui-text flex items-center gap-2 text-[10px] uppercase tracking-[0.07em] text-muted-foreground">
-                      {source.kind} · {source.publisher}
-                    </span>
-                    <a
-                      href={source.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 flex items-center gap-2 text-sm font-semibold hover:underline"
-                    >
-                      {source.title}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                    {source.attribution && (
-                      <span className="mt-2 block text-xs leading-5 text-muted-foreground">
-                        {source.attribution}
-                      </span>
-                    )}
-                    {source.license && (
-                      <span className="mt-1 block text-xs text-muted-foreground">
-                        {source.license}
-                      </span>
-                    )}
-                    {source.termsUrl && (
-                      <a
-                        href={source.termsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ui-text mt-2 inline-flex items-center gap-1 text-xs text-primary underline underline-offset-2"
-                      >
-                        Terms of use
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    )}
-                  </article>
-                ))}
-            </TabsContent>
-          </div>
-        </Tabs>
-      )}
-    </aside>
-  );
-}
