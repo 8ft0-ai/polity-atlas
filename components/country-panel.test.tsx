@@ -2,6 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import australiaProfile from '@/public/data/countries/AUS.json';
 import sourceRegistry from '@/public/data/sources.json';
+import saudiLegislature from '@/public/data/legislatures/SAU.json';
 import chinaProfile from '@/public/data/countries/CHN.json';
 import indonesiaProfile from '@/public/data/countries/IDN.json';
 import japanProfile from '@/public/data/countries/JPN.json';
@@ -63,6 +64,15 @@ describe('CountryPanel', () => {
     vi.unstubAllGlobals();
   });
 
+  it('uses Legislature as the user-facing tab label', async () => {
+    renderPanel();
+
+    expect(
+      await screen.findByRole('tab', { name: 'Legislature' }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('tab', { name: 'Parliament' })).toBeNull();
+  });
+
   it('shows the source title and external-link icon instead of a numeric reference', async () => {
     renderPanel();
 
@@ -110,6 +120,27 @@ describe('CountryPanel', () => {
         name: "Source: Australia's system of government",
       }),
     ).toBeNull();
+  });
+
+  it('uses Wikipedia-sourced seat colours without changing IPU seat facts', async () => {
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+    renderPanel();
+
+    const house = australiaProfile.parliament.chambers[0];
+    const result = house.latestElection?.outcome?.postElectionComposition?.find(
+      (entry) => entry.visual,
+    );
+    expect(result?.visual?.method).toBe('wikipedia-entry');
+
+    const semicircle = await screen.findByLabelText(
+      'House of Representatives post-election composition semicircle',
+    );
+    expect(
+      semicircle.querySelector(
+        `[data-party-segment="${result?.partyId}"]`,
+      ),
+    ).toHaveAttribute('stroke', result?.visual?.color);
+    expect(screen.getByText(result!.party)).toBeInTheDocument();
   });
 
   it('shows full post-election compositions for Australian chambers', async () => {
@@ -220,6 +251,31 @@ describe('CountryPanel', () => {
         'This is the full chamber immediately after the latest election or renewal reported by IPU. It is not necessarily the current composition.',
       ).length,
     ).toBeGreaterThan(0);
+  });
+
+  it('renders a legislature-only appointed pilot without inventing a full profile', async () => {
+    selectProfile({
+      entityId: 'state:m49:682',
+      m49: '682',
+      name: 'Saudi Arabia',
+      profile: saudiLegislature,
+    });
+
+    renderPanel();
+
+    expect(
+      await screen.findByText(
+        'Legislature pilot · full country profile not yet available',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('tab', { name: 'Overview' })).toBeNull();
+    expect(screen.queryByRole('tab', { name: 'Relations' })).toBeNull();
+    expect(screen.getByRole('tab', { name: 'Legislature' })).toBeInTheDocument();
+    expect(
+      screen.getByText('Latest appointment / renewal'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('150 of 151 seats renewed')).toBeInTheDocument();
+    expect(screen.getByText('Appointed: 151')).toBeInTheDocument();
   });
 
   it('shows IPU attribution, licence, and terms in the source index', async () => {
