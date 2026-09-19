@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "ID",
@@ -14,7 +14,9 @@
       "value": "Unitary presidential republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["id-country"],
+      "sourceIds": [
+        "id-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Prabowo Subianto",
         "since": "2024-10-20",
-        "sourceIds": ["id-president"]
+        "sourceIds": [
+          "id-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "President",
         "name": "Prabowo Subianto",
         "since": "2024-10-20",
-        "sourceIds": ["id-president"]
+        "sourceIds": [
+          "id-president"
+        ]
       }
     ]
   },
@@ -39,7 +45,9 @@
       "value": "House of Representatives",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": ["ipu-parline"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
@@ -63,7 +71,9 @@
             "designationMode": "The Speaker is elected from among the members of parliament/chamber",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
@@ -76,9 +86,13 @@
           "votingAge": 17,
           "eligibilityAge": 21,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "ID-LC01-E20240214",
           "title": "Indonesia House of Representatives February 2024 Election",
@@ -175,7 +189,9 @@
               }
             ]
           },
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       }
     ]
@@ -191,7 +207,9 @@
       "date": {
         "from": "2029-04-30"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -200,100 +218,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
+      "sourceIds": [
+        "id-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["id-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "id-country",
-      "publisher": "Wikipedia",
-      "title": "Indonesia",
-      "url": "https://en.wikipedia.org/wiki/Indonesia",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "id-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of Indonesia",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Indonesia",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "id-president",
-      "publisher": "Portal Informasi Indonesia",
-      "title": "Presiden & Wakil Presiden",
-      "url": "https://indonesia.go.id/profile/presiden-wapre",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+      "sourceIds": [
+        "id-missions"
+      ]
     }
   ]
 }
