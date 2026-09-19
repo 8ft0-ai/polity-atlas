@@ -100,7 +100,7 @@ function lordsGroupsRow() {
 
 function profile(chambers = []) {
   return {
-    schemaVersion: 4,
+    schemaVersion: 5,
     buildId: '2026-09-19',
     identity: {
       iso2: 'EX',
