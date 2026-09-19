@@ -22,6 +22,26 @@ jobs:
       - run: npm ci
       - run: npm run format
       - run: npm run data:refresh:ipu -- --retrieved-at=2026-09-19T04:30:00.000Z --build-id=2026-09-19
+      - name: Inspect source contracts
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          const snapshot = JSON.parse(await readFile('.cache/ipu/MMR.json', 'utf8'));
+          for (const chamber of snapshot.chambers) {
+            const selected = Object.fromEntries(
+              Object.entries(chamber.attributes ?? {}).filter(([key]) =>
+                /(status|suspend|active|chamber_name)/i.test(key),
+              ),
+            );
+            console.log('MMR_CHAMBER_ATTRIBUTES', chamber.id, JSON.stringify(selected));
+          }
+          NODE
+          curl -fsS --get 'https://www.wikidata.org/w/rest.php/wikibase/v1/search/items' \
+            --data-urlencode 'q=Australian Labor Party' \
+            --data-urlencode 'language=en' \
+            --data-urlencode 'limit=2' \
+            | head -c 4000
+          echo
       - run: npm run data:refresh:wikipedia -- --retrieved-at=2026-09-19T04:35:00.000Z --build-id=2026-09-19
       - run: npm run format
       - run: npm run data:validate
