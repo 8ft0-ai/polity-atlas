@@ -3,15 +3,15 @@ import {
   extractHouseLinks,
   extractSeatCount,
   parseInfobox,
-} from "./parse-infobox.mjs";
+} from './parse-infobox.mjs';
 
 function slug(value) {
   return value
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 function comparableName(value) {
@@ -19,30 +19,30 @@ function comparableName(value) {
     .toLowerCase()
     .replace(
       /\b(the|parliament|national|federal|australian|canadian|british|french|indian|indonesian|japanese|new zealand|united states)\b/g,
-      " ",
+      ' ',
     )
-    .replace(/[^a-z0-9]+/g, " ")
-    .replace(/\s+/g, " ")
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
 function wikipediaSource(page, retrievedAt) {
   return {
     id: `wikipedia-en-page-${page.pageId}`,
-    publisher: "Wikipedia",
+    publisher: 'Wikipedia',
     title: page.title,
     url: page.url,
     retrievedAt,
-    kind: "reference",
+    kind: 'reference',
     attribution: `Wikipedia contributors, "${page.title}"`,
   };
 }
 
 function isWikipediaFallbackChamber(chamber) {
   return (
-    chamber.id?.startsWith("wiki-") &&
+    chamber.id?.startsWith('wiki-') &&
     chamber.sourceIds?.some((sourceId) =>
-      sourceId.startsWith("wikipedia-en-page-"),
+      sourceId.startsWith('wikipedia-en-page-'),
     )
   );
 }
@@ -72,7 +72,7 @@ function candidateMatchesIpu(candidate, chamber) {
 }
 
 function inferKinds(country, candidates, existingChambers) {
-  const remainingKinds = new Set(["lower", "upper"]);
+  const remainingKinds = new Set(['lower', 'upper']);
   for (const chamber of existingChambers) {
     remainingKinds.delete(chamber.kind);
   }
@@ -90,7 +90,7 @@ function inferKinds(country, candidates, existingChambers) {
     inferred.length === 1 &&
     unknown.length === 1
   ) {
-    unknown[0].kind = "unicameral";
+    unknown[0].kind = 'unicameral';
     return inferred;
   }
 
@@ -113,12 +113,12 @@ function inferKinds(country, candidates, existingChambers) {
     // no IPU chamber kind can disambiguate them. The normal bicameral heuristic
     // is the larger chamber as lower house; the United Kingdom is the explicit
     // exception because its upper house is larger.
-    if (country.iso3 === "GBR") {
-      smaller.kind = "lower";
-      larger.kind = "upper";
+    if (country.iso3 === 'GBR') {
+      smaller.kind = 'lower';
+      larger.kind = 'upper';
     } else {
-      smaller.kind = "upper";
-      larger.kind = "lower";
+      smaller.kind = 'upper';
+      larger.kind = 'lower';
     }
   }
 
@@ -130,7 +130,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     return {
       missingChambers: [],
       sources: [],
-      diagnostics: ["NO_WIKIPEDIA_PARLIAMENT_PAGE"],
+      diagnostics: ['NO_WIKIPEDIA_PARLIAMENT_PAGE'],
     };
   }
 
@@ -157,12 +157,12 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   if (!rawCandidates.some((candidate) => candidate.totalSeats)) {
     const parentSeats = extractSeatCount(parliamentParsed);
     const parentKind = extractExplicitChamberKind(parliamentParsed);
-    if (parentSeats && parentKind === "unicameral") {
+    if (parentSeats && parentKind === 'unicameral') {
       rawCandidates.push({
         name: snapshot.parliamentPage.title,
         requestedTitle: snapshot.parliamentPage.title,
         totalSeats: parentSeats,
-        kind: "unicameral",
+        kind: 'unicameral',
         source: parentSource,
       });
     }
