@@ -176,7 +176,7 @@ const chamberSchema = z.object({
   parliamentaryTermYears: z.number().positive().optional(),
   renewalFrequencyYears: z.number().positive().optional(),
   speakers: z.array(speakerSchema),
-  electoralSystem: electoralSystemSchema,
+  electoralSystem: electoralSystemSchema.optional(),
   latestElection: latestElectionSchema.optional(),
   sourceIds: z.array(z.string()).min(1),
 });
