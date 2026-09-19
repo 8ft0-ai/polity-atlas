@@ -98,7 +98,12 @@
               {
                 "partyId": "id-indonesian_democratic_party_struggle_pdi_p",
                 "party": "Indonesian Democratic Party - Struggle (PDI-P)",
-                "seats": 110
+                "seats": 110,
+                "visual": {
+                  "color": "#DB2016",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1186306-p465"]
+                }
               },
               {
                 "partyId": "id-party_of_functional_groups_golkar_",
@@ -116,8 +121,8 @@
                 "seats": 69,
                 "visual": {
                   "color": "#2643A3",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-737841"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1186227-p465"]
                 }
               },
               {
@@ -125,9 +130,9 @@
                 "party": "National Awakening Party (PKB)",
                 "seats": 68,
                 "visual": {
-                  "color": "#02754C",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-737841"]
+                  "color": "#00FF00",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1257317-p465"]
                 }
               },
               {
@@ -135,9 +140,9 @@
                 "party": "Prosperous Justice Party (PKS)",
                 "seats": 53,
                 "visual": {
-                  "color": "#FE5000",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-737841"]
+                  "color": "#FFA500",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1511101-p465"]
                 }
               },
               {
@@ -145,22 +150,32 @@
                 "party": "National Mandate Party (PAN)",
                 "seats": 48,
                 "visual": {
-                  "color": "#0054A3",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-737841"]
+                  "color": "#0000FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q2434365-p465"]
                 }
               },
               {
                 "partyId": "id-democratic_party_pd",
                 "party": "Democratic Party (PD)",
-                "seats": 44
+                "seats": 44,
+                "visual": {
+                  "color": "#2643A3",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1186227-p465"]
+                }
               }
             ],
             "postElectionComposition": [
               {
                 "partyId": "id-indonesian_democratic_party_struggle_pdi_p",
                 "party": "Indonesian Democratic Party - Struggle (PDI-P)",
-                "seats": 110
+                "seats": 110,
+                "visual": {
+                  "color": "#DB2016",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1186306-p465"]
+                }
               },
               {
                 "partyId": "id-party_of_functional_groups_golkar_",
@@ -178,8 +193,8 @@
                 "seats": 69,
                 "visual": {
                   "color": "#2643A3",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-737841"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1186227-p465"]
                 }
               },
               {
@@ -187,9 +202,9 @@
                 "party": "National Awakening Party (PKB)",
                 "seats": 68,
                 "visual": {
-                  "color": "#02754C",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-737841"]
+                  "color": "#00FF00",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1257317-p465"]
                 }
               },
               {
@@ -197,9 +212,9 @@
                 "party": "Prosperous Justice Party (PKS)",
                 "seats": 53,
                 "visual": {
-                  "color": "#FE5000",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-737841"]
+                  "color": "#FFA500",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1511101-p465"]
                 }
               },
               {
@@ -207,15 +222,20 @@
                 "party": "National Mandate Party (PAN)",
                 "seats": 48,
                 "visual": {
-                  "color": "#0054A3",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-737841"]
+                  "color": "#0000FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q2434365-p465"]
                 }
               },
               {
                 "partyId": "id-democratic_party_pd",
                 "party": "Democratic Party (PD)",
-                "seats": 44
+                "seats": 44,
+                "visual": {
+                  "color": "#2643A3",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1186227-p465"]
+                }
               }
             ]
           },

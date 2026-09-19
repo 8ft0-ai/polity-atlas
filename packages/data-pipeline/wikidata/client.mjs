@@ -56,6 +56,7 @@ export class WikidataClient {
     const response = await this.fetchImpl(url, {
       headers: {
         Accept: 'application/json',
+        'Accept-Encoding': 'identity',
         'User-Agent': DEFAULT_USER_AGENT,
       },
       signal: AbortSignal.timeout(this.timeoutMs),

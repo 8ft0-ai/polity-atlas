@@ -96,8 +96,8 @@
                 "seats": 315,
                 "visual": {
                   "color": "#D7003A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q232595-p465"]
                 }
               },
               {
@@ -105,24 +105,29 @@
                 "party": "Centrist Reform Alliance",
                 "seats": 49,
                 "visual": {
-                  "color": "#0073BD",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "color": "#1E90FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q137787102-p465"]
                 }
               },
               {
                 "partyId": "jp-nippon_ishin_no_japan_restoration_party",
                 "party": "Nippon Ishin (Japan Innovation Party)",
-                "seats": 36
+                "seats": 36,
+                "visual": {
+                  "color": "#B8CE43",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q21499745-p465"]
+                }
               },
               {
                 "partyId": "jp-democratic_party_for_the_people",
                 "party": "Democratic Party for the People",
                 "seats": 28,
                 "visual": {
-                  "color": "#FFBA00",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "color": "#FFD700",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q99527550-p465"]
                 }
               },
               {
@@ -130,9 +135,9 @@
                 "party": "Sanseito",
                 "seats": 15,
                 "visual": {
-                  "color": "#EE7300",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "color": "#ED7301",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q113009668-p465"]
                 }
               },
               {
@@ -141,8 +146,8 @@
                 "seats": 11,
                 "visual": {
                   "color": "#84E6D5",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q134414127-p465"]
                 }
               },
               {
@@ -160,9 +165,9 @@
                 "party": "Japanese Communist Party (JCP)",
                 "seats": 4,
                 "visual": {
-                  "color": "#FF5466",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "color": "#FF0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q641600-p465"]
                 }
               },
               {
@@ -183,8 +188,8 @@
                 "seats": 315,
                 "visual": {
                   "color": "#D7003A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q232595-p465"]
                 }
               },
               {
@@ -192,24 +197,29 @@
                 "party": "Centrist Reform Alliance",
                 "seats": 49,
                 "visual": {
-                  "color": "#0073BD",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "color": "#1E90FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q137787102-p465"]
                 }
               },
               {
                 "partyId": "jp-nippon_ishin_no_japan_restoration_party",
                 "party": "Nippon Ishin (Japan Innovation Party)",
-                "seats": 36
+                "seats": 36,
+                "visual": {
+                  "color": "#B8CE43",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q21499745-p465"]
+                }
               },
               {
                 "partyId": "jp-democratic_party_for_the_people",
                 "party": "Democratic Party for the People",
                 "seats": 28,
                 "visual": {
-                  "color": "#FFBA00",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "color": "#FFD700",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q99527550-p465"]
                 }
               },
               {
@@ -217,9 +227,9 @@
                 "party": "Sanseito",
                 "seats": 15,
                 "visual": {
-                  "color": "#EE7300",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "color": "#ED7301",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q113009668-p465"]
                 }
               },
               {
@@ -228,8 +238,8 @@
                 "seats": 11,
                 "visual": {
                   "color": "#84E6D5",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q134414127-p465"]
                 }
               },
               {
@@ -247,9 +257,9 @@
                 "party": "Japanese Communist Party (JCP)",
                 "seats": 4,
                 "visual": {
-                  "color": "#FF5466",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217778"]
+                  "color": "#FF0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q641600-p465"]
                 }
               },
               {
@@ -324,8 +334,8 @@
                 "seats": 39,
                 "visual": {
                   "color": "#D7003A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q232595-p465"]
                 }
               },
               {
@@ -333,9 +343,9 @@
                 "party": "Constitutional Democratic Party of Japan",
                 "seats": 22,
                 "visual": {
-                  "color": "#004098",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "color": "#184589",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q99233271-p465"]
                 }
               },
               {
@@ -343,9 +353,9 @@
                 "party": "Democratic Party for the People",
                 "seats": 17,
                 "visual": {
-                  "color": "#FFBA00",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "color": "#FFD700",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q99527550-p465"]
                 }
               },
               {
@@ -353,9 +363,9 @@
                 "party": "Sanseito",
                 "seats": 14,
                 "visual": {
-                  "color": "#EE7300",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "color": "#ED7301",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q113009668-p465"]
                 }
               },
               {
@@ -384,8 +394,8 @@
                 "seats": 7,
                 "visual": {
                   "color": "#B8CE43",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q21499745-p465"]
                 }
               },
               {
@@ -393,9 +403,9 @@
                 "party": "Japanese Communist Party (JCP)",
                 "seats": 3,
                 "visual": {
-                  "color": "#FF5466",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "color": "#FF0000",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q641600-p465"]
                 }
               },
               {
@@ -408,9 +418,9 @@
                 "party": "Conservative Party of Japan",
                 "seats": 2,
                 "visual": {
-                  "color": "#0A82DC",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "color": "#0B80DB",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q122639399-p465"]
                 }
               },
               {
@@ -418,9 +428,9 @@
                 "party": "Social Democratic Party (SDP)",
                 "seats": 1,
                 "visual": {
-                  "color": "#3D9BE7",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "color": "#0099FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q835109-p465"]
                 }
               },
               {
@@ -429,8 +439,8 @@
                 "seats": 1,
                 "visual": {
                   "color": "#84E6D5",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-217779"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q134414127-p465"]
                 }
               }
             ]
@@ -443,7 +453,7 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 246,
-          "retrievedAt": "2026-09-19T04:35:00.000Z",
+          "retrievedAt": "2026-09-19T13:42:16.000Z",
           "entries": [
             {
               "partyId": "wiki-217779-government-ldp-1",
@@ -452,8 +462,8 @@
               "group": "Government",
               "visual": {
                 "color": "#D7003A",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q232595-p465"]
               }
             },
             {
@@ -462,9 +472,9 @@
               "seats": 40,
               "group": "Opposition",
               "visual": {
-                "color": "#004098",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "color": "#184589",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q99233271-p465"]
               }
             },
             {
@@ -473,9 +483,9 @@
               "seats": 25,
               "group": "Opposition",
               "visual": {
-                "color": "#FFBA00",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "color": "#FFD700",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q99527550-p465"]
               }
             },
             {
@@ -496,8 +506,8 @@
               "group": "Government",
               "visual": {
                 "color": "#B8CE43",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q21499745-p465"]
               }
             },
             {
@@ -506,9 +516,9 @@
               "seats": 15,
               "group": "Opposition",
               "visual": {
-                "color": "#EE7300",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "color": "#ED7301",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q113009668-p465"]
               }
             },
             {
@@ -517,9 +527,9 @@
               "seats": 7,
               "group": "Opposition",
               "visual": {
-                "color": "#FF5466",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "color": "#FF0000",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q641600-p465"]
               }
             },
             {
@@ -529,8 +539,8 @@
               "group": "Opposition",
               "visual": {
                 "color": "#ED008C",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q64405573-p465"]
               }
             },
             {
@@ -550,9 +560,9 @@
               "seats": 2,
               "group": "Opposition",
               "visual": {
-                "color": "#0A82DC",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "color": "#0B80DB",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q122639399-p465"]
               }
             },
             {
@@ -572,9 +582,9 @@
               "seats": 2,
               "group": "Opposition",
               "visual": {
-                "color": "#3D9BE7",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "color": "#0099FF",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q835109-p465"]
               }
             },
             {
@@ -584,8 +594,8 @@
               "group": "Opposition",
               "visual": {
                 "color": "#84E6D5",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-217779"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q134414127-p465"]
               }
             },
             {

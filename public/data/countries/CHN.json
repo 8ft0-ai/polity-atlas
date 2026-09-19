@@ -94,7 +94,7 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 2847,
-          "retrievedAt": "2026-09-19T04:35:00.000Z",
+          "retrievedAt": "2026-09-19T13:42:16.000Z",
           "entries": [
             {
               "partyId": "wiki-38878740-ruling-party-ccp-and-nonpartisan-1",
@@ -102,9 +102,9 @@
               "seats": 2478,
               "group": "Ruling Party",
               "visual": {
-                "color": "#EE1C25",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-38878740"]
+                "color": "#DD0000",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q17427-p465"]
               }
             },
             {
@@ -158,9 +158,9 @@
               "seats": 43,
               "group": "Democratic Parties",
               "visual": {
-                "color": "#1B65AF",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-38878740"]
+                "color": "#000099",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q1202612-p465"]
               }
             },
             {

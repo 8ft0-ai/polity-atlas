@@ -92,7 +92,12 @@
               {
                 "partyId": "gb-labour_party",
                 "party": "Labour Party",
-                "seats": 411
+                "seats": 411,
+                "visual": {
+                  "color": "#DC241F",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q9630-p465"]
+                }
               },
               {
                 "partyId": "gb-conservative_party",
@@ -100,8 +105,8 @@
                 "seats": 121,
                 "visual": {
                   "color": "#0087DC",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q9626-p465"]
                 }
               },
               {
@@ -119,9 +124,9 @@
                 "party": "Scottish National Party",
                 "seats": 9,
                 "visual": {
-                  "color": "#FDF38E",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "color": "#FFF95D",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q10658-p465"]
                 }
               },
               {
@@ -130,8 +135,8 @@
                 "seats": 7,
                 "visual": {
                   "color": "#326760",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q76382-p465"]
                 }
               },
               {
@@ -150,8 +155,8 @@
                 "seats": 5,
                 "visual": {
                   "color": "#D46A4C",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q215519-p465"]
                 }
               },
               {
@@ -159,9 +164,9 @@
                 "party": "Reform UK",
                 "seats": 5,
                 "visual": {
-                  "color": "#1EB8D0",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "color": "#12B6CF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q104721252-p465"]
                 }
               },
               {
@@ -170,8 +175,8 @@
                 "seats": 4,
                 "visual": {
                   "color": "#02A95B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q9669-p465"]
                 }
               },
               {
@@ -179,20 +184,30 @@
                 "party": "Plaid Cymru",
                 "seats": 4,
                 "visual": {
-                  "color": "#008672",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "color": "#0AA77D",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q10691-p465"]
                 }
               },
               {
                 "partyId": "gb-social_democratic_and_labour_party_sdlp_",
                 "party": "Social Democratic and Labour Party (SDLP)",
-                "seats": 2
+                "seats": 2,
+                "visual": {
+                  "color": "#FF0000",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-13828"]
+                }
               },
               {
                 "partyId": "gb-alliance_party",
                 "party": "Alliance Party",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#F6CB2F",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q244927-p465"]
+                }
               },
               {
                 "partyId": "gb-speaker",
@@ -214,9 +229,9 @@
                 "party": "Ulster Unionist Party",
                 "seats": 1,
                 "visual": {
-                  "color": "#48A5EE",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "color": "#9999FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q841045-p465"]
                 }
               }
             ],
@@ -224,7 +239,12 @@
               {
                 "partyId": "gb-labour_party",
                 "party": "Labour Party",
-                "seats": 411
+                "seats": 411,
+                "visual": {
+                  "color": "#DC241F",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q9630-p465"]
+                }
               },
               {
                 "partyId": "gb-conservative_party",
@@ -232,8 +252,8 @@
                 "seats": 121,
                 "visual": {
                   "color": "#0087DC",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q9626-p465"]
                 }
               },
               {
@@ -251,9 +271,9 @@
                 "party": "Scottish National Party",
                 "seats": 9,
                 "visual": {
-                  "color": "#FDF38E",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "color": "#FFF95D",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q10658-p465"]
                 }
               },
               {
@@ -262,8 +282,8 @@
                 "seats": 7,
                 "visual": {
                   "color": "#326760",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q76382-p465"]
                 }
               },
               {
@@ -282,8 +302,8 @@
                 "seats": 5,
                 "visual": {
                   "color": "#D46A4C",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q215519-p465"]
                 }
               },
               {
@@ -291,9 +311,9 @@
                 "party": "Reform UK",
                 "seats": 5,
                 "visual": {
-                  "color": "#1EB8D0",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "color": "#12B6CF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q104721252-p465"]
                 }
               },
               {
@@ -302,8 +322,8 @@
                 "seats": 4,
                 "visual": {
                   "color": "#02A95B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q9669-p465"]
                 }
               },
               {
@@ -311,20 +331,30 @@
                 "party": "Plaid Cymru",
                 "seats": 4,
                 "visual": {
-                  "color": "#008672",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "color": "#0AA77D",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q10691-p465"]
                 }
               },
               {
                 "partyId": "gb-social_democratic_and_labour_party_sdlp_",
                 "party": "Social Democratic and Labour Party (SDLP)",
-                "seats": 2
+                "seats": 2,
+                "visual": {
+                  "color": "#FF0000",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-13828"]
+                }
               },
               {
                 "partyId": "gb-alliance_party",
                 "party": "Alliance Party",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#F6CB2F",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q244927-p465"]
+                }
               },
               {
                 "partyId": "gb-speaker",
@@ -346,9 +376,9 @@
                 "party": "Ulster Unionist Party",
                 "seats": 1,
                 "visual": {
-                  "color": "#48A5EE",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-13828"]
+                  "color": "#9999FF",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q841045-p465"]
                 }
               }
             ]
@@ -390,7 +420,7 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 798,
-          "retrievedAt": "2026-09-19T04:35:00.000Z",
+          "retrievedAt": "2026-09-19T13:42:16.000Z",
           "entries": [
             {
               "partyId": "wiki-13658-hm-official-opposition-conservative-party-3",
@@ -399,8 +429,8 @@
               "group": "HM Official Opposition",
               "visual": {
                 "color": "#0087DC",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-13658"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q9626-p465"]
               }
             },
             {
@@ -409,9 +439,9 @@
               "seats": 233,
               "group": "HM Government",
               "visual": {
-                "color": "#E41C3E",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-13658"]
+                "color": "#DC241F",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q9630-p465"]
               }
             },
             {
@@ -455,8 +485,8 @@
               "group": "Other groups",
               "visual": {
                 "color": "#D46A4C",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-13658"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q215519-p465"]
               }
             },
             {
@@ -465,9 +495,9 @@
               "seats": 3,
               "group": "Other groups",
               "visual": {
-                "color": "#48A5EE",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-13658"]
+                "color": "#9999FF",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q841045-p465"]
               }
             },
             {
@@ -477,8 +507,8 @@
               "group": "Other groups",
               "visual": {
                 "color": "#02A95B",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-13658"]
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q9669-p465"]
               }
             },
             {
@@ -487,9 +517,9 @@
               "seats": 2,
               "group": "Other groups",
               "visual": {
-                "color": "#008672",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-13658"]
+                "color": "#0AA77D",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q10691-p465"]
               }
             },
             {

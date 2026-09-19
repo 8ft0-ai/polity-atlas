@@ -78,9 +78,9 @@
                 "party": "Union Solidarity and Development Party (USDP)",
                 "seats": 26,
                 "visual": {
-                  "color": "#00623D",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-29739592"]
+                  "color": "#006B31",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1318070-p465"]
                 }
               },
               {
@@ -99,8 +99,8 @@
                 "seats": 3,
                 "visual": {
                   "color": "#28166F",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-29739592"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q7121300-p465"]
                 }
               },
               {
@@ -160,9 +160,9 @@
                 "party": "Union Solidarity and Development Party (USDP)",
                 "seats": 26,
                 "visual": {
-                  "color": "#00623D",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-29739592"]
+                  "color": "#006B31",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1318070-p465"]
                 }
               },
               {
@@ -181,8 +181,8 @@
                 "seats": 3,
                 "visual": {
                   "color": "#28166F",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-29739592"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q7121300-p465"]
                 }
               },
               {
@@ -297,9 +297,9 @@
                 "party": "Union Solidarity and Development Party (USDP)",
                 "seats": 7,
                 "visual": {
-                  "color": "#00623D",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-29739530"]
+                  "color": "#006B31",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1318070-p465"]
                 }
               },
               {
@@ -343,8 +343,8 @@
                 "seats": 1,
                 "visual": {
                   "color": "#28166F",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-29739530"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q7121300-p465"]
                 }
               }
             ],
@@ -359,9 +359,9 @@
                 "party": "Union Solidarity and Development Party (USDP)",
                 "seats": 7,
                 "visual": {
-                  "color": "#00623D",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-29739530"]
+                  "color": "#006B31",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1318070-p465"]
                 }
               },
               {
@@ -405,8 +405,8 @@
                 "seats": 1,
                 "visual": {
                   "color": "#28166F",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-29739530"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q7121300-p465"]
                 }
               }
             ]

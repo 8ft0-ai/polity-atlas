@@ -95,8 +95,8 @@
                 "seats": 49,
                 "visual": {
                   "color": "#00529F",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q204716-p465"]
                 }
               },
               {
@@ -105,8 +105,8 @@
                 "seats": 34,
                 "visual": {
                   "color": "#D82A20",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1048192-p465"]
                 }
               },
               {
@@ -114,9 +114,9 @@
                 "party": "Green Party",
                 "seats": 15,
                 "visual": {
-                  "color": "#098137",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "color": "#00B235",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1327761-p465"]
                 }
               },
               {
@@ -125,8 +125,8 @@
                 "seats": 11,
                 "visual": {
                   "color": "#FDE401",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q288838-p465"]
                 }
               },
               {
@@ -135,8 +135,8 @@
                 "seats": 8,
                 "visual": {
                   "color": "#000000",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q180059-p465"]
                 }
               },
               {
@@ -144,9 +144,9 @@
                 "party": "Maori Party",
                 "seats": 6,
                 "visual": {
-                  "color": "#B2001A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "color": "#EF4A42",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1375170-p465"]
                 }
               }
             ],
@@ -157,8 +157,8 @@
                 "seats": 49,
                 "visual": {
                   "color": "#00529F",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q204716-p465"]
                 }
               },
               {
@@ -167,8 +167,8 @@
                 "seats": 34,
                 "visual": {
                   "color": "#D82A20",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1048192-p465"]
                 }
               },
               {
@@ -176,9 +176,9 @@
                 "party": "Green Party",
                 "seats": 15,
                 "visual": {
-                  "color": "#098137",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "color": "#00B235",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1327761-p465"]
                 }
               },
               {
@@ -187,8 +187,8 @@
                 "seats": 11,
                 "visual": {
                   "color": "#FDE401",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q288838-p465"]
                 }
               },
               {
@@ -197,8 +197,8 @@
                 "seats": 8,
                 "visual": {
                   "color": "#000000",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q180059-p465"]
                 }
               },
               {
@@ -206,9 +206,9 @@
                 "party": "Maori Party",
                 "seats": 6,
                 "visual": {
-                  "color": "#B2001A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-353844"]
+                  "color": "#EF4A42",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1375170-p465"]
                 }
               }
             ]

@@ -108,16 +108,15 @@ government or diplomatic-relations fields.
 
 Seat totals and election/renewal facts remain IPU facts when IPU supplies them.
 The Wikimedia adapter may add only visual colour metadata to a matched IPU party
-result. It first uses the corresponding rendered Wikipedia legislature entry;
-when that exact entry links to an English Wikipedia party article but has no
-swatch, it may use one unambiguous Wikidata P465 value from the exact sitelink
-identity. Exact aggregate-group links, such as a named parliamentary coalition,
-may resolve the same way. A sourced colour is reused across chambers only when
-results share an IPU party ID or an exact Wikipedia article identity; generic
-labels are excluded and conflicting source colours are not propagated unless an
-exact Wikidata identity colour resolves the conflict. A missing or ambiguous
-colour never changes a party identity or seat count: the UI uses a stable
-deterministic fallback colour instead.
+result. Every exact English Wikipedia party link is resolved to Wikidata; one
+unambiguous P465 value becomes the canonical colour for that entity in every
+chamber. The rendered legislature-entry swatch is used only when no such entity
+colour exists. Exact aggregate-group links, such as a named parliamentary
+coalition, may resolve the same way. A sourced colour is otherwise reused across
+chambers only when results share an IPU party ID or an exact Wikipedia article
+identity; generic labels are excluded. A missing or ambiguous colour never
+changes a party identity or seat count: the UI uses a stable deterministic
+fallback colour instead. No country-specific party palette is maintained.
 Wikipedia-backed composition fallbacks retain their own Wikipedia provenance.
 
 IPU-provided local/full chamber names are retained as reconciliation aliases so

@@ -94,9 +94,9 @@
                 "party": "Liberal Party",
                 "seats": 169,
                 "visual": {
-                  "color": "#EA6D6A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "color": "#D71920",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q138345-p465"]
                 }
               },
               {
@@ -104,9 +104,9 @@
                 "party": "Conservative Party",
                 "seats": 144,
                 "visual": {
-                  "color": "#6495ED",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "color": "#003F72",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q488523-p465"]
                 }
               },
               {
@@ -115,8 +115,8 @@
                 "seats": 22,
                 "visual": {
                   "color": "#87CEFA",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q735105-p465"]
                 }
               },
               {
@@ -124,9 +124,9 @@
                 "party": "NDP-New Democratic Party (NDP)",
                 "seats": 7,
                 "visual": {
-                  "color": "#F4A460",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "color": "#F58220",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q130765-p465"]
                 }
               },
               {
@@ -134,9 +134,9 @@
                 "party": "Green Party",
                 "seats": 1,
                 "visual": {
-                  "color": "#99C955",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "color": "#24B24A",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q691730-p465"]
                 }
               }
             ],
@@ -146,9 +146,9 @@
                 "party": "Liberal Party",
                 "seats": 169,
                 "visual": {
-                  "color": "#EA6D6A",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "color": "#D71920",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q138345-p465"]
                 }
               },
               {
@@ -156,9 +156,9 @@
                 "party": "Conservative Party",
                 "seats": 144,
                 "visual": {
-                  "color": "#6495ED",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "color": "#003F72",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q488523-p465"]
                 }
               },
               {
@@ -167,8 +167,8 @@
                 "seats": 22,
                 "visual": {
                   "color": "#87CEFA",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q735105-p465"]
                 }
               },
               {
@@ -176,9 +176,9 @@
                 "party": "NDP-New Democratic Party (NDP)",
                 "seats": 7,
                 "visual": {
-                  "color": "#F4A460",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "color": "#F58220",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q130765-p465"]
                 }
               },
               {
@@ -186,9 +186,9 @@
                 "party": "Green Party",
                 "seats": 1,
                 "visual": {
-                  "color": "#99C955",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-64313"]
+                  "color": "#24B24A",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q691730-p465"]
                 }
               }
             ]
@@ -231,7 +231,7 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 105,
-          "retrievedAt": "2026-09-19T04:35:00.000Z",
+          "retrievedAt": "2026-09-19T13:42:16.000Z",
           "entries": [
             {
               "partyId": "wiki-123498-ungrouped-independent-senators-group-3",
@@ -268,9 +268,9 @@
               "party": "Conservative Party",
               "seats": 12,
               "visual": {
-                "color": "#6495ED",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-123498"]
+                "color": "#003F72",
+                "method": "wikidata-p465",
+                "sourceIds": ["wikidata-item-q488523-p465"]
               }
             },
             {

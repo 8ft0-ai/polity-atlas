@@ -95,8 +95,8 @@
                 "seats": 94,
                 "visual": {
                   "color": "#F00011",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q216082-p465"]
                 }
               },
               {
@@ -124,9 +124,9 @@
                 "party": "Centre Alliance",
                 "seats": 1,
                 "visual": {
-                  "color": "#FF944D",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "color": "#FF6300",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q19876280-p465"]
                 }
               },
               {
@@ -135,8 +135,8 @@
                 "seats": 1,
                 "visual": {
                   "color": "#B50204",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q6378340-p465"]
                 }
               },
               {
@@ -145,8 +145,8 @@
                 "seats": 1,
                 "visual": {
                   "color": "#10C25B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q781486-p465"]
                 }
               }
             ],
@@ -157,8 +157,8 @@
                 "seats": 94,
                 "visual": {
                   "color": "#F00011",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q216082-p465"]
                 }
               },
               {
@@ -186,9 +186,9 @@
                 "party": "Centre Alliance",
                 "seats": 1,
                 "visual": {
-                  "color": "#FF944D",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "color": "#FF6300",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q19876280-p465"]
                 }
               },
               {
@@ -197,8 +197,8 @@
                 "seats": 1,
                 "visual": {
                   "color": "#B50204",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q6378340-p465"]
                 }
               },
               {
@@ -207,8 +207,8 @@
                 "seats": 1,
                 "visual": {
                   "color": "#10C25B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q781486-p465"]
                 }
               }
             ]
@@ -272,8 +272,8 @@
                 "seats": 16,
                 "visual": {
                   "color": "#F00011",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q216082-p465"]
                 }
               },
               {
@@ -282,8 +282,8 @@
                 "seats": 6,
                 "visual": {
                   "color": "#080CAB",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q241149-p465"]
                 }
               },
               {
@@ -292,8 +292,8 @@
                 "seats": 6,
                 "visual": {
                   "color": "#10C25B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q781486-p465"]
                 }
               },
               {
@@ -306,9 +306,9 @@
                 "party": "Pauline Hanson's One Nation",
                 "seats": 3,
                 "visual": {
-                  "color": "#F36B1B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "color": "#FF4900",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1585274-p465"]
                 }
               },
               {
@@ -322,8 +322,8 @@
                 "seats": 1,
                 "visual": {
                   "color": "#080CAB",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q241149-p465"]
                 }
               },
               {
@@ -336,9 +336,9 @@
                 "party": "Jacqui Lambie Network",
                 "seats": 1,
                 "visual": {
-                  "color": "#FFCB08",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "color": "#FFFF00",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q22079682-p465"]
                 }
               }
             ],
@@ -349,8 +349,8 @@
                 "seats": 29,
                 "visual": {
                   "color": "#F00011",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q216082-p465"]
                 }
               },
               {
@@ -369,8 +369,8 @@
                 "seats": 10,
                 "visual": {
                   "color": "#10C25B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q781486-p465"]
                 }
               },
               {
@@ -378,9 +378,9 @@
                 "party": "Pauline Hanson's One Nation",
                 "seats": 4,
                 "visual": {
-                  "color": "#F36B1B",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "color": "#FF4900",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q1585274-p465"]
                 }
               },
               {
@@ -408,9 +408,9 @@
                 "party": "Jacqui Lambie Network",
                 "seats": 1,
                 "visual": {
-                  "color": "#FFCB08",
-                  "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "color": "#FFFF00",
+                  "method": "wikidata-p465",
+                  "sourceIds": ["wikidata-item-q22079682-p465"]
                 }
               },
               {

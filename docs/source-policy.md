@@ -97,10 +97,11 @@ A colour shown beside a parliamentary party/group is contextual display
 metadata, not a political classification. When a Wikipedia legislature/chamber
 entry exposes a usable colour swatch, Polity Atlas may attach that colour to the
 matching seat entry and cite the Wikipedia chamber page as the visual source.
-If that exact entry has no swatch but links to an English Wikipedia party
-article, Polity Atlas may resolve that exact sitelink to Wikidata and use a
-single unambiguous P465 colour, cited to the Wikidata item. For IPU-backed
-results this enrichment must never alter IPU party names, IDs,
+When that entry links to an English Wikipedia party article, Polity Atlas
+resolves the exact sitelink to Wikidata. A single unambiguous P465 colour,
+cited to the Wikidata item, is the global entity-level override; the chamber
+swatch is the fallback when P465 is absent or ambiguous. For IPU-backed results
+this enrichment must never alter IPU party names, IDs,
 seat totals, election dates, chamber sizes, or outcome semantics.
 
 An exact article link on an aggregate political-group heading may identify a
@@ -110,7 +111,8 @@ matched Wikipedia article identity is exact. Generic groupings such as
 independent, vacant, other, or crossbench are not cross-chamber identities.
 When active source colours conflict, they are not propagated or overwritten
 unless a single unambiguous Wikidata P465 value for the exact entity resolves
-the conflict.
+the conflict. No country-specific or party-name colour override table is
+permitted.
 
 Matching must fail closed when aliases are ambiguous. IPU-provided local and
 full chamber names are retained as source-reconciliation aliases. A

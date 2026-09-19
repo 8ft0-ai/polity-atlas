@@ -53,9 +53,12 @@ function compositionEntryId(pageId, party, group, index) {
 function compositionEntriesForPage(page, parsed, retrievedAt) {
   const pageSource = wikipediaSource(page, retrievedAt);
   return (extractPoliticalComposition(parsed) ?? []).map((entry) => {
-    const entryWikidata = entry.articleTitle
-      ? page.wikidataVisuals?.[entry.articleTitle]
-      : undefined;
+    const entryWikidata =
+      entry.articleTitle &&
+      !isGenericPoliticalLabel(entry.party) &&
+      !isGenericPoliticalLabel(entry.articleTitle)
+        ? page.wikidataVisuals?.[entry.articleTitle]
+        : undefined;
     const groupWikidata = (entry.groupArticleTitles ?? [])
       .map((articleTitle) => ({
         articleTitle,
@@ -65,17 +68,17 @@ function compositionEntriesForPage(page, parsed, retrievedAt) {
 
     return {
       ...entry,
-      ...(entry.visual && {
-        visual: { ...entry.visual, source: pageSource },
-      }),
-      ...(!entry.visual &&
-        entryWikidata && {
-          visual: {
-            color: entryWikidata.color,
-            method: 'wikidata-p465',
-            source: entryWikidata.source,
-          },
-        }),
+      ...(entryWikidata
+        ? {
+            visual: {
+              color: entryWikidata.color,
+              method: 'wikidata-p465',
+              source: entryWikidata.source,
+            },
+          }
+        : entry.visual
+          ? { visual: { ...entry.visual, source: pageSource } }
+          : {}),
       ...(groupWikidata.length && {
         groupVisuals: groupWikidata.map(({ articleTitle, value }) => ({
           articleTitle,
@@ -91,7 +94,7 @@ function compositionEntriesForPage(page, parsed, retrievedAt) {
 export function visualArticleTitles(entries) {
   const titles = new Set();
   for (const entry of entries ?? []) {
-    if (!entry.visual && entry.articleTitle) titles.add(entry.articleTitle);
+    if (entry.articleTitle) titles.add(entry.articleTitle);
     for (const articleTitle of entry.groupArticleTitles ?? []) {
       titles.add(articleTitle);
     }
@@ -159,7 +162,7 @@ function comparablePartyMatches(left, right) {
 }
 
 function isGenericPoliticalLabel(value) {
-  return /^(?:independent|independents|independent politician|non affiliated|non partisan|non partisans|nonpartisan|nonpartisans|unaffiliated|other|others|vacant|vacancy|vacancies|crossbench|crossbenchers)$/.test(
+  return /^(?:ind|independent|independents|independent politician|non affiliated|non partisan|non partisans|nonpartisan|nonpartisans|unaffiliated|other|others|vacant|vacancy|vacancies|crossbench|crossbenchers)$/.test(
     comparableParty(value),
   );
 }
@@ -175,15 +178,24 @@ function distinctVisual(visuals) {
 
 function identityForIpuResult(result, entries) {
   const resultKey = comparableParty(result.party);
-  const directMatches = entries.filter((entry) => {
+  const exactDirectMatches = entries.filter((entry) => {
     const candidates = [entry.party, entry.articleTitle]
       .filter(Boolean)
       .map(comparableParty)
       .filter(Boolean);
-    return candidates.some((candidate) =>
-      comparablePartyMatches(candidate, resultKey),
-    );
+    return candidates.includes(resultKey);
   });
+  const directMatches = exactDirectMatches.length
+    ? exactDirectMatches
+    : entries.filter((entry) => {
+        const candidates = [entry.party, entry.articleTitle]
+          .filter(Boolean)
+          .map(comparableParty)
+          .filter(Boolean);
+        return candidates.some((candidate) =>
+          comparablePartyMatches(candidate, resultKey),
+        );
+      });
 
   const groupMatches = entries.filter((entry) => {
     const candidates = [entry.group, ...(entry.groupArticleTitles ?? [])]

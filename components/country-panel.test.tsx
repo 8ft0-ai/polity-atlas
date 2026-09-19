@@ -123,7 +123,7 @@ describe('CountryPanel', () => {
     ).toBeNull();
   });
 
-  it('uses Wikipedia-sourced seat colours without changing IPU seat facts', async () => {
+  it('uses entity-sourced seat colours without changing IPU seat facts', async () => {
     useWorkspaceStore.setState({ activeTab: 'parliament' });
     renderPanel();
 
@@ -131,7 +131,7 @@ describe('CountryPanel', () => {
     const result = house.latestElection?.outcome?.postElectionComposition?.find(
       (entry) => entry.visual,
     );
-    expect(result?.visual?.method).toBe('wikipedia-entry');
+    expect(result?.visual?.method).toBe('wikidata-p465');
 
     const semicircle = await screen.findByLabelText(
       'House of Representatives post-election composition semicircle',
