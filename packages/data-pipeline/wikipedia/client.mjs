@@ -1,5 +1,4 @@
-const DEFAULT_REST_BASE_URL =
-  'https://en.wikipedia.org/w/rest.php/v1/';
+const DEFAULT_REST_BASE_URL = 'https://en.wikipedia.org/w/rest.php/v1/';
 const DEFAULT_USER_AGENT =
   'Polity-Atlas/0.1 (+https://github.com/8ft0-ai/polity-atlas)';
 
@@ -75,10 +74,9 @@ export class WikipediaClient {
 
   async fetchPageWithHtml(title, { allowNotFound = false } = {}) {
     const pageKey = encodeURIComponent(title.replaceAll(' ', '_'));
-    const response = await this.request(
-      `page/${pageKey}/with_html`,
-      { allowNotFound },
-    );
+    const response = await this.request(`page/${pageKey}/with_html`, {
+      allowNotFound,
+    });
     return response ? pageSnapshot(response) : undefined;
   }
 

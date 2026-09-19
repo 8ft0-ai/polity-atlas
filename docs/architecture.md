@@ -93,7 +93,6 @@ opposite kind of an existing IPU chamber. Seat-count classification is only a
 last resort for two unlabeled Wikipedia chambers: larger is treated as lower,
 with the United Kingdom as the explicit larger-upper-house exception.
 
-
 ### Wikimedia REST acquisition
 
 The Wikipedia adapter uses unauthenticated Wikimedia REST reads only. Article

@@ -76,7 +76,6 @@ may therefore update its title and canonical URL without changing source
 identity. Every added chamber retains both the parliament-page and chamber-page
 source IDs where they are distinct.
 
-
 The current read-only MediaWiki REST workflow requires no API key. Requests are
 unauthenticated and carry the Polity Atlas User-Agent. REST snapshots preserve
 the page/revision/licence metadata supplied by Wikimedia in the ignored local
