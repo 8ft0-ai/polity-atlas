@@ -299,16 +299,14 @@ describe('Wikipedia infobox parsing', () => {
       { id: 'party', dimension: 'party' },
     ]);
     expect(
-      views.find((view) => view.id === 'faction').entries.reduce(
-        (sum, entry) => sum + entry.seats,
-        0,
-      ),
+      views
+        .find((view) => view.id === 'faction')
+        .entries.reduce((sum, entry) => sum + entry.seats, 0),
     ).toBe(290);
     expect(
-      views.find((view) => view.id === 'party').entries.reduce(
-        (sum, entry) => sum + entry.seats,
-        0,
-      ),
+      views
+        .find((view) => view.id === 'party')
+        .entries.reduce((sum, entry) => sum + entry.seats, 0),
     ).toBe(290);
     expect(
       views.find((view) => view.id === 'coalition').containsNestedAggregates,
@@ -318,9 +316,9 @@ describe('Wikipedia infobox parsing', () => {
     expect(legacySelection.reduce((sum, entry) => sum + entry.seats, 0)).toBe(
       290,
     );
-    expect(legacySelection.some((entry) => entry.party === 'Principlists')).toBe(
-      false,
-    );
+    expect(
+      legacySelection.some((entry) => entry.party === 'Principlists'),
+    ).toBe(false);
   });
 
   it('preserves a canonical Wikipedia legend colour and linked party title', () => {
@@ -1019,9 +1017,9 @@ describe('Wikipedia chamber fallback', () => {
       'faction',
       'party',
     ]);
-    expect(
-      composition.views.every((view) => view.reportedSeats === 290),
-    ).toBe(true);
+    expect(composition.views.every((view) => view.reportedSeats === 290)).toBe(
+      true,
+    );
     expect(
       composition.views.every(
         (view) =>
