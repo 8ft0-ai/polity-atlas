@@ -115,7 +115,7 @@ export class WikipediaClient {
       /\b(parliament|assembly|congress|council|legislature|majlis|hluttaw|shura)\b/;
     const rejectedTerms =
       /\b(election|building|history|constituenc|list of|speaker)\b/;
-    const ranked = [...candidates.values()]
+    const ranked = Array.from(candidates.values())
       .map((entry) => {
         const title = normalizedTitle(entry.title ?? entry.key ?? '');
         const context = normalizedTitle(
