@@ -46,6 +46,10 @@
       {
         "id": "ID-LC01",
         "name": "House of Representatives",
+        "aliases": [
+          "Dewan Perwakilan Rakyat",
+          "Dewan Perwakilan Rakyat (House of Representatives)"
+        ],
         "kind": "unicameral",
         "totalSeats": 580,
         "parliamentaryTermYears": 5,

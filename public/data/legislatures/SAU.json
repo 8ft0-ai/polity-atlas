@@ -20,6 +20,7 @@
       {
         "id": "SA-LC01",
         "name": "Shura Council",
+        "aliases": ["Majlis Ash-Shura", "Majlis Ash-Shura (Shura Council)"],
         "kind": "unicameral",
         "totalSeats": 151,
         "parliamentaryTermYears": 4,

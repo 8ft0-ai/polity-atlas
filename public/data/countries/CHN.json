@@ -46,6 +46,10 @@
       {
         "id": "CN-LC01",
         "name": "National People's Congress",
+        "aliases": [
+          "Quanguo Renmin Daibiao Dahui",
+          "Quanguo Renmin Daibiao Dahui (National People's Congress)"
+        ],
         "kind": "unicameral",
         "totalSeats": 3000,
         "parliamentaryTermYears": 5,

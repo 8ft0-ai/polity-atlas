@@ -488,8 +488,7 @@ export function normalizeIpuSnapshot(snapshot) {
       if (!totalSeats) {
         throw new Error(`IPU returned no chamber size for ${entity.id}`);
       }
-      const name =
-        english(fieldValue(attributes.chamber_name)) ?? entity.id;
+      const name = english(fieldValue(attributes.chamber_name)) ?? entity.id;
       const aliases = chamberAliases(attributes, name);
       const chamber = {
         id: entity.id,

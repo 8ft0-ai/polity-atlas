@@ -20,6 +20,10 @@
       {
         "id": "IR-LC01",
         "name": "Islamic Parliament of Iran",
+        "aliases": [
+          "Majles Shoraye Eslami",
+          "Majles Shoraye Eslami (Islamic Parliament of Iran)"
+        ],
         "kind": "unicameral",
         "totalSeats": 290,
         "parliamentaryTermYears": 4,

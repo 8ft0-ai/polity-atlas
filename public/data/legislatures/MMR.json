@@ -20,6 +20,10 @@
       {
         "id": "MM-LC01",
         "name": "House of Representatives",
+        "aliases": [
+          "Pyithu Hluttaw",
+          "Pyithu Hluttaw (House of Representatives)"
+        ],
         "kind": "lower",
         "totalSeats": 440,
         "parliamentaryTermYears": 5,
@@ -72,7 +76,12 @@
               {
                 "partyId": "mm-union_solidarity_and_development_party_usdp",
                 "party": "Union Solidarity and Development Party (USDP)",
-                "seats": 26
+                "seats": 26,
+                "visual": {
+                  "color": "#00623D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
               },
               {
                 "partyId": "mm-shan_national_league_for_democracy_snld_",
@@ -87,7 +96,12 @@
               {
                 "partyId": "mm-pa_o_national_organisation_pa_o_no",
                 "party": "Pa-O National Organisation (Pa O NO)",
-                "seats": 3
+                "seats": 3,
+                "visual": {
+                  "color": "#28166F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
               },
               {
                 "partyId": "mm-taang_national_party_taang_np",
@@ -102,7 +116,12 @@
               {
                 "partyId": "mm-mon_unity_party",
                 "party": "Mon Unity Party",
-                "seats": 2
+                "seats": 2,
+                "visual": {
+                  "color": "#C13830",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
               },
               {
                 "partyId": "mm-arakan_front_party",
@@ -112,7 +131,12 @@
               {
                 "partyId": "mm-kachin_state_people_s_party",
                 "party": "Kachin State People's Party",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#1D7706",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
               },
               {
                 "partyId": "mm-wa_national_party",
@@ -134,7 +158,12 @@
               {
                 "partyId": "mm-union_solidarity_and_development_party_usdp",
                 "party": "Union Solidarity and Development Party (USDP)",
-                "seats": 26
+                "seats": 26,
+                "visual": {
+                  "color": "#00623D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
               },
               {
                 "partyId": "mm-shan_national_league_for_democracy_snld_",
@@ -149,7 +178,12 @@
               {
                 "partyId": "mm-pa_o_national_organisation_pa_o_no",
                 "party": "Pa-O National Organisation (Pa O NO)",
-                "seats": 3
+                "seats": 3,
+                "visual": {
+                  "color": "#28166F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
               },
               {
                 "partyId": "mm-taang_national_party_taang_np",
@@ -164,7 +198,12 @@
               {
                 "partyId": "mm-mon_unity_party",
                 "party": "Mon Unity Party",
-                "seats": 2
+                "seats": 2,
+                "visual": {
+                  "color": "#C13830",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
               },
               {
                 "partyId": "mm-arakan_front_party",
@@ -174,7 +213,12 @@
               {
                 "partyId": "mm-kachin_state_people_s_party",
                 "party": "Kachin State People's Party",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#1D7706",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-29739592"]
+                }
               },
               {
                 "partyId": "mm-wa_national_party",
@@ -194,6 +238,10 @@
       {
         "id": "MM-UC01",
         "name": "House of Nationalities",
+        "aliases": [
+          "Amyotha Hluttaw",
+          "Amyotha Hluttaw (House of Nationalities)"
+        ],
         "kind": "upper",
         "totalSeats": 224,
         "parliamentaryTermYears": 5,

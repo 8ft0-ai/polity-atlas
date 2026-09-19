@@ -46,6 +46,7 @@
       {
         "id": "JP-LC01",
         "name": "House of Representatives",
+        "aliases": ["Shugiin", "Shugiin (House of Representatives)"],
         "kind": "lower",
         "totalSeats": 465,
         "parliamentaryTermYears": 4,
@@ -272,6 +273,7 @@
       {
         "id": "JP-UC01",
         "name": "Senate",
+        "aliases": ["Sangiin", "Sangiin (Senate)"],
         "kind": "upper",
         "totalSeats": 248,
         "parliamentaryTermYears": 6,

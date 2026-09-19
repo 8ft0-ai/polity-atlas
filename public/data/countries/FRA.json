@@ -46,6 +46,10 @@
       {
         "id": "FR-LC01",
         "name": "National Assembly",
+        "aliases": [
+          "Assemblée nationale",
+          "Assemblée nationale (National Assembly)"
+        ],
         "kind": "lower",
         "totalSeats": 577,
         "parliamentaryTermYears": 5,
@@ -290,6 +294,7 @@
       {
         "id": "FR-UC01",
         "name": "Senate",
+        "aliases": ["Sénat", "Sénat (Senate)"],
         "kind": "upper",
         "totalSeats": 348,
         "parliamentaryTermYears": 6,

@@ -16,12 +16,12 @@
     {
       "iso3": "CHN",
       "path": "countries/CHN.json",
-      "sha256": "1e2e325ea59a13e0f66e22649aef46bebbf8e9e08eafec300a7956a4abea19da"
+      "sha256": "f86214a36a7b8122ea2186cec6f82948a8b4902dd2df6f47cd3afa7ee7872c61"
     },
     {
       "iso3": "FRA",
       "path": "countries/FRA.json",
-      "sha256": "60add147399d629e71d35db7dff27f15b5b19faf8d238604b36d34b8391938a1"
+      "sha256": "bf4fad7309ff721e6e8bd1ba56610f1235ea100cb3d8a493f604aafa5036930d"
     },
     {
       "iso3": "GBR",
@@ -31,17 +31,17 @@
     {
       "iso3": "IDN",
       "path": "countries/IDN.json",
-      "sha256": "0ca76d2dd87a366235ab1457e8614bbc25bbab70c6e494139bc5585f7f6da5dd"
+      "sha256": "5cb7f12cbdf5cf552691fc6bd2536a7d2c6df153371504eddbea5ca2eaaf044b"
     },
     {
       "iso3": "IND",
       "path": "countries/IND.json",
-      "sha256": "6b9c15f02573159ee30ee6733dd96da08457ad8c838f647e291b213a76b838c3"
+      "sha256": "27e94dab493d68645cb221a45e4286d5da70d9f2caf065275bb08c0760d625ea"
     },
     {
       "iso3": "JPN",
       "path": "countries/JPN.json",
-      "sha256": "d541e5be68a43f67b4d92cd0286d4ba96a14ed516cb0c20ba93a607a689c0914"
+      "sha256": "74c3aeef8c7610a291103aed2c3cad2f2cd01290cdcc917930880d0f334befad"
     },
     {
       "iso3": "NZL",
@@ -58,17 +58,17 @@
     {
       "iso3": "IRN",
       "path": "legislatures/IRN.json",
-      "sha256": "cc7ae47b68d3f30bf4acad7b7db07d1e5c5956b764bb40429d1a973168ec22d5"
+      "sha256": "7368689bdcf635fe0bc7acdc89ec20cb8404bf60a7b6351c5e8ed22d31f69a9b"
     },
     {
       "iso3": "MMR",
       "path": "legislatures/MMR.json",
-      "sha256": "1f1049d1faf4d146fb5ff68ab7cf7dd0a1dea8fc78a0db596d5d067f84bae95e"
+      "sha256": "2e4f135a709fc66f85ea59599359a377c77bf2b77d5d58ca56679525059bc2e1"
     },
     {
       "iso3": "SAU",
       "path": "legislatures/SAU.json",
-      "sha256": "573ee3f5bbf3f198b4cedeb8af06309b2073d20607f07868167af1e26c3ed711"
+      "sha256": "a1807e3233450a88cdda8005bfea9000ac51534fd1df8d32c171d078e127c576"
     }
   ],
   "sourceRegistry": {
