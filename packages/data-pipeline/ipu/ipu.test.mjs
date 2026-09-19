@@ -323,6 +323,59 @@ describe('IPU normalisation', () => {
     ).toBe(true);
   });
 
+  it('preserves a fallback composition only while IPU lacks a full composition', () => {
+    const noFull = structuredClone(snapshot);
+    noFull.electionsByChamber['AU-LC01'][0].attributes.seats_per_parties.value =
+      [
+        {
+          party: 'au-party-a',
+          total_number_of_seats: 30,
+          vote_breakdown: [],
+        },
+        {
+          party: 'au-party-b',
+          total_number_of_seats: 20,
+          vote_breakdown: [],
+        },
+      ];
+
+    const previous = structuredClone(previousProfile);
+    previous.parliament.chambers = [
+      {
+        id: 'AU-LC01',
+        composition: {
+          basis: 'source-reported',
+          reportedSeats: 90,
+          retrievedAt: '2026-09-18T00:00:00.000Z',
+          entries: [
+            {
+              partyId: 'wiki-1-party-a',
+              party: 'Party A',
+              seats: 90,
+            },
+          ],
+          sourceIds: ['wikipedia-en-page-1'],
+        },
+      },
+    ];
+
+    const retained = mergeIpuProfile(
+      previous,
+      normalizeIpuSnapshot(noFull),
+      '2026-09-19',
+    );
+    expect(retained.parliament.chambers[0].composition).toEqual(
+      previous.parliament.chambers[0].composition,
+    );
+
+    const replaced = mergeIpuProfile(
+      previous,
+      normalizeIpuSnapshot(snapshot),
+      '2026-09-19',
+    );
+    expect(replaced.parliament.chambers[0].composition).toBeUndefined();
+  });
+
   it('replaces the parliamentary slice without embedding source metadata', () => {
     const profile = mergeIpuProfile(
       previousProfile,
@@ -330,7 +383,7 @@ describe('IPU normalisation', () => {
       '2026-09-18',
     );
     expect(() => countryProfileSchema.parse(profile)).not.toThrow();
-    expect(profile.schemaVersion).toBe(3);
+    expect(profile.schemaVersion).toBe(4);
     expect(profile).not.toHaveProperty('sources');
   });
 });
