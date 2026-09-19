@@ -5,13 +5,14 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { mergeSourceRecords } from '../sources/registry.mjs';
+import { WikidataClient } from '../wikidata/client.mjs';
 import { WikipediaClient } from './client.mjs';
 import {
   extractHouseLinks,
   mergeWikipediaChambers,
   normalizeWikipediaParliament,
 } from './parliament.mjs';
-import { parseInfobox } from './parse-infobox.mjs';
+import { extractPoliticalComposition, parseInfobox } from './parse-infobox.mjs';
 
 const repositoryRoot = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -120,6 +121,53 @@ async function fetchSnapshot(client, country, retrievedAt, profile) {
   return { ...base, chamberPages };
 }
 
+async function enrichSnapshotWithWikidataColors(
+  snapshot,
+  wikidataClient,
+  retrievedAt,
+) {
+  const pages = [snapshot.parliamentPage, ...snapshot.chamberPages].filter(
+    Boolean,
+  );
+  const titles = new Set();
+
+  for (const page of pages) {
+    const entries = extractPoliticalComposition(parseInfobox(page.html));
+    for (const entry of entries) {
+      if (!entry.visual && entry.articleTitle) titles.add(entry.articleTitle);
+    }
+  }
+
+  if (!titles.size) return snapshot;
+  const resolved = await wikidataClient.colorsByWikipediaTitles(
+    Array.from(titles),
+    retrievedAt,
+  );
+
+  function enrichPage(page) {
+    if (!page) return page;
+    const pageTitles = new Set(
+      extractPoliticalComposition(parseInfobox(page.html))
+        .filter((entry) => !entry.visual && entry.articleTitle)
+        .map((entry) => entry.articleTitle),
+    );
+    const wikidataVisuals = Object.fromEntries(
+      Array.from(pageTitles)
+        .map((title) => [title, resolved.get(title)])
+        .filter(([, value]) => value),
+    );
+    return Object.keys(wikidataVisuals).length
+      ? { ...page, wikidataVisuals }
+      : page;
+  }
+
+  return {
+    ...snapshot,
+    parliamentPage: enrichPage(snapshot.parliamentPage),
+    chamberPages: snapshot.chamberPages.map(enrichPage),
+  };
+}
+
 const fromCache = process.argv.includes('--from-cache');
 const onlyIso3 = option('country')?.toUpperCase();
 const retrievedAt =
@@ -143,6 +191,7 @@ if (onlyIso3 && !targets.length) {
 }
 
 const client = new WikipediaClient();
+const wikidataClient = new WikidataClient();
 const existingSourceRegistry = await readJson(sourcesPath);
 const emittedSources = [];
 const prepared = [];
@@ -156,7 +205,11 @@ for (const country of targets) {
   const snapshotPath = resolve(cacheDirectory, `${country.iso3}.json`);
   const snapshot = fromCache
     ? await readJson(snapshotPath)
-    : await fetchSnapshot(client, country, retrievedAt, previous);
+    : await enrichSnapshotWithWikidataColors(
+        await fetchSnapshot(client, country, retrievedAt, previous),
+        wikidataClient,
+        retrievedAt,
+      );
   if (!fromCache) await writeJson(snapshotPath, snapshot);
 
   const normalized = normalizeWikipediaParliament(snapshot, previous);
@@ -172,9 +225,9 @@ for (const country of targets) {
   );
 }
 
-const uniqueEmittedSources = [
-  ...new Map(emittedSources.map((source) => [source.id, source])).values(),
-];
+const uniqueEmittedSources = Array.from(
+  new Map(emittedSources.map((source) => [source.id, source])).values(),
+);
 const mergedSources = mergeSourceRecords(
   existingSourceRegistry.sources,
   uniqueEmittedSources,

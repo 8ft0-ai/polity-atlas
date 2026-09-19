@@ -162,9 +162,14 @@ diplomatic-relations completeness contract.
 
 Wikimedia rendered infobox entries may contain an adjacent colour swatch. The
 parser canonicalizes safe `#RGB`, `#RRGGBB`, and `rgb(...)` values to
-uppercase `#RRGGBB`. For a safely matched IPU party, only this display colour
-is copied; the IPU party identity and seat count are unchanged. Ambiguous
-matches are left unresolved. The UI hashes the stable party/entry ID to select a
+uppercase `#RRGGBB`. When a rendered entry has no swatch but links to an
+English Wikipedia party article, the refresh may resolve that exact sitelink
+through Wikidata and use its unambiguous P465 sRGB value. There is no fuzzy
+party-name lookup.
+
+For a safely matched IPU party, only this display colour is copied; the IPU
+party identity and seat count are unchanged. Ambiguous or multi-valued Wikidata
+colours are left unresolved. The UI hashes the stable party/entry ID to select a
 repeatable fallback colour, so reordering rows cannot change unresolved colours.
 
 Colour is visual metadata, not evidence of ideology or party identity.

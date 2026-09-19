@@ -84,9 +84,10 @@ The current read-only MediaWiki REST workflow requires no API key. Requests are
 unauthenticated and carry the Polity Atlas User-Agent. REST snapshots preserve
 the page/revision/licence metadata supplied by Wikimedia in the ignored local
 cache. Wikidata is not used as a substitute for Wikipedia article infobox
-content. Schema v4 models Wikipedia party-seat data as a separate
-`source-reported` chamber composition with inline provenance and an explicit UI
-disclosure that it is not an IPU election result.
+content or for IPU political facts. It may supply visual metadata only through
+an exact English-Wikipedia sitelink binding. Schema v5 models Wikipedia
+party-seat data as a separate `source-reported` chamber composition with inline
+provenance and an explicit UI disclosure that it is not an IPU election result.
 
 
 ## Party and parliamentary display colours
@@ -95,6 +96,9 @@ A colour shown beside a parliamentary party/group is contextual display
 metadata, not a political classification. When a Wikipedia legislature/chamber
 entry exposes a usable colour swatch, Polity Atlas may attach that colour to the
 matching seat entry and cite the Wikipedia chamber page as the visual source.
+If that exact entry has no swatch but links to an English Wikipedia party
+article, Polity Atlas may resolve that exact sitelink to Wikidata and use a
+single unambiguous P465 colour, cited to the Wikidata item.
 For IPU-backed results this enrichment must never alter IPU party names, IDs,
 seat totals, election dates, chamber sizes, or outcome semantics.
 

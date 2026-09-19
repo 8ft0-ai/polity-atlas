@@ -50,6 +50,32 @@ function compositionEntryId(pageId, party, group, index) {
   ].join('-');
 }
 
+function compositionEntriesForPage(page, parsed, retrievedAt) {
+  const pageSource = wikipediaSource(page, retrievedAt);
+  return extractPoliticalComposition(parsed).map((entry) => {
+    if (entry.visual) {
+      return {
+        ...entry,
+        visual: { ...entry.visual, source: pageSource },
+      };
+    }
+
+    const wikidata = entry.articleTitle
+      ? page.wikidataVisuals?.[entry.articleTitle]
+      : undefined;
+    return wikidata
+      ? {
+          ...entry,
+          visual: {
+            color: wikidata.color,
+            method: 'wikidata-p465',
+            source: wikidata.source,
+          },
+        }
+      : entry;
+  });
+}
+
 function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
   if (!candidate.compositionEntries?.length) return undefined;
 
@@ -68,7 +94,7 @@ function sourceReportedComposition(candidate, retrievedAt, chamberSize) {
         visual: {
           color: entry.visual.color,
           method: entry.visual.method,
-          sourceIds: [candidate.source.id],
+          sourceIds: [entry.visual.source.id],
         },
       }),
     }))
@@ -134,7 +160,7 @@ function extractChamberVisuals(candidate, chamber) {
       visuals.set(result.partyId, {
         color: visual.color,
         method: visual.method,
-        sourceIds: [candidate.source.id],
+        sourceIds: [visual.source.id],
       });
     }
   }
@@ -313,7 +339,11 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       pageId: page.pageId,
       totalSeats: extractSeatCount(parsed),
       kind: extractExplicitChamberKind(parsed),
-      compositionEntries: extractPoliticalComposition(parsed),
+      compositionEntries: compositionEntriesForPage(
+        page,
+        parsed,
+        snapshot.retrievedAt,
+      ),
       source: wikipediaSource(page, snapshot.retrievedAt),
     };
   });
@@ -328,7 +358,11 @@ export function normalizeWikipediaParliament(snapshot, profile) {
         pageId: parentPage.pageId,
         totalSeats: parentSeats,
         kind: 'unicameral',
-        compositionEntries: extractPoliticalComposition(parliamentParsed),
+        compositionEntries: compositionEntriesForPage(
+          parentPage,
+          parliamentParsed,
+          snapshot.retrievedAt,
+        ),
         source: parentSource,
       });
     }
@@ -410,6 +444,15 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       (chamber) => chamber.composition?.sourceIds ?? [],
     ),
     ...chamberCompositions.flatMap(({ composition }) => composition.sourceIds),
+    ...missingChambers.flatMap(
+      (chamber) =>
+        chamber.composition?.entries.flatMap(
+          (entry) => entry.visual?.sourceIds ?? [],
+        ) ?? [],
+    ),
+    ...chamberCompositions.flatMap(({ composition }) =>
+      composition.entries.flatMap((entry) => entry.visual?.sourceIds ?? []),
+    ),
     ...chamberVisuals.flatMap(({ visuals }) =>
       Object.values(visuals).flatMap((visual) => visual.sourceIds),
     ),
@@ -417,6 +460,11 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   const sources = [
     parentSource,
     ...rawCandidates.map((candidate) => candidate.source),
+    ...rawCandidates.flatMap((candidate) =>
+      candidate.compositionEntries.flatMap((entry) =>
+        entry.visual?.source ? [entry.visual.source] : [],
+      ),
+    ),
   ]
     .filter(
       (source, index, all) =>
