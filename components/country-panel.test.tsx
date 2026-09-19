@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import australiaProfile from '@/public/data/countries/AUS.json';
+import sourceRegistry from '@/public/data/sources.json';
 import indonesiaProfile from '@/public/data/countries/IDN.json';
 import japanProfile from '@/public/data/countries/JPN.json';
 import usaProfile from '@/public/data/countries/USA.json';
@@ -30,10 +31,11 @@ function selectProfile({
 
   vi.stubGlobal(
     'fetch',
-    vi.fn().mockResolvedValue({
+    vi.fn().mockImplementation(async (url: string) => ({
       ok: true,
-      json: async () => profile,
-    }),
+      json: async () =>
+        url.endsWith('/data/sources.json') ? sourceRegistry : profile,
+    })),
   );
 }
 
