@@ -178,7 +178,7 @@ describe('country profile contract', () => {
   });
 
   it('publishes all ten pilots in a deterministic, hash-backed manifest', () => {
-    expect(manifest.schemaVersion).toBe(4);
+    expect(manifest.schemaVersion).toBe(5);
     expect(manifest.profiles).toHaveLength(10);
     expect(manifest.profiles.map((profile) => profile.iso3)).toEqual(
       [...pilotProfiles]
