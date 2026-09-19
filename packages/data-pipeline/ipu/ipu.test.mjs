@@ -383,7 +383,7 @@ describe('IPU normalisation', () => {
       '2026-09-18',
     );
     expect(() => countryProfileSchema.parse(profile)).not.toThrow();
-    expect(profile.schemaVersion).toBe(4);
+    expect(profile.schemaVersion).toBe(5);
     expect(profile).not.toHaveProperty('sources');
   });
 });
