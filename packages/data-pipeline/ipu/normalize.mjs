@@ -527,26 +527,9 @@ export function normalizeIpuSnapshot(snapshot) {
   };
 }
 
-function nonParliamentarySourceIds(profile) {
-  return new Set([
-    ...profile.government.system.sourceIds,
-    ...profile.government.headOfState.flatMap((holder) => holder.sourceIds),
-    ...profile.government.headOfGovernment.flatMap(
-      (holder) => holder.sourceIds,
-    ),
-    ...profile.relations.flatMap((relation) => relation.sourceIds),
-    ...(profile.territories ?? []).flatMap((territory) => territory.sourceIds),
-  ]);
-}
-
 export function mergeIpuProfile(profile, normalized, buildId) {
-  const retainedSourceIds = nonParliamentarySourceIds(profile);
-  const retainedSources = profile.sources.filter((source) =>
-    retainedSourceIds.has(source.id),
-  );
-
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     buildId,
     identity: profile.identity,
     government: profile.government,
@@ -554,8 +537,5 @@ export function mergeIpuProfile(profile, normalized, buildId) {
     nextExpectedElections: normalized.nextExpectedElections,
     relations: profile.relations,
     ...(profile.territories && { territories: profile.territories }),
-    sources: [...retainedSources, normalized.source].sort((left, right) =>
-      left.id.localeCompare(right.id),
-    ),
   };
 }
