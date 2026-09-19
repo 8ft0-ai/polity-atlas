@@ -1,6 +1,12 @@
 import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
-import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import {
+  readFile,
+  mkdir,
+  mkdtemp,
+  rm,
+  writeFile,
+} from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
@@ -80,46 +86,79 @@ for (const country of config.countries) {
   process.stdout.write(`Prepared ${country.iso3}\n`);
 }
 
-for (const prepared of preparedProfiles) {
-  await writeJson(prepared.profilePath, prepared.profile);
-  process.stdout.write(`Updated ${prepared.country.iso3}\n`);
-}
-
-await execFileAsync(
-  formatterPath,
-  preparedProfiles.map(({ profilePath }) => profilePath),
-);
-
-const manifestProfiles = [];
-for (const prepared of preparedProfiles) {
-  const formattedOutput = await readFile(prepared.profilePath);
-  manifestProfiles.push({
-    iso3: prepared.country.iso3,
-    path: `countries/${prepared.country.iso3}.json`,
-    sha256: sha256(formattedOutput),
-  });
-}
-
-manifestProfiles.sort((left, right) => left.iso3.localeCompare(right.iso3));
 const mergedSources = mergeSourceRecords(
   existingSourceRegistry.sources,
   emittedSources,
 );
-await writeJson(sourcesPath, { schemaVersion: 1, sources: mergedSources });
-await execFileAsync(formatterPath, [sourcesPath]);
-const sourcesOutput = await readFile(sourcesPath);
 
-await writeJson(manifestPath, {
-  schemaVersion: 3,
-  buildId,
-  generatedAt: retrievedAt,
-  profiles: manifestProfiles,
-  sourceRegistry: {
-    path: 'sources.json',
-    sha256: sha256(sourcesOutput),
-  },
-});
-await execFileAsync(formatterPath, [manifestPath]);
-process.stdout.write(
-  `Updated manifest for ${manifestProfiles.length} profiles\n`,
+await mkdir(cacheDirectory, { recursive: true });
+const stagingDirectory = await mkdtemp(
+  resolve(cacheDirectory, '.staged-public-data-'),
 );
+
+try {
+  const stagedProfiles = [];
+  for (const prepared of preparedProfiles) {
+    const stagedPath = resolve(
+      stagingDirectory,
+      'countries',
+      `${prepared.country.iso3}.json`,
+    );
+    await writeJson(stagedPath, prepared.profile);
+    stagedProfiles.push({ ...prepared, stagedPath });
+  }
+
+  const stagedSourcesPath = resolve(stagingDirectory, 'sources.json');
+  await writeJson(stagedSourcesPath, {
+    schemaVersion: 1,
+    sources: mergedSources,
+  });
+
+  await execFileAsync(formatterPath, [
+    ...stagedProfiles.map(({ stagedPath }) => stagedPath),
+    stagedSourcesPath,
+  ]);
+
+  const manifestProfiles = [];
+  const profileOutputs = new Map();
+  for (const prepared of stagedProfiles) {
+    const formattedOutput = await readFile(prepared.stagedPath);
+    profileOutputs.set(prepared.country.iso3, formattedOutput);
+    manifestProfiles.push({
+      iso3: prepared.country.iso3,
+      path: `countries/${prepared.country.iso3}.json`,
+      sha256: sha256(formattedOutput),
+    });
+  }
+
+  manifestProfiles.sort((left, right) => left.iso3.localeCompare(right.iso3));
+  const sourcesOutput = await readFile(stagedSourcesPath);
+  const stagedManifestPath = resolve(stagingDirectory, 'manifest.json');
+  await writeJson(stagedManifestPath, {
+    schemaVersion: 3,
+    buildId,
+    generatedAt: retrievedAt,
+    profiles: manifestProfiles,
+    sourceRegistry: {
+      path: 'sources.json',
+      sha256: sha256(sourcesOutput),
+    },
+  });
+  await execFileAsync(formatterPath, [stagedManifestPath]);
+  const manifestOutput = await readFile(stagedManifestPath);
+
+  for (const prepared of preparedProfiles) {
+    await writeFile(
+      prepared.profilePath,
+      profileOutputs.get(prepared.country.iso3),
+    );
+    process.stdout.write(`Updated ${prepared.country.iso3}\n`);
+  }
+  await writeFile(sourcesPath, sourcesOutput);
+  await writeFile(manifestPath, manifestOutput);
+  process.stdout.write(
+    `Updated manifest for ${manifestProfiles.length} profiles\n`,
+  );
+} finally {
+  await rm(stagingDirectory, { recursive: true, force: true });
+}

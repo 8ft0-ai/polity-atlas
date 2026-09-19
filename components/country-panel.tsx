@@ -352,6 +352,7 @@ export function CountryPanel() {
   const sourceRegistryQuery = useQuery({
     queryKey: ['source-registry'],
     queryFn: loadSourceRegistry,
+    enabled: Boolean(iso3),
   });
   const profileQuery = useQuery({
     queryKey: ['country-profile', iso3],
@@ -413,13 +414,16 @@ export function CountryPanel() {
             </p>
           </div>
         </div>
-      ) : profileQuery.isPending ? (
+      ) : profileQuery.isPending || sourceRegistryQuery.isPending ? (
         <div className="ui-text p-6 text-sm text-muted-foreground">
-          Loading verified country data…
+          Loading verified country data and sources…
         </div>
-      ) : profileQuery.isError || !profileQuery.data ? (
+      ) : profileQuery.isError ||
+        !profileQuery.data ||
+        sourceRegistryQuery.isError ||
+        !sourceRegistryQuery.data ? (
         <div className="p-6 text-sm text-destructive">
-          The validated profile could not be loaded.
+          The validated profile or source registry could not be loaded.
         </div>
       ) : (
         <Tabs

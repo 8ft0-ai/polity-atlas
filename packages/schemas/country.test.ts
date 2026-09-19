@@ -28,6 +28,16 @@ describe('country profile contract', () => {
     }
   });
 
+  it('rejects duplicate global source IDs', () => {
+    const duplicate = sourceRegistry.sources[0];
+    expect(() =>
+      sourceRegistrySchema.parse({
+        ...sourceRegistry,
+        sources: [...sourceRegistry.sources, duplicate],
+      }),
+    ).toThrow(`Duplicate source id: ${duplicate.id}`);
+  });
+
   it('keeps every displayed fact attached to a known source', () => {
     for (const profile of pilotProfiles) {
       const parsed = countryProfileSchema.parse(profile);

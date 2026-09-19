@@ -31,6 +31,15 @@ describe('global source registry', () => {
     ]);
   });
 
+  it('rejects duplicate IDs in either input set', () => {
+    expect(() => mergeSourceRecords([source, source], [])).toThrow(
+      'Duplicate source id in existing registry: example',
+    );
+    expect(() => mergeSourceRecords([], [source, source])).toThrow(
+      'Duplicate source id in incoming sources: example',
+    );
+  });
+
   it('rejects materially conflicting reuse of a source id', () => {
     expect(() =>
       mergeSourceRecords([source], [{ ...source, title: 'Different source' }]),

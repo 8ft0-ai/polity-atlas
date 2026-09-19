@@ -211,10 +211,24 @@ const expectedElectionSchema = z
     }
   });
 
-export const sourceRegistrySchema = z.object({
-  schemaVersion: z.literal(1),
-  sources: z.array(sourceSchema),
-});
+export const sourceRegistrySchema = z
+  .object({
+    schemaVersion: z.literal(1),
+    sources: z.array(sourceSchema),
+  })
+  .superRefine((registry, ctx) => {
+    const seen = new Set<string>();
+    registry.sources.forEach((source, index) => {
+      if (seen.has(source.id)) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `Duplicate source id: ${source.id}`,
+          path: ['sources', index, 'id'],
+        });
+      }
+      seen.add(source.id);
+    });
+  });
 
 export const countryProfileSchema = z.object({
   schemaVersion: z.literal(3),

@@ -1,4 +1,17 @@
+function assertUniqueSourceIds(sources, label) {
+  const seen = new Set();
+  for (const source of sources) {
+    if (seen.has(source.id)) {
+      throw new Error(`Duplicate source id in ${label}: ${source.id}`);
+    }
+    seen.add(source.id);
+  }
+}
+
 export function mergeSourceRecords(existingSources, incomingSources) {
+  assertUniqueSourceIds(existingSources, 'existing registry');
+  assertUniqueSourceIds(incomingSources, 'incoming sources');
+
   const sources = new Map(existingSources.map((source) => [source.id, source]));
 
   for (const source of incomingSources) {
