@@ -54,4 +54,4 @@ a current or post-election full composition.
 
 ## Global source identity
 
-Public source metadata is stored once in `public/data/sources.json`. Country profiles contain stable source IDs only. A source ID must not be reused for materially different publisher, title, URL, attribution, terms, licence, or source-kind metadata. Retrieval timestamps may advance when the same source is refreshed.
+Public source metadata is stored once in `public/data/sources.json`. Country profiles contain stable source IDs only. A source ID must not be reused for materially different publisher, title, URL, terms, licence, or source-kind metadata. Retrieval timestamps and time-bound attribution strings may advance when the same source is refreshed.
