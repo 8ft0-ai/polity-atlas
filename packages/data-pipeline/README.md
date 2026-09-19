@@ -1,8 +1,6 @@
 # Data pipeline
 
-The application reads only reviewed, schema-valid files in `public/data`; it
-never calls a source API in the browser. The first bounded Phase 3 adapter is
-implemented for IPU Parline and covers all ten configured pilot countries.
+The application reads only reviewed, schema-valid files in `public/data`; it never calls a source API in the browser. IPU Parline now covers ten full-profile pilots plus three standalone legislature pilots (IRN, SAU, MMR).
 
 ## IPU pilot refresh
 
@@ -145,3 +143,28 @@ key**. Requests send the project's descriptive User-Agent and no Authorization
 header. If authenticated Wikimedia access is introduced later it must be a
 separate reviewed credential change, not an implicit requirement of this
 pipeline.
+
+
+## Standalone legislature pilots
+
+`packages/data-pipeline/config/pilot-countries.json` defines the ten countries
+with complete reviewed profiles. `legislature-pilots.json` independently
+defines Iran, Saudi Arabia, and Myanmar. Both IPU and Wikimedia refresh commands
+process the combined 13-country legislature set. A legislature-only country is
+written to `public/data/legislatures/{ISO3}.json` using the same chamber and
+renewal contracts embedded in a full country profile.
+
+The manifest hashes both collections separately. Adding a legislature pilot
+therefore does not widen the unrelated government, leader, territory, or
+diplomatic-relations completeness contract.
+
+### Seat display colours
+
+Wikimedia rendered infobox entries may contain an adjacent colour swatch. The
+parser canonicalizes safe `#RGB`, `#RRGGBB`, and `rgb(...)` values to
+uppercase `#RRGGBB`. For a safely matched IPU party, only this display colour
+is copied; the IPU party identity and seat count are unchanged. Ambiguous
+matches are left unresolved. The UI hashes the stable party/entry ID to select a
+repeatable fallback colour, so reordering rows cannot change unresolved colours.
+
+Colour is visual metadata, not evidence of ideology or party identity.
