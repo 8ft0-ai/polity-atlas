@@ -366,8 +366,11 @@ function withoutViewHeadingGroup(entry, viewLabel) {
   ) {
     return entry;
   }
-  const { group: _group, groupArticleTitles: _groupArticleTitles, ...rest } =
-    entry;
+  const {
+    group: _group,
+    groupArticleTitles: _groupArticleTitles,
+    ...rest
+  } = entry;
   return rest;
 }
 
