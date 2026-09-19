@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "IN",
@@ -14,7 +14,9 @@
       "value": "Federal parliamentary republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["in-country"],
+      "sourceIds": [
+        "in-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "President",
         "name": "Droupadi Murmu",
         "since": "2022-07-25",
-        "sourceIds": ["in-president"]
+        "sourceIds": [
+          "in-president"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Narendra Modi",
         "since": "2014-05-26",
-        "sourceIds": ["in-prime-minister"]
+        "sourceIds": [
+          "in-prime-minister"
+        ]
       }
     ]
   },
@@ -39,7 +45,9 @@
       "value": "Parliament",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": ["ipu-parline"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
@@ -64,20 +72,29 @@
             "stateRank": "Sixth",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "systems": [
+            "Plurality/majority",
+            "First Past The Post (FPTP)"
+          ],
           "directlyElectedSeats": 543,
           "appointedSeats": 2,
           "votingAge": 18,
           "eligibilityAge": 25,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "IN-LC01-E20240419",
           "title": "India House of the People April 2024 Election",
@@ -515,7 +532,9 @@
               }
             ]
           },
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       },
       {
@@ -540,7 +559,9 @@
             "stateRank": "Second",
             "becomesInterimHeadOfState": true,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
@@ -550,9 +571,13 @@
           "appointedSeats": 12,
           "eligibilityAge": 30,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "IN-UC01-E20260316",
           "title": "India Council of States March 2026 Election",
@@ -562,7 +587,9 @@
           "scope": "partial-renewal",
           "seatsAtStake": 72,
           "chamberSize": 245,
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       }
     ]
@@ -578,7 +605,9 @@
       "date": {
         "from": "2028-03-31"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     },
     {
       "id": "IN-LC01:2029-04-30",
@@ -590,7 +619,9 @@
       "date": {
         "from": "2029-04-30"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -599,108 +630,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
+      "sourceIds": [
+        "in-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["in-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "in-country",
-      "publisher": "Wikipedia",
-      "title": "India",
-      "url": "https://en.wikipedia.org/wiki/India",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "in-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of India",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_India",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "in-president",
-      "publisher": "President of India",
-      "title": "Profile of the President",
-      "url": "https://www.presidentofindia.gov.in/Profile",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "in-prime-minister",
-      "publisher": "Prime Minister of India",
-      "title": "Prime Minister of India",
-      "url": "https://www.pmindia.gov.in/en/",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+      "sourceIds": [
+        "in-missions"
+      ]
     }
   ]
 }
