@@ -278,7 +278,11 @@ export const sourceRegistrySchema = z
   });
 
 export const legislatureSchema = z.object({
-  ...legislatureSchema.shape,
+  parliament: z.object({
+    name: factSchema(z.string()),
+    chambers: z.array(chamberSchema),
+  }),
+  nextExpectedElections: z.array(expectedElectionSchema),
 });
 
 export const legislatureProfileSchema = z.object({
