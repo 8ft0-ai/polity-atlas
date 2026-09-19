@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "NZ",
@@ -14,7 +14,9 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["nz-country"],
+      "sourceIds": [
+        "nz-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "Governor-General",
         "name": "Cindy Kiro",
         "since": "2021-10-21",
-        "sourceIds": ["nz-governor-general"]
+        "sourceIds": [
+          "nz-governor-general"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Christopher Luxon",
         "since": "2023-11-27",
-        "sourceIds": ["nz-prime-minister"]
+        "sourceIds": [
+          "nz-prime-minister"
+        ]
       }
     ]
   },
@@ -39,7 +45,9 @@
       "value": "House of Representatives",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": ["ipu-parline"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
@@ -64,19 +72,28 @@
             "stateRank": "Third",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": ["Mixed system", "Mixed Member Proportional System (MMP)"],
+          "systems": [
+            "Mixed system",
+            "Mixed Member Proportional System (MMP)"
+          ],
           "directlyElectedSeats": 123,
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "NZ-LC01-E20231014",
           "title": "New Zealand House of Representatives October 2023 Election",
@@ -153,7 +170,9 @@
               }
             ]
           },
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       }
     ]
@@ -169,7 +188,9 @@
       "date": {
         "from": "2026-11-07"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -178,108 +199,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
+      "sourceIds": [
+        "nz-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["nz-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
-    },
-    {
-      "id": "nz-country",
-      "publisher": "Wikipedia",
-      "title": "New Zealand",
-      "url": "https://en.wikipedia.org/wiki/New_Zealand",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "nz-governor-general",
-      "publisher": "Governor-General of New Zealand",
-      "title": "The Governor-General",
-      "url": "https://gg.govt.nz/governor-general",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "nz-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of New Zealand",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_New_Zealand",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "nz-prime-minister",
-      "publisher": "New Zealand Government",
-      "title": "Prime Minister",
-      "url": "https://www.beehive.govt.nz/portfolio/nationalactnew-zealand-first-coalition-government-2023-2026/prime-minister",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
+      "sourceIds": [
+        "nz-missions"
+      ]
     }
   ]
 }
