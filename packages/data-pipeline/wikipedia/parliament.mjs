@@ -173,6 +173,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   if (!snapshot.parliamentPage) {
     return {
       missingChambers: [],
+      chamberCompositions: [],
       sources: [],
       diagnostics: ['NO_WIKIPEDIA_PARLIAMENT_PAGE'],
     };
@@ -307,6 +308,15 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     .sort((left, right) => left.id.localeCompare(right.id));
 
   const diagnostics = [];
+  for (const { candidate, chamber } of matchedCandidates) {
+    const entries = candidate.compositionEntries ?? [];
+    const reportedSeats = entries.reduce((sum, entry) => sum + entry.seats, 0);
+    if (entries.length && reportedSeats > chamber.totalSeats) {
+      diagnostics.push(
+        `COMPOSITION_EXCEEDS_CHAMBER:${candidate.name}:${reportedSeats}/${chamber.totalSeats}`,
+      );
+    }
+  }
   for (const candidate of rawCandidates) {
     if (!candidate.totalSeats) {
       diagnostics.push(`NO_SEAT_COUNT:${candidate.name}`);
@@ -326,7 +336,7 @@ export function mergeWikipediaChambers(profile, normalized, buildId) {
   );
 
   const compositions = new Map(
-    normalized.chamberCompositions.map(({ chamberId, composition }) => [
+    (normalized.chamberCompositions ?? []).map(({ chamberId, composition }) => [
       chamberId,
       composition,
     ]),
