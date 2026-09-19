@@ -23,6 +23,16 @@ export function mergeSourceRecords(existingSources, incomingSources) {
       delete stableIncoming.retrievedAt;
       delete stableExisting.attribution;
       delete stableIncoming.attribution;
+      if (
+        source.id.startsWith('wikipedia-en-page-') &&
+        stableExisting.publisher === 'Wikipedia' &&
+        stableIncoming.publisher === 'Wikipedia'
+      ) {
+        delete stableExisting.title;
+        delete stableIncoming.title;
+        delete stableExisting.url;
+        delete stableIncoming.url;
+      }
       if (JSON.stringify(stableExisting) !== JSON.stringify(stableIncoming)) {
         throw new Error(`Conflicting source metadata for ${source.id}`);
       }
