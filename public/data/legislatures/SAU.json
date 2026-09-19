@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-19",
+  "identity": {
+    "entityId": "state:m49:682",
+    "iso2": "SA",
+    "iso3": "SAU",
+    "m49": "682",
+    "name": "Saudi Arabia"
+  },
+  "parliament": {
+    "name": {
+      "value": "Shura Council",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
+      "sourceIds": ["ipu-parline"],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "SA-LC01",
+        "name": "Shura Council",
+        "kind": "unicameral",
+        "totalSeats": 151,
+        "parliamentaryTermYears": 4,
+        "speakers": [
+          {
+            "personId": "sa-abdullah-al-sheikh",
+            "name": "Abdullah Mohammed Ibrahim Al-Sheikh",
+            "officialTitle": "President of the Shura Council",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2009-02-28"
+            },
+            "additionalInformation": "Appointed on 28 Feb.2009, re-appointed on 11 Jan. 2013, on 2 Dec. 2016, on 18 Oct. 2020 and on 2 Sep. 2024.",
+            "designationMode": "Other",
+            "designationAuthority": "Head of State",
+            "stateRank": "Other",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
+          }
+        ],
+        "electoralSystem": {
+          "directlyElected": false,
+          "systems": [],
+          "appointedSeats": 151,
+          "eligibilityAge": 30,
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "SA-LC01-E20240902",
+          "title": "Saudi Arabia Shura Council September 2024 Election",
+          "date": {
+            "from": "2024-09-02"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 150,
+          "chamberSize": 151,
+          "sourceIds": ["ipu-parline"]
+        }
+      }
+    ]
+  },
+  "nextExpectedElections": [
+    {
+      "id": "SA-LC01:2028-08-31",
+      "level": "national",
+      "chamberId": "SA-LC01",
+      "chamberName": "Shura Council",
+      "eventType": "full-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2028-08-31"
+      },
+      "sourceIds": ["ipu-parline"]
+    }
+  ]
+}

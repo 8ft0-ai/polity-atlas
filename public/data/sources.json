@@ -222,7 +222,7 @@
       "publisher": "Inter-Parliamentary Union",
       "title": "Parline national parliament, chamber and election data",
       "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
       "kind": "intergovernmental",
       "attribution": "Inter-Parliamentary Union: Parline, September 2026",
       "termsUrl": "https://www.ipu.org/terms-use",
@@ -321,7 +321,7 @@
       "publisher": "Wikipedia",
       "title": "Senate of Canada",
       "url": "https://en.wikipedia.org/wiki/Senate_of_Canada",
-      "retrievedAt": "2026-09-19T03:20:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Senate of Canada\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -331,9 +331,49 @@
       "publisher": "Wikipedia",
       "title": "House of Lords",
       "url": "https://en.wikipedia.org/wiki/House_of_Lords",
-      "retrievedAt": "2026-09-19T03:20:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"House of Lords\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-13828",
+      "publisher": "Wikipedia",
+      "title": "House of Commons of the United Kingdom",
+      "url": "https://en.wikipedia.org/wiki/House_of_Commons_of_the_United_Kingdom",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"House of Commons of the United Kingdom\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-165705",
+      "publisher": "Wikipedia",
+      "title": "Australian Senate",
+      "url": "https://en.wikipedia.org/wiki/Australian_Senate",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Australian Senate\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-19468510",
+      "publisher": "Wikipedia",
+      "title": "United States House of Representatives",
+      "url": "https://en.wikipedia.org/wiki/United_States_House_of_Representatives",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"United States House of Representatives\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-217778",
+      "publisher": "Wikipedia",
+      "title": "House of Representatives (Japan)",
+      "url": "https://en.wikipedia.org/wiki/House_of_Representatives_(Japan)",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"House of Representatives (Japan)\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -341,7 +381,7 @@
       "publisher": "Wikipedia",
       "title": "House of Councillors",
       "url": "https://en.wikipedia.org/wiki/House_of_Councillors",
-      "retrievedAt": "2026-09-19T03:20:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"House of Councillors\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -351,9 +391,19 @@
       "publisher": "Wikipedia",
       "title": "Rajya Sabha",
       "url": "https://en.wikipedia.org/wiki/Rajya_Sabha",
-      "retrievedAt": "2026-09-19T03:20:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Rajya Sabha\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-24909346",
+      "publisher": "Wikipedia",
+      "title": "United States Senate",
+      "url": "https://en.wikipedia.org/wiki/United_States_Senate",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"United States Senate\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -361,9 +411,49 @@
       "publisher": "Wikipedia",
       "title": "Lok Sabha",
       "url": "https://en.wikipedia.org/wiki/Lok_Sabha",
-      "retrievedAt": "2026-09-19T03:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Lok Sabha\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-29739324",
+      "publisher": "Wikipedia",
+      "title": "Pyidaungsu Hluttaw",
+      "url": "https://en.wikipedia.org/wiki/Pyidaungsu_Hluttaw",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Pyidaungsu Hluttaw\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-29739530",
+      "publisher": "Wikipedia",
+      "title": "Amyotha Hluttaw",
+      "url": "https://en.wikipedia.org/wiki/Amyotha_Hluttaw",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Amyotha Hluttaw\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-29739592",
+      "publisher": "Wikipedia",
+      "title": "Pyithu Hluttaw",
+      "url": "https://en.wikipedia.org/wiki/Pyithu_Hluttaw",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Pyithu Hluttaw\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-299616",
+      "publisher": "Wikipedia",
+      "title": "National Assembly (France)",
+      "url": "https://en.wikipedia.org/wiki/National_Assembly_(France)",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"National Assembly (France)\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -371,9 +461,19 @@
       "publisher": "Wikipedia",
       "title": "People's Consultative Assembly",
       "url": "https://en.wikipedia.org/wiki/People's_Consultative_Assembly",
-      "retrievedAt": "2026-09-19T03:20:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"People's Consultative Assembly\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-353844",
+      "publisher": "Wikipedia",
+      "title": "New Zealand House of Representatives",
+      "url": "https://en.wikipedia.org/wiki/New_Zealand_House_of_Representatives",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"New Zealand House of Representatives\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -381,7 +481,7 @@
       "publisher": "Wikipedia",
       "title": "National People's Congress",
       "url": "https://en.wikipedia.org/wiki/National_People's_Congress",
-      "retrievedAt": "2026-09-19T03:20:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"National People's Congress\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -401,9 +501,19 @@
       "publisher": "Wikipedia",
       "title": "Senate (France)",
       "url": "https://en.wikipedia.org/wiki/Senate_(France)",
-      "retrievedAt": "2026-09-19T03:20:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Senate (France)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-61565",
+      "publisher": "Wikipedia",
+      "title": "Australian House of Representatives",
+      "url": "https://en.wikipedia.org/wiki/Australian_House_of_Representatives",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Australian House of Representatives\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -411,9 +521,19 @@
       "publisher": "Wikipedia",
       "title": "Regional Representative Council",
       "url": "https://en.wikipedia.org/wiki/Regional_Representative_Council",
-      "retrievedAt": "2026-09-19T03:20:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Regional Representative Council\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-64313",
+      "publisher": "Wikipedia",
+      "title": "House of Commons of Canada",
+      "url": "https://en.wikipedia.org/wiki/House_of_Commons_of_Canada",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"House of Commons of Canada\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -421,7 +541,7 @@
       "publisher": "Wikipedia",
       "title": "House of Representatives (Indonesia)",
       "url": "https://en.wikipedia.org/wiki/House_of_Representatives_(Indonesia)",
-      "retrievedAt": "2026-09-19T03:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"House of Representatives (Indonesia)\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"

@@ -213,10 +213,7 @@ try {
       (entry) =>
         entry.mode === 'legislature' && entry.country.iso3 === country.iso3,
     );
-    const outputPath = resolve(
-      legislatureDirectory,
-      `${country.iso3}.json`,
-    );
+    const outputPath = resolve(legislatureDirectory, `${country.iso3}.json`);
     const value = candidate?.value ?? (await readJsonIfPresent(outputPath));
     if (!value) {
       throw new Error(
@@ -294,10 +291,7 @@ try {
   const manifestOutput = await readFile(stagedManifestPath);
 
   for (const entry of stagedProfiles.filter(({ selected }) => selected)) {
-    await writeFile(
-      entry.outputPath,
-      profileOutputs.get(entry.country.iso3),
-    );
+    await writeFile(entry.outputPath, profileOutputs.get(entry.country.iso3));
     process.stdout.write(`Updated ${entry.country.iso3}\n`);
   }
   for (const entry of stagedLegislatures.filter(({ selected }) => selected)) {

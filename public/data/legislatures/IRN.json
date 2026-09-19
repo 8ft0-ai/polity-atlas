@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-19",
+  "identity": {
+    "entityId": "state:m49:364",
+    "iso2": "IR",
+    "iso3": "IRN",
+    "m49": "364",
+    "name": "Iran"
+  },
+  "parliament": {
+    "name": {
+      "value": "Islamic Parliament of Iran",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
+      "sourceIds": ["ipu-parline"],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "IR-LC01",
+        "name": "Islamic Parliament of Iran",
+        "kind": "unicameral",
+        "totalSeats": 290,
+        "parliamentaryTermYears": 4,
+        "speakers": [
+          {
+            "personId": "ir-mohammad-bagher-ghalibaf",
+            "name": "Mohammad Bagher Ghalibaf",
+            "officialTitle": "Speaker of the Islamic Parliament of Iran",
+            "acting": false,
+            "vacant": false,
+            "term": {
+              "from": "2020-05-28"
+            },
+            "additionalInformation": "Elected on 28 May 2020, re-elected on 26 May 2021, 25 May 2022, 23 May 2023, on 28 May 2024, on 27 May 2025 and on 25 May 2026.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Third",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": true,
+            "sourceIds": ["ipu-parline"]
+          }
+        ],
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "Two-Round System (TRS)"],
+          "directlyElectedSeats": 285,
+          "votingAge": 15,
+          "eligibilityAge": 30,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "IR-LC01-E20240301",
+          "title": "Iran (Islamic Republic of) Islamic Parliament of Iran March 2024 Election",
+          "date": {
+            "from": "2024-03-01",
+            "to": "2024-05-10"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 290,
+          "chamberSize": 290,
+          "sourceIds": ["ipu-parline"]
+        }
+      }
+    ]
+  },
+  "nextExpectedElections": [
+    {
+      "id": "IR-LC01:2028-02-29",
+      "level": "national",
+      "chamberId": "IR-LC01",
+      "chamberName": "Islamic Parliament of Iran",
+      "eventType": "full-renewal",
+      "status": "expected",
+      "date": {
+        "from": "2028-02-29"
+      },
+      "sourceIds": ["ipu-parline"]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "ID",
@@ -38,7 +38,7 @@
     "name": {
       "value": "House of Representatives",
       "asOf": "2026-09-19",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
       "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
@@ -109,22 +109,42 @@
               {
                 "partyId": "id-national_democratic_party_nasdem_",
                 "party": "National Democratic Party (NasDem)",
-                "seats": 69
+                "seats": 69,
+                "visual": {
+                  "color": "#2643A3",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-737841"]
+                }
               },
               {
                 "partyId": "id-national_awakening_party_pkb",
                 "party": "National Awakening Party (PKB)",
-                "seats": 68
+                "seats": 68,
+                "visual": {
+                  "color": "#02754C",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-737841"]
+                }
               },
               {
                 "partyId": "id-prosperous_justice_party_pks",
                 "party": "Prosperous Justice Party (PKS)",
-                "seats": 53
+                "seats": 53,
+                "visual": {
+                  "color": "#FE5000",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-737841"]
+                }
               },
               {
                 "partyId": "id-national_mandate_party_pan",
                 "party": "National Mandate Party (PAN)",
-                "seats": 48
+                "seats": 48,
+                "visual": {
+                  "color": "#0054A3",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-737841"]
+                }
               },
               {
                 "partyId": "id-democratic_party_pd",
@@ -151,22 +171,42 @@
               {
                 "partyId": "id-national_democratic_party_nasdem_",
                 "party": "National Democratic Party (NasDem)",
-                "seats": 69
+                "seats": 69,
+                "visual": {
+                  "color": "#2643A3",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-737841"]
+                }
               },
               {
                 "partyId": "id-national_awakening_party_pkb",
                 "party": "National Awakening Party (PKB)",
-                "seats": 68
+                "seats": 68,
+                "visual": {
+                  "color": "#02754C",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-737841"]
+                }
               },
               {
                 "partyId": "id-prosperous_justice_party_pks",
                 "party": "Prosperous Justice Party (PKS)",
-                "seats": 53
+                "seats": 53,
+                "visual": {
+                  "color": "#FE5000",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-737841"]
+                }
               },
               {
                 "partyId": "id-national_mandate_party_pan",
                 "party": "National Mandate Party (PAN)",
-                "seats": 48
+                "seats": 48,
+                "visual": {
+                  "color": "#0054A3",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-737841"]
+                }
               },
               {
                 "partyId": "id-democratic_party_pd",

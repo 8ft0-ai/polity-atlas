@@ -46,9 +46,7 @@ function Sources({ ids, sources }: { ids: string[]; sources: SourceRecord[] }) {
   );
 }
 
-function sourceIdsForProfile(
-  profile: CountryProfile | LegislatureProfile,
-) {
+function sourceIdsForProfile(profile: CountryProfile | LegislatureProfile) {
   const fullProfile = 'government' in profile ? profile : undefined;
   return new Set([
     ...(fullProfile?.government.system.sourceIds ?? []),
@@ -425,9 +423,7 @@ function ElectionOutcome({
 
 type BriefingProfile = CountryProfile | LegislatureProfile;
 
-function isCountryProfile(
-  profile: BriefingProfile,
-): profile is CountryProfile {
+function isCountryProfile(profile: BriefingProfile): profile is CountryProfile {
   return 'government' in profile;
 }
 
@@ -497,10 +493,7 @@ export function CountryPanel() {
     enabled: Boolean(iso3),
   });
   const profileQuery = useQuery<BriefingProfile>({
-    queryKey: [
-      fullIso3 ? 'country-profile' : 'legislature-profile',
-      iso3,
-    ],
+    queryKey: [fullIso3 ? 'country-profile' : 'legislature-profile', iso3],
     queryFn: async (): Promise<BriefingProfile> =>
       fullIso3
         ? loadCountryProfile(fullIso3)
@@ -625,23 +618,25 @@ export function CountryPanel() {
                 </p>
               </section>
               <section className="grid grid-cols-2 gap-3">
-                {(fullProfile ? officeHolderCards(fullProfile) : []).map((holder) => (
-                  <article
-                    key={holder.key}
-                    className="border border-border bg-background/45 p-3"
-                  >
-                    <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-                      {holder.roles.join(' · ')}
-                    </p>
-                    <h2 className="mt-2 text-sm font-semibold">
-                      {holder.name}
-                    </h2>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {holder.office} · Since {holder.since}
-                    </p>
-                    <Sources ids={holder.sourceIds} sources={sources} />
-                  </article>
-                ))}
+                {(fullProfile ? officeHolderCards(fullProfile) : []).map(
+                  (holder) => (
+                    <article
+                      key={holder.key}
+                      className="border border-border bg-background/45 p-3"
+                    >
+                      <p className="ui-text text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                        {holder.roles.join(' · ')}
+                      </p>
+                      <h2 className="mt-2 text-sm font-semibold">
+                        {holder.name}
+                      </h2>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {holder.office} · Since {holder.since}
+                      </p>
+                      <Sources ids={holder.sourceIds} sources={sources} />
+                    </article>
+                  ),
+                )}
               </section>
               <section className="border-t border-border pt-4">
                 <p className="ui-text text-xs uppercase tracking-[0.08em] text-muted-foreground">

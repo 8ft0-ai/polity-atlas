@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "US",
@@ -38,7 +38,7 @@
     "name": {
       "value": "Congress",
       "asOf": "2026-09-19",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
       "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
@@ -97,7 +97,12 @@
               {
                 "partyId": "us-democratic_party_0",
                 "party": "Democratic Party",
-                "seats": 215
+                "seats": 215,
+                "visual": {
+                  "color": "#0044C9",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-19468510"]
+                }
               }
             ],
             "postElectionComposition": [
@@ -109,7 +114,12 @@
               {
                 "partyId": "us-democratic_party_0",
                 "party": "Democratic Party",
-                "seats": 215
+                "seats": 215,
+                "visual": {
+                  "color": "#0044C9",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-19468510"]
+                }
               }
             ]
           },
@@ -183,24 +193,44 @@
               {
                 "partyId": "us-democratic_party",
                 "party": "Democratic Party",
-                "seats": 19
+                "seats": 19,
+                "visual": {
+                  "color": "#0044C9",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-24909346"]
+                }
               },
               {
                 "partyId": "us-republican_party",
                 "party": "Republican Party",
-                "seats": 15
+                "seats": 15,
+                "visual": {
+                  "color": "#E81B23",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-24909346"]
+                }
               }
             ],
             "postElectionComposition": [
               {
                 "partyId": "us-republican_party",
                 "party": "Republican Party",
-                "seats": 53
+                "seats": 53,
+                "visual": {
+                  "color": "#E81B23",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-24909346"]
+                }
               },
               {
                 "partyId": "us-democratic_party",
                 "party": "Democratic Party",
-                "seats": 47
+                "seats": 47,
+                "visual": {
+                  "color": "#0044C9",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-24909346"]
+                }
               }
             ]
           },

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "AU",
@@ -38,7 +38,7 @@
     "name": {
       "value": "Parliament",
       "asOf": "2026-09-19",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
       "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
@@ -92,7 +92,12 @@
               {
                 "partyId": "au-australian_labor_party_alp",
                 "party": "Australian Labor Party (ALP)",
-                "seats": 94
+                "seats": 94,
+                "visual": {
+                  "color": "#F00011",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               },
               {
                 "partyId": "au-liberal_national_coalition",
@@ -102,29 +107,54 @@
               {
                 "partyId": "au-independents",
                 "party": "Independents",
-                "seats": 10
+                "seats": 10,
+                "visual": {
+                  "color": "#888888",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               },
               {
                 "partyId": "au-centre_alliance",
                 "party": "Centre Alliance",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#FF944D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               },
               {
                 "partyId": "au-katters_australian_party",
                 "party": "Katter's Australian Party (KAP)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#B50204",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               },
               {
                 "partyId": "au-greens_0",
                 "party": "The Greens",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#10C25B",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               }
             ],
             "postElectionComposition": [
               {
                 "partyId": "au-australian_labor_party_alp",
                 "party": "Australian Labor Party (ALP)",
-                "seats": 94
+                "seats": 94,
+                "visual": {
+                  "color": "#F00011",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               },
               {
                 "partyId": "au-liberal_national_coalition",
@@ -134,22 +164,42 @@
               {
                 "partyId": "au-independents",
                 "party": "Independents",
-                "seats": 10
+                "seats": 10,
+                "visual": {
+                  "color": "#888888",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               },
               {
                 "partyId": "au-centre_alliance",
                 "party": "Centre Alliance",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#FF944D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               },
               {
                 "partyId": "au-katters_australian_party",
                 "party": "Katter's Australian Party (KAP)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#B50204",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               },
               {
                 "partyId": "au-greens_0",
                 "party": "The Greens",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#10C25B",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-61565"]
+                }
               }
             ]
           },
@@ -209,17 +259,32 @@
               {
                 "partyId": "au-australian_labor_party_alp",
                 "party": "Australian Labor Party (ALP)",
-                "seats": 16
+                "seats": 16,
+                "visual": {
+                  "color": "#F00011",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-liberal",
                 "party": "Liberal",
-                "seats": 6
+                "seats": 6,
+                "visual": {
+                  "color": "#080CAB",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-greens_0",
                 "party": "The Greens",
-                "seats": 6
+                "seats": 6,
+                "visual": {
+                  "color": "#10C25B",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-liberalnationals",
@@ -229,7 +294,12 @@
               {
                 "partyId": "au-pauline_hansons_one_nation",
                 "party": "Pauline Hanson's One Nation",
-                "seats": 3
+                "seats": 3,
+                "visual": {
+                  "color": "#F36B1B",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-liberal_national_party_queensland",
@@ -239,7 +309,12 @@
               {
                 "partyId": "au-country_liberals_nt",
                 "party": "Country Liberals (NT)",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#080CAB",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-david_pocock",
@@ -249,14 +324,24 @@
               {
                 "partyId": "au-jacqui_lambie_network",
                 "party": "Jacqui Lambie Network",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#FFCB08",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               }
             ],
             "postElectionComposition": [
               {
                 "partyId": "au-uc01-e20250503-note-australian-labor-party-government",
                 "party": "Australian Labor Party (government)",
-                "seats": 29
+                "seats": 29,
+                "visual": {
+                  "color": "#F00011",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-uc01-e20250503-note-coalition-opposition",
@@ -266,32 +351,62 @@
               {
                 "partyId": "au-uc01-e20250503-note-australian-greens",
                 "party": "Australian Greens",
-                "seats": 10
+                "seats": 10,
+                "visual": {
+                  "color": "#10C25B",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-uc01-e20250503-note-pauline-hanson-s-one-nation",
                 "party": "Pauline Hanson's One Nation",
-                "seats": 4
+                "seats": 4,
+                "visual": {
+                  "color": "#F36B1B",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-uc01-e20250503-note-independent",
                 "party": "Independent",
-                "seats": 3
+                "seats": 3,
+                "visual": {
+                  "color": "#888888",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-uc01-e20250503-note-australia-s-voice",
                 "party": "Australia's Voice",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#91073D",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-uc01-e20250503-note-jacqui-lambie-network",
                 "party": "Jacqui Lambie Network",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#FFCB08",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               },
               {
                 "partyId": "au-uc01-e20250503-note-united-australia-party",
                 "party": "United Australia Party",
-                "seats": 1
+                "seats": 1,
+                "visual": {
+                  "color": "#FFED00",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-165705"]
+                }
               }
             ]
           },

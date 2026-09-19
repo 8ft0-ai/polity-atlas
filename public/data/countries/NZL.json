@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "NZ",
@@ -38,7 +38,7 @@
     "name": {
       "value": "House of Representatives",
       "asOf": "2026-09-19",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
       "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
@@ -92,64 +92,124 @@
               {
                 "partyId": "nz-national_party",
                 "party": "National Party",
-                "seats": 49
+                "seats": 49,
+                "visual": {
+                  "color": "#00529F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-labour_party",
                 "party": "Labour Party",
-                "seats": 34
+                "seats": 34,
+                "visual": {
+                  "color": "#D82A20",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-green_party_0",
                 "party": "Green Party",
-                "seats": 15
+                "seats": 15,
+                "visual": {
+                  "color": "#098137",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-act_new_zealand",
                 "party": "ACT New Zealand",
-                "seats": 11
+                "seats": 11,
+                "visual": {
+                  "color": "#FDE401",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-new_zealand_first",
                 "party": "New Zealand First",
-                "seats": 8
+                "seats": 8,
+                "visual": {
+                  "color": "#000000",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-maori_party",
                 "party": "Maori Party",
-                "seats": 6
+                "seats": 6,
+                "visual": {
+                  "color": "#B2001A",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               }
             ],
             "postElectionComposition": [
               {
                 "partyId": "nz-national_party",
                 "party": "National Party",
-                "seats": 49
+                "seats": 49,
+                "visual": {
+                  "color": "#00529F",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-labour_party",
                 "party": "Labour Party",
-                "seats": 34
+                "seats": 34,
+                "visual": {
+                  "color": "#D82A20",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-green_party_0",
                 "party": "Green Party",
-                "seats": 15
+                "seats": 15,
+                "visual": {
+                  "color": "#098137",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-act_new_zealand",
                 "party": "ACT New Zealand",
-                "seats": 11
+                "seats": 11,
+                "visual": {
+                  "color": "#FDE401",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-new_zealand_first",
                 "party": "New Zealand First",
-                "seats": 8
+                "seats": 8,
+                "visual": {
+                  "color": "#000000",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               },
               {
                 "partyId": "nz-maori_party",
                 "party": "Maori Party",
-                "seats": 6
+                "seats": 6,
+                "visual": {
+                  "color": "#B2001A",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-353844"]
+                }
               }
             ]
           },

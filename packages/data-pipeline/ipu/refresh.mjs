@@ -121,10 +121,7 @@ for (const country of targets) {
       value: mergeIpuProfile(previous, normalized, buildId),
     });
   } else {
-    const outputPath = resolve(
-      legislatureDirectory,
-      `${country.iso3}.json`,
-    );
+    const outputPath = resolve(legislatureDirectory, `${country.iso3}.json`);
     prepared.push({
       country,
       mode: country.mode,
@@ -162,7 +159,12 @@ try {
       `${country.iso3}.json`,
     );
     await writeJson(stagedPath, value);
-    stagedProfiles.push({ country, outputPath, stagedPath, selected: Boolean(candidate) });
+    stagedProfiles.push({
+      country,
+      outputPath,
+      stagedPath,
+      selected: Boolean(candidate),
+    });
   }
 
   const stagedLegislatures = [];
@@ -171,12 +173,8 @@ try {
       (entry) =>
         entry.mode === 'legislature' && entry.country.iso3 === country.iso3,
     );
-    const outputPath = resolve(
-      legislatureDirectory,
-      `${country.iso3}.json`,
-    );
-    const value =
-      candidate?.value ?? (await readJsonIfPresent(outputPath));
+    const outputPath = resolve(legislatureDirectory, `${country.iso3}.json`);
+    const value = candidate?.value ?? (await readJsonIfPresent(outputPath));
     if (!value) {
       throw new Error(
         `Legislature ${country.iso3} has not been generated; run the full IPU refresh first`,
@@ -253,10 +251,7 @@ try {
   const manifestOutput = await readFile(stagedManifestPath);
 
   for (const entry of stagedProfiles.filter(({ selected }) => selected)) {
-    await writeFile(
-      entry.outputPath,
-      profileOutputs.get(entry.country.iso3),
-    );
+    await writeFile(entry.outputPath, profileOutputs.get(entry.country.iso3));
     process.stdout.write(`Updated ${entry.country.iso3}\n`);
   }
   for (const entry of stagedLegislatures.filter(({ selected }) => selected)) {

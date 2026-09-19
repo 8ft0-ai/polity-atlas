@@ -1,0 +1,511 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-09-19",
+  "identity": {
+    "entityId": "state:m49:104",
+    "iso2": "MM",
+    "iso3": "MMR",
+    "m49": "104",
+    "name": "Myanmar"
+  },
+  "parliament": {
+    "name": {
+      "value": "Assembly of the Union",
+      "asOf": "2026-09-19",
+      "retrievedAt": "2026-09-19T04:30:00.000Z",
+      "sourceIds": ["ipu-parline"],
+      "confidence": "verified"
+    },
+    "chambers": [
+      {
+        "id": "MM-LC01",
+        "name": "House of Representatives",
+        "kind": "lower",
+        "totalSeats": 440,
+        "parliamentaryTermYears": 5,
+        "speakers": [
+          {
+            "acting": false,
+            "vacant": true,
+            "additionalInformation": "In accordance with article 76 (a) of the Constitution, the Speaker and the Deputy Speaker of the Amyotha Hluttaw (House of Nationalities) shall also serve as the Speaker and the Deputy Speaker of the Pyidaungsu Hluttaw (joint Parliament) from the day of term of the Pyithu Hluttaw commences up to the end of 30 months. Thereafter the Speaker and the Deputy Speaker of the Pyithu Hluttaw (House of Representatives) shall also serve as the Speaker and the Deputy Speaker of the Pyidaungsu Hluttaw for the remaining term.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Fourth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
+          }
+        ],
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "directlyElectedSeats": 330,
+          "appointedSeats": 110,
+          "votingAge": 18,
+          "eligibilityAge": 25,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "MM-LC01-E20201108",
+          "title": "Myanmar House of Representatives November 2020 Election",
+          "date": {
+            "from": "2020-11-08"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 315,
+          "chamberSize": 440,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "mm-national_league_democracy_nld",
+                "party": "National League for Democracy (NLD)",
+                "seats": 258
+              },
+              {
+                "partyId": "mm-union_solidarity_and_development_party_usdp",
+                "party": "Union Solidarity and Development Party (USDP)",
+                "seats": 26
+              },
+              {
+                "partyId": "mm-shan_national_league_for_democracy_snld_",
+                "party": "Shan National League for Democracy (SNLD)",
+                "seats": 13
+              },
+              {
+                "partyId": "mm-arakan_national_party_anp",
+                "party": "Arakan National Party (ANP)",
+                "seats": 4
+              },
+              {
+                "partyId": "mm-pa_o_national_organisation_pa_o_no",
+                "party": "Pa-O National Organisation (Pa O NO)",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-taang_national_party_taang_np",
+                "party": "Ta'ang National Party (Ta'ang NP)",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-kayah_state_democratic_party",
+                "party": "Kayah State Democratic Party",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-mon_unity_party",
+                "party": "Mon Unity Party",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-arakan_front_party",
+                "party": "Arakan Front Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-kachin_state_people_s_party",
+                "party": "Kachin State People's Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-wa_national_party",
+                "party": "Wa National Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-zomi_congress_democracy_zomi_cd",
+                "party": "Zomi Congress for Democracy (Zomi CD)",
+                "seats": 1
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "mm-national_league_democracy_nld",
+                "party": "National League for Democracy (NLD)",
+                "seats": 258
+              },
+              {
+                "partyId": "mm-union_solidarity_and_development_party_usdp",
+                "party": "Union Solidarity and Development Party (USDP)",
+                "seats": 26
+              },
+              {
+                "partyId": "mm-shan_national_league_for_democracy_snld_",
+                "party": "Shan National League for Democracy (SNLD)",
+                "seats": 13
+              },
+              {
+                "partyId": "mm-arakan_national_party_anp",
+                "party": "Arakan National Party (ANP)",
+                "seats": 4
+              },
+              {
+                "partyId": "mm-pa_o_national_organisation_pa_o_no",
+                "party": "Pa-O National Organisation (Pa O NO)",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-taang_national_party_taang_np",
+                "party": "Ta'ang National Party (Ta'ang NP)",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-kayah_state_democratic_party",
+                "party": "Kayah State Democratic Party",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-mon_unity_party",
+                "party": "Mon Unity Party",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-arakan_front_party",
+                "party": "Arakan Front Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-kachin_state_people_s_party",
+                "party": "Kachin State People's Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-wa_national_party",
+                "party": "Wa National Party",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-zomi_congress_democracy_zomi_cd",
+                "party": "Zomi Congress for Democracy (Zomi CD)",
+                "seats": 1
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
+      },
+      {
+        "id": "wiki-mmr-pyithu-hluttaw",
+        "name": "Pyithu Hluttaw",
+        "kind": "lower",
+        "totalSeats": 440,
+        "speakers": [],
+        "composition": {
+          "basis": "source-reported",
+          "reportedSeats": 440,
+          "retrievedAt": "2026-09-19T04:35:00.000Z",
+          "entries": [
+            {
+              "partyId": "wiki-29739592-ungrouped-usdp-1",
+              "party": "USDP",
+              "seats": 231,
+              "visual": {
+                "color": "#00623D",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-tatmadaw-2",
+              "party": "Tatmadaw",
+              "seats": 110,
+              "visual": {
+                "color": "#000000",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-vacant-vacant-15",
+              "party": "Vacant",
+              "seats": 67,
+              "group": "Vacant",
+              "visual": {
+                "color": "#FFFFFF",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-sndp-3",
+              "party": "SNDP",
+              "seats": 7,
+              "visual": {
+                "color": "#D7CD8A",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-mup-5",
+              "party": "MUP",
+              "seats": 5,
+              "visual": {
+                "color": "#C13830",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-pno-4",
+              "party": "PNO",
+              "seats": 5,
+              "visual": {
+                "color": "#28166F",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-nnp-7",
+              "party": "NNP",
+              "seats": 4,
+              "visual": {
+                "color": "#FF0000",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-nup-6",
+              "party": "NUP",
+              "seats": 4,
+              "visual": {
+                "color": "#2188CA",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-dndp-8",
+              "party": "DNDP",
+              "seats": 1,
+              "visual": {
+                "color": "#EB1D27",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-independent-14",
+              "party": "Independent",
+              "seats": 1,
+              "visual": {
+                "color": "#C0C0C0",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-inlp-10",
+              "party": "INLP",
+              "seats": 1,
+              "visual": {
+                "color": "#7E0D05",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-kndp-9",
+              "party": "KNDP",
+              "seats": 1,
+              "visual": {
+                "color": "#4B83B2",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-kspp-11",
+              "party": "KSPP",
+              "seats": 1,
+              "visual": {
+                "color": "#1D7706",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-rnp-13",
+              "party": "RNP",
+              "seats": 1,
+              "visual": {
+                "color": "#EF2B2D",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            },
+            {
+              "partyId": "wiki-29739592-ungrouped-ssp-12",
+              "party": "SSP",
+              "seats": 1,
+              "visual": {
+                "color": "#CE000C",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-29739592"]
+              }
+            }
+          ],
+          "sourceIds": ["wikipedia-en-page-29739592"]
+        },
+        "sourceIds": [
+          "wikipedia-en-page-29739324",
+          "wikipedia-en-page-29739592"
+        ]
+      },
+      {
+        "id": "wiki-mmr-amyotha-hluttaw",
+        "name": "Amyotha Hluttaw",
+        "kind": "upper",
+        "totalSeats": 224,
+        "speakers": [],
+        "sourceIds": [
+          "wikipedia-en-page-29739324",
+          "wikipedia-en-page-29739530"
+        ]
+      },
+      {
+        "id": "MM-UC01",
+        "name": "House of Nationalities",
+        "kind": "upper",
+        "totalSeats": 224,
+        "parliamentaryTermYears": 5,
+        "speakers": [
+          {
+            "officialTitle": "Président de la Chambre des nationalités",
+            "acting": false,
+            "vacant": true,
+            "additionalInformation": "In accordance with article 76 (a) of the Constitution, the Speaker and the Deputy Speaker of the Amyotha Hluttaw (House of Nationalities) shall also serve as the Speaker and the Deputy Speaker of the Pyidaungsu Hluttaw (joint Parliament) from the day of term of the Pyithu Hluttaw commences up to the end of 30 months. Thereafter the Speaker and the Deputy Speaker of the Pyithu Hluttaw (House of Representatives) shall also serve as the Speaker and the Deputy Speaker of the Pyidaungsu Hluttaw for the remaining term.",
+            "designationMode": "The Speaker is elected from among the members of parliament/chamber",
+            "stateRank": "Fifth",
+            "becomesInterimHeadOfState": false,
+            "mandateContinuesBetweenLegislatures": false,
+            "sourceIds": ["ipu-parline"]
+          }
+        ],
+        "electoralSystem": {
+          "directlyElected": true,
+          "systems": ["Plurality/majority", "First Past The Post (FPTP)"],
+          "directlyElectedSeats": 168,
+          "appointedSeats": 56,
+          "votingAge": 18,
+          "eligibilityAge": 25,
+          "compulsoryVoting": "No",
+          "sourceIds": ["ipu-parline"]
+        },
+        "sourceIds": ["ipu-parline"],
+        "latestElection": {
+          "id": "MM-UC01-E20201108",
+          "title": "Myanmar House of Nationalities November 2020 Election",
+          "date": {
+            "from": "2020-11-08"
+          },
+          "scope": "full-renewal",
+          "seatsAtStake": 161,
+          "chamberSize": 224,
+          "outcome": {
+            "display": "post-election-full-composition",
+            "seatsWonInElection": [
+              {
+                "partyId": "mm-national_league_democracy_nld",
+                "party": "National League for Democracy (NLD)",
+                "seats": 138
+              },
+              {
+                "partyId": "mm-union_solidarity_and_development_party_usdp",
+                "party": "Union Solidarity and Development Party (USDP)",
+                "seats": 7
+              },
+              {
+                "partyId": "mm-arakan_national_party_anp",
+                "party": "Arakan National Party (ANP)",
+                "seats": 4
+              },
+              {
+                "partyId": "mm-kayah_state_democratic_party",
+                "party": "Kayah State Democratic Party",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-mon_unity_party",
+                "party": "Mon Unity Party",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-shan_national_league_for_democracy_snld_",
+                "party": "Shan National League for Democracy (SNLD)",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-taang_national_party_taang_np",
+                "party": "Ta'ang National Party (Ta'ang NP)",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-new_democracy_party_kachin_n_d_p_kachin_",
+                "party": "New Democracy Party Kachin (N.D.P. Kachin)",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-pa_o_national_organisation_pa_o_no",
+                "party": "Pa-O National Organisation (Pa O NO)",
+                "seats": 1
+              }
+            ],
+            "postElectionComposition": [
+              {
+                "partyId": "mm-national_league_democracy_nld",
+                "party": "National League for Democracy (NLD)",
+                "seats": 138
+              },
+              {
+                "partyId": "mm-union_solidarity_and_development_party_usdp",
+                "party": "Union Solidarity and Development Party (USDP)",
+                "seats": 7
+              },
+              {
+                "partyId": "mm-arakan_national_party_anp",
+                "party": "Arakan National Party (ANP)",
+                "seats": 4
+              },
+              {
+                "partyId": "mm-kayah_state_democratic_party",
+                "party": "Kayah State Democratic Party",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-mon_unity_party",
+                "party": "Mon Unity Party",
+                "seats": 3
+              },
+              {
+                "partyId": "mm-shan_national_league_for_democracy_snld_",
+                "party": "Shan National League for Democracy (SNLD)",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-taang_national_party_taang_np",
+                "party": "Ta'ang National Party (Ta'ang NP)",
+                "seats": 2
+              },
+              {
+                "partyId": "mm-new_democracy_party_kachin_n_d_p_kachin_",
+                "party": "New Democracy Party Kachin (N.D.P. Kachin)",
+                "seats": 1
+              },
+              {
+                "partyId": "mm-pa_o_national_organisation_pa_o_no",
+                "party": "Pa-O National Organisation (Pa O NO)",
+                "seats": 1
+              }
+            ]
+          },
+          "sourceIds": ["ipu-parline"]
+        }
+      }
+    ]
+  },
+  "nextExpectedElections": []
+}
