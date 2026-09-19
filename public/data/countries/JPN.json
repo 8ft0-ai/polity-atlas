@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "JP",
@@ -14,7 +14,9 @@
       "value": "Unitary parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["jp-country"],
+      "sourceIds": [
+        "jp-country"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "Emperor",
         "name": "Naruhito",
         "since": "2019-05-01",
-        "sourceIds": ["jp-emperor"]
+        "sourceIds": [
+          "jp-emperor"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Sanae Takaichi",
         "since": "2026-02-18",
-        "sourceIds": ["jp-prime-minister"]
+        "sourceIds": [
+          "jp-prime-minister"
+        ]
       }
     ]
   },
@@ -39,7 +45,9 @@
       "value": "National Diet",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "sourceIds": ["ipu-parline"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
@@ -64,19 +72,28 @@
             "stateRank": "Other",
             "becomesInterimHeadOfState": true,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": ["Mixed system", "Parallel Systems"],
+          "systems": [
+            "Mixed system",
+            "Parallel Systems"
+          ],
           "directlyElectedSeats": 465,
           "votingAge": 18,
           "eligibilityAge": 25,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "JP-LC01-E20260208",
           "title": "Japan House of Representatives February 2026 Election",
@@ -196,7 +213,9 @@
           "notes": [
             "One independent candidate joined the LDP after the elections, giving it 316 seats."
           ],
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       },
       {
@@ -221,19 +240,28 @@
             "stateRank": "Other",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": ["Mixed system", "Parallel Systems"],
+          "systems": [
+            "Mixed system",
+            "Parallel Systems"
+          ],
           "directlyElectedSeats": 248,
           "votingAge": 18,
           "eligibilityAge": 30,
           "compulsoryVoting": "No",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "JP-UC01-E20250720",
           "title": "Japan House of Councillors July 2025 Election",
@@ -311,7 +339,9 @@
           "notes": [
             "The number of seats for the Constitutional Democratic Party of Japan includes one female member who won a by-election in Tokyo prefecture.\n\nParliamentary groups in the House of Councillors (As of 25 August 2025)\n- Liberal Democratic Party (LDP): 100\n- Constitutional Democratic Party of Japan (CDP) - Social Democratic Party (SDP) – Independents: 42\n- The Democratic Party and The Shin-Ryokufukai (DP-SR): 25\n- Komeito (KP): 21\n- Nippon Ishin (Japan Innovation Party): 19\n- Sanseito: 15\n- Japanese Communist Party (JCP): 7\n- Reiwa Shinsengumi: 6\n- Okinawa Whirlwind (OW): 2\n- Conservative Party of Japan: 2\n- Independents: 9"
           ],
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       }
     ]
@@ -327,7 +357,9 @@
       "date": {
         "from": "2028-07-31"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     },
     {
       "id": "JP-LC01:2030-01-31",
@@ -339,7 +371,9 @@
       "date": {
         "from": "2030-01-31"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "relations": [
@@ -348,108 +382,81 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
+      "sourceIds": [
+        "jp-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["jp-missions"]
-    }
-  ],
-  "sources": [
-    {
-      "id": "ipu-parline",
-      "publisher": "Inter-Parliamentary Union",
-      "title": "Parline national parliament, chamber and election data",
-      "url": "https://data.ipu.org/",
-      "retrievedAt": "2026-09-19T00:00:00.000Z",
-      "kind": "intergovernmental",
-      "attribution": "Inter-Parliamentary Union: Parline, September 2026",
-      "termsUrl": "https://www.ipu.org/terms-use",
-      "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
-    },
-    {
-      "id": "jp-country",
-      "publisher": "Wikipedia",
-      "title": "Japan",
-      "url": "https://en.wikipedia.org/wiki/Japan",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "jp-emperor",
-      "publisher": "Imperial Household Agency",
-      "title": "Their Majesties the Emperor and Empress",
-      "url": "https://www.kunaicho.go.jp/en/learn/about/history/history01.html",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
-    },
-    {
-      "id": "jp-missions",
-      "publisher": "Wikipedia",
-      "title": "List of diplomatic missions of Japan",
-      "url": "https://en.wikipedia.org/wiki/List_of_diplomatic_missions_of_Japan",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "reference"
-    },
-    {
-      "id": "jp-prime-minister",
-      "publisher": "Prime Minister's Office of Japan",
-      "title": "Designation of the Prime Minister",
-      "url": "https://japan.kantei.go.jp/105/actions/202602/_00001.html",
-      "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "kind": "official"
+      "sourceIds": [
+        "jp-missions"
+      ]
     }
   ]
 }
