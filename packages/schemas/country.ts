@@ -209,6 +209,14 @@ export const chamberSchema = z
     totalSeats: z.number().int().positive(),
     parliamentaryTermYears: z.number().positive().optional(),
     renewalFrequencyYears: z.number().positive().optional(),
+    operationalStatus: z
+      .object({
+        state: z.literal('suspended'),
+        since: z.iso.date().optional(),
+        note: z.string().optional(),
+        sourceIds: z.array(z.string()).min(1),
+      })
+      .optional(),
     speakers: z.array(speakerSchema),
     electoralSystem: electoralSystemSchema.optional(),
     latestElection: latestElectionSchema.optional(),
