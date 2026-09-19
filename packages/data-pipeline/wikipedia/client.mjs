@@ -1,4 +1,5 @@
-const DEFAULT_API_URL = 'https://en.wikipedia.org/w/api.php';
+const DEFAULT_REST_BASE_URL =
+  'https://en.wikipedia.org/w/rest.php/v1/';
 const DEFAULT_USER_AGENT =
   'Polity-Atlas/0.1 (+https://github.com/8ft0-ai/polity-atlas)';
 
@@ -9,28 +10,52 @@ function normalizedTitle(value) {
     .trim();
 }
 
+function canonicalArticleUrl(page) {
+  const key = page.key ?? page.title?.replaceAll(' ', '_');
+  return `https://en.wikipedia.org/wiki/${encodeURIComponent(key)}`;
+}
+
+function pageSnapshot(page) {
+  if (!page?.id || !page?.title || typeof page.html !== 'string') {
+    throw new Error('Wikimedia REST page response is missing required fields');
+  }
+
+  return {
+    pageId: page.id,
+    title: page.title,
+    ...(page.key && { key: page.key }),
+    ...(page.latest?.id !== undefined && { revisionId: page.latest.id }),
+    ...(page.latest?.timestamp && {
+      revisionTimestamp: page.latest.timestamp,
+    }),
+    ...(page.license?.title &&
+      page.license?.url && {
+        license: {
+          title: page.license.title,
+          url: page.license.url,
+        },
+      }),
+    url: canonicalArticleUrl(page),
+    html: page.html,
+  };
+}
+
 export class WikipediaClient {
   constructor({
-    apiUrl = DEFAULT_API_URL,
+    restBaseUrl = DEFAULT_REST_BASE_URL,
     fetchImpl = globalThis.fetch,
     timeoutMs = 30_000,
   } = {}) {
     if (!fetchImpl) throw new Error('A fetch implementation is required');
-    this.apiUrl = apiUrl;
+    this.restBaseUrl = restBaseUrl.endsWith('/')
+      ? restBaseUrl
+      : `${restBaseUrl}/`;
     this.fetchImpl = fetchImpl;
     this.timeoutMs = timeoutMs;
   }
 
-  async request(params) {
-    const url = new URL(this.apiUrl);
-    for (const [key, value] of Object.entries({
-      format: 'json',
-      formatversion: 2,
-      ...params,
-    })) {
-      url.searchParams.set(key, String(value));
-    }
-
+  async request(path, { allowNotFound = false } = {}) {
+    const url = new URL(path.replace(/^\//, ''), this.restBaseUrl);
     const response = await this.fetchImpl(url, {
       headers: {
         Accept: 'application/json',
@@ -38,83 +63,67 @@ export class WikipediaClient {
       },
       signal: AbortSignal.timeout(this.timeoutMs),
     });
+
+    if (allowNotFound && response.status === 404) return undefined;
     if (!response.ok) {
       throw new Error(
-        `Wikipedia request failed (${response.status}) for ${url}`,
+        `Wikimedia REST request failed (${response.status}) for ${url}`,
       );
     }
     return response.json();
   }
 
-  async resolveParliamentPage(countryName) {
-    const requestedTitle = `Parliament of ${countryName}`;
-    const exact = await this.request({
-      action: 'query',
-      redirects: 1,
-      prop: 'info',
-      inprop: 'url',
-      titles: requestedTitle,
-    });
-    const page = exact.query?.pages?.[0];
-    if (page && !page.missing) return page;
-
-    const search = await this.request({
-      action: 'query',
-      list: 'search',
-      srnamespace: 0,
-      srlimit: 10,
-      srsearch: `intitle:Parliament ${countryName}`,
-    });
-    const countryNeedle = normalizedTitle(countryName);
-    const candidate = search.query?.search?.find((entry) => {
-      const title = normalizedTitle(entry.title);
-      return title.includes('parliament') && title.includes(countryNeedle);
-    });
-    if (!candidate) return undefined;
-
-    const resolved = await this.request({
-      action: 'query',
-      redirects: 1,
-      prop: 'info',
-      inprop: 'url',
-      titles: candidate.title,
-    });
-    return resolved.query?.pages?.find((entry) => !entry.missing);
+  async fetchPageWithHtml(title, { allowNotFound = false } = {}) {
+    const pageKey = encodeURIComponent(title.replaceAll(' ', '_'));
+    const response = await this.request(
+      `page/${pageKey}/with_html`,
+      { allowNotFound },
+    );
+    return response ? pageSnapshot(response) : undefined;
   }
 
-  async fetchParsedPage(title) {
-    const response = await this.request({
-      action: 'parse',
-      page: title,
-      prop: 'text',
-      disableeditsection: 1,
+  async searchPages(query, limit = 10) {
+    const params = new URLSearchParams({
+      q: query,
+      limit: String(limit),
     });
-    if (!response.parse?.text) {
-      throw new Error(`Wikipedia returned no parsed HTML for ${title}`);
-    }
-    return {
-      pageId: response.parse.pageid,
-      title: response.parse.title,
-      url: `https://en.wikipedia.org/wiki/${encodeURIComponent(
-        response.parse.title.replaceAll(' ', '_'),
-      )}`,
-      html: response.parse.text,
-    };
+    const response = await this.request(`search/page?${params}`);
+    return response.pages ?? [];
+  }
+
+  async resolveParliamentPage(countryName) {
+    const requestedTitle = `Parliament of ${countryName}`;
+    const exact = await this.fetchPageWithHtml(requestedTitle, {
+      allowNotFound: true,
+    });
+    if (exact) return exact;
+
+    const search = await this.searchPages(requestedTitle, 10);
+    const requestedNeedle = normalizedTitle(requestedTitle);
+    const countryNeedle = normalizedTitle(countryName);
+
+    const candidate =
+      search.find(
+        (entry) =>
+          normalizedTitle(entry.title ?? entry.key ?? '') === requestedNeedle,
+      ) ??
+      search.find((entry) => {
+        const title = normalizedTitle(entry.title ?? entry.key ?? '');
+        return title.includes('parliament') && title.includes(countryNeedle);
+      });
+    if (!candidate) return undefined;
+
+    return this.fetchPageWithHtml(candidate.key ?? candidate.title);
   }
 
   async fetchParliamentSnapshot(country, retrievedAt) {
-    const resolved = await this.resolveParliamentPage(country.name);
-    if (!resolved) {
-      return {
-        retrievedAt,
-        requestedCountry: country,
-        parliamentPage: undefined,
-        chamberPages: [],
-      };
-    }
-
-    const parliamentPage = await this.fetchParsedPage(resolved.title);
+    const parliamentPage = await this.resolveParliamentPage(country.name);
     return {
+      acquisition: {
+        provider: 'Wikimedia',
+        api: 'MediaWiki REST API',
+        version: 'v1',
+      },
       retrievedAt,
       requestedCountry: country,
       parliamentPage,
