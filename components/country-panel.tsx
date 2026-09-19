@@ -609,15 +609,15 @@ export function CountryPanel() {
                   Government
                 </p>
                 <p className="mt-2 text-[15px] leading-6">
-                  {profileQuery.data.government.system.value}
+                  {fullProfile!.government.system.value}
                   <Sources
-                    ids={profileQuery.data.government.system.sourceIds}
+                    ids={fullProfile!.government.system.sourceIds}
                     sources={sources}
                   />
                 </p>
               </section>
               <section className="grid grid-cols-2 gap-3">
-                {officeHolderCards(profileQuery.data).map((holder) => (
+                {(fullProfile ? officeHolderCards(fullProfile) : []).map((holder) => (
                   <article
                     key={holder.key}
                     className="border border-border bg-background/45 p-3"
@@ -819,7 +819,7 @@ export function CountryPanel() {
                 Related countries are highlighted on the map while this tab is
                 active.
               </p>
-              {profileQuery.data.relations.map((relation) => (
+              {(fullProfile?.relations ?? []).map((relation) => (
                 <article
                   key={relation.m49}
                   className="flex items-start justify-between gap-4 border-b border-border py-3 first:pt-0"
