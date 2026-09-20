@@ -11,6 +11,10 @@ import {
   normalizeIpuSnapshot,
 } from './normalize.mjs';
 import { mergeSourceRecords } from '../sources/registry.mjs';
+import {
+  applyCuratedOverrides,
+  hasCuratedOverrides,
+} from '../overrides/registry.mjs';
 
 const repositoryRoot = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -23,6 +27,10 @@ const fullConfigPath = resolve(
 const legislatureConfigPath = resolve(
   repositoryRoot,
   'packages/data-pipeline/config/legislature-pilots.json',
+);
+const overrideConfigPath = resolve(
+  repositoryRoot,
+  'packages/data-pipeline/config/curated-overrides.json',
 );
 const profileDirectory = resolve(repositoryRoot, 'public/data/countries');
 const legislatureDirectory = resolve(
@@ -90,6 +98,7 @@ if (onlyIso3 && !targets.length) {
 
 const client = new IpuClient();
 const existingSourceRegistry = await readJson(sourcesPath);
+const overrideRegistry = await readJson(overrideConfigPath);
 const emittedSources = [];
 
 let taxonomies;
@@ -139,6 +148,7 @@ const mergedSources = mergeSourceRecords(
   existingSourceRegistry.sources,
   uniqueEmittedSources,
 );
+const knownSourceIds = new Set(mergedSources.map((source) => source.id));
 
 await mkdir(cacheDirectory, { recursive: true });
 const stagingDirectory = await mkdtemp(
@@ -152,7 +162,11 @@ try {
       (entry) => entry.mode === 'full' && entry.country.iso3 === country.iso3,
     );
     const outputPath = resolve(profileDirectory, `${country.iso3}.json`);
-    const value = candidate?.value ?? (await readJson(outputPath));
+    const target = { iso3: country.iso3, mode: 'full' };
+    const baseValue = candidate?.value ?? (await readJson(outputPath));
+    const value = applyCuratedOverrides(baseValue, overrideRegistry, target, {
+      knownSourceIds,
+    });
     const stagedPath = resolve(
       stagingDirectory,
       'countries',
@@ -163,7 +177,8 @@ try {
       country,
       outputPath,
       stagedPath,
-      selected: Boolean(candidate),
+      selected:
+        Boolean(candidate) || hasCuratedOverrides(overrideRegistry, target),
     });
   }
 
@@ -174,12 +189,16 @@ try {
         entry.mode === 'legislature' && entry.country.iso3 === country.iso3,
     );
     const outputPath = resolve(legislatureDirectory, `${country.iso3}.json`);
-    const value = candidate?.value ?? (await readJsonIfPresent(outputPath));
-    if (!value) {
+    const target = { iso3: country.iso3, mode: 'legislature' };
+    const baseValue = candidate?.value ?? (await readJsonIfPresent(outputPath));
+    if (!baseValue) {
       throw new Error(
         `Legislature ${country.iso3} has not been generated; run the full IPU refresh first`,
       );
     }
+    const value = applyCuratedOverrides(baseValue, overrideRegistry, target, {
+      knownSourceIds,
+    });
     const stagedPath = resolve(
       stagingDirectory,
       'legislatures',
@@ -190,7 +209,8 @@ try {
       country,
       outputPath,
       stagedPath,
-      selected: Boolean(candidate),
+      selected:
+        Boolean(candidate) || hasCuratedOverrides(overrideRegistry, target),
     });
   }
 
