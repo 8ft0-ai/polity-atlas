@@ -706,7 +706,10 @@ export function mergeIpuProfile(profile, normalized, buildId) {
           }),
         }
       : chamber;
-    return !hasFullIpuComposition && previous?.composition
+    const hasIpuStructuredComposition = Boolean(chamber.composition);
+    return !hasFullIpuComposition &&
+      !hasIpuStructuredComposition &&
+      previous?.composition
       ? { ...withVisuals, composition: previous.composition }
       : withVisuals;
   });
