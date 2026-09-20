@@ -413,6 +413,10 @@ function hasIpuFullComposition(chamber) {
   );
 }
 
+function hasIpuStructuredComposition(chamber) {
+  return compositionSourceIds(chamber.composition).includes('ipu-parline');
+}
+
 function isWikipediaFallbackComposition(composition) {
   return compositionSourceIds(composition).some((sourceId) =>
     sourceId.startsWith('wikipedia-en-page-'),
@@ -631,7 +635,11 @@ export function normalizeWikipediaParliament(snapshot, profile) {
   );
 
   const chamberCompositions = matchedCandidates
-    .filter(({ chamber }) => !hasIpuFullComposition(chamber))
+    .filter(
+      ({ chamber }) =>
+        !hasIpuFullComposition(chamber) &&
+        !hasIpuStructuredComposition(chamber),
+    )
     .map(({ candidate, chamber }) => ({
       chamberId: chamber.id,
       composition: sourceReportedComposition(
@@ -820,7 +828,11 @@ export function mergeWikipediaChambers(profile, normalized, buildId) {
     if (isWikipediaFallbackComposition(next.composition)) {
       delete next.composition;
     }
-    if (!hasIpuFullComposition(next) && compositions.has(next.id)) {
+    if (
+      !hasIpuFullComposition(next) &&
+      !next.composition &&
+      compositions.has(next.id)
+    ) {
       next.composition = compositions.get(next.id);
     }
     return next;
