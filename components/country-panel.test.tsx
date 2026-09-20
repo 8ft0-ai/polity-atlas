@@ -301,6 +301,96 @@ describe('CountryPanel', () => {
     );
   });
 
+  it.each([
+    { eventDate: '2020-09-18', expectedWarning: true },
+    { eventDate: '2020-09-19', expectedWarning: false },
+  ])(
+    'flags IPU election data only when it is more than six calendar years old: $eventDate',
+    async ({ eventDate, expectedWarning }) => {
+      const staleProfile = {
+        ...japanProfile,
+        buildId: '2026-09-19',
+        parliament: {
+          ...japanProfile.parliament,
+          chambers: japanProfile.parliament.chambers.map((chamber, index) =>
+            index === 0
+              ? {
+                  ...chamber,
+                  latestElection: chamber.latestElection
+                    ? {
+                        ...chamber.latestElection,
+                        date: { from: eventDate },
+                        sourceIds: ['ipu-parline'],
+                      }
+                    : undefined,
+                }
+              : { ...chamber, latestElection: undefined },
+          ),
+        },
+      };
+
+      selectProfile({
+        entityId: 'state:m49:392',
+        m49: '392',
+        name: 'Japan',
+        profile: staleProfile,
+      });
+      useWorkspaceStore.setState({ activeTab: 'parliament' });
+      renderPanel();
+
+      await screen.findByRole('tab', { name: 'Legislature' });
+      const warnings = document.querySelectorAll('[data-stale-ipu-warning]');
+      expect(warnings).toHaveLength(expectedWarning ? 1 : 0);
+      if (expectedWarning) {
+        expect(warnings[0]).toHaveTextContent(
+          'IPU election/renewal data is more than six years old.',
+        );
+        expect(warnings[0].querySelector('svg')).not.toBeNull();
+      }
+    },
+  );
+
+  it('does not show the stale-IPU warning for an equally old non-IPU record', async () => {
+    const wikipediaSource = sourceRegistry.sources.find(
+      (source) => source.publisher === 'Wikipedia',
+    );
+    expect(wikipediaSource).toBeDefined();
+
+    const nonIpuProfile = {
+      ...japanProfile,
+      buildId: '2026-09-19',
+      parliament: {
+        ...japanProfile.parliament,
+        chambers: japanProfile.parliament.chambers.map((chamber, index) =>
+          index === 0
+            ? {
+                ...chamber,
+                latestElection: chamber.latestElection
+                  ? {
+                      ...chamber.latestElection,
+                      date: { from: '2019-09-18' },
+                      sourceIds: [wikipediaSource!.id],
+                    }
+                  : undefined,
+              }
+            : { ...chamber, latestElection: undefined },
+        ),
+      },
+    };
+
+    selectProfile({
+      entityId: 'state:m49:392',
+      m49: '392',
+      name: 'Japan',
+      profile: nonIpuProfile,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+    renderPanel();
+
+    await screen.findByRole('tab', { name: 'Legislature' });
+    expect(document.querySelector('[data-stale-ipu-warning]')).toBeNull();
+  });
+
   it('uses IPU full composition for a partial renewal when it is supplied', async () => {
     selectProfile({
       entityId: 'state:m49:840',

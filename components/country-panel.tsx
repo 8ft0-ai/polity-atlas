@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { ExternalLink, X } from 'lucide-react';
+import { AlertTriangle, ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -281,6 +281,34 @@ function humanize(value: string) {
   return value.replaceAll('-', ' ');
 }
 
+function calendarYearsBefore(date: string, years: number) {
+  const [year, month, day] = date.split('-').map(Number);
+  const targetYear = year - years;
+  const lastDay = new Date(Date.UTC(targetYear, month, 0)).getUTCDate();
+  return [
+    targetYear.toString().padStart(4, '0'),
+    month.toString().padStart(2, '0'),
+    Math.min(day, lastDay).toString().padStart(2, '0'),
+  ].join('-');
+}
+
+function isStaleIpuElection(
+  election: CountryProfile['parliament']['chambers'][number]['latestElection'],
+  buildId: string,
+  sources: SourceRecord[],
+) {
+  if (!election) return false;
+  const isIpu = sources.some(
+    (source) =>
+      election.sourceIds.includes(source.id) &&
+      source.publisher === 'Inter-Parliamentary Union',
+  );
+  if (!isIpu) return false;
+
+  const eventDate = election.date.to ?? election.date.from;
+  return eventDate < calendarYearsBefore(buildId, 6);
+}
+
 type SeatEntry = {
   partyId: string;
   party: string;
@@ -417,9 +445,11 @@ function compositionCoverageText(
 function ElectionOutcome({
   chamber,
   sources,
+  buildId,
 }: {
   chamber: CountryProfile['parliament']['chambers'][number];
   sources: SourceRecord[];
+  buildId: string;
 }) {
   const election = chamber.latestElection;
   const outcome = election?.outcome;
@@ -432,6 +462,7 @@ function ElectionOutcome({
   const availableViews = compositionViews(chamber.composition);
   const primary = selectPrimaryComposition(chamber, selectedViewId);
   const isPartial = election?.scope === 'partial-renewal';
+  const staleIpuElection = isStaleIpuElection(election, buildId, sources);
   const isDirectlyElected = chamber.electoralSystem?.directlyElected !== false;
   const isAppointed =
     chamber.electoralSystem?.directlyElected === false &&
@@ -476,6 +507,18 @@ function ElectionOutcome({
                 : isPartial
                   ? `${election.seatsAtStake} of ${election.chamberSize} seats contested`
                   : `${election.seatsAtStake} seats contested`}
+            </p>
+          )}
+          {staleIpuElection && (
+            <p
+              className="ui-text mt-2 flex items-start gap-1.5 text-xs text-[var(--warning)]"
+              data-stale-ipu-warning
+            >
+              <AlertTriangle
+                className="mt-0.5 h-3.5 w-3.5 shrink-0"
+                aria-hidden="true"
+              />
+              <span>IPU election/renewal data is more than six years old.</span>
             </p>
           )}
           {!isDirectlyElected && (
@@ -893,7 +936,11 @@ export function CountryPanel() {
                       />
                     </div>
                   )}
-                  <ElectionOutcome chamber={chamber} sources={sources} />
+                  <ElectionOutcome
+                    chamber={chamber}
+                    sources={sources}
+                    buildId={profileQuery.data.buildId}
+                  />
 
                   <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2">
                     <section>

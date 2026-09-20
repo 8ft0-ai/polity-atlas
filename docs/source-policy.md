@@ -4,6 +4,8 @@ Prefer sources in this order: responsible national authority, intergovernmental 
 
 Every displayed fact requires at least one source ID, an `asOf` date where applicable, and a retrieval timestamp. Unknown information must remain unknown; it must not be converted into a negative assertion. Changes to leaders, election dates or outcomes, parliamentary structure, borders, or diplomatic status require review before publication.
 
+During development, record known access conditions, attribution requirements, and source-specific reuse constraints as they are discovered. The comprehensive source-by-source licensing and redistribution audit is intentionally deferred until the final release gate, after the feature scope and source set have stabilised. Existing source-specific terms below remain operational requirements and evidence for that later audit; they are not a claim that the project-wide licensing review is complete.
+
 ## Country and map identity sources
 
 United Nations membership and observer-state status define two of the primary-entity categories used by the map. Polity Atlas separately includes Kosovo and Taiwan as additional research entities. That additional category is an application decision and must not be represented as a United Nations recognition category.
@@ -56,9 +58,22 @@ provides that breakdown. Otherwise show the contested seats with both the seats
 at stake and the statutory chamber size. Never combine prior results to invent
 a current or post-election full composition.
 
+When the latest IPU election or renewal event date is more than six calendar
+years before the generated profile's build date, the Legislature UI displays a
+small warning triangle and orange warning text. Exactly six years is not stale
+under this rule. The comparison uses the event end date when present, otherwise
+the event start date; it never uses the source retrieval timestamp as evidence
+that an old political event is current.
+
 ## Global source identity
 
 Public source metadata is stored once in `public/data/sources.json`. Country profiles contain stable source IDs only. A source ID must not be reused for materially different publisher, title, URL, terms, licence, or source-kind metadata. Retrieval timestamps and time-bound attribution strings may advance when the same source is refreshed.
+
+## Curated overrides
+
+Source adapters remain generic. Exceptional factual corrections, if they become necessary, must use the committed `packages/data-pipeline/config/curated-overrides.json` registry rather than country-specific branches inside an adapter.
+
+The registry currently contains **no overrides**. A future entry is replacement-only and must identify a full-profile or legislature target, an existing output path, replacement value, supporting source IDs, reason, author, reviewer, and review date. Both IPU and Wikimedia refresh paths apply the same registry after source normalisation/enrichment and before staged output and manifest hashing. Unknown source IDs, unsafe or missing paths, duplicate override IDs, unsupported operations, or incomplete review metadata fail closed. The resulting generated profile remains subject to the ordinary schema/data validation gates.
 
 ## Wikipedia parliamentary fallback
 
