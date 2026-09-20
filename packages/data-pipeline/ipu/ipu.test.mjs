@@ -487,6 +487,34 @@ describe('IPU normalisation', () => {
       '2026-09-19',
     );
     expect(replaced.parliament.chambers[0].composition).toBeUndefined();
+
+    const ipuStructured = normalizeIpuSnapshot(noFull);
+    ipuStructured.parliament.chambers[0].composition = {
+      basis: 'source-reported',
+      defaultViewId: 'membership',
+      retrievedAt: '2026-09-19T00:00:00.000Z',
+      views: [
+        {
+          id: 'membership',
+          label: 'Membership composition',
+          dimension: 'membership-role',
+          reportedSeats: 100,
+          entries: [
+            {
+              partyId: 'au-lc01-appointed-members',
+              party: 'Appointed members',
+              seats: 99,
+            },
+            { partyId: 'au-lc01-speaker', party: 'Speaker', seats: 1 },
+          ],
+          sourceIds: ['ipu-parline'],
+        },
+      ],
+    };
+    const preferred = mergeIpuProfile(previous, ipuStructured, '2026-09-19');
+    expect(preferred.parliament.chambers[0].composition).toEqual(
+      ipuStructured.parliament.chambers[0].composition,
+    );
   });
 
   it('replaces the parliamentary slice without embedding source metadata', () => {
