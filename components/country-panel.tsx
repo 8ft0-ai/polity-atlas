@@ -480,8 +480,8 @@ function ElectionOutcome({
           )}
           {!isDirectlyElected && (
             <p className="mt-3 text-xs leading-5 text-muted-foreground">
-              This record describes a non-direct renewal. It must not be read as
-              a popular election result.
+              This record describes an appointment or other non-direct renewal.
+              It does not represent a direct vote.
             </p>
           )}
           <div className="mt-3">
@@ -560,10 +560,12 @@ function ElectionOutcome({
             {primary.kind === 'ipu-post-election'
               ? `This is the full chamber immediately after the latest ${isDirectlyElected ? 'election' : 'renewal'} reported by IPU. It is not necessarily the current composition.`
               : primary.kind === 'source-reported'
-                ? 'This is a source-reported chamber composition, not an IPU post-election result. Its observation timestamp and provenance are shown separately from the latest election record.'
+                ? primary.dimension === 'membership-role'
+                  ? 'This is a membership-role composition from the cited source. It represents statutory positions by role, not a party result.'
+                  : 'This is a source-reported chamber composition, not an IPU post-election result. Its observation timestamp and provenance are shown separately from the latest election record.'
                 : isDirectlyElected
                   ? 'These figures cover only the seats decided in this election or renewal. They must not be read as the full or current chamber composition.'
-                  : 'This record describes a non-direct renewal. It must not be read as a popular election result.'}
+                  : 'This record describes an appointment or other non-direct renewal. It does not represent a direct vote.'}
           </p>
           <div className="mt-3">
             <Sources ids={primary.sourceIds} sources={sources} />

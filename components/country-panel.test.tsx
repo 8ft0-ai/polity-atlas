@@ -278,7 +278,7 @@ describe('CountryPanel', () => {
     expect(screen.getByText('2977 of 3000 seats renewed')).toBeInTheDocument();
     expect(
       screen.getByText(
-        'This record describes a non-direct renewal. It must not be read as a popular election result.',
+        'This record describes an appointment or other non-direct renewal. It does not represent a direct vote.',
       ),
     ).toBeInTheDocument();
     expect(
@@ -380,13 +380,14 @@ describe('CountryPanel', () => {
     ).toBeGreaterThan(0);
   });
 
-  it('renders a legislature-only appointed pilot without inventing a full profile', async () => {
+  it('renders the Saudi IPU membership composition without inventing a popular election', async () => {
     selectProfile({
       entityId: 'state:m49:682',
       m49: '682',
       name: 'Saudi Arabia',
       profile: saudiLegislature,
     });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
 
     renderPanel();
 
@@ -405,6 +406,30 @@ describe('CountryPanel', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('150 of 151 seats renewed')).toBeInTheDocument();
     expect(screen.getByText('Appointed: 151')).toBeInTheDocument();
+    expect(screen.getByText('Membership composition')).toBeInTheDocument();
+    expect(screen.getByText('Appointed members')).toBeInTheDocument();
+    expect(screen.getAllByText('Speaker').length).toBeGreaterThan(1);
+    expect(screen.getByText('150')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(
+        'Shura Council source-reported chamber composition — Membership composition semicircle',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('This composition covers all 151 statutory seats.'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'This is a membership-role composition from the cited source. It represents statutory positions by role, not a party result.',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/popular election/i)).toBeNull();
+    expect(
+      screen.getAllByRole('link', {
+        name: 'Source: Parline national parliament, chamber and election data',
+      }).length,
+    ).toBeGreaterThan(0);
   });
 
   it('surfaces IPU suspension evidence for Myanmar instead of implying a functioning legislature', async () => {

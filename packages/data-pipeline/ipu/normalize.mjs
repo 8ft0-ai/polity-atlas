@@ -236,6 +236,68 @@ function normalizeLatestElection(elections, statutoryChamberSize, parties) {
   };
 }
 
+function normalizeAppointmentMembershipComposition(
+  election,
+  chamber,
+  retrievedAt,
+) {
+  if (!election || chamber.electoralSystem?.directlyElected !== false) {
+    return undefined;
+  }
+
+  const note = english(election.attributes?.elected_note?.value);
+  if (!note) return undefined;
+
+  const match = note.match(
+    /\b([\d,]+)\s+members?\s+and\s+the\s+speaker\b[^.]*\bappointed\b/i,
+  );
+  if (!match) return undefined;
+
+  const appointedMembers = Number(match[1].replaceAll(',', ''));
+  if (!Number.isInteger(appointedMembers) || appointedMembers < 1) {
+    return undefined;
+  }
+
+  const speakerSeats = chamber.totalSeats - appointedMembers;
+  const activeSpeakers = chamber.speakers.filter((speaker) => !speaker.vacant);
+  const seatsAtStake = election.attributes?.number_of_seats_at_stake?.value;
+
+  if (
+    speakerSeats !== 1 ||
+    activeSpeakers.length !== 1 ||
+    (Number.isInteger(seatsAtStake) && seatsAtStake !== appointedMembers)
+  ) {
+    return undefined;
+  }
+
+  return {
+    basis: 'source-reported',
+    defaultViewId: 'membership',
+    retrievedAt,
+    views: [
+      {
+        id: 'membership',
+        label: 'Membership composition',
+        dimension: 'membership-role',
+        reportedSeats: chamber.totalSeats,
+        entries: [
+          {
+            partyId: `${chamber.id.toLowerCase()}-appointed-members`,
+            party: 'Appointed members',
+            seats: appointedMembers,
+          },
+          {
+            partyId: `${chamber.id.toLowerCase()}-speaker`,
+            party: 'Speaker',
+            seats: 1,
+          },
+        ],
+        sourceIds: [IPU_SOURCE_ID],
+      },
+    ],
+  };
+}
+
 function personName(person) {
   return [person?.first_name, person?.family_name]
     .filter(Boolean)
@@ -513,12 +575,26 @@ export function normalizeIpuSnapshot(snapshot) {
         ),
         sourceIds: [IPU_SOURCE_ID],
       };
+      const chamberElections = snapshot.electionsByChamber[entity.id] ?? [];
       const latestElection = normalizeLatestElection(
-        snapshot.electionsByChamber[entity.id] ?? [],
+        chamberElections,
         totalSeats,
         parties,
       );
       if (latestElection) chamber.latestElection = latestElection;
+
+      const latestElectionEntity = [...chamberElections]
+        .filter((election) => electionDate(election))
+        .sort((left, right) =>
+          electionDate(left).localeCompare(electionDate(right)),
+        )
+        .at(-1);
+      const membershipComposition = normalizeAppointmentMembershipComposition(
+        latestElectionEntity,
+        chamber,
+        snapshot.retrievedAt,
+      );
+      if (membershipComposition) chamber.composition = membershipComposition;
       return chamber;
     })
     .sort((left, right) => {
@@ -630,7 +706,10 @@ export function mergeIpuProfile(profile, normalized, buildId) {
           }),
         }
       : chamber;
-    return !hasFullIpuComposition && previous?.composition
+    const hasIpuStructuredComposition = Boolean(chamber.composition);
+    return !hasFullIpuComposition &&
+      !hasIpuStructuredComposition &&
+      previous?.composition
       ? { ...withVisuals, composition: previous.composition }
       : withVisuals;
   });

@@ -559,6 +559,143 @@ describe('Wikipedia chamber fallback', () => {
     });
   });
 
+  it('does not replace an IPU-backed membership composition with Wikipedia', () => {
+    const current = profile([
+      {
+        ...ipuChamber({
+          id: 'EX-LC01',
+          name: 'Assembly',
+          kind: 'unicameral',
+          totalSeats: 151,
+        }),
+        composition: {
+          basis: 'source-reported',
+          defaultViewId: 'membership',
+          retrievedAt: '2026-09-20T00:00:00.000Z',
+          views: [
+            {
+              id: 'membership',
+              label: 'Membership composition',
+              dimension: 'membership-role',
+              reportedSeats: 151,
+              entries: [
+                {
+                  partyId: 'ex-appointed-members',
+                  party: 'Appointed members',
+                  seats: 150,
+                },
+                {
+                  partyId: 'ex-speaker',
+                  party: 'Speaker',
+                  seats: 1,
+                },
+              ],
+              sourceIds: ['ipu-parline'],
+            },
+          ],
+        },
+      },
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'Assembly',
+            title: 'Assembly',
+            seats: 151,
+            kind: 'unicameral',
+            compositionHtml:
+              '<tr><th>Political groups</th><td><ul><li>Nonpartisan (150)</li></ul></td></tr>',
+          },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-20');
+
+    expect(normalized.chamberCompositions).toEqual([]);
+    expect(merged.parliament.chambers[0].composition).toEqual(
+      current.parliament.chambers[0].composition,
+    );
+  });
+
+  it('completes a one-seat-short nonpartisan Wikipedia fallback with the IPU Speaker role', () => {
+    const current = profile([
+      {
+        ...ipuChamber({
+          id: 'EX-LC01',
+          name: 'Assembly',
+          kind: 'unicameral',
+          totalSeats: 151,
+        }),
+        speakers: [
+          {
+            personId: 'ex-speaker',
+            name: 'Example Speaker',
+            acting: false,
+            vacant: false,
+            sourceIds: ['ipu-parline'],
+          },
+        ],
+        electoralSystem: {
+          directlyElected: false,
+          systems: [],
+          appointedSeats: 151,
+          sourceIds: ['ipu-parline'],
+        },
+      },
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [
+          {
+            name: 'Assembly',
+            title: 'Assembly',
+            seats: 151,
+            kind: 'unicameral',
+            compositionHtml:
+              '<tr><th>Political groups</th><td><ul><li>Nonpartisan (150)</li></ul></td></tr>',
+          },
+        ],
+      }),
+      current,
+    );
+
+    expect(normalized.chamberCompositions).toEqual([
+      {
+        chamberId: 'EX-LC01',
+        composition: {
+          basis: 'source-reported',
+          defaultViewId: 'membership',
+          retrievedAt: '2026-09-19T00:00:00.000Z',
+          views: [
+            {
+              id: 'membership',
+              label: 'Membership composition',
+              dimension: 'membership-role',
+              reportedSeats: 151,
+              entries: [
+                {
+                  partyId: 'wiki-2-ungrouped-nonpartisan-1',
+                  party: 'Nonpartisan',
+                  seats: 150,
+                },
+                {
+                  partyId: 'ex-lc01-speaker',
+                  party: 'Speaker',
+                  seats: 1,
+                },
+              ],
+              sourceIds: ['wikipedia-en-page-2', 'ipu-parline'],
+            },
+          ],
+        },
+      },
+    ]);
+  });
+
   it('does not duplicate a Wikipedia chamber that strongly matches an IPU chamber by name', () => {
     const current = profile([
       ipuChamber({
