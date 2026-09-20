@@ -21,10 +21,12 @@ The refresh command:
    repeatable generation.
 5. Validates each IPU country join against all three configured identifiers.
 6. Runs every pilot through the same normalizer. There are no country switches,
-   party-name overrides, or country-specific editorial strings.
+   party-name overrides, or country-specific editorial strings in the adapter.
 7. Replaces the parliamentary and expected-election slice of each profile while
    preserving government, relation, territory, and map sourcing.
-8. Updates the global deduplicated `public/data/sources.json` registry and writes a sorted manifest with SHA-256 hashes for all ten full profiles, all three legislature modules, and the registry.
+8. Applies the shared reviewed curated-override registry. The committed registry
+   is currently empty, so this step is a no-op.
+9. Updates the global deduplicated `public/data/sources.json` registry and writes a sorted manifest with SHA-256 hashes for all ten full profiles, all three legislature modules, and the registry.
 
 To reproduce output from the retained raw inputs without making network calls:
 
@@ -57,6 +59,10 @@ IPU attribution, licence, retrieval time, and terms URL.
   chamber or renewal cycle. The IPU adapter emits no local or subnational events.
 - Speaker and electoral-system fields are optional, structured, and rendered
   only when returned by IPU.
+- A latest IPU election/renewal event more than six calendar years before the
+  profile `buildId` is flagged in the Legislature UI with a warning triangle
+  and orange text. Exactly six years is not flagged. The event date, not the
+  source retrieval timestamp, controls this warning.
 
 The remaining planned adapter order is:
 
@@ -72,6 +78,25 @@ failed fetch must leave the last committed public data available.
 ## Global source registry
 
 `public/data/sources.json` is the sole public source-metadata registry. Country profiles contain only stable `sourceIds`. Generation fails if an incoming source reuses an existing ID with materially different metadata. The registry and every profile are hash-bound by `public/data/manifest.json`.
+
+## Curated overrides
+
+`packages/data-pipeline/config/curated-overrides.json` is the single explicit
+path for future reviewed factual corrections that cannot be represented by the
+generic source adapters. It is intentionally empty at Phase 3 completion.
+
+Both IPU and Wikimedia refreshes apply the registry after normalisation and
+source enrichment and before staged public output and manifest hashing. Entries
+are replacement-only and must target an existing path in one ISO3 full profile
+or legislature module. Every entry requires supporting source IDs, a reason,
+author, reviewer, and review date. Unknown sources, missing/unsafe paths,
+duplicate IDs, unsupported operations, and incomplete review metadata fail
+closed. An empty registry returns the source-derived object unchanged.
+
+After any future override is added, the normal `npm run data:validate` gate
+still determines whether the resulting generated profile satisfies the public
+schema. Do not implement a correction as a country branch in an adapter merely
+to avoid using this registry.
 
 ## Wikipedia chamber fallback
 
