@@ -61,6 +61,32 @@
           "seatsAtStake": 150,
           "chamberSize": 151,
           "sourceIds": ["ipu-parline"]
+        },
+        "composition": {
+          "basis": "source-reported",
+          "defaultViewId": "membership",
+          "retrievedAt": "2026-09-19T04:30:00.000Z",
+          "views": [
+            {
+              "id": "membership",
+              "label": "Membership composition",
+              "dimension": "membership-role",
+              "reportedSeats": 151,
+              "entries": [
+                {
+                  "partyId": "sa-lc01-appointed-members",
+                  "party": "Appointed members",
+                  "seats": 150
+                },
+                {
+                  "partyId": "sa-lc01-speaker",
+                  "party": "Speaker",
+                  "seats": 1
+                }
+              ],
+              "sourceIds": ["ipu-parline"]
+            }
+          ]
         }
       }
     ]
