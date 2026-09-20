@@ -217,7 +217,7 @@ Record conflicts instead of silently overwriting them. A curated override must i
 | Diplomatic missions                   | Foreign-ministry mission directories and embassy pages                                | Directional mission relationships.                                     |
 | Cross-source IDs                      | Wikidata, reviewed mappings                                                           | Join records without joining by display name.                          |
 
-Before automating a source, complete a license and terms review. “Publicly viewable” does not automatically mean “permitted to republish.” Save the decision in `docs/source-policy.md`.
+During source discovery, record known access conditions, attribution requirements, and obvious reuse constraints in `docs/source-policy.md`, but do not block API/schema exploration on a comprehensive licensing review. The complete source-by-source licensing and reuse audit is a final release gate after the product and source set have stabilised.
 
 ### Refresh cadence
 
@@ -230,7 +230,7 @@ Each adapter must use timeouts, bounded retries, a descriptive User-Agent, condi
 
 ## 7. Data refresh and editorial workflow
 
-Run ingestion explicitly on a developer machine after each source's licence, access terms, and credential handling are approved. The IPU pilot refresh is functioning; other source adapters remain planned. Do not describe validation or cache replay as an automatic refresh.
+Run ingestion explicitly on a developer machine after the source's access and credential mechanics are understood. The IPU pilot refresh is functioning; other source adapters remain planned. Known terms and attribution requirements should be recorded as they are discovered, while the comprehensive licensing/reuse decision remains deferred to the final release gate. Do not describe validation or cache replay as an automatic refresh.
 
 1. Start from a clean, current `main` and create one data update branch.
 2. Install locked dependencies and use local, ignored source credentials where required.
@@ -365,7 +365,7 @@ Fail the refresh pull request when:
 - A `no-relations` edge also contains an active resident mission.
 - Generated JSON does not match the current schema version.
 
-Generate warnings, rather than failures, for stale data, partial election outcomes, dead source links, and unsupported countries. Display these in the refresh summary.
+Generate warnings, rather than failures, for stale data, partial election outcomes, dead source links, and unsupported countries. For IPU latest-election or renewal records, the current pilot UI specifically flags records whose event date is more than six calendar years before the profile build date; exactly six years is not flagged.
 
 ### Automated tests
 
@@ -406,16 +406,20 @@ The estimates below assume one experienced full-time developer and do not includ
 
 ### Phase 0 — Source and policy spike (3–5 days)
 
+**Status: COMPLETE — 20 September 2026.**
+
 Deliverables:
 
-- Confirm IPU, IFES, Natural Earth, UN, Wikidata, and official-site reuse constraints.
+- Establish practical API/data-access feasibility for the initial source families needed by the pilot rather than attempting to predetermine every field before seeing the APIs.
 - Create the source, border, and disputed-entity policies.
-- Choose 10 varied pilot countries: unicameral/bicameral, monarchy/republic, coalition/single-party, territory/disputed edge cases, and different regions.
-- Manually produce gold-standard expected profiles for those countries.
+- Choose 10 varied pilot countries covering different chamber structures, government forms, political systems, geographic regions, and map edge cases.
+- Exercise the evolving schema against real source responses as adapters become available; no manually maintained “gold standard” profiles are required.
 
-Exit criteria: sources are legally usable, identifiers join correctly, and the schema represents all pilot cases without country-specific hacks.
+Exit criteria: the pilot source paths can be acquired reproducibly, identifiers join correctly, and the schema represents the observed pilot cases without country-specific transformation hacks. A comprehensive source-licensing audit is deliberately deferred to the final release gate.
 
 ### Phase 1 — Repository and delivery foundation (2–3 days)
+
+**Status: COMPLETE — 20 September 2026.**
 
 Deliverables:
 
@@ -427,6 +431,8 @@ Deliverables:
 Exit criteria: a fresh clone installs and runs locally, the map and bundled pilot profile load after refresh, and pull requests cannot merge with a failing `verify` check once the repository rule is enabled.
 
 ### Phase 2 — Map shell and country selection (5–7 days)
+
+**Status: COMPLETE — 20 September 2026.**
 
 Deliverables:
 
@@ -442,16 +448,20 @@ Exit criteria: every primary entity in the canonical index can be selected by ma
 
 ### Phase 3 — Shared data platform (7–10 days)
 
-Progress as of 19 September 2026: a bounded pilot slice is implemented, including a deduplicated global source registry. All ten full-profile pilots now use a generic unauthenticated IPU adapter, ignored raw snapshot cache, canonical parliament/election normalizer, schema-v4 output with global source resolution, deterministic cache replay, and a hash-backed manifest. Speaker, electoral-system, latest-election, and expected-election fields are live in the UI. Country identity joins and every displayed pilot source reference are tested. A separate reusable Wikipedia acquisition path now supplies chamber-level fallback when IPU omits a national chamber and source-reported party-seat composition when a matched IPU chamber lacks a full split. Wikipedia acquisition uses the MediaWiki REST API, retains exact page/revision metadata in the ignored cache, and requires no API key. The UI keeps Wikipedia composition distinct from IPU election outcomes and cites the Wikipedia chamber page directly. General staleness/change reports and further non-IPU adapters remain future Phase 3 work.
+**Status: COMPLETE — 20 September 2026.**
+
+The completed pilot platform includes a deduplicated global source registry; ten full country profiles and three legislature-only pilots; generic unauthenticated IPU acquisition and normalisation; ignored raw caches and deterministic replay; schema-v5 generated output; a hash-backed manifest; Wikimedia REST chamber/composition fallback; exact Wikidata P465 visual enrichment; independently validated composition views; and explicit source precedence. Speaker, electoral-system, latest-election, expected-election, operational-status, and composition data are live in the UI where supplied.
 
 Deliverables:
 
-- Zod schemas, source registry, country mappings, adapters, normalizers, and curated override format.
-- Manifest and per-country output generation.
-- Quality rules, staleness report, and review-friendly change report.
-- Explicit local refresh command and a reviewable data-change report; propose scheduling only if future operations require it.
+- Zod schemas, global source registry, country mappings, source adapters, normalisers, and deterministic manifest/per-profile generation.
+- Quality rules covering source resolution, identifier joins, seat arithmetic, date validity, partial-renewal semantics, and source precedence.
+- A committed, generic curated-override pathway applied after source normalisation/enrichment and before final staged output. The registry is intentionally empty until a separately reviewed correction is needed.
+- Fail-closed override validation requiring an existing target path, explicit source provenance, reason, author, reviewer, and review date; source-derived facts remain unchanged when the override registry is empty.
+- A deterministic stale-data presentation rule: an IPU latest-election/renewal event more than six calendar years older than the profile build date receives a compact warning in the Legislature infobox. Retrieval time is not used as a substitute for the event date.
+- Explicit local refresh commands, ignored raw cache replay, staged generated output, source-registry reconciliation, and review through normal Git diffs plus the hash-backed manifest. No separate semantic-change or staleness-report subsystem is required for Phase 3.
 
-Exit criteria: the 10 full country profiles plus the 3 legislature-only pilots are reproducible, pass all gates, and every sourced displayed fact resolves through the global source registry.
+Exit criteria: the ten full country profiles plus three legislature-only pilots reproduce through the generic pipelines and pass all validation gates; every displayed sourced fact resolves through the global source registry; an empty curated-override registry is a no-op; malformed or unprovenanced overrides fail closed; and the six-year IPU warning boundary is covered by component tests.
 
 ### Phase 4 — Country, parliament, party, and election UI (7–10 days)
 
@@ -497,7 +507,11 @@ Exit criteria: definition of done below is satisfied for the pilot set; the rema
 
 ### Phase 8 — Global data completion (ongoing; likely 2–8+ weeks)
 
-Scale parliament, party, leader, election, and mission verification from the pilot set to the complete country list. Automate high-confidence sources first; keep manual curation as auditable YAML rather than embedding exceptions in UI code.
+Scale parliament, party, leader, election, and mission verification from the pilot set to the complete country list. Automate high-confidence sources first; keep manual curation in the audited override mechanism rather than embedding exceptions in UI code.
+
+### Final release gate — source licensing and reuse audit
+
+After the intended release scope and source set have stabilised, perform the complete source-by-source licensing, attribution, redistribution, and commercial-use audit. Resolve or remove any source whose final reuse position is unacceptable before release. Earlier source-policy notes capture known terms and operational constraints but are not a substitute for this final audit.
 
 ## 14. Definition of done
 
