@@ -278,7 +278,7 @@ describe('CountryPanel', () => {
     expect(screen.getByText('2977 of 3000 seats renewed')).toBeInTheDocument();
     expect(
       screen.getByText(
-        'This record describes a non-direct renewal. It must not be read as a popular election result.',
+        'This record describes an appointment or other non-direct renewal. It does not represent a direct vote.',
       ),
     ).toBeInTheDocument();
     expect(
@@ -419,6 +419,12 @@ describe('CountryPanel', () => {
     expect(
       screen.getByText('This composition covers all 151 statutory seats.'),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'This is a membership-role composition from the cited source. It represents statutory positions by role, not a party result.',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/popular election/i)).toBeNull();
     expect(
       screen.getAllByRole('link', {
         name: 'Source: Parline national parliament, chamber and election data',
