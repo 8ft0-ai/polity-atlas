@@ -71,6 +71,56 @@ describe('country profile contract', () => {
     );
   });
 
+  it('publishes only complete non-overlapping Iran composition views', () => {
+    const parsed = legislatureProfileSchema.parse(irn);
+    const chamber = parsed.parliament.chambers[0];
+
+    expect(chamber.totalSeats).toBe(290);
+    expect(chamber.latestElection?.chamberSize).toBe(290);
+    expect(chamber.latestElection?.sourceIds).toEqual(['ipu-parline']);
+    expect(chamber.composition).toBeDefined();
+
+    if (!chamber.composition || !('views' in chamber.composition)) {
+      throw new Error('Iran must publish a multi-view composition');
+    }
+
+    expect(chamber.composition.defaultViewId).toBe('faction');
+    expect(chamber.composition.views.map((view) => view.id)).toEqual([
+      'faction',
+      'party',
+    ]);
+    expect(
+      chamber.composition.views.some((view) => view.dimension === 'coalition'),
+    ).toBe(false);
+
+    for (const view of chamber.composition.views) {
+      expect(view.reportedSeats).toBe(290);
+      expect(view.entries.reduce((sum, entry) => sum + entry.seats, 0)).toBe(
+        290,
+      );
+    }
+
+    const faction = chamber.composition.views.find(
+      (view) => view.id === 'faction',
+    );
+    expect(
+      Object.fromEntries(
+        faction?.entries.map((entry) => [entry.party, entry.seats]) ?? [],
+      ),
+    ).toEqual({
+      Principlists: 198,
+      Independents: 44,
+      Reformists: 43,
+      Vacant: 5,
+    });
+
+    const party = chamber.composition.views.find((view) => view.id === 'party');
+    expect(party?.entries.some((entry) => entry.party === 'Independents')).toBe(
+      true,
+    );
+    expect(party?.entries.some((entry) => entry.party === 'Vacant')).toBe(true);
+  });
+
   it('accepts independently validated multi-view chamber compositions', () => {
     expect(() =>
       chamberSchema.parse({
