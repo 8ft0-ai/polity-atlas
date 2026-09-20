@@ -408,7 +408,7 @@ describe('CountryPanel', () => {
     expect(screen.getByText('Appointed: 151')).toBeInTheDocument();
     expect(screen.getByText('Membership composition')).toBeInTheDocument();
     expect(screen.getByText('Appointed members')).toBeInTheDocument();
-    expect(screen.getByText('Speaker')).toBeInTheDocument();
+    expect(screen.getAllByText('Speaker').length).toBeGreaterThan(1);
     expect(screen.getByText('150')).toBeInTheDocument();
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(
