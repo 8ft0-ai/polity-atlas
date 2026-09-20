@@ -4,6 +4,7 @@ import {
   extractExplicitChamberKind,
   extractHouseLinks,
   extractPoliticalComposition,
+  extractPoliticalCompositionViews,
   extractSeatCount,
   parseInfobox,
 } from './parse-infobox.mjs';
@@ -232,6 +233,92 @@ describe('Wikipedia infobox parsing', () => {
     });
     expect(entries.reduce((sum, entry) => sum + entry.seats, 0)).toBe(2847);
     expect(entries[0].party).not.toContain('.mw-parser-output');
+  });
+
+  it('isolates independent Wikipedia composition views instead of flattening them', () => {
+    const parsed = parseInfobox(
+      chamberHtml({
+        seats: 290,
+        kind: 'unicameral',
+        compositionHtml: `
+          <tr>
+            <th>Political groups</th>
+            <td>
+              <div class="collapsible-list">
+                <div><b>By faction</b></div>
+                <div><ul>
+                  <li><a href="./Principlists">Principlists</a> (198)</li>
+                  <li><a href="./Reformists">Reformists</a> (43)</li>
+                  <li><a href="./Independent_politician">Independents</a> (44)</li>
+                  <li>Vacant (5)</li>
+                </ul></div>
+              </div>
+              <div class="collapsible-list">
+                <div><b>By coalition</b></div>
+                <div><ul>
+                  <li>Government (43)<ul><li>VNC (43)</li></ul></li>
+                  <li>Confidence and supply (119)<ul>
+                    <li>CCIRF (106)</li>
+                    <li>CCA (13)</li>
+                  </ul></li>
+                  <li>Opposition (79)<ul><li>PAIRF (79)</li></ul></li>
+                  <li>Independent (44)<ul><li>IND (44)</li></ul></li>
+                  <li>Vacant (5)<ul><li>Vacant (5)</li></ul></li>
+                </ul></div>
+              </div>
+              <div class="collapsible-list">
+                <div><b>By party</b></div>
+                <div><ul>
+                  <li>FIRS (15)</li>
+                  <li>ICP (3)</li>
+                  <li>PJPII (2)</li>
+                  <li>SPIR (2)</li>
+                  <li>SDIR (1)</li>
+                  <li>DJP (1)</li>
+                  <li>YEKTA (1)</li>
+                  <li>ISE (1)</li>
+                  <li>IAPI (1)</li>
+                  <li>ECP (1)</li>
+                  <li>MDP (1)</li>
+                  <li>UIIPP (1)</li>
+                  <li>AFIL (1)</li>
+                  <li>Independents (254)</li>
+                  <li>Vacant (5)</li>
+                </ul></div>
+              </div>
+            </td>
+          </tr>
+        `,
+      }),
+    );
+
+    const views = extractPoliticalCompositionViews(parsed);
+    expect(views.map(({ id, dimension }) => ({ id, dimension }))).toEqual([
+      { id: 'faction', dimension: 'faction' },
+      { id: 'coalition', dimension: 'coalition' },
+      { id: 'party', dimension: 'party' },
+    ]);
+    expect(
+      views
+        .find((view) => view.id === 'faction')
+        .entries.reduce((sum, entry) => sum + entry.seats, 0),
+    ).toBe(290);
+    expect(
+      views
+        .find((view) => view.id === 'party')
+        .entries.reduce((sum, entry) => sum + entry.seats, 0),
+    ).toBe(290);
+    expect(
+      views.find((view) => view.id === 'coalition').containsNestedAggregates,
+    ).toBe(true);
+
+    const legacySelection = extractPoliticalComposition(parsed);
+    expect(legacySelection.reduce((sum, entry) => sum + entry.seats, 0)).toBe(
+      290,
+    );
+    expect(
+      legacySelection.some((entry) => entry.party === 'Principlists'),
+    ).toBe(false);
   });
 
   it('preserves a canonical Wikipedia legend colour and linked party title', () => {
@@ -857,6 +944,91 @@ describe('Wikipedia chamber fallback', () => {
         ),
       ).size,
     ).toBe(9);
+    expect(() => countryProfileSchema.parse(merged)).not.toThrow();
+  });
+
+  it('publishes validated faction and party views while rejecting nested coalition aggregates', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'IR-LC01',
+        name: 'Islamic Consultative Assembly',
+        kind: 'unicameral',
+        totalSeats: 290,
+      }),
+    ]);
+
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        iso3: 'IRN',
+        parliamentTitle: 'Islamic Consultative Assembly',
+        houses: [
+          {
+            name: 'Islamic Consultative Assembly',
+            title: 'Islamic Consultative Assembly',
+            seats: 290,
+            kind: 'unicameral',
+            compositionHtml: `
+              <tr>
+                <th>Political groups</th>
+                <td>
+                  <div class="collapsible-list">
+                    <div><b>By faction</b></div>
+                    <div><ul>
+                      <li><a href="./Principlists">Principlists</a> (198)</li>
+                      <li><a href="./Reformists">Reformists</a> (43)</li>
+                      <li>Independents (44)</li>
+                      <li>Vacant (5)</li>
+                    </ul></div>
+                  </div>
+                  <div class="collapsible-list">
+                    <div><b>By coalition</b></div>
+                    <div><ul>
+                      <li>Government (43)<ul><li>VNC (43)</li></ul></li>
+                      <li>Confidence and supply (119)<ul>
+                        <li>CCIRF (106)</li>
+                        <li>CCA (13)</li>
+                      </ul></li>
+                      <li>Opposition (79)<ul><li>PAIRF (79)</li></ul></li>
+                      <li>Independent (44)<ul><li>IND (44)</li></ul></li>
+                      <li>Vacant (5)<ul><li>Vacant (5)</li></ul></li>
+                    </ul></div>
+                  </div>
+                  <div class="collapsible-list">
+                    <div><b>By party</b></div>
+                    <div><ul>
+                      <li><a href="./Example_party">Example party</a> (31)</li>
+                      <li>Independents (254)</li>
+                      <li>Vacant (5)</li>
+                    </ul></div>
+                  </div>
+                </td>
+              </tr>
+            `,
+          },
+        ],
+      }),
+      current,
+    );
+    const merged = mergeWikipediaChambers(current, normalized, '2026-09-20');
+    const composition = merged.parliament.chambers[0].composition;
+
+    expect(composition.defaultViewId).toBe('faction');
+    expect(composition.views.map((view) => view.id)).toEqual([
+      'faction',
+      'party',
+    ]);
+    expect(composition.views.every((view) => view.reportedSeats === 290)).toBe(
+      true,
+    );
+    expect(
+      composition.views.every(
+        (view) =>
+          view.entries.reduce((sum, entry) => sum + entry.seats, 0) === 290,
+      ),
+    ).toBe(true);
+    expect(normalized.diagnostics).toContain(
+      'COMPOSITION_VIEW_NESTED_AGGREGATES:Islamic Consultative Assembly:coalition',
+    );
     expect(() => countryProfileSchema.parse(merged)).not.toThrow();
   });
 

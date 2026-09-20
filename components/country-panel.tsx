@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -46,6 +47,39 @@ function Sources({ ids, sources }: { ids: string[]; sources: SourceRecord[] }) {
   );
 }
 
+function compositionViews(
+  composition: CountryProfile['parliament']['chambers'][number]['composition'],
+) {
+  if (!composition) return [];
+  if ('views' in composition) return composition.views;
+  return [
+    {
+      id: 'composition',
+      label: 'Composition',
+      dimension: 'party' as const,
+      reportedSeats: composition.reportedSeats,
+      entries: composition.entries,
+      sourceIds: composition.sourceIds,
+    },
+  ];
+}
+
+function compositionSourceIds(
+  composition: CountryProfile['parliament']['chambers'][number]['composition'],
+) {
+  return compositionViews(composition).flatMap((view) => [
+    ...view.sourceIds,
+    ...view.entries.flatMap((entry) => entry.visual?.sourceIds ?? []),
+  ]);
+}
+
+function defaultCompositionViewId(
+  composition: CountryProfile['parliament']['chambers'][number]['composition'],
+) {
+  if (!composition) return undefined;
+  return 'views' in composition ? composition.defaultViewId : 'composition';
+}
+
 function sourceIdsForProfile(profile: CountryProfile | LegislatureProfile) {
   const fullProfile = 'government' in profile ? profile : undefined;
   return new Set([
@@ -78,14 +112,8 @@ function sourceIdsForProfile(profile: CountryProfile | LegislatureProfile) {
         (entry) => entry.visual?.sourceIds ?? [],
       ) ?? []),
     ]),
-    ...profile.parliament.chambers.flatMap(
-      (chamber) => chamber.composition?.sourceIds ?? [],
-    ),
-    ...profile.parliament.chambers.flatMap(
-      (chamber) =>
-        chamber.composition?.entries.flatMap(
-          (entry) => entry.visual?.sourceIds ?? [],
-        ) ?? [],
+    ...profile.parliament.chambers.flatMap((chamber) =>
+      compositionSourceIds(chamber.composition),
     ),
     ...profile.nextExpectedElections.flatMap((election) => election.sourceIds),
     ...(fullProfile?.relations.flatMap((relation) => relation.sourceIds) ?? []),
@@ -201,7 +229,7 @@ function SeatBar({
           ))}
       </svg>
 
-      <div className="ui-text mt-2 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+      <div className="ui-text mt-2 grid grid-cols-1 gap-x-4 gap-y-2 text-xs sm:grid-cols-2">
         {seatSegments.map((group) => (
           <div
             key={group.partyId}
@@ -274,6 +302,9 @@ type PrimaryComposition = {
   label: string;
   date?: { from: string; to?: string };
   retrievedAt?: string;
+  viewId?: string;
+  viewLabel?: string;
+  dimension?: 'party' | 'faction' | 'coalition' | 'membership-role';
 };
 
 function entrySeatTotal(entries: Array<{ seats: number }>) {
@@ -282,6 +313,7 @@ function entrySeatTotal(entries: Array<{ seats: number }>) {
 
 function selectPrimaryComposition(
   chamber: CountryProfile['parliament']['chambers'][number],
+  selectedViewId?: string,
 ): PrimaryComposition | undefined {
   const election = chamber.latestElection;
   const outcome = election?.outcome;
@@ -302,15 +334,27 @@ function selectPrimaryComposition(
     };
   }
 
-  if (chamber.composition?.entries.length) {
+  const views = compositionViews(chamber.composition);
+  if (views.length && chamber.composition) {
+    const defaultViewId = defaultCompositionViewId(chamber.composition);
+    const view =
+      views.find((candidate) => candidate.id === selectedViewId) ??
+      views.find((candidate) => candidate.id === defaultViewId) ??
+      views[0];
+    const multiView = 'views' in chamber.composition;
     return {
       kind: 'source-reported',
-      entries: chamber.composition.entries,
+      entries: view.entries,
       totalSeats: chamber.totalSeats,
-      reportedSeats: chamber.composition.reportedSeats,
-      sourceIds: chamber.composition.sourceIds,
-      label: `${chamber.name} source-reported chamber composition`,
+      reportedSeats: view.reportedSeats,
+      sourceIds: view.sourceIds,
+      label: multiView
+        ? `${chamber.name} source-reported chamber composition — ${view.label}`
+        : `${chamber.name} source-reported chamber composition`,
       retrievedAt: chamber.composition.retrievedAt,
+      viewId: view.id,
+      viewLabel: view.label,
+      dimension: view.dimension,
     };
   }
 
@@ -379,7 +423,14 @@ function ElectionOutcome({
 }) {
   const election = chamber.latestElection;
   const outcome = election?.outcome;
-  const primary = selectPrimaryComposition(chamber);
+  const compositionDefaultViewId = defaultCompositionViewId(
+    chamber.composition,
+  );
+  const [selectedViewId, setSelectedViewId] = useState(
+    compositionDefaultViewId,
+  );
+  const availableViews = compositionViews(chamber.composition);
+  const primary = selectPrimaryComposition(chamber, selectedViewId);
   const isPartial = election?.scope === 'partial-renewal';
   const isDirectlyElected = chamber.electoralSystem?.directlyElected !== false;
   const isAppointed =
@@ -454,11 +505,36 @@ function ElectionOutcome({
           </p>
           <p className="mt-1 text-sm font-semibold">
             {primary.kind === 'source-reported'
-              ? `${publisherLabel(primary.sourceIds, sources)} party-seat breakdown`
+              ? primary.dimension === 'membership-role'
+                ? 'Membership composition'
+                : primary.viewId === 'composition'
+                  ? `${publisherLabel(primary.sourceIds, sources)} party-seat breakdown`
+                  : `${publisherLabel(primary.sourceIds, sources)} ${(
+                      primary.viewLabel ?? 'composition'
+                    ).toLowerCase()} breakdown`
               : primary.kind === 'ipu-post-election'
                 ? 'IPU full-composition result'
                 : 'Seats decided in the cited event'}
           </p>
+          {primary.kind === 'source-reported' &&
+            availableViews.length > 1 &&
+            primary.viewId && (
+              <label className="ui-text mt-3 block text-xs text-muted-foreground">
+                Composition view
+                <select
+                  aria-label={`${chamber.name} composition view`}
+                  className="ml-2 rounded border border-border bg-background px-2 py-1 text-foreground"
+                  value={primary.viewId}
+                  onChange={(event) => setSelectedViewId(event.target.value)}
+                >
+                  {availableViews.map((view) => (
+                    <option key={view.id} value={view.id}>
+                      {view.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
           {primary.kind === 'source-reported' && primary.retrievedAt && (
             <p className="ui-text mt-1 text-xs text-muted-foreground">
               Composition snapshot retrieved{' '}

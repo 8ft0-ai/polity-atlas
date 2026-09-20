@@ -13,7 +13,10 @@ import {
   normalizeWikipediaParliament,
   visualArticleTitles,
 } from './parliament.mjs';
-import { extractPoliticalComposition, parseInfobox } from './parse-infobox.mjs';
+import {
+  extractPoliticalCompositionViews,
+  parseInfobox,
+} from './parse-infobox.mjs';
 
 const repositoryRoot = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -133,7 +136,9 @@ async function enrichSnapshotWithWikidataColors(
   const titles = new Set();
 
   for (const page of pages) {
-    const entries = extractPoliticalComposition(parseInfobox(page.html)) ?? [];
+    const views =
+      extractPoliticalCompositionViews(parseInfobox(page.html)) ?? [];
+    const entries = views.flatMap((view) => view.entries);
     for (const title of visualArticleTitles(entries)) titles.add(title);
   }
 
@@ -156,7 +161,9 @@ async function enrichSnapshotWithWikidataColors(
     if (!page) return page;
     const pageTitles = new Set(
       visualArticleTitles(
-        extractPoliticalComposition(parseInfobox(page.html)) ?? [],
+        (
+          extractPoliticalCompositionViews(parseInfobox(page.html)) ?? []
+        ).flatMap((view) => view.entries),
       ),
     );
     const wikidataVisuals = Object.fromEntries(

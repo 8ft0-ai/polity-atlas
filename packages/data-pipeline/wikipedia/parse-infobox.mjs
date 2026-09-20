@@ -101,7 +101,7 @@ function ownArticleTitles(element) {
 function ownText(element) {
   const clone = element.cloneNode(true);
   for (const nested of clone.querySelectorAll(
-    'ul, ol, style, script, link, sup.reference',
+    'ul, ol, dl, style, script, link, sup.reference',
   )) {
     nested.remove();
   }
@@ -227,21 +227,86 @@ export function extractExplicitChamberKind(parsed) {
   return undefined;
 }
 
-export function extractPoliticalComposition(parsed) {
-  const row = parsed.rows.find((entry) =>
+function compositionRow(parsed) {
+  return parsed.rows.find((entry) =>
     /(?:^|\s)political groups?$|^political parties$|^party composition$|^composition$|^seats by party$/i.test(
       entry.label,
     ),
   );
-  if (!row?.html) return undefined;
+}
 
-  const document = new JSDOM(`<body>${row.html}</body>`).window.document;
-  const root = document.body;
+function compositionDimension(value) {
+  const label = cleanText(value).toLowerCase();
+  if (/^by\s+faction$/.test(label)) return 'faction';
+  if (/^by\s+party$/.test(label)) return 'party';
+  if (/^by\s+coalition$/.test(label)) return 'coalition';
+  return undefined;
+}
+
+function elementDepth(element, root) {
+  let depth = 0;
+  for (
+    let current = element;
+    current && current !== root;
+    current = current.parentElement
+  ) {
+    depth += 1;
+  }
+  return depth;
+}
+
+function compositionViewSections(root) {
+  const candidates = [];
+  for (const element of root.querySelectorAll('li, dd, div, td')) {
+    if (!element.querySelector('ul, ol, dl')) continue;
+    const label = ownText(element);
+    const dimension = compositionDimension(label);
+    if (!dimension) continue;
+    candidates.push({
+      element,
+      dimension,
+      label: `By ${dimension}`,
+      depth: elementDepth(element, root),
+    });
+  }
+
+  const selected = new Map();
+  for (const candidate of candidates) {
+    const current = selected.get(candidate.dimension);
+    if (!current || candidate.depth > current.depth) {
+      selected.set(candidate.dimension, candidate);
+    }
+  }
+  return [...selected.values()].sort((left, right) =>
+    left.element.compareDocumentPosition(right.element) &
+    left.element.ownerDocument.defaultView.Node.DOCUMENT_POSITION_FOLLOWING
+      ? -1
+      : 1,
+  );
+}
+
+function hasNestedSeatAggregate(item, root) {
+  for (
+    let ancestor = item.parentElement;
+    ancestor && ancestor !== root;
+    ancestor = ancestor.parentElement
+  ) {
+    if (ancestor.matches('li, dd') && parseSeatLabel(ownText(ancestor))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function extractCompositionEntries(root) {
   const entries = [];
-
   const leafItems = [...root.querySelectorAll('li, dd')].filter(
     (item) => !item.querySelector('li, dd'),
   );
+  const containsNestedAggregates = leafItems.some((item) =>
+    hasNestedSeatAggregate(item, root),
+  );
+
   for (const item of leafItems) {
     const result = parseSeatLabel(ownText(item));
     if (!result) continue;
@@ -262,7 +327,7 @@ export function extractPoliticalComposition(parsed) {
 
   if (!entries.length) {
     const blocks = [...root.querySelectorAll('div, p')].filter(
-      (element) => !element.querySelector('div, p, ul, ol'),
+      (element) => !element.querySelector('div, p, ul, ol, dl'),
     );
     for (const block of blocks) {
       const result = parseSeatLabel(block.textContent ?? '');
@@ -288,5 +353,76 @@ export function extractPoliticalComposition(parsed) {
     if (!unique.has(key)) unique.set(key, entry);
   }
 
-  return unique.size ? [...unique.values()] : undefined;
+  return {
+    entries: [...unique.values()],
+    containsNestedAggregates,
+  };
+}
+
+function withoutViewHeadingGroup(entry, viewLabel) {
+  if (
+    !entry.group ||
+    cleanText(entry.group).toLowerCase() !== cleanText(viewLabel).toLowerCase()
+  ) {
+    return entry;
+  }
+  const {
+    group: _group,
+    groupArticleTitles: _groupArticleTitles,
+    ...rest
+  } = entry;
+  return rest;
+}
+
+export function extractPoliticalCompositionViews(parsed) {
+  const row = compositionRow(parsed);
+  if (!row?.html) return undefined;
+
+  const document = new JSDOM(`<body>${row.html}</body>`).window.document;
+  const root = document.body;
+  const sections = compositionViewSections(root);
+
+  if (sections.length) {
+    const views = sections
+      .map(({ element, dimension, label }) => {
+        const parsedView = extractCompositionEntries(element);
+        return {
+          id: dimension,
+          label,
+          dimension,
+          entries: parsedView.entries.map((entry) =>
+            withoutViewHeadingGroup(entry, label),
+          ),
+          ...(parsedView.containsNestedAggregates && {
+            containsNestedAggregates: true,
+          }),
+        };
+      })
+      .filter((view) => view.entries.length);
+    return views.length ? views : undefined;
+  }
+
+  const parsedView = extractCompositionEntries(root);
+  if (!parsedView.entries.length) return undefined;
+  return [
+    {
+      id: 'composition',
+      label: 'Composition',
+      dimension: 'party',
+      entries: parsedView.entries,
+      ...(parsedView.containsNestedAggregates && {
+        containsNestedAggregates: true,
+      }),
+    },
+  ];
+}
+
+export function extractPoliticalComposition(parsed) {
+  const views = extractPoliticalCompositionViews(parsed);
+  if (!views?.length) return undefined;
+  if (views.length === 1) return views[0].entries;
+  return (
+    views.find((view) => view.dimension === 'party')?.entries ??
+    views[0].entries
+  );
 }
