@@ -373,7 +373,9 @@ describe('IPU normalisation', () => {
     });
     appointed.chambers[0].attributes.statutory_members_number = dated(151);
     appointed.chambers[0].attributes.not_directly_elected = { value: true };
-    appointed.chambers[0].attributes.appointed_members_number = { value: 151 };
+    appointed.chambers[0].attributes.appointed_members_number = {
+      value: 151,
+    };
     delete appointed.chambers[0].attributes.directly_elected_number;
     appointed.electionsByChamber = {
       'SA-LC01': [
@@ -388,7 +390,10 @@ describe('IPU normalisation', () => {
                 en: 'On 2 September 2024, 150 members and the Speaker were appointed by Royal Order for a four-year term.',
               },
             },
-            seats_per_parties: { value: [], annotation: { notes: { en: '' } } },
+            seats_per_parties: {
+              value: [],
+              annotation: { notes: { en: '' } },
+            },
           },
         },
       ],
@@ -429,7 +434,9 @@ describe('IPU normalisation', () => {
       ],
     });
 
-    appointed.electionsByChamber['SA-LC01'][0].attributes.elected_note.value.en =
+    appointed.electionsByChamber[
+      'SA-LC01'
+    ][0].attributes.elected_note.value.en =
       '149 members and the Speaker were appointed.';
     expect(
       normalizeIpuSnapshot(appointed).parliament.chambers[0].composition,
