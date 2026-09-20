@@ -237,6 +237,52 @@ function isGenericPoliticalLabel(value) {
   );
 }
 
+function completeAppointedMembershipFallback(composition, chamber) {
+  if (!composition || 'views' in composition) return composition;
+  if (chamber.electoralSystem?.directlyElected !== false) return composition;
+  if (composition.reportedSeats !== chamber.totalSeats - 1) return composition;
+  if (composition.entries.length !== 1) return composition;
+
+  const [entry] = composition.entries;
+  const label = comparableParty(entry.party);
+  if (!/^(?:non partisan|nonpartisan|unaffiliated)$/.test(label)) {
+    return composition;
+  }
+
+  const activeSpeakers = chamber.speakers.filter((speaker) => !speaker.vacant);
+  if (activeSpeakers.length !== 1) return composition;
+
+  const sourceIds = [
+    ...new Set([
+      ...composition.sourceIds,
+      ...activeSpeakers.flatMap((speaker) => speaker.sourceIds),
+    ]),
+  ];
+
+  return {
+    basis: 'source-reported',
+    defaultViewId: 'membership',
+    retrievedAt: composition.retrievedAt,
+    views: [
+      {
+        id: 'membership',
+        label: 'Membership composition',
+        dimension: 'membership-role',
+        reportedSeats: chamber.totalSeats,
+        entries: [
+          entry,
+          {
+            partyId: `${chamber.id.toLowerCase()}-speaker`,
+            party: 'Speaker',
+            seats: 1,
+          },
+        ],
+        sourceIds,
+      },
+    ],
+  };
+}
+
 function distinctVisual(visuals) {
   const byIdentity = new Map();
   for (const visual of visuals.filter(Boolean)) {
@@ -642,10 +688,13 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     )
     .map(({ candidate, chamber }) => ({
       chamberId: chamber.id,
-      composition: sourceReportedComposition(
-        candidate,
-        snapshot.retrievedAt,
-        chamber.totalSeats,
+      composition: completeAppointedMembershipFallback(
+        sourceReportedComposition(
+          candidate,
+          snapshot.retrievedAt,
+          chamber.totalSeats,
+        ),
+        chamber,
       ),
     }))
     .filter(({ composition }) => composition);
