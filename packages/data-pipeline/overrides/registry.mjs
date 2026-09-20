@@ -1,11 +1,11 @@
-const UNSAFE_PATH_SEGMENTS = new Set(['__proto__', 'prototype', 'constructor']);
+const UNSAFE_PATH_SEGMENTS = new Set(["__proto__", "prototype", "constructor"]);
 
 function fail(message) {
   throw new Error(`CURATED_OVERRIDE_INVALID: ${message}`);
 }
 
 function requireString(value, label) {
-  if (typeof value !== 'string' || !value.trim()) {
+  if (typeof value !== "string" || !value.trim()) {
     fail(`${label} must be a non-empty string`);
   }
 }
@@ -27,43 +27,43 @@ function validatePath(path, label) {
 
   for (const segment of path) {
     const validSegment =
-      (typeof segment === 'string' && segment.length > 0) ||
+      (typeof segment === "string" && segment.length > 0) ||
       (Number.isInteger(segment) && segment >= 0);
     if (!validSegment) {
       fail(`${label} contains an invalid path segment`);
     }
-    if (typeof segment === 'string' && UNSAFE_PATH_SEGMENTS.has(segment)) {
+    if (typeof segment === "string" && UNSAFE_PATH_SEGMENTS.has(segment)) {
       fail(`${label} contains an unsafe path segment`);
     }
   }
 }
 
 function validateOverride(override, index) {
-  if (!override || typeof override !== 'object' || Array.isArray(override)) {
+  if (!override || typeof override !== "object" || Array.isArray(override)) {
     fail(`overrides[${index}] must be an object`);
   }
 
   requireString(override.id, `overrides[${index}].id`);
   if (
     !override.target ||
-    typeof override.target !== 'object' ||
-    !/^[A-Z]{3}$/.test(override.target.iso3 ?? '') ||
-    !['full', 'legislature'].includes(override.target.mode)
+    typeof override.target !== "object" ||
+    !/^[A-Z]{3}$/.test(override.target.iso3 ?? "") ||
+    !["full", "legislature"].includes(override.target.mode)
   ) {
     fail(`overrides[${index}].target must contain ISO3 and a valid mode`);
   }
-  if (override.operation !== 'replace') {
+  if (override.operation !== "replace") {
     fail(`overrides[${index}].operation must be replace`);
   }
   validatePath(override.path, `overrides[${index}].path`);
-  if (!Object.hasOwn(override, 'value')) {
+  if (!Object.hasOwn(override, "value")) {
     fail(`overrides[${index}].value is required`);
   }
   if (
     !Array.isArray(override.sourceIds) ||
     override.sourceIds.length === 0 ||
     override.sourceIds.some(
-      (sourceId) => typeof sourceId !== 'string' || !sourceId.trim(),
+      (sourceId) => typeof sourceId !== "string" || !sourceId.trim(),
     )
   ) {
     fail(`overrides[${index}].sourceIds must contain at least one source ID`);
@@ -77,11 +77,11 @@ function validateOverride(override, index) {
 export function validateOverrideRegistry(registry) {
   if (
     !registry ||
-    typeof registry !== 'object' ||
+    typeof registry !== "object" ||
     registry.schemaVersion !== 1 ||
     !Array.isArray(registry.overrides)
   ) {
-    fail('registry must use schemaVersion 1 and contain an overrides array');
+    fail("registry must use schemaVersion 1 and contain an overrides array");
   }
 
   const ids = new Set();
@@ -98,8 +98,7 @@ export function validateOverrideRegistry(registry) {
 
 function matchesTarget(override, target) {
   return (
-    override.target.iso3 === target.iso3 &&
-    override.target.mode === target.mode
+    override.target.iso3 === target.iso3 && override.target.mode === target.mode
   );
 }
 
@@ -113,7 +112,7 @@ function replaceAtPath(value, override) {
   for (const segment of override.path.slice(0, -1)) {
     if (
       parent === null ||
-      typeof parent !== 'object' ||
+      typeof parent !== "object" ||
       !Object.hasOwn(parent, segment)
     ) {
       fail(`${override.id} targets a path that does not exist`);
@@ -124,7 +123,7 @@ function replaceAtPath(value, override) {
   const leaf = override.path.at(-1);
   if (
     parent === null ||
-    typeof parent !== 'object' ||
+    typeof parent !== "object" ||
     !Object.hasOwn(parent, leaf)
   ) {
     fail(`${override.id} targets a path that does not exist`);
