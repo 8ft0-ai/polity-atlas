@@ -352,6 +352,90 @@ describe('IPU normalisation', () => {
     });
   });
 
+  it('derives an appointed membership-role composition only from a reconciling IPU appointment note', () => {
+    const appointed = structuredClone(snapshot);
+    appointed.requestedCountry = {
+      entityId: 'state:m49:682',
+      iso2: 'SA',
+      iso3: 'SAU',
+      m49: '682',
+      name: 'Saudi Arabia',
+    };
+    appointed.country.attributes = {
+      country_code: { value: 'SA' },
+      iso_alpha3: { value: 'SAU' },
+      iso_numeric3: { value: 682 },
+    };
+    appointed.chambers = [structuredClone(appointed.chambers[0])];
+    appointed.chambers[0].id = 'SA-LC01';
+    appointed.chambers[0].attributes.chamber_name = dated({
+      en: 'Shura Council',
+    });
+    appointed.chambers[0].attributes.statutory_members_number = dated(151);
+    appointed.chambers[0].attributes.not_directly_elected = { value: true };
+    appointed.chambers[0].attributes.appointed_members_number = { value: 151 };
+    delete appointed.chambers[0].attributes.directly_elected_number;
+    appointed.electionsByChamber = {
+      'SA-LC01': [
+        {
+          id: 'SA-LC01-E20240902',
+          attributes: {
+            election_date: { value: { from: '2024-09-02T00:00:00.000Z' } },
+            number_of_seats_at_stake: { value: 150 },
+            scope_of_elections: { value: { term: 'full_renewal' } },
+            elected_note: {
+              value: {
+                en: 'On 2 September 2024, 150 members and the Speaker were appointed by Royal Order for a four-year term.',
+              },
+            },
+            seats_per_parties: { value: [], annotation: { notes: { en: '' } } },
+          },
+        },
+      ],
+    };
+
+    const normalized = normalizeIpuSnapshot(appointed);
+    const chamber = normalized.parliament.chambers[0];
+
+    expect(chamber.totalSeats).toBe(151);
+    expect(chamber.electoralSystem).toMatchObject({
+      directlyElected: false,
+      appointedSeats: 151,
+    });
+    expect(chamber.composition).toEqual({
+      basis: 'source-reported',
+      defaultViewId: 'membership',
+      retrievedAt: '2026-09-18T00:00:00.000Z',
+      views: [
+        {
+          id: 'membership',
+          label: 'Membership composition',
+          dimension: 'membership-role',
+          reportedSeats: 151,
+          entries: [
+            {
+              partyId: 'sa-lc01-appointed-members',
+              party: 'Appointed members',
+              seats: 150,
+            },
+            {
+              partyId: 'sa-lc01-speaker',
+              party: 'Speaker',
+              seats: 1,
+            },
+          ],
+          sourceIds: ['ipu-parline'],
+        },
+      ],
+    });
+
+    appointed.electionsByChamber['SA-LC01'][0].attributes.elected_note.value.en =
+      '149 members and the Speaker were appointed.';
+    expect(
+      normalizeIpuSnapshot(appointed).parliament.chambers[0].composition,
+    ).toBeUndefined();
+  });
+
   it('preserves a fallback composition only while IPU lacks a full composition', () => {
     const noFull = structuredClone(snapshot);
     noFull.electionsByChamber['AU-LC01'][0].attributes.seats_per_parties.value =
