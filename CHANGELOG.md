@@ -6,6 +6,8 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Added
 
+- Empty, validated curated-override pathway shared by IPU and Wikimedia refreshes; future replacements require explicit provenance and review metadata.
+- Six-year stale-IPU warning in Legislature cards, using the election/renewal event date rather than retrieval time.
 - Generic, unauthenticated IPU Parline adapter and canonical normalizer for all ten pilot profiles.
 - Structured Speaker and electoral-system data, multi-entry expected national parliamentary elections, current IPU attribution, and a hash-backed ten-profile manifest.
 - Validated pilot country profiles for all ten configured pilot countries, with dated government, parliament, election, diplomatic-relation, and source provenance data.
@@ -20,6 +22,7 @@ All notable changes to Polity Atlas are recorded here.
 
 ### Changed
 
+- Marked implementation Phases 0–3 complete; removed the proposed manual gold-standard profiles and deferred the comprehensive licensing/reuse audit to the final release gate.
 - Replaced current-composition claims with latest-election outcomes, including safe full-versus-contested-only handling for partial renewals.
 - The workspace header now uses the supplied Polity Atlas light/dark logo assets instead of the PA monogram, text name, and subtitle.
 - Diplomatic-link highlighting now works consistently across all configured pilot profiles.
