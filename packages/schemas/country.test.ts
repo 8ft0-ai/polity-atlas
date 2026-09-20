@@ -121,6 +121,51 @@ describe('country profile contract', () => {
     expect(party?.entries.some((entry) => entry.party === 'Vacant')).toBe(true);
   });
 
+  it('publishes Saudi membership composition from IPU without reducing the statutory chamber', () => {
+    const parsed = legislatureProfileSchema.parse(sau);
+    const chamber = parsed.parliament.chambers[0];
+
+    expect(chamber.totalSeats).toBe(151);
+    expect(chamber.latestElection).toMatchObject({
+      date: { from: '2024-09-02' },
+      seatsAtStake: 150,
+      chamberSize: 151,
+      sourceIds: ['ipu-parline'],
+    });
+    expect(chamber.electoralSystem).toMatchObject({
+      directlyElected: false,
+      appointedSeats: 151,
+    });
+    expect(chamber.composition).toBeDefined();
+
+    if (!chamber.composition || !('views' in chamber.composition)) {
+      throw new Error('Saudi Arabia must publish a membership-role view');
+    }
+
+    expect(chamber.composition.defaultViewId).toBe('membership');
+    expect(chamber.composition.views).toEqual([
+      {
+        id: 'membership',
+        label: 'Membership composition',
+        dimension: 'membership-role',
+        reportedSeats: 151,
+        entries: [
+          {
+            partyId: 'sa-lc01-appointed-members',
+            party: 'Appointed members',
+            seats: 150,
+          },
+          {
+            partyId: 'sa-lc01-speaker',
+            party: 'Speaker',
+            seats: 1,
+          },
+        ],
+        sourceIds: ['ipu-parline'],
+      },
+    ]);
+  });
+
   it('accepts independently validated multi-view chamber compositions', () => {
     expect(() =>
       chamberSchema.parse({
