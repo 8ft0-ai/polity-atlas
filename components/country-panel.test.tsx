@@ -184,6 +184,78 @@ describe('CountryPanel', () => {
     expect(screen.getByText(/Alternative Vote \(AV\)/)).toBeInTheDocument();
   });
 
+  it('uses one full source-reported semicircle for Japan Senate and lists the partial renewal beneath it', async () => {
+    selectProfile({
+      entityId: 'state:m49:392',
+      m49: '392',
+      name: 'Japan',
+      profile: japanProfile,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+
+    renderPanel();
+
+    const composition = await screen.findByLabelText(
+      'Senate source-reported chamber composition semicircle',
+    );
+    expect(composition.tagName.toLowerCase()).toBe('svg');
+    expect(
+      screen.queryByLabelText('Senate contested-seat result semicircle'),
+    ).toBeNull();
+    expect(screen.getByText('125 of 248 seats contested')).toBeInTheDocument();
+    expect(
+      screen.getByText('Seats decided in this renewal'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        '246 seats are represented of 248 statutory seats; 2 seats remain unclassified in this source.',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', {
+        name: 'Source: House of Councillors',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('link', {
+        name: 'Source: Parline national parliament, chamber and election data',
+      }).length,
+    ).toBeGreaterThan(0);
+  });
+
+  it('keeps a contested-seat semicircle when a partial election has no full composition', async () => {
+    const partialOnlyProfile = {
+      ...japanProfile,
+      parliament: {
+        ...japanProfile.parliament,
+        chambers: japanProfile.parliament.chambers.map((chamber) =>
+          chamber.id === 'JP-UC01'
+            ? { ...chamber, composition: undefined }
+            : chamber,
+        ),
+      },
+    };
+
+    selectProfile({
+      entityId: 'state:m49:392',
+      m49: '392',
+      name: 'Japan',
+      profile: partialOnlyProfile,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+
+    renderPanel();
+
+    expect(
+      await screen.findByLabelText('Senate contested-seat result semicircle'),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByLabelText(
+        'Senate source-reported chamber composition semicircle',
+      ),
+    ).toBeNull();
+  });
+
   it('shows a disclosed Wikipedia chamber composition when IPU lacks a full split', async () => {
     selectProfile({
       entityId: 'state:m49:156',
@@ -210,7 +282,7 @@ describe('CountryPanel', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        /2847 seats are represented in this source breakdown of 3000 statutory seats/,
+        /2847 seats are represented of 3000 statutory seats; 153 seats remain unclassified in this source\./,
       ),
     ).toBeInTheDocument();
 
