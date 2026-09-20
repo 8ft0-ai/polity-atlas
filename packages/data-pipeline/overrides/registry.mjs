@@ -98,8 +98,7 @@ export function validateOverrideRegistry(registry) {
 
 function matchesTarget(override, target) {
   return (
-    override.target.iso3 === target.iso3 &&
-    override.target.mode === target.mode
+    override.target.iso3 === target.iso3 && override.target.mode === target.mode
   );
 }
 
