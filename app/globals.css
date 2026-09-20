@@ -52,6 +52,7 @@
   --accent: #dce7df;
   --accent-foreground: #143b30;
   --destructive: #9f2f2f;
+  --warning: #b45309;
   --border: #c9cdc6;
   --input: #b9c0b9;
   --ring: #2c6754;
@@ -83,6 +84,7 @@
   --accent: #263e35;
   --accent-foreground: #dce9e2;
   --destructive: #e38b82;
+  --warning: #f59e0b;
   --border: #3a4641;
   --input: #53605a;
   --ring: #9bc7b5;
