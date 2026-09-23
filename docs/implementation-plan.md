@@ -207,17 +207,17 @@ Record conflicts instead of silently overwriting them. A curated override must i
 
 ### Initial adapters
 
-| Domain                                | Preferred source                                                                      | Use                                                                    |
-| ------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Country IDs/names                     | UN M49 plus reviewed ISO mappings                                                     | Canonical names, regions, and codes.                                   |
-| Boundaries                            | Natural Earth Admin 0 datasets                                                        | Country polygons, sovereignty/disputed layers, capitals.               |
-| Parliament/chambers/parties/elections | IPU Parline API                                                                       | Core parliamentary and historical election data.                       |
-| Expected parliamentary elections      | IPU Parline API                                                                       | National chamber elections/renewals, always labelled expected.         |
-| Confirmed upcoming elections          | National electoral commissions; IFES ElectionGuide where permitted                    | Announced dates and status. A proposed date must never look confirmed. |
-| Leaders                               | Official government sites first; referenced Wikidata statements as discovery/fallback | Office holders, start dates, official pages.                           |
+| Domain                                | Preferred source                                                                                                   | Use                                                                                                            |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Country IDs/names                     | UN M49 plus reviewed ISO mappings                                                                                  | Canonical names, regions, and codes.                                                                           |
+| Boundaries                            | Natural Earth Admin 0 datasets                                                                                     | Country polygons, sovereignty/disputed layers, capitals.                                                       |
+| Parliament/chambers/parties/elections | IPU Parline API                                                                                                    | Core parliamentary and historical election data.                                                               |
+| Expected parliamentary elections      | IPU Parline API                                                                                                    | National chamber elections/renewals, always labelled expected.                                                 |
+| Confirmed upcoming elections          | National electoral commissions; IFES ElectionGuide where permitted                                                 | Announced dates and status. A proposed date must never look confirmed.                                         |
+| Leaders                               | Official government sites first; referenced Wikidata statements as discovery/fallback                              | Office holders, start dates, official pages.                                                                   |
 | Party position and party detail       | English Wikipedia party infobox after exact identity resolution; Wikidata exact enwiki sitelink as an identity aid | Source-reported political position and structured infobox facts; never infer position from colour or ideology. |
-| Diplomatic missions                   | Foreign-ministry mission directories and embassy pages                                | Directional mission relationships.                                     |
-| Cross-source IDs                      | Wikidata, reviewed mappings                                                           | Join records without joining by display name.                          |
+| Diplomatic missions                   | Foreign-ministry mission directories and embassy pages                                                             | Directional mission relationships.                                                                             |
+| Cross-source IDs                      | Wikidata, reviewed mappings                                                                                        | Join records without joining by display name.                                                                  |
 
 During source discovery, record known access conditions, attribution requirements, and obvious reuse constraints in `docs/source-policy.md`, but do not block API/schema exploration on a comprehensive licensing review. The complete source-by-source licensing and reuse audit is a final release gate after the product and source set have stabilised.
 

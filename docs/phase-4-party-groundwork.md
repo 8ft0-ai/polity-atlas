@@ -574,12 +574,10 @@ Avoid a single-purpose `isPartyPanelOpen` boolean.
 Extend workspace state with a discriminated detail selection:
 
 ```ts
-type DetailSelection =
-  | {
-      kind: 'party';
-      entityId: string;
-    }
-  | null;
+type DetailSelection = {
+  kind: 'party';
+  entityId: string;
+} | null;
 ```
 
 Expose actions such as `openParty(entityId)` and `clearDetail()`.
@@ -654,7 +652,7 @@ External links must retain `target="_blank"` and `rel="noopener noreferrer"`.
 Add a loader such as:
 
 ```ts
-loadPartyProfile(entityId)
+loadPartyProfile(entityId);
 ```
 
 to `lib/profile-data.ts`.
