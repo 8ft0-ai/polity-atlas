@@ -127,17 +127,15 @@ describe('Phase 4A sourced party association', () => {
       registry(),
     );
     const chamber = result.profile.parliament.chambers[0];
-    expect(chamber.composition.entries.map((entry) => entry.partyEntityId)).toEqual([
-      'party:wikipedia:21',
-      'party:wikipedia:22',
-      undefined,
-    ]);
+    expect(
+      chamber.composition.entries.map((entry) => entry.partyEntityId),
+    ).toEqual(['party:wikipedia:21', 'party:wikipedia:22', undefined]);
     expect(
       chamber.latestElection.outcome.seatsWonInElection[0].partyEntityId,
     ).toBeUndefined();
-    expect(original.parliament.chambers[0].composition.entries[0]).not.toHaveProperty(
-      'partyEntityId',
-    );
+    expect(
+      original.parliament.chambers[0].composition.entries[0],
+    ).not.toHaveProperty('partyEntityId');
     expect(result.profile.parties).toHaveLength(2);
     expect(result.profile.parties[0]).toMatchObject({
       entityId: 'party:wikipedia:21',
@@ -179,7 +177,8 @@ describe('Phase 4A sourced party association', () => {
       registry(['wikipedia-en-page-100', 'wikipedia-en-page-101']),
     );
     expect(
-      result.profile.parliament.chambers[1].composition.entries[0].partyEntityId,
+      result.profile.parliament.chambers[1].composition.entries[0]
+        .partyEntityId,
     ).toBeUndefined();
   });
 
@@ -198,10 +197,15 @@ describe('Phase 4A sourced party association', () => {
     original.parliament.chambers[0].composition.entries = [
       { partyId: 'wiki-unity', party: 'Unity Party', seats: 21 },
     ];
-    const result = associatePreparedParties(original, acquired, prepared, registry());
-    expect(result.profile.parliament.chambers[0].composition.entries[0]).not.toHaveProperty(
-      'partyEntityId',
+    const result = associatePreparedParties(
+      original,
+      acquired,
+      prepared,
+      registry(),
     );
+    expect(
+      result.profile.parliament.chambers[0].composition.entries[0],
+    ).not.toHaveProperty('partyEntityId');
     expect(result.profile.parties).toEqual([]);
     expect(result.partyDetails).toEqual([]);
     expect(result.diagnostics).toEqual(['PARTY_IDENTITY_AMBIGUOUS:wiki-unity']);
@@ -228,21 +232,30 @@ describe('Phase 4A sourced party association', () => {
 
   it('blocks an injected link to a nonexistent summary', async () => {
     const { acquired, prepared } = await preparation();
-    const result = associatePreparedParties(profile(), acquired, prepared, registry());
+    const result = associatePreparedParties(
+      profile(),
+      acquired,
+      prepared,
+      registry(),
+    );
     result.profile.parliament.chambers[0].composition.entries[0].partyEntityId =
       'party:wikipedia:999';
     expect(() =>
-      validatePartyPublication(
-        result.profile,
-        result.partyDetails,
-        [...registry().sources, ...result.additionalSources],
-      ),
+      validatePartyPublication(result.profile, result.partyDetails, [
+        ...registry().sources,
+        ...result.additionalSources,
+      ]),
     ).toThrow('Dangling party entry');
   });
 
   it('blocks malformed source-party ownership and missing party detail', async () => {
     const { acquired, prepared } = await preparation();
-    const result = associatePreparedParties(profile(), acquired, prepared, registry());
+    const result = associatePreparedParties(
+      profile(),
+      acquired,
+      prepared,
+      registry(),
+    );
     const sources = [...registry().sources, ...result.additionalSources];
     expect(() =>
       validatePartyPublication(
@@ -259,7 +272,12 @@ describe('Phase 4A sourced party association', () => {
 
   it('blocks fabricated or orphaned party details and position sources', async () => {
     const { acquired, prepared } = await preparation();
-    const result = associatePreparedParties(profile(), acquired, prepared, registry());
+    const result = associatePreparedParties(
+      profile(),
+      acquired,
+      prepared,
+      registry(),
+    );
     const sources = [...registry().sources, ...result.additionalSources];
     result.partyDetails.push({
       ...result.partyDetails[0],
@@ -281,15 +299,19 @@ describe('Phase 4A sourced party association', () => {
 
   it('rejects generic party labels injected with entity links', async () => {
     const { acquired, prepared } = await preparation();
-    const result = associatePreparedParties(profile(), acquired, prepared, registry());
+    const result = associatePreparedParties(
+      profile(),
+      acquired,
+      prepared,
+      registry(),
+    );
     result.profile.parliament.chambers[0].composition.entries[2].partyEntityId =
       'party:wikipedia:21';
     expect(() =>
-      validatePartyPublication(
-        result.profile,
-        result.partyDetails,
-        [...registry().sources, ...result.additionalSources],
-      ),
+      validatePartyPublication(result.profile, result.partyDetails, [
+        ...registry().sources,
+        ...result.additionalSources,
+      ]),
     ).toThrow('Generic entry was linked');
   });
 });
