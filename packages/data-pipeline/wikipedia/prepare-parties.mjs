@@ -2,6 +2,7 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WikipediaClient } from './client.mjs';
+import { associatePreparedParties } from './party-association.mjs';
 import {
   acquireLinkedPartySnapshot,
   normalizeLinkedPartySnapshot,
@@ -20,6 +21,15 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, 'utf8'));
 }
 
+async function readJsonIfPresent(path) {
+  try {
+    return await readJson(path);
+  } catch (error) {
+    if (error?.code === 'ENOENT') return undefined;
+    throw error;
+  }
+}
+
 async function writeJson(path, value) {
   await mkdir(dirname(path), { recursive: true });
   await writeFile(path, JSON.stringify(value, null, 2) + '\n');
@@ -34,6 +44,7 @@ const fromCache = process.argv.includes('--from-cache');
 const sourcePath = resolve(cacheRoot, iso3 + '.json');
 const acquisitionPath = resolve(cacheRoot, 'parties', iso3 + '.json');
 const preparedPath = resolve(cacheRoot, 'parties', 'prepared', iso3 + '.json');
+const reviewPath = resolve(cacheRoot, 'parties', 'review', iso3 + '.json');
 
 const sourceSnapshot = await readJson(sourcePath);
 if (sourceSnapshot.requestedCountry?.iso3 !== iso3) {
@@ -43,10 +54,31 @@ const acquired = fromCache
   ? await readJson(acquisitionPath)
   : await acquireLinkedPartySnapshot(sourceSnapshot, new WikipediaClient());
 const prepared = normalizeLinkedPartySnapshot(sourceSnapshot, acquired);
+const country = await readJsonIfPresent(
+  resolve(root, 'public/data/countries', iso3 + '.json'),
+);
+const legislature = country
+  ? undefined
+  : await readJsonIfPresent(
+      resolve(root, 'public/data/legislatures', iso3 + '.json'),
+    );
+const publishedProfile = country ?? legislature;
+if (!publishedProfile) {
+  throw new Error('No reviewed country or legislature profile for ' + iso3);
+}
+const sourceRegistry = await readJson(resolve(root, 'public/data/sources.json'));
+const review = associatePreparedParties(
+  publishedProfile,
+  acquired,
+  prepared,
+  sourceRegistry,
+);
 
-// No public data files, source registry, or manifest are changed here.
+// No public data, source registry or manifest is changed by this command.
+// Validate all cross-references before writing any local cache previews.
 if (!fromCache) await writeJson(acquisitionPath, acquired);
 await writeJson(preparedPath, prepared);
+await writeJson(reviewPath, review);
 process.stdout.write(
   'Prepared ' +
     prepared.profiles.length +
@@ -54,5 +86,9 @@ process.stdout.write(
     iso3 +
     ' (' +
     prepared.diagnostics.length +
-    ' diagnostic(s))\n',
+    ' acquisition diagnostic(s); ' +
+    review.profile.parties.length +
+    ' source-linked parties; ' +
+    review.diagnostics.length +
+    ' association diagnostic(s))\n',
 );
