@@ -37,7 +37,7 @@ The first full release should provide:
 - A profile for every supported sovereign state and separately identified territory.
 - Current heads of state and government.
 - Legislature name, chamber structure, statutory seat counts, presiding officers, electoral systems, latest election outcomes, and next known or expected election.
-- Party profiles with abbreviation, leaders, seats by chamber, official links, and sourced ideological descriptions where reliable data exists.
+- Party profiles with stable cross-source identity, abbreviation, leaders, seats by chamber, official links, and sourced political-position/ideology descriptions where reliable data exists; source classifications remain distinct and are never inferred from party colour.
 - Upcoming national elections with clearly distinguished `confirmed`, `tentative`, and `expected` dates.
 - Diplomatic mission relationships, including resident embassy/high commission, non-resident accreditation, interests section, suspended mission, or no diplomatic relations where a reliable source establishes it.
 - A source link beside each fact group and a complete Sources tab.
@@ -184,7 +184,8 @@ Generate:
 
 - `manifest.json`: schema version, build ID, generated time, country list, file hashes.
 - `countries-index.json`: names, aliases, codes, centroids, region, data availability, next election summary.
-- `countries/{ISO3}.json`: the profile and its relevant sources.
+- `countries/{ISO3}.json`: the profile and its relevant sources, including lightweight party summaries once Phase 4A lands.
+- `parties/{stable-party-key}.json`: lazy-loaded, schema-valid party detail records generated from exact source identity and hash-bound by the manifest.
 - `relations/{ISO3}.json`: outbound and inbound diplomatic edges.
 - `geometry/countries.geojson`: simplified country polygons with stable feature IDs.
 - `geometry/disputed-lines.geojson`: separately styled boundary claims/disputes.
@@ -206,16 +207,17 @@ Record conflicts instead of silently overwriting them. A curated override must i
 
 ### Initial adapters
 
-| Domain                                | Preferred source                                                                      | Use                                                                    |
-| ------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Country IDs/names                     | UN M49 plus reviewed ISO mappings                                                     | Canonical names, regions, and codes.                                   |
-| Boundaries                            | Natural Earth Admin 0 datasets                                                        | Country polygons, sovereignty/disputed layers, capitals.               |
-| Parliament/chambers/parties/elections | IPU Parline API                                                                       | Core parliamentary and historical election data.                       |
-| Expected parliamentary elections      | IPU Parline API                                                                       | National chamber elections/renewals, always labelled expected.         |
-| Confirmed upcoming elections          | National electoral commissions; IFES ElectionGuide where permitted                    | Announced dates and status. A proposed date must never look confirmed. |
-| Leaders                               | Official government sites first; referenced Wikidata statements as discovery/fallback | Office holders, start dates, official pages.                           |
-| Diplomatic missions                   | Foreign-ministry mission directories and embassy pages                                | Directional mission relationships.                                     |
-| Cross-source IDs                      | Wikidata, reviewed mappings                                                           | Join records without joining by display name.                          |
+| Domain                                | Preferred source                                                                                                   | Use                                                                                                            |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Country IDs/names                     | UN M49 plus reviewed ISO mappings                                                                                  | Canonical names, regions, and codes.                                                                           |
+| Boundaries                            | Natural Earth Admin 0 datasets                                                                                     | Country polygons, sovereignty/disputed layers, capitals.                                                       |
+| Parliament/chambers/parties/elections | IPU Parline API                                                                                                    | Core parliamentary and historical election data.                                                               |
+| Expected parliamentary elections      | IPU Parline API                                                                                                    | National chamber elections/renewals, always labelled expected.                                                 |
+| Confirmed upcoming elections          | National electoral commissions; IFES ElectionGuide where permitted                                                 | Announced dates and status. A proposed date must never look confirmed.                                         |
+| Leaders                               | Official government sites first; referenced Wikidata statements as discovery/fallback                              | Office holders, start dates, official pages.                                                                   |
+| Party position and party detail       | English Wikipedia party infobox after exact identity resolution; Wikidata exact enwiki sitelink as an identity aid | Source-reported political position and structured infobox facts; never infer position from colour or ideology. |
+| Diplomatic missions                   | Foreign-ministry mission directories and embassy pages                                                             | Directional mission relationships.                                                                             |
+| Cross-source IDs                      | Wikidata, reviewed mappings                                                                                        | Join records without joining by display name.                                                                  |
 
 During source discovery, record known access conditions, attribution requirements, and obvious reuse constraints in `docs/source-policy.md`, but do not block API/schema exploration on a comprehensive licensing review. The complete source-by-source licensing and reuse audit is a final release gate after the product and source set have stabilised.
 
@@ -274,8 +276,8 @@ Header:
 Tabs:
 
 - **Overview:** government system, head of state, head of government, capital, legislature summary, and all available next expected parliamentary elections.
-- **Parliament:** one card per chamber with statutory seats, Speaker, electoral system, an accessible latest-election visualization, and a separately disclosed source-reported chamber composition where IPU lacks a full party-seat split.
-- **Parties:** dense table with name, abbreviation, chamber seats, leader, status, and expandable sourced description.
+- **Legislature:** one card per chamber with statutory seats, Speaker, electoral system, an accessible latest-election visualization, a separately disclosed source-reported chamber composition where IPU lacks a full party-seat split, and Phase 4A party-position/detail affordances for safely identified parties.
+- **Parties:** dense table with name, abbreviation, chamber seats, leader, sourced political-position indicator, status, and expandable sourced description. Phase 4A establishes the shared party entity/detail layer before this tab is completed.
 - **Elections:** multiple expected national parliamentary chamber/renewal dates where available, status label, scope, and source. Future adapters may add confirmed or non-national events without changing the collection shape.
 - **Relations:** inbound/outbound mission status, location, accreditation, and a map legend.
 - **Sources:** all sources used in the current country file, grouped by topic and showing publisher, title, retrieved date, and external link.
@@ -463,16 +465,43 @@ Deliverables:
 
 Exit criteria: the ten full country profiles plus three legislature-only pilots reproduce through the generic pipelines and pass all validation gates; every displayed sourced fact resolves through the global source registry; an empty curated-override registry is a no-op; malformed or unprovenanced overrides fail closed; and the six-year IPU warning boundary is covered by component tests.
 
-### Phase 4 — Country, parliament, party, and election UI (7–10 days)
+### Phase 4 — Country, legislature, party, and election UI
+
+**Status: IN PROGRESS — groundwork started 23 September 2026.**
+
+Phase 4 is now split into two bounded slices so party identity and provenance are established before the wider party UI is built. The detailed technical design is maintained in [`docs/phase-4-party-groundwork.md`](./phase-4-party-groundwork.md).
+
+#### Phase 4A — Party identity, political position, and detail inspection
 
 Deliverables:
 
-- Overview, Legislature, Parties, Elections, and Sources tabs.
-- Accessible seat visualization and dense tables.
-- Fact citations, freshness labels, conflict notes, empty/partial states.
-- Loading and schema failure boundaries.
+- Introduce a stable party-entity layer without replacing source party IDs used by IPU election/composition records.
+- Reuse the Phase 3 exact Wikipedia/Wikidata identity work before any bounded Wikipedia search fallback.
+- Add source-backed political-position data from the English Wikipedia party infobox `Position` / `Political position` field only.
+- Render the seven-point order Far Left → Left → Centre Left → Centre → Centre Right → Right → Far-Right beside safely identified parties.
+- Preserve non-linear source classifications such as `Big tent` as text instead of forcing them onto the seven-point scale.
+- Never infer political position from colour, ideology, party name, government/opposition status, coalition membership, or another party.
+- Generate lightweight party summaries in country/legislature profiles plus lazily loaded, manifest-hashed party detail files.
+- Add a reusable secondary entity-detail slide-over. The first implementation displays structured Wikipedia party-infobox facts and a direct source link.
+- Keep generic labels such as Independent, Vacant, Other, Crossbench, and non-partisan membership non-interactive unless a precise entity identity is established.
+- Extend provenance, cache replay, curated-override, validation, source-registry, and manifest rules to the new party data.
+- Cover identity ambiguity, position parsing, source provenance, keyboard/focus behaviour, loading/error boundaries, light/dark themes, and mobile layout with automated tests.
 
-Exit criteria: pilot profiles are complete and usable in light/dark themes at desktop and mobile sizes.
+Phase 4A implementation should land in two substantial implementation PRs: first the party data/schema/pipeline foundation, then the political-position UI and reusable secondary slide-over.
+
+Exit criteria: every published party position is tied to an exact source article and displayed without editorial inference; ambiguous identity resolution fails closed; supported party rows can open a validated secondary detail view and return to the existing Legislature context without losing state.
+
+#### Phase 4B — Remaining country/party UI completion
+
+Deliverables:
+
+- Complete the dedicated Parties tab using the Phase 4A party entity layer rather than introducing a second party model.
+- Add dense party tables and richer sourced party facts where reliable data exists.
+- Complete the remaining Overview, Legislature, Elections, Parties, and Sources tab presentation work.
+- Retain fact citations, freshness labels, conflict notes, empty/partial states, and loading/schema failure boundaries.
+- Reuse the Phase 4A detail-panel shell for future entity inspection where appropriate.
+
+Exit criteria: pilot profiles are complete and usable in light/dark themes at desktop and mobile sizes, with party facts and political-position presentation traceable to their cited sources.
 
 ### Phase 5 — Relations and map linking (7–12 days)
 
