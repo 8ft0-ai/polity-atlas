@@ -35,7 +35,7 @@ function normaliseName(name) {
     .trim();
 }
 
-function isGeneric(name) {
+export function isGeneric(name) {
   return GENERIC_NAMES.has(normaliseName(name));
 }
 
