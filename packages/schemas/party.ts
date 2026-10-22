@@ -47,19 +47,16 @@ const secureUrlSchema = z
   .url()
   .refine((url) => url.startsWith('https://'), 'Links must use HTTPS');
 
-const wikipediaUrlSchema = secureUrlSchema.refine(
-  (value) => {
-    const url = new URL(value);
-    return (
-      url.hostname === 'en.wikipedia.org' &&
-      url.pathname.startsWith('/wiki/') &&
-      !url.username &&
-      !url.password &&
-      !url.port
-    );
-  },
-  'Party article must be an English Wikipedia article',
-);
+const wikipediaUrlSchema = secureUrlSchema.refine((value) => {
+  const url = new URL(value);
+  return (
+    url.hostname === 'en.wikipedia.org' &&
+    url.pathname.startsWith('/wiki/') &&
+    !url.username &&
+    !url.password &&
+    !url.port
+  );
+}, 'Party article must be an English Wikipedia article');
 
 export const partyFactSchema = z.object({
   key: z.string().min(1),
@@ -103,7 +100,10 @@ export const partyProfileSchema = z
       wikipediaPageId: z.number().int().positive(),
       wikipediaTitle: z.string().min(1),
       wikipediaUrl: wikipediaUrlSchema,
-      wikidataId: z.string().regex(/^Q[1-9]\d*$/).optional(),
+      wikidataId: z
+        .string()
+        .regex(/^Q[1-9]\d*$/)
+        .optional(),
     }),
     position: politicalPositionSchema.optional(),
     facts: z.array(partyFactSchema),
