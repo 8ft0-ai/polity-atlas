@@ -5,11 +5,25 @@ import {
 import { normalizeVerifiedPartyPage } from './party.mjs';
 
 const GENERIC_NAMES = new Set([
-  'ind', 'independent', 'independents', 'independent politician',
-  'non affiliated', 'non partisan', 'nonpartisan', 'unaffiliated',
-  'other', 'others', 'vacant', 'vacancy', 'vacancies',
-  'crossbench', 'crossbenchers', 'speaker', 'appointed members',
-  'government', 'opposition',
+  'ind',
+  'independent',
+  'independents',
+  'independent politician',
+  'non affiliated',
+  'non partisan',
+  'nonpartisan',
+  'unaffiliated',
+  'other',
+  'others',
+  'vacant',
+  'vacancy',
+  'vacancies',
+  'crossbench',
+  'crossbenchers',
+  'speaker',
+  'appointed members',
+  'government',
+  'opposition',
 ]);
 
 function normaliseName(name) {
@@ -29,11 +43,18 @@ function articleHasPartyEvidence(page) {
   const fields = new Set(
     parseInfobox(page.html).rows.map((row) => normaliseName(row.label)),
   );
-  const politicalField = ['ideology', 'political position', 'position']
-    .some((field) => fields.has(field));
+  const politicalField = ['ideology', 'political position', 'position'].some(
+    (field) => fields.has(field),
+  );
   const organisationalField = [
-    'leader', 'party leader', 'president', 'chairperson', 'founded',
-    'formation', 'headquarters', 'national affiliation',
+    'leader',
+    'party leader',
+    'president',
+    'chairperson',
+    'founded',
+    'formation',
+    'headquarters',
+    'national affiliation',
   ].some((field) => fields.has(field));
   return politicalField && organisationalField;
 }
@@ -53,7 +74,9 @@ export function linkedPartyCandidates(snapshot) {
   const candidates = new Map();
   for (const page of pages) {
     if (!Number.isSafeInteger(page.pageId) || page.pageId <= 0) {
-      throw new Error('Source chamber page identity must be a positive page ID');
+      throw new Error(
+        'Source chamber page identity must be a positive page ID',
+      );
     }
     const views = extractPoliticalCompositionViews(parseInfobox(page.html));
     for (const view of views ?? []) {
@@ -158,12 +181,16 @@ export function normalizeLinkedPartySnapshot(snapshot, acquired) {
       continue;
     }
     if (!page || !articleHasPartyEvidence(page)) {
-      diagnostics.push('PARTY_ARTICLE_NOT_VERIFIED:' + candidate.requestedTitle);
+      diagnostics.push(
+        'PARTY_ARTICLE_NOT_VERIFIED:' + candidate.requestedTitle,
+      );
       continue;
     }
     const result = normalizeVerifiedPartyPage(page, acquired.retrievedAt);
     if (!result) {
-      diagnostics.push('PARTY_ARTICLE_NOT_VERIFIED:' + candidate.requestedTitle);
+      diagnostics.push(
+        'PARTY_ARTICLE_NOT_VERIFIED:' + candidate.requestedTitle,
+      );
       continue;
     }
 
