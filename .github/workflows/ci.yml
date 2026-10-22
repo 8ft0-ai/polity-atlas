@@ -18,10 +18,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Temporary Phase 4A formatting diagnostic
-        run: |
-          npm run format -- packages/data-pipeline/wikipedia/party-acquisition.mjs packages/data-pipeline/wikipedia/party-acquisition.test.mjs
-          git diff -- packages/data-pipeline/wikipedia/party-acquisition.mjs packages/data-pipeline/wikipedia/party-acquisition.test.mjs
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
