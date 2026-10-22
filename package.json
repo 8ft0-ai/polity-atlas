@@ -16,6 +16,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "data:validate": "vitest run packages/schemas packages/data-pipeline",
+    "data:prepare:parties": "node packages/data-pipeline/wikipedia/prepare-parties.mjs",
     "data:refresh:ipu": "node packages/data-pipeline/ipu/refresh.mjs",
     "data:refresh:wikipedia": "node packages/data-pipeline/wikipedia/refresh.mjs"
   },
