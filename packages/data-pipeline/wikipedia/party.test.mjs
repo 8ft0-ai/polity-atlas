@@ -172,8 +172,7 @@ describe('Phase 4A verified Wikipedia infobox extraction', () => {
   it('deduplicates identical infobox field values', () => {
     const result = normalizeVerifiedPartyPage(
       partyPage(
-        row('Political position', 'Left-wing') +
-          row('Position', 'Left-wing'),
+        row('Political position', 'Left-wing') + row('Position', 'Left-wing'),
       ),
       retrievedAt,
     );
