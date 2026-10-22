@@ -241,3 +241,47 @@ secondary detail surface follow in a separate implementation PR.
 Do not call the extraction function on a fuzzy search result or treat the mere
 presence of an infobox as proof of party identity. No position is inferred from
 ideology, colour or a party name.
+
+### Exact linked-party acquisition (Phase 4A, increment 2)
+
+The existing Wikipedia refresh still owns country and chamber data. The
+following **explicit developer command** uses its ignored country snapshot to
+acquire linked political-party articles:
+
+```sh
+npm run data:prepare:parties -- --country=GBR
+npm run data:prepare:parties -- --country=GBR --from-cache
+```
+
+Run `npm run data:refresh:wikipedia -- --country=GBR` first if
+`.cache/wikipedia/GBR.json` does not exist.
+
+The command discovers exact Wikipedia article links inside the party dimension
+of existing parliament and chamber infobox composition. It excludes generic
+membership labels and unrelated faction/coalition views. It does **not** infer
+identity from approximate names or use a Wikipedia search result as proof.
+
+Only linked articles with party-specific infobox evidence are normalised using
+the Phase 4A party schemas. Articles lacking evidence are omitted with an
+explicit diagnostic. Requests are sequential and capped at 100 distinct
+candidate titles per country. A failed source request aborts preparation
+without replacing an earlier prepared file.
+
+The ignored files are:
+
+- `.cache/wikipedia/parties/GBR.json`: raw exact article observations,
+  requested titles, candidate provenance and original retrieval timestamp;
+- `.cache/wikipedia/parties/prepared/GBR.json`: normalised local
+  party summaries, infobox details, sources and diagnostics.
+
+`--from-cache` never requests external source data. It validates the
+country ID, retrieval timestamp, candidate list and cached article identities
+before replay. With the same snapshots it produces identical prepared JSON.
+
+**This is a preparation slice, not public publication.** No generated
+`public/data` profiles, schemas, source registry or manifest are
+updated, and the UI is not yet connected. Wikidata exact sitelinks, safe
+IPU-only candidate resolution, party cross-reference validation and atomic
+manifest-backed publication remain required before approval of the full
+Phase 4A data foundation. Live source retrieval still requires compliance
+with the documented source policy.
