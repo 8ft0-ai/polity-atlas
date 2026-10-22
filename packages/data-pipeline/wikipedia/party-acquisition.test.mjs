@@ -19,10 +19,15 @@ function chamber(pageId, labels) {
           ({ name, title, seats }) =>
             '<li>' +
             (title
-              ? '<a href="./' + title.replaceAll(' ', '_') + '">' +
-                name + '</a>'
+              ? '<a href="./' +
+                title.replaceAll(' ', '_') +
+                '">' +
+                name +
+                '</a>'
               : name) +
-            ' (' + seats + ')</li>',
+            ' (' +
+            seats +
+            ')</li>',
         )
         .join('') +
       '</ul></td></tr></tbody></table>',
