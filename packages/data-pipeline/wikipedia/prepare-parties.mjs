@@ -66,7 +66,9 @@ const publishedProfile = country ?? legislature;
 if (!publishedProfile) {
   throw new Error('No reviewed country or legislature profile for ' + iso3);
 }
-const sourceRegistry = await readJson(resolve(root, 'public/data/sources.json'));
+const sourceRegistry = await readJson(
+  resolve(root, 'public/data/sources.json'),
+);
 const review = associatePreparedParties(
   publishedProfile,
   acquired,
