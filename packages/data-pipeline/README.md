@@ -285,3 +285,39 @@ IPU-only candidate resolution, party cross-reference validation and atomic
 manifest-backed publication remain required before approval of the full
 Phase 4A data foundation. Live source retrieval still requires compliance
 with the documented source policy.
+
+### Verified party associations — review preview (Phase 4A, increment 3)
+
+The explicit `data:prepare:parties` command now checks the prepared party
+articles against the existing reviewed country/legislature profile and the
+global source registry. It emits a **non-public review preview** at:
+
+```text
+.cache/wikipedia/parties/review/<ISO3>.json
+```
+
+The preview includes an annotated candidate profile, the referenced party
+details and the additional party source records. It deliberately does not
+alter the schema version of the public profile or update `public/data`.
+The preview must **not** be copied straight into a published profile. Full
+profile/manifest v6 transitions, validation and staged publication remain a
+separate delivery increment.
+
+Association is restricted to existing source-reported **party** composition
+entries with an exact label and exact Wikipedia chamber source-page match to a
+previously verified linked article. An unverified IPU election party is not
+linked merely because its name resembles a Wikipedia title or another party.
+Entries such as Independents and Vacant never receive party identities.
+Multiple plausible entities for one exact label fail closed with an ambiguity
+diagnostic.
+
+Before emitting a preview, validation checks party summary/detail identities,
+complete source provenance, source party-ID ownership, referenced detail
+existence, orphan details, the Wikipedia HTTPS boundary and the absence of
+generic membership links. Missing source metadata or a conflicting party
+entity aborts preparation rather than producing a misleading review file.
+
+The command still supports `--from-cache` without a network request.
+Replay additionally reads the reviewed public profile and source registry,
+which must remain the same inputs for identical preview output. The preview
+is a prerequisite for the later atomic public publication step.
