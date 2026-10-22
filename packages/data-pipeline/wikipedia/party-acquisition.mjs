@@ -89,8 +89,8 @@ export function linkedPartyCandidates(snapshot) {
   return [...candidates.values()]
     .map((candidate) => ({
       ...candidate,
-      sourceLabels: candidate.sourceLabels.sort(),
-      sourceIds: candidate.sourceIds.sort(),
+      sourceLabels: candidate.sourceLabels.sort((a, b) => a.localeCompare(b)),
+      sourceIds: candidate.sourceIds.sort((a, b) => a.localeCompare(b)),
     }))
     .sort((a, b) => a.requestedTitle.localeCompare(b.requestedTitle));
 }
@@ -174,12 +174,12 @@ export function normalizeLinkedPartySnapshot(snapshot, acquired) {
       }
       existing.summary.sourceIds = [
         ...new Set([...existing.summary.sourceIds, ...candidate.sourceIds]),
-      ].sort();
+      ].sort((a, b) => a.localeCompare(b));
       continue;
     }
     result.summary.sourceIds = [
       ...new Set([...result.summary.sourceIds, ...candidate.sourceIds]),
-    ].sort();
+    ].sort((a, b) => a.localeCompare(b));
     records.set(result.profile.entityId, result);
   }
 
@@ -193,6 +193,6 @@ export function normalizeLinkedPartySnapshot(snapshot, acquired) {
     summaries: ordered.map((record) => record.summary),
     profiles: ordered.map((record) => record.profile),
     sources: ordered.map((record) => record.source),
-    diagnostics: diagnostics.sort(),
+    diagnostics: diagnostics.sort((a, b) => a.localeCompare(b)),
   };
 }
