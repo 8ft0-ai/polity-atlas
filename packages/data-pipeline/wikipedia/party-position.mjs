@@ -33,12 +33,11 @@ function canonicalPoint(value) {
 }
 
 export function normalizePoliticalPosition(value, sourceIds) {
-  if (value === undefined || value === null || value.trim() === '') {
-    return undefined;
-  }
+  if (value === undefined || value === null) return undefined;
   if (typeof value !== 'string') {
     throw new Error('Political position must be a string');
   }
+  if (value.trim() === '') return undefined;
   if (
     !Array.isArray(sourceIds) ||
     !sourceIds.length ||
