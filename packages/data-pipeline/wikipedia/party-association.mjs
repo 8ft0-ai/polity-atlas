@@ -92,23 +92,21 @@ function referencedEntries(chamber) {
 }
 
 function assertPartySources(ids, knownSources, context) {
-  if (!Array.isArray(ids) || ids.length === 0) fail(context + ' has no sources');
+  if (!Array.isArray(ids) || ids.length === 0)
+    fail(context + ' has no sources');
   for (const id of ids) {
     if (!knownSources.has(id)) fail(context + ' unknown source: ' + id);
   }
 }
 
-export function validatePartyPublication(
-  profile,
-  partyDetails,
-  mergedSources,
-) {
+export function validatePartyPublication(profile, partyDetails, mergedSources) {
   const knownSources = new Set(mergedSources.map((source) => source.id));
   const summaries = profile.parties ?? [];
   const byId = new Map();
 
   for (const party of summaries) {
-    if (byId.has(party.entityId)) fail('Duplicate party summary: ' + party.entityId);
+    if (byId.has(party.entityId))
+      fail('Duplicate party summary: ' + party.entityId);
     if (party.entityId !== 'party:wikipedia:' + party.wikipedia.pageId) {
       fail('Party summary identity mismatch: ' + party.entityId);
     }
@@ -125,14 +123,19 @@ export function validatePartyPublication(
 
   const detailsById = new Map();
   for (const detail of partyDetails) {
-    if (detailsById.has(detail.entityId)) fail('Duplicate party detail: ' + detail.entityId);
+    if (detailsById.has(detail.entityId))
+      fail('Duplicate party detail: ' + detail.entityId);
     if (
       detail.entityId !==
       'party:wikipedia:' + detail.identity.wikipediaPageId
     ) {
       fail('Party detail identity mismatch: ' + detail.entityId);
     }
-    if (!/^https:\/\/en\.wikipedia\.org\/wiki\/[^?#]+$/.test(detail.identity.wikipediaUrl)) {
+    if (
+      !/^https:\/\/en\.wikipedia\.org\/wiki\/[^?#]+$/.test(
+        detail.identity.wikipediaUrl,
+      )
+    ) {
       fail('Unsafe Wikipedia detail URL: ' + detail.entityId);
     }
     detailsById.set(detail.entityId, detail);
@@ -180,7 +183,8 @@ export function validatePartyPublication(
   for (const chamber of profile.parliament.chambers) {
     for (const entry of referencedEntries(chamber)) {
       if (!entry.partyEntityId) continue;
-      if (isGeneric(entry.party)) fail('Generic entry was linked: ' + entry.party);
+      if (isGeneric(entry.party))
+        fail('Generic entry was linked: ' + entry.party);
       if (!byId.has(entry.partyEntityId)) {
         fail('Dangling party entry: ' + entry.partyEntityId);
       }
@@ -197,7 +201,12 @@ export function validatePartyPublication(
  * Election-only IPU names do not qualify for identity based on name similarity.
  * The returned profile is a REVIEW PREVIEW, not a public schema-version change.
  */
-export function associatePreparedParties(profile, acquired, prepared, registry) {
+export function associatePreparedParties(
+  profile,
+  acquired,
+  prepared,
+  registry,
+) {
   if (
     !profile?.identity?.iso3 ||
     profile.identity.iso3 !== acquired?.countryIso3 ||
@@ -230,10 +239,7 @@ export function associatePreparedParties(profile, acquired, prepared, registry) 
           continue;
         }
         if (result.kind !== 'linked') continue;
-        if (
-          entry.partyEntityId &&
-          entry.partyEntityId !== result.entityId
-        ) {
+        if (entry.partyEntityId && entry.partyEntityId !== result.entityId) {
           fail('Existing party reference conflicts: ' + entry.partyId);
         }
         entry.partyEntityId = result.entityId;
@@ -242,7 +248,11 @@ export function associatePreparedParties(profile, acquired, prepared, registry) 
         partyIdsByEntity.set(result.entityId, ids);
         const sources = provenanceByEntity.get(result.entityId) ?? new Set();
         for (const id of sourceIds) {
-          if (bindings.get(id + '\u0000' + exactLabel(entry.party))?.has(result.entityId)) {
+          if (
+            bindings
+              .get(id + '\u0000' + exactLabel(entry.party))
+              ?.has(result.entityId)
+          ) {
             sources.add(id);
           }
         }
@@ -259,18 +269,26 @@ export function associatePreparedParties(profile, acquired, prepared, registry) 
       sourcePartyIds: [...partyIdsByEntity.get(summary.entityId)].sort(
         (left, right) => left.localeCompare(right),
       ),
-      sourceIds: [...new Set([
-        'wikipedia-en-page-' + summary.wikipedia.pageId,
-        ...provenanceByEntity.get(summary.entityId),
-      ])].sort((left, right) => left.localeCompare(right)),
+      sourceIds: [
+        ...new Set([
+          'wikipedia-en-page-' + summary.wikipedia.pageId,
+          ...provenanceByEntity.get(summary.entityId),
+        ]),
+      ].sort((left, right) => left.localeCompare(right)),
     }))
     .sort((left, right) => left.entityId.localeCompare(right.entityId));
 
-  const details = prepared.profiles.filter((party) => active.has(party.entityId));
-  const pageSourceIds = new Set(
-    output.parties.map((summary) => 'wikipedia-en-page-' + summary.wikipedia.pageId),
+  const details = prepared.profiles.filter((party) =>
+    active.has(party.entityId),
   );
-  const sources = prepared.sources.filter((source) => pageSourceIds.has(source.id));
+  const pageSourceIds = new Set(
+    output.parties.map(
+      (summary) => 'wikipedia-en-page-' + summary.wikipedia.pageId,
+    ),
+  );
+  const sources = prepared.sources.filter((source) =>
+    pageSourceIds.has(source.id),
+  );
   const mergedSources = mergeSourceRecords(registry.sources, sources);
   validatePartyPublication(output, details, mergedSources);
 
