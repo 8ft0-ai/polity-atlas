@@ -32,7 +32,8 @@ export const politicalPositionSchema = z
   .superRefine((position, ctx) => {
     if (
       position.kind === 'scale' &&
-      positionPoints.indexOf(position.from) > positionPoints.indexOf(position.to)
+      positionPoints.indexOf(position.from) >
+        positionPoints.indexOf(position.to)
     ) {
       ctx.addIssue({
         code: 'custom',
@@ -46,16 +47,19 @@ const secureUrlSchema = z
   .url()
   .refine((url) => url.startsWith('https://'), 'Links must use HTTPS');
 
-const wikipediaUrlSchema = secureUrlSchema.refine((value) => {
-  const url = new URL(value);
-  return (
-    url.hostname === 'en.wikipedia.org' &&
-    url.pathname.startsWith('/wiki/') &&
-    !url.username &&
-    !url.password &&
-    !url.port
-  );
-}, 'Party article must be an English Wikipedia article');
+const wikipediaUrlSchema = secureUrlSchema.refine(
+  (value) => {
+    const url = new URL(value);
+    return (
+      url.hostname === 'en.wikipedia.org' &&
+      url.pathname.startsWith('/wiki/') &&
+      !url.username &&
+      !url.password &&
+      !url.port
+    );
+  },
+  'Party article must be an English Wikipedia article',
+);
 
 export const partyFactSchema = z.object({
   key: z.string().min(1),
@@ -106,7 +110,10 @@ export const partyProfileSchema = z
     sourceIds: sourceIdsSchema,
   })
   .superRefine((party, ctx) => {
-    if (party.entityId !== 'party:wikipedia:' + party.identity.wikipediaPageId) {
+    if (
+      party.entityId !==
+      'party:wikipedia:' + party.identity.wikipediaPageId
+    ) {
       ctx.addIssue({
         code: 'custom',
         message: 'Party identity must match its Wikipedia page ID',
