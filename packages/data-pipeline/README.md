@@ -211,3 +211,33 @@ the stable party/entry ID to select a repeatable fallback colour, so reordering
 rows cannot change unresolved colours.
 
 Colour is visual metadata, not evidence of ideology or party identity.
+
+## Phase 4A party data core — first implementation increment
+
+The source-backed party-data foundation is being introduced in bounded increments.
+The first increment adds the reusable, offline normalisers and validators:
+
+- `packages/data-pipeline/wikipedia/party-position.mjs` recognises only
+  explicit Wikipedia infobox political-position values on the seven-point
+  spectrum and ranges between them. Source classifications such as
+  "Big tent" remain textual. Missing values do not become classifications.
+- `packages/data-pipeline/wikipedia/party.mjs` extracts an allow-listed
+  set of cleaned infobox facts from an **already verified exact** English
+  Wikipedia article, using the stable page ID as party identity.
+  Contradictory position rows suppress classification rather than selecting
+  one arbitrarily.
+- `packages/schemas/party.ts` defines party summary, detailed profile and
+  political-position contracts with source provenance, URL safety and stable
+  page-ID identity validation.
+
+These are pure preparation functions and contracts: they do not fetch pages,
+resolve ambiguous identities, update the public source registry or write
+`public/data`. They are not yet invoked by the Wikimedia refresh.
+The subsequent data-pipeline increment will add conservative article identity
+resolution, cache replay, cross-reference validation, regenerated pilot data,
+manifest schema evolution and atomic publication. The seven-point UI and
+secondary detail surface follow in a separate implementation PR.
+
+Do not call the extraction function on a fuzzy search result or treat the mere
+presence of an infobox as proof of party identity. No position is inferred from
+ideology, colour or a party name.
