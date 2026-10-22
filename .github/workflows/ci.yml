@@ -18,6 +18,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Capture exact Phase 4 formatter output (temporary)
+        run: |
+          npm run format -- packages/schemas/party.ts packages/data-pipeline/wikipedia/party.test.mjs
+          git diff -- packages/schemas/party.ts packages/data-pipeline/wikipedia/party.test.mjs
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
