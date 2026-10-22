@@ -186,7 +186,10 @@ describe('Phase 4A verified Wikipedia infobox extraction', () => {
 
   it('does not publish an empty or unrelated infobox', () => {
     expect(
-      normalizeVerifiedPartyPage(partyPage(row('Unrelated', '123')), retrievedAt),
+      normalizeVerifiedPartyPage(
+        partyPage(row('Unrelated', '123')),
+        retrievedAt,
+      ),
     ).toBeUndefined();
   });
 
