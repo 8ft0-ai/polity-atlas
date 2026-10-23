@@ -265,8 +265,9 @@ describe('CountryPanel', () => {
     expect(chart.querySelectorAll('[data-party-segment]')).toHaveLength(10);
     expect(screen.getAllByText('Parliamentary group')).toHaveLength(10);
     expect(screen.getAllByText('Electoral alliance').length).toBeGreaterThan(0);
-    expect(screen.queryByRole('button', { name: 'New Popular Front (NFP)/UG' }))
-      .toBeNull();
+    expect(
+      screen.queryByRole('button', { name: 'New Popular Front (NFP)/UG' }),
+    ).toBeNull();
     expect(
       screen.getByText(/10 source-reported composition entries are shown/),
     ).toBeInTheDocument();
