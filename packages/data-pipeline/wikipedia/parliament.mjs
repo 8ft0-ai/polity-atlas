@@ -425,7 +425,10 @@ function extractIpuPartyIdentityEvidence(candidate, chamber) {
     if (matchedTitles.size !== 1) continue;
     const title = [...matchedTitles][0];
     const existing = byPartyId.get(result.partyId);
-    if (existing && (existing.articleTitle !== title || existing.party !== result.party)) {
+    if (
+      existing &&
+      (existing.articleTitle !== title || existing.party !== result.party)
+    ) {
       byPartyId.delete(result.partyId);
       conflictedPartyIds.add(result.partyId);
       continue;
