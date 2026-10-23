@@ -1,5 +1,8 @@
 import { isGeneric } from './party-acquisition.mjs';
-import { isNonPartyRepresentation } from './representation.mjs';
+import {
+  annotateRepresentationKinds,
+  isNonPartyRepresentation,
+} from './representation.mjs';
 import { mergeSourceRecords } from '../sources/registry.mjs';
 
 function exactLabel(value) {
@@ -372,7 +375,7 @@ export function associatePreparedParties(
   }
 
   const bindings = exactCandidateBindings(acquired, prepared);
-  const output = structuredClone(profile);
+  const output = annotateRepresentationKinds(profile);
   const partyIdsByEntity = new Map();
   const provenanceByEntity = new Map();
   const diagnostics = [];
@@ -400,6 +403,7 @@ export function associatePreparedParties(
       );
       if (!sourceIds.length) continue;
       for (const entry of view.entries) {
+        if (entry.representationKind) continue;
         const result = linkedEntityForEntry(entry, sourceIds, bindings);
         if (result.kind === 'ambiguous') {
           diagnostics.push('PARTY_IDENTITY_AMBIGUOUS:' + entry.partyId);
@@ -460,7 +464,8 @@ export function associatePreparedParties(
       (entry) =>
         entry.partyId === observation.partyId &&
         entry.party === observation.party &&
-        !isGeneric(entry.party),
+        !isGeneric(entry.party) &&
+        !entry.representationKind,
     );
     if (!rows.length) continue;
     const key = observation.chamberId + '\u0000' + observation.partyId;
@@ -515,7 +520,8 @@ export function associatePreparedParties(
         (entry) =>
           entry.partyId === observation.partyId &&
           entry.party === observation.party &&
-          !isGeneric(entry.party),
+          !isGeneric(entry.party) &&
+          !entry.representationKind,
       );
       for (const entry of rows) {
         if (entry.partyEntityId && entry.partyEntityId !== entityId) {
