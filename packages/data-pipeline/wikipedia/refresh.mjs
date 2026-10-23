@@ -300,7 +300,11 @@ for (const country of targets) {
         `PARTY_DISCOVERY_CACHE_UNAVAILABLE:${country.iso3}; exact linked identities only\n`,
       );
     }
-    const normalizedParties = normalizeLinkedPartySnapshot(snapshot, acquired, discovery);
+    const normalizedParties = normalizeLinkedPartySnapshot(
+      snapshot,
+      acquired,
+      discovery,
+    );
     const associationRegistry = {
       schemaVersion: 1,
       sources: mergeSourceRecords(
