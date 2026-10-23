@@ -49,9 +49,15 @@ describe('Wikidata visual metadata', () => {
       expect(request.searchParams.get('props')).toBe('sitelinks');
       return response(200, {
         entities: {
-          Q123: { id: 'Q123', sitelinks: { enwiki: { title: 'Example Party' } } },
+          Q123: {
+            id: 'Q123',
+            sitelinks: { enwiki: { title: 'Example Party' } },
+          },
           Q456: { id: 'Q456', sitelinks: {} },
-          Q789: { id: 'Q789', sitelinks: { enwiki: { title: 'Unrequested Party' } } },
+          Q789: {
+            id: 'Q789',
+            sitelinks: { enwiki: { title: 'Unrequested Party' } },
+          },
         },
       });
     });
