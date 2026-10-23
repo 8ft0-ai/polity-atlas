@@ -10,10 +10,7 @@
       "reason": "Reviewed against the same AUS IPU publication: the lower-house label The Greens and Senate label Australian Greens refer to the party verified as English Wikipedia page 171629; preserve the original chamber-specific IPU ID and name.",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-23",
-      "sourceIds": [
-        "ipu-parline",
-        "wikipedia-en-page-171629"
-      ]
+      "sourceIds": ["ipu-parline", "wikipedia-en-page-171629"]
     },
     {
       "countryIso3": "AUS",
@@ -24,9 +21,7 @@
       "reason": "The IPU Senate party name Pauline Hanson's One Nation is the Australian party described in the One Nation Wikipedia infobox (abbreviation PHON); preserve the historical election-row seat count.",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "AUS",
@@ -37,9 +32,7 @@
       "reason": "The Senate UAP entry describes the Palmer-era party, as distinct from the unrelated historical United Australia Party (1931–1945) and Pauline's United Australia Party (2007–2010); AEC registration history and the Wikipedia article corroborate the 2013-era entity.",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "AUS",
@@ -50,10 +43,7 @@
       "reason": "The IPU Senate note's government role is a qualifier for the same Australian Labor Party already independently verified in the House as Wikipedia page 1495. Do not treat government as a distinct party.",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline",
-        "wikipedia-en-page-1495"
-      ]
+      "sourceIds": ["ipu-parline", "wikipedia-en-page-1495"]
     },
     {
       "countryIso3": "NZL",
@@ -64,9 +54,7 @@
       "reason": "Verified New Zealand parliamentary National Party organisation and English Wikipedia party infobox",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "NZL",
@@ -77,9 +65,7 @@
       "reason": "Verified New Zealand parliamentary Labour Party organisation and English Wikipedia party infobox",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "NZL",
@@ -90,9 +76,7 @@
       "reason": "Official parliamentary Green Party organisation matches the party's full Wikipedia name",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "NZL",
@@ -103,9 +87,7 @@
       "reason": "Exact ACT New Zealand parliamentary party and Wikipedia political-party infobox",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "NZL",
@@ -116,9 +98,7 @@
       "reason": "Exact New Zealand First party identity from parliamentary records and Wikipedia",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "NZL",
@@ -129,9 +109,7 @@
       "reason": "The Māori Party is currently registered as Te Pāti Māori, corroborated by Elections NZ and National Library",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "FRA",
@@ -142,9 +120,7 @@
       "reason": "RN is the abbreviation of France's National Rally party, corroborated by the party's Wikipedia infobox",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "FRA",
@@ -155,9 +131,7 @@
       "reason": "Exact French UDI party identity, distinct from the broader parliamentary group and alliance",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "IND",
@@ -168,9 +142,7 @@
       "reason": "Exact BJP Indian political-party identity with separately published Wikipedia article",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "IND",
@@ -181,9 +153,7 @@
       "reason": "Exact INC Indian political-party identity with separately published Wikipedia article",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "IND",
@@ -194,9 +164,7 @@
       "reason": "Exact Samajwadi Party (SP) identity verified against party website and Wikipedia article",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ]
 }
