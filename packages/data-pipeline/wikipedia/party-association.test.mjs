@@ -160,6 +160,81 @@ describe('Phase 4A sourced party association', () => {
     ).toEqual(result);
   });
 
+  it('links IPU election rows only with exact chamber/article evidence', async () => {
+    const { acquired, prepared } = await preparation();
+    const original = profile();
+    original.parliament.chambers[0].latestElection.outcome.postElectionComposition = [
+      { partyId: 'ipu-alpha', party: 'Alpha Party', seats: 12 },
+      { partyId: 'ipu-nom', party: 'NOM', seats: 1 },
+    ];
+    const evidence = [
+      {
+        chamberId: 'EX-LC01',
+        partyId: 'ipu-alpha',
+        party: 'Alpha Party',
+        articleTitle: 'Alpha Party',
+        sourcePageId: 100,
+      },
+      {
+        chamberId: 'EX-LC01',
+        partyId: 'ipu-nom',
+        party: 'NOM',
+        articleTitle: 'Beta Party',
+        sourcePageId: 100,
+      },
+    ];
+    const result = associatePreparedParties(
+      original,
+      acquired,
+      prepared,
+      registry(),
+      evidence,
+    );
+    const outcome = result.profile.parliament.chambers[0].latestElection.outcome;
+    expect(outcome.seatsWonInElection[0].partyEntityId).toBe('party:wikipedia:21');
+    expect(outcome.postElectionComposition[0].partyEntityId).toBe('party:wikipedia:21');
+    expect(outcome.postElectionComposition[1].partyEntityId).toBeUndefined();
+    expect(result.profile.parties[0].sourcePartyIds).toEqual([
+      'ipu-alpha',
+      'wiki-alpha',
+    ]);
+    expect(result.diagnostics).toEqual([]);
+    expect(
+      original.parliament.chambers[0].latestElection.outcome.seatsWonInElection[0]
+        .partyEntityId,
+    ).toBeUndefined();
+  });
+
+  it('withholds wrong source pages and ambiguous IPU article identities', async () => {
+    const { acquired, prepared } = await preparation();
+    const proof = {
+      chamberId: 'EX-LC01',
+      partyId: 'ipu-alpha',
+      party: 'Alpha Party',
+      articleTitle: 'Alpha Party',
+      sourcePageId: 101,
+    };
+    const unmatched = associatePreparedParties(
+      profile(), acquired, prepared, registry(), [proof],
+    );
+    expect(
+      unmatched.profile.parliament.chambers[0].latestElection.outcome
+        .seatsWonInElection[0].partyEntityId,
+    ).toBeUndefined();
+
+    const ambiguous = associatePreparedParties(
+      profile(), acquired, prepared, registry(), [
+        { ...proof, sourcePageId: 100 },
+        { ...proof, sourcePageId: 100, articleTitle: 'Beta Party' },
+      ],
+    );
+    expect(
+      ambiguous.profile.parliament.chambers[0].latestElection.outcome
+        .seatsWonInElection[0].partyEntityId,
+    ).toBeUndefined();
+    expect(ambiguous.diagnostics).toContain('PARTY_IDENTITY_AMBIGUOUS:EX-LC01:ipu-alpha');
+  });
+
   it('refuses name-only association from another chamber source', async () => {
     const { acquired, prepared } = await preparation();
     const original = profile();
