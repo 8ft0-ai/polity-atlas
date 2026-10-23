@@ -144,7 +144,7 @@ export async function discoverPartyIdentities(
   profile,
   client,
   wikidataClient,
-  { mappings = [], maxRows = SEARCH_ROWS_LIMIT, knownEvidence = [] } = {},
+  { mappings = [], maxRows = SEARCH_ROWS_LIMIT, offset = 0, knownEvidence = [] } = {},
 ) {
   const iso3 = snapshot.requestedCountry.iso3;
   if (iso3 !== profile.identity.iso3) {
@@ -164,12 +164,16 @@ export async function discoverPartyIdentities(
         entry.chamberId + '\u0000' + entry.partyId + '\u0000' + entry.party,
       ),
   );
+  if (!Number.isSafeInteger(offset) || offset < 0 ||
+      !Number.isSafeInteger(maxRows) || maxRows < 1 || maxRows > SEARCH_ROWS_LIMIT) {
+    throw new Error('PARTY_DISCOVERY_BATCH_INVALID');
+  }
   const diagnostics = [];
   const observations = [];
-  if (rows.length > maxRows) {
-    diagnostics.push('PARTY_DISCOVERY_LIMIT_EXCEEDED:' + iso3);
+  if (offset + maxRows < rows.length) {
+    diagnostics.push('PARTY_DISCOVERY_MORE_BATCHES:' + iso3 + ':' + (offset + maxRows));
   }
-  const selected = rows.slice(0, maxRows);
+  const selected = rows.slice(offset, offset + maxRows);
   for (const row of selected) {
     const mapping = reviewed.find(
       (item) =>
@@ -264,6 +268,8 @@ export async function discoverPartyIdentities(
     countryIso3: iso3,
     countryName: snapshot.requestedCountry.name,
     retrievedAt: snapshot.retrievedAt,
+    offset,
+    totalRows: rows.length,
     observations,
     diagnostics: diagnostics.sort((a, b) => a.localeCompare(b)),
   };
@@ -280,7 +286,11 @@ export function validatePartyDiscovery(snapshot, profile, discovery) {
     discovery.countryName !== snapshot.requestedCountry.name ||
     discovery.retrievedAt !== snapshot.retrievedAt ||
     discovery.countryIso3 !== profile.identity.iso3 ||
-    !Array.isArray(discovery.observations)
+    !Array.isArray(discovery.observations) ||
+    !Number.isSafeInteger(discovery.offset) ||
+    discovery.offset < 0 ||
+    !Number.isSafeInteger(discovery.totalRows) ||
+    discovery.totalRows < 0
   ) {
     throw new Error('PARTY_DISCOVERY_CACHE_MISMATCH');
   }
