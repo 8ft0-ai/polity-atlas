@@ -8,6 +8,7 @@ import { mergeSourceRecords } from '../sources/registry.mjs';
 import { applyCuratedOverrides } from '../overrides/registry.mjs';
 import { WikidataClient } from '../wikidata/client.mjs';
 import { WikipediaClient } from './client.mjs';
+import { annotateRepresentationKinds } from './representation.mjs';
 import {
   extractHouseLinks,
   mergeWikipediaChambers,
@@ -257,7 +258,9 @@ for (const country of targets) {
   if (!fromCache) await writeJson(snapshotPath, snapshot);
 
   const normalized = normalizeWikipediaParliament(snapshot, previous);
-  let value = mergeWikipediaChambers(previous, normalized, buildId);
+  let value = annotateRepresentationKinds(
+    mergeWikipediaChambers(previous, normalized, buildId),
+  );
   emittedSources.push(...normalized.sources);
 
   const partySnapshotPath = resolve(
