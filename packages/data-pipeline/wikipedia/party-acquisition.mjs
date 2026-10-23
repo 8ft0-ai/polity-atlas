@@ -65,8 +65,10 @@ export function articleHasPartyEvidence(page) {
   ].filter((field) => fields.has(field));
   // Political position is optional. Two independent organisational fields
   // can confirm an exact party article even when position is absent.
-  return organisationalFields.length >= 1 &&
-    (politicalField || organisationalFields.length >= 2);
+  return (
+    organisationalFields.length >= 1 &&
+    (politicalField || organisationalFields.length >= 2)
+  );
 }
 
 /**
@@ -238,7 +240,10 @@ export function normalizeLinkedPartySnapshot(snapshot, acquired, discovery) {
       const result = normalizeVerifiedPartyPage(page, acquired.retrievedAt);
       if (!result) continue;
       const existing = records.get(result.profile.entityId);
-      if (existing && JSON.stringify(existing.profile) !== JSON.stringify(result.profile)) {
+      if (
+        existing &&
+        JSON.stringify(existing.profile) !== JSON.stringify(result.profile)
+      ) {
         throw new Error('PARTY_PAGE_ID_CONFLICT:' + result.profile.entityId);
       }
       if (!existing) records.set(result.profile.entityId, result);
