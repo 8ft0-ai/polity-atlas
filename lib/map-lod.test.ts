@@ -7,6 +7,12 @@ import {
 } from './map-lod';
 
 describe('synchronized map LOD', () => {
+  it('loads geometry only from source modules, not public assets', async () => {
+    const { readFile } = await import('node:fs/promises');
+    const source = await readFile('lib/map-lod.ts', 'utf8');
+    expect(source).toContain("from '@/src/data/geometry/lod/");
+    expect(source).not.toContain("from '@/public/data/geometry/lod/");
+  });
   it('uses hysteresis when switching between overview and detailed geometry', () => {
     expect(nextMapLod('110m', LOD_ENTER_50M_SCALE - 0.01)).toBe('110m');
     expect(nextMapLod('110m', LOD_ENTER_50M_SCALE)).toBe('50m');

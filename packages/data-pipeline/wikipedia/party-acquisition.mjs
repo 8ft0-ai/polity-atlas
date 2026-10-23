@@ -44,6 +44,12 @@ export function isGeneric(name) {
 
 export function articleHasPartyEvidence(page) {
   if (typeof page?.html !== 'string') return false;
+  const articleTitle = String(page.title ?? '');
+  if (
+    /\b(group|parliamentary caucus)\b/i.test(articleTitle) ||
+    /^Senate Republicans \(France\)$/i.test(articleTitle)
+  )
+    return false;
   const fields = new Set(
     parseInfobox(page.html).rows.map((row) => normaliseName(row.label)),
   );
@@ -63,6 +69,13 @@ export function articleHasPartyEvidence(page) {
     'formation',
     'headquarters',
   ].filter((field) => fields.has(field));
+  // Parliamentary caucuses are not established parties solely because they have a leader and ideology.
+  if (
+    !['founded', 'formation', 'headquarters', 'registered'].some((field) =>
+      fields.has(field),
+    )
+  )
+    return false;
   // Political position is optional. Two independent organisational fields
   // can confirm an exact party article even when position is absent.
   return (

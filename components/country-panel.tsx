@@ -182,7 +182,8 @@ function SeatBar({
       | 'coalition'
       | 'electoral-alliance'
       | 'electoral-category'
-      | 'membership-role';
+      | 'membership-role'
+      | 'parliamentary-group';
     party: string;
     seats: number;
     group?: string;
@@ -285,6 +286,7 @@ function SeatBar({
                             'electoral-alliance': 'Electoral alliance',
                             'electoral-category': 'Electoral grouping',
                             'membership-role': 'Membership category',
+                            'parliamentary-group': 'Parliamentary group',
                           } as const
                         )[group.representationKind]
                       }
