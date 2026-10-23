@@ -1776,12 +1776,13 @@ describe('Wikipedia chamber fallback', () => {
     };
     const normalized = normalizeWikipediaParliament(
       snapshot({
-        houses: [{
-          name: 'House',
-          title: 'House',
-          seats: 100,
-          kind: 'lower',
-          compositionHtml: `
+        houses: [
+          {
+            name: 'House',
+            title: 'House',
+            seats: 100,
+            kind: 'lower',
+            compositionHtml: `
             <tr><th>Political groups</th><td><ul>
               <li><a href="./Example_Coalition">Government</a> (47)<ul>
                 <li><a href="./Alpha_Party">Alpha Party</a> (40)</li>
@@ -1790,21 +1791,22 @@ describe('Wikipedia chamber fallback', () => {
               <li><a href="./Beta_Party">Beta Party</a> (12)</li>
             </ul></td></tr>
           `,
-        }],
+          },
+        ],
       }),
       profile([house]),
     );
-    expect(normalized.partyIdentityEvidence).toEqual([{
-      chamberId: 'EX-LC01',
-      partyId: 'ipu-alpha',
-      party: 'Alpha Party (AP)',
-      articleTitle: 'Alpha Party',
-      sourcePageId: 2,
-    }]);
+    expect(normalized.partyIdentityEvidence).toEqual([
+      {
+        chamberId: 'EX-LC01',
+        partyId: 'ipu-alpha',
+        party: 'Alpha Party (AP)',
+        articleTitle: 'Alpha Party',
+        sourcePageId: 2,
+      },
+    ]);
     expect(normalized.sources.map((source) => source.id)).toContain(
       'wikipedia-en-page-2',
     );
   });
-
-
 });
