@@ -152,7 +152,8 @@
                   "color": "#10C25B",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q781486-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:171629"
               }
             ],
             "postElectionComposition": [
@@ -219,7 +220,8 @@
                   "color": "#10C25B",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q781486-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:171629"
               }
             ]
           },
@@ -502,7 +504,10 @@
     {
       "entityId": "party:wikipedia:171629",
       "displayName": "Australian Greens",
-      "sourcePartyIds": ["au-uc01-e20250503-note-australian-greens"],
+      "sourcePartyIds": [
+        "au-greens_0",
+        "au-uc01-e20250503-note-australian-greens"
+      ],
       "wikipedia": {
         "pageId": 171629,
         "title": "Australian Greens"
@@ -514,7 +519,11 @@
         "raw": "Left-wing",
         "sourceIds": ["wikipedia-en-page-171629"]
       },
-      "sourceIds": ["wikipedia-en-page-165705", "wikipedia-en-page-171629"]
+      "sourceIds": [
+        "ipu-parline",
+        "wikipedia-en-page-165705",
+        "wikipedia-en-page-171629"
+      ]
     },
     {
       "entityId": "party:wikipedia:18453",

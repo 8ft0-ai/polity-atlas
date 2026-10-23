@@ -6,7 +6,7 @@
     {
       "iso3": "AUS",
       "path": "countries/AUS.json",
-      "sha256": "be4a73e27dc9ee1782f94ded40d37a824e410a7fb6b3b774b62825d0800dc722"
+      "sha256": "944e3e4b7057d0451fd96123978969276d3430082ec1493c3deee97fd93b2870"
     },
     {
       "iso3": "CAN",
@@ -21,7 +21,7 @@
     {
       "iso3": "FRA",
       "path": "countries/FRA.json",
-      "sha256": "a90f8884978b7594b3a25b8e07eda96c10ba70435e41fc6dfb22cf6ac4d04bd1"
+      "sha256": "1bf0431c4b6d2fc6ddd8f0fbe3b5beeb2784d45b2bb1a0133eed3c14d7c45131"
     },
     {
       "iso3": "GBR",

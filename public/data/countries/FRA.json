@@ -383,7 +383,8 @@
                 "color": "#2E70D1",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-uc-2",
@@ -393,7 +394,8 @@
                 "color": "#5AD0EE",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-ser-3",
@@ -403,7 +405,8 @@
                 "color": "#B84592",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-crce-k-4",
@@ -413,7 +416,8 @@
                 "color": "#D80001",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-rdse-5",
@@ -423,7 +427,8 @@
                 "color": "#804A96",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-rdpi-6",
@@ -433,7 +438,8 @@
                 "color": "#FBBC07",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-gest-8",
@@ -443,7 +449,8 @@
                 "color": "#5DB88D",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-lirt-7",
@@ -453,7 +460,8 @@
                 "color": "#C8DCE2",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-unt-9",
@@ -463,7 +471,8 @@
                 "color": "#193985",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             },
             {
               "partyId": "wiki-567323-ungrouped-rasnag-10",
@@ -473,7 +482,8 @@
                 "color": "#DCDCDC",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
-              }
+              },
+              "representationKind": "parliamentary-group"
             }
           ],
           "sourceIds": ["wikipedia-en-page-567323"]

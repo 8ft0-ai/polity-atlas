@@ -155,6 +155,38 @@ describe('Phase 4 recovery PR2: non-party parliamentary representations', () => 
     );
   });
 
+  it('recognises only source-proven French Senate parliamentary groups', () => {
+    const source = profile('FRA', []);
+    const chamber = source.parliament.chambers[0];
+    chamber.id = 'FR-UC01';
+    chamber.composition = {
+      basis: 'source-reported',
+      sourceIds: ['wikipedia-en-page-567323'],
+      reportedSeats: 348,
+      entries: [
+        { partyId: 'wiki-lr', party: 'LR', seats: 124 },
+        { partyId: 'wiki-ser', party: 'SER', seats: 62 },
+      ],
+    };
+    const result = annotateRepresentationKinds(source);
+    expect(
+      result.parliament.chambers[0].composition.entries.map(
+        (entry) => entry.representationKind,
+      ),
+    ).toEqual(['parliamentary-group', 'parliamentary-group']);
+    expect(
+      result.parliament.chambers[0].composition.entries.map(
+        (entry) => entry.seats,
+      ),
+    ).toEqual([124, 62]);
+
+    chamber.composition.sourceIds = ['wikipedia-en-page-999'];
+    expect(
+      annotateRepresentationKinds(source).parliament.chambers[0].composition
+        .entries[0].representationKind,
+    ).toBeUndefined();
+  });
+
   it('does not expand one electoral alliance into presumed component parties', () => {
     const input = profile('FRA', [
       { partyId: 'nfp', party: 'New Popular Front (NFP)/UG', seats: 178 },

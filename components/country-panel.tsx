@@ -659,6 +659,14 @@ function ElectionOutcome({
             onOpenParty={onOpenParty}
           />
 
+          {primary.kind === 'source-reported' && (
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">
+              {primary.entries.length} source-reported composition entries are
+              shown, including entries without verified individual-party
+              profiles. Seat totals remain as reported by the cited source.
+            </p>
+          )}
+
           {!primary.entries.some(
             (entry) =>
               entry.partyEntityId &&

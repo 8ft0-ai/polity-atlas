@@ -7,6 +7,8 @@ import myanmarLegislature from '@/public/data/legislatures/MMR.json';
 import saudiLegislature from '@/public/data/legislatures/SAU.json';
 import chinaProfile from '@/public/data/countries/CHN.json';
 import indonesiaProfile from '@/public/data/countries/IDN.json';
+import indiaProfile from '@/public/data/countries/IND.json';
+import franceProfile from '@/public/data/countries/FRA.json';
 import japanProfile from '@/public/data/countries/JPN.json';
 import usaProfile from '@/public/data/countries/USA.json';
 import { useWorkspaceStore } from '@/lib/workspace-store';
@@ -222,6 +224,65 @@ describe('CountryPanel', () => {
         name: 'Source: Parline national parliament, chamber and election data',
       }).length,
     ).toBeGreaterThan(0);
+  });
+
+  it('retains all 38 source-reported Rajya Sabha rows without requiring party profiles', async () => {
+    selectProfile({
+      entityId: 'state:m49:356',
+      m49: '356',
+      name: 'India',
+      profile: indiaProfile,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+
+    renderPanel();
+
+    const chart = await screen.findByLabelText(
+      'Council of States source-reported chamber composition semicircle',
+    );
+    expect(chart.querySelectorAll('[data-party-segment]')).toHaveLength(38);
+    expect(screen.getByText('BJP')).toBeInTheDocument();
+    expect(screen.getByText('NOM')).toBeInTheDocument();
+    expect(
+      screen.getByText(/38 source-reported composition entries are shown/),
+    ).toBeInTheDocument();
+  });
+
+  it('retains French alliances and Senate group seats without giving them party profiles', async () => {
+    selectProfile({
+      entityId: 'state:m49:250',
+      m49: '250',
+      name: 'France',
+      profile: franceProfile,
+    });
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+
+    renderPanel();
+
+    const chart = await screen.findByLabelText(
+      'Senate source-reported chamber composition semicircle',
+    );
+    expect(chart.querySelectorAll('[data-party-segment]')).toHaveLength(10);
+    expect(screen.getAllByText('Parliamentary group')).toHaveLength(10);
+    expect(screen.getAllByText('Electoral alliance').length).toBeGreaterThan(0);
+    expect(
+      screen.queryByRole('button', { name: 'New Popular Front (NFP)/UG' }),
+    ).toBeNull();
+    expect(
+      screen.getByText(/10 source-reported composition entries are shown/),
+    ).toBeInTheDocument();
+  });
+
+  it('opens the verified Australian Greens identity from both houses', async () => {
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+    renderPanel();
+
+    expect(
+      await screen.findByRole('button', { name: 'The Greens' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Australian Greens' }),
+    ).toBeInTheDocument();
   });
 
   it('keeps a contested-seat semicircle when a partial election has no full composition', async () => {
