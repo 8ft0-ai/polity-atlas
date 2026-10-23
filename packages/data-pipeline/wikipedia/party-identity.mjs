@@ -133,14 +133,25 @@ export async function discoverPartyIdentities(
   profile,
   client,
   wikidataClient,
-  { mappings = [], maxRows = SEARCH_ROWS_LIMIT } = {},
+  { mappings = [], maxRows = SEARCH_ROWS_LIMIT, knownEvidence = [] } = {},
 ) {
   const iso3 = snapshot.requestedCountry.iso3;
   if (iso3 !== profile.identity.iso3) {
     throw new Error('PARTY_IDENTITY_COUNTRY_MISMATCH');
   }
   const reviewed = validateReviewedMappings(mappings, iso3);
-  const rows = ipuPartyRows(profile);
+  // A verified exact chamber-linked article takes precedence over discovery.
+  const alreadyLinked = new Set(
+    knownEvidence.map(
+      (entry) => entry.chamberId + '\u0000' + entry.partyId + '\u0000' + entry.party,
+    ),
+  );
+  const rows = ipuPartyRows(profile).filter(
+    (entry) =>
+      !alreadyLinked.has(
+        entry.chamberId + '\u0000' + entry.partyId + '\u0000' + entry.party,
+      ),
+  );
   const diagnostics = [];
   const observations = [];
   if (rows.length > maxRows) {
