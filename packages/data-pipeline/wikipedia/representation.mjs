@@ -54,14 +54,13 @@ export function representationKind(label, countryIso3) {
   const value = comparableRepresentation(label);
   if (!value) return undefined;
   if (membershipLabels.has(value)) return 'membership-role';
-  if (
-    electoralCategoryLabels.has(value) ||
-    /^(other |others )/.test(value)
-  ) {
+  if (electoralCategoryLabels.has(value) || /^(other |others )/.test(value)) {
     return 'electoral-category';
   }
   if (/\b(coalition|coalition partners)\b/.test(value)) return 'coalition';
-  if (/\b(electoral alliance|political alliance|electoral bloc)\b/.test(value)) {
+  if (
+    /\b(electoral alliance|political alliance|electoral bloc)\b/.test(value)
+  ) {
     return 'electoral-alliance';
   }
   if (countryIso3 === 'FRA') {
