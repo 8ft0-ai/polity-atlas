@@ -23,7 +23,9 @@ function page(id, title, country = 'United States', withPosition = false) {
     revisionTimestamp: retrievedAt,
     html:
       '<table class="infobox"><tbody>' +
-      '<tr><th>Country</th><td>' + country + '</td></tr>' +
+      '<tr><th>Country</th><td>' +
+      country +
+      '</td></tr>' +
       '<tr><th>Founded</th><td>1970</td></tr>' +
       '<tr><th>Leader</th><td>Example Leader</td></tr>' +
       (withPosition
@@ -111,17 +113,33 @@ describe('Phase 4 PR1 party identity discovery', () => {
       missingWikidata,
     );
     expect(discovery.observations).toHaveLength(4);
-    expect(discovery.observations.every((item) => item.status === 'verified')).toBe(
-      true,
-    );
+    expect(
+      discovery.observations.every((item) => item.status === 'verified'),
+    ).toBe(true);
     expect(client.searchPages).toHaveBeenCalledTimes(4);
-    validatePartyDiscovery(snapshot, profile, JSON.parse(JSON.stringify(discovery)));
+    validatePartyDiscovery(
+      snapshot,
+      profile,
+      JSON.parse(JSON.stringify(discovery)),
+    );
 
     const acquired = await acquireLinkedPartySnapshot(snapshot, client);
-    const prepared = normalizeLinkedPartySnapshot(snapshot, acquired, discovery);
+    const prepared = normalizeLinkedPartySnapshot(
+      snapshot,
+      acquired,
+      discovery,
+    );
     expect(prepared.profiles).toHaveLength(2);
-    expect(prepared.profiles.find((party) => party.entityId === 'party:wikipedia:111').position).toBeUndefined();
-    expect(prepared.profiles.find((party) => party.entityId === 'party:wikipedia:222').position.raw).toBe('Centre-left');
+    expect(
+      prepared.profiles.find(
+        (party) => party.entityId === 'party:wikipedia:111',
+      ).position,
+    ).toBeUndefined();
+    expect(
+      prepared.profiles.find(
+        (party) => party.entityId === 'party:wikipedia:222',
+      ).position.raw,
+    ).toBe('Centre-left');
 
     const registry = {
       sources: [
@@ -144,19 +162,22 @@ describe('Phase 4 PR1 party identity discovery', () => {
       discovery,
     );
     const [house, senate] = linked.profile.parliament.chambers;
-    expect(house.latestElection.outcome.postElectionComposition.map((entry) => entry.partyEntityId)).toEqual([
-      'party:wikipedia:111',
-      'party:wikipedia:222',
-    ]);
-    expect(senate.latestElection.outcome.postElectionComposition.map((entry) => entry.partyEntityId)).toEqual([
-      'party:wikipedia:111',
-      'party:wikipedia:222',
-    ]);
+    expect(
+      house.latestElection.outcome.postElectionComposition.map(
+        (entry) => entry.partyEntityId,
+      ),
+    ).toEqual(['party:wikipedia:111', 'party:wikipedia:222']);
+    expect(
+      senate.latestElection.outcome.postElectionComposition.map(
+        (entry) => entry.partyEntityId,
+      ),
+    ).toEqual(['party:wikipedia:111', 'party:wikipedia:222']);
     expect(linked.profile.parties).toHaveLength(2);
-    expect(linked.profile.parties.find((entry) => entry.entityId === 'party:wikipedia:111').sourcePartyIds).toEqual([
-      'dems-house',
-      'dems-senate',
-    ]);
+    expect(
+      linked.profile.parties.find(
+        (entry) => entry.entityId === 'party:wikipedia:111',
+      ).sourcePartyIds,
+    ).toEqual(['dems-house', 'dems-senate']);
   });
 
   it('accepts only unambiguous verified search, rejecting wrong country and missing identity', async () => {
@@ -172,26 +193,57 @@ describe('Phase 4 PR1 party identity discovery', () => {
           'Other Country',
         ),
       },
-      [{ title: 'Democratic Party' }, { title: 'Democratic Party (United States)' }],
+      [
+        { title: 'Democratic Party' },
+        { title: 'Democratic Party (United States)' },
+      ],
     );
-    const discovery = await discoverPartyIdentities(snapshot, profile, client, missingWikidata);
+    const discovery = await discoverPartyIdentities(
+      snapshot,
+      profile,
+      client,
+      missingWikidata,
+    );
     expect(discovery.observations[0].status).toBe('unresolved');
-    expect(discovery.diagnostics).toContain('PARTY_DISCOVERY_UNRESOLVED:HOUSE:dems-house');
-    expect(verifyPartyDiscoveryPage(page(21, 'Democratic Party', 'Other Country'), 'Democratic Party', 'United States')).toBe(false);
+    expect(discovery.diagnostics).toContain(
+      'PARTY_DISCOVERY_UNRESOLVED:HOUSE:dems-house',
+    );
+    expect(
+      verifyPartyDiscoveryPage(
+        page(21, 'Democratic Party', 'Other Country'),
+        'Democratic Party',
+        'United States',
+      ),
+    ).toBe(false);
   });
 
   it('withholds identity when two credible country-matching search candidates exist', async () => {
-    const { snapshot, profile } = setup({ parties: [['dems', 'Democratic Party', 'HOUSE']] });
+    const { snapshot, profile } = setup({
+      parties: [['dems', 'Democratic Party', 'HOUSE']],
+    });
     const client = fakeClient(
       {
         'Democratic Party': page(30, 'Democratic Party'),
-        'Democratic Party (United States)': page(31, 'Democratic Party (United States)'),
+        'Democratic Party (United States)': page(
+          31,
+          'Democratic Party (United States)',
+        ),
       },
-      [{ title: 'Democratic Party' }, { title: 'Democratic Party (United States)' }],
+      [
+        { title: 'Democratic Party' },
+        { title: 'Democratic Party (United States)' },
+      ],
     );
-    const discovery = await discoverPartyIdentities(snapshot, profile, client, missingWikidata);
+    const discovery = await discoverPartyIdentities(
+      snapshot,
+      profile,
+      client,
+      missingWikidata,
+    );
     expect(discovery.observations[0].status).toBe('ambiguous');
-    expect(discovery.diagnostics).toContain('PARTY_DISCOVERY_AMBIGUOUS:HOUSE:dems');
+    expect(discovery.diagnostics).toContain(
+      'PARTY_DISCOVERY_AMBIGUOUS:HOUSE:dems',
+    );
   });
 
   it('supports an audited country-scoped alias where source names differ', async () => {
@@ -227,7 +279,9 @@ describe('Phase 4 PR1 party identity discovery', () => {
       status: 'verified',
       reviewedSourceIds: ['ipu-parline'],
     });
-    expect(() => validatePartyDiscovery(snapshot, profile, discovery)).not.toThrow();
+    expect(() =>
+      validatePartyDiscovery(snapshot, profile, discovery),
+    ).not.toThrow();
     expect(
       await discoverPartyIdentities(
         snapshot,
@@ -242,12 +296,19 @@ describe('Phase 4 PR1 party identity discovery', () => {
   });
 
   it('uses only a supplied Wikidata Q ID and its exact enwiki sitelink', async () => {
-    const { snapshot, profile } = setup({ parties: [['party-x', 'Example Party', 'HOUSE']] });
+    const { snapshot, profile } = setup({
+      parties: [['party-x', 'Example Party', 'HOUSE']],
+    });
     const client = fakeClient({
-      'Example Party (United States)': page(404, 'Example Party (United States)'),
+      'Example Party (United States)': page(
+        404,
+        'Example Party (United States)',
+      ),
     });
     const wikidata = {
-      enwikiSitelinksByIds: vi.fn(async () => new Map([['Q123', 'Example Party (United States)']])),
+      enwikiSitelinksByIds: vi.fn(
+        async () => new Map([['Q123', 'Example Party (United States)']]),
+      ),
     };
     const discovery = await discoverPartyIdentities(
       snapshot,
@@ -255,17 +316,19 @@ describe('Phase 4 PR1 party identity discovery', () => {
       client,
       wikidata,
       {
-        mappings: [{
-          countryIso3: 'USA',
-          chamberId: 'HOUSE',
-          partyId: 'party-x',
-          partyName: 'Example Party',
-          wikidataId: 'Q123',
-          reason: 'Manually verified exact Wikidata identity',
-          reviewer: 'Synthetic test reviewer',
-          reviewDate: '2026-10-23',
-          sourceIds: ['ipu-parline'],
-        }],
+        mappings: [
+          {
+            countryIso3: 'USA',
+            chamberId: 'HOUSE',
+            partyId: 'party-x',
+            partyName: 'Example Party',
+            wikidataId: 'Q123',
+            reason: 'Manually verified exact Wikidata identity',
+            reviewer: 'Synthetic test reviewer',
+            reviewDate: '2026-10-23',
+            sourceIds: ['ipu-parline'],
+          },
+        ],
       },
     );
     expect(wikidata.enwikiSitelinksByIds).toHaveBeenCalledWith(['Q123']);
@@ -287,7 +350,9 @@ describe('Phase 4 PR1 party identity discovery', () => {
     });
     expect(isPartyDiscoveryExcluded('Liberal National coalition')).toBe(true);
     expect(isPartyDiscoveryExcluded('NOM')).toBe(true);
-    expect(ipuPartyRows(profile).map((row) => row.party)).toEqual(['National Rally (RN)']);
+    expect(ipuPartyRows(profile).map((row) => row.party)).toEqual([
+      'National Rally (RN)',
+    ]);
     const discovery = await discoverPartyIdentities(
       snapshot,
       profile,
@@ -308,12 +373,16 @@ describe('Phase 4 PR1 party identity discovery', () => {
       { maxRows: 1 },
     );
     expect(discovery.observations).toHaveLength(1);
-    expect(discovery.diagnostics).toContain('PARTY_DISCOVERY_LIMIT_EXCEEDED:USA');
-    expect(() => validatePartyDiscovery(
-      { ...snapshot, requestedCountry: { iso3: 'FRA', name: 'France' } },
-      profile,
-      discovery,
-    )).toThrow('PARTY_DISCOVERY_CACHE_MISMATCH');
+    expect(discovery.diagnostics).toContain(
+      'PARTY_DISCOVERY_LIMIT_EXCEEDED:USA',
+    );
+    expect(() =>
+      validatePartyDiscovery(
+        { ...snapshot, requestedCountry: { iso3: 'FRA', name: 'France' } },
+        profile,
+        discovery,
+      ),
+    ).toThrow('PARTY_DISCOVERY_CACHE_MISMATCH');
     expect(() =>
       validatePartyDiscovery(snapshot, profile, {
         ...discovery,
@@ -322,13 +391,15 @@ describe('Phase 4 PR1 party identity discovery', () => {
     ).toThrow('PARTY_DISCOVERY_CACHE_MISMATCH');
     await expect(
       discoverPartyIdentities(snapshot, profile, client, missingWikidata, {
-        mappings: [{
-          countryIso3: 'USA',
-          chamberId: 'HOUSE',
-          partyId: 'dems-house',
-          partyName: 'Democratic Party',
-          wikipediaTitle: 'Democratic Party',
-        }],
+        mappings: [
+          {
+            countryIso3: 'USA',
+            chamberId: 'HOUSE',
+            partyId: 'dems-house',
+            partyName: 'Democratic Party',
+            wikipediaTitle: 'Democratic Party',
+          },
+        ],
       }),
     ).rejects.toThrow('PARTY_ALIAS_REGISTRY_INVALID');
   });
