@@ -8,6 +8,7 @@ describe('workspace store country selection', () => {
       selectedM49: '036',
       selectedName: 'Australia',
       activeTab: 'overview',
+      detailSelection: null,
     });
   });
 
@@ -45,5 +46,28 @@ describe('workspace store country selection', () => {
       selectedM49: null,
       selectedName: 'Kosovo',
     });
+  });
+
+  it('opens and clears a reusable party detail selection', () => {
+    useWorkspaceStore.getState().openParty('party:wikipedia:216082');
+    expect(useWorkspaceStore.getState().detailSelection).toEqual({
+      kind: 'party',
+      entityId: 'party:wikipedia:216082',
+    });
+
+    useWorkspaceStore.getState().clearDetail();
+    expect(useWorkspaceStore.getState().detailSelection).toBeNull();
+  });
+
+  it('clears nested detail when the country or tab changes', () => {
+    useWorkspaceStore.getState().openParty('party:wikipedia:216082');
+    useWorkspaceStore.getState().setActiveTab('sources');
+    expect(useWorkspaceStore.getState().detailSelection).toBeNull();
+
+    useWorkspaceStore.getState().openParty('party:wikipedia:216082');
+    useWorkspaceStore
+      .getState()
+      .setCountry('state:m49:554', 'New Zealand', '554');
+    expect(useWorkspaceStore.getState().detailSelection).toBeNull();
   });
 });

@@ -1,8 +1,10 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { AlertTriangle, ExternalLink, X } from 'lucide-react';
+import { PartyDetailPanel } from '@/components/details/party-detail-panel';
+import { PartyPosition } from '@/components/legislature/party-position';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -17,6 +19,7 @@ import type {
   LegislatureProfile,
   SourceRecord,
 } from '@/packages/schemas/country';
+import type { PartySummary } from '@/packages/schemas/party';
 
 const tabs: Array<{ value: CountryTab; label: string }> = [
   { value: 'overview', label: 'Overview' },
@@ -116,6 +119,10 @@ function sourceIdsForProfile(profile: CountryProfile | LegislatureProfile) {
       compositionSourceIds(chamber.composition),
     ),
     ...profile.nextExpectedElections.flatMap((election) => election.sourceIds),
+    ...profile.parties.flatMap((party) => [
+      ...party.sourceIds,
+      ...(party.position?.sourceIds ?? []),
+    ]),
     ...(fullProfile?.relations.flatMap((relation) => relation.sourceIds) ?? []),
     ...(fullProfile?.territories ?? []).flatMap(
       (territory) => territory.sourceIds,
@@ -165,9 +172,12 @@ function SeatBar({
   entries,
   totalSeats,
   label,
+  parties,
+  onOpenParty,
 }: {
   entries: Array<{
     partyId: string;
+    partyEntityId?: string;
     party: string;
     seats: number;
     group?: string;
@@ -179,7 +189,10 @@ function SeatBar({
   }>;
   totalSeats: number;
   label: string;
+  parties: PartySummary[];
+  onOpenParty: (entityId: string, trigger: HTMLButtonElement) => void;
 }) {
+  const summaries = new Map(parties.map((party) => [party.entityId, party]));
   const seatSegments = entries.map((group, index) => {
     const seatsBefore = entries
       .slice(0, index)
@@ -229,29 +242,51 @@ function SeatBar({
           ))}
       </svg>
 
-      <div className="ui-text mt-2 grid grid-cols-1 gap-x-4 gap-y-2 text-xs sm:grid-cols-2">
-        {seatSegments.map((group) => (
-          <div
-            key={group.partyId}
-            className="flex items-center justify-between gap-2"
-          >
-            <span className="flex min-w-0 items-center gap-2 text-muted-foreground">
-              <span
-                className="h-2 w-2 shrink-0"
-                style={{ background: group.color }}
-              />
-              <span className="min-w-0">
-                <span className="block truncate">{group.party}</span>
-                {group.group && (
-                  <span className="block truncate text-[10px]">
-                    {group.group}
-                  </span>
-                )}
+      <div className="ui-text mt-2 space-y-2 text-xs">
+        {seatSegments.map((group) => {
+          const summary = group.partyEntityId
+            ? summaries.get(group.partyEntityId)
+            : undefined;
+          return (
+            <div
+              key={group.partyId}
+              className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-3"
+            >
+              <span className="flex min-w-0 items-center gap-2 text-muted-foreground">
+                <span
+                  className="h-2 w-2 shrink-0"
+                  style={{ background: group.color }}
+                />
+                <span className="min-w-0">
+                  {summary ? (
+                    <button
+                      type="button"
+                      className="block max-w-full truncate text-left font-medium text-foreground underline decoration-border underline-offset-2 hover:decoration-foreground focus-visible:rounded-sm focus-visible:outline-2"
+                      onClick={(event) =>
+                        onOpenParty(summary.entityId, event.currentTarget)
+                      }
+                    >
+                      {group.party}
+                    </button>
+                  ) : (
+                    <span className="block truncate">{group.party}</span>
+                  )}
+                  {group.group && (
+                    <span className="block truncate text-[10px]">
+                      {group.group}
+                    </span>
+                  )}
+                </span>
               </span>
-            </span>
-            <strong>{group.seats}</strong>
-          </div>
-        ))}
+              {summary ? (
+                <PartyPosition position={summary.position} compact />
+              ) : (
+                <span aria-hidden="true" />
+              )}
+              <strong>{group.seats}</strong>
+            </div>
+          );
+        })}
       </div>
       {seatSegments.some((entry) => entry.visual) && (
         <p className="mt-3 text-[11px] leading-5 text-muted-foreground">
@@ -311,6 +346,7 @@ function isStaleIpuElection(
 
 type SeatEntry = {
   partyId: string;
+  partyEntityId?: string;
   party: string;
   seats: number;
   group?: string;
@@ -446,10 +482,14 @@ function ElectionOutcome({
   chamber,
   sources,
   buildId,
+  parties,
+  onOpenParty,
 }: {
   chamber: CountryProfile['parliament']['chambers'][number];
   sources: SourceRecord[];
   buildId: string;
+  parties: PartySummary[];
+  onOpenParty: (entityId: string, trigger: HTMLButtonElement) => void;
 }) {
   const election = chamber.latestElection;
   const outcome = election?.outcome;
@@ -594,7 +634,21 @@ function ElectionOutcome({
             entries={primary.entries}
             totalSeats={primary.totalSeats}
             label={primary.label}
+            parties={parties}
+            onOpenParty={onOpenParty}
           />
+
+          {!primary.entries.some(
+            (entry) =>
+              entry.partyEntityId &&
+              parties.some((party) => party.entityId === entry.partyEntityId),
+          ) && (
+            <p className="mt-3 border-l-2 border-border pl-3 text-xs leading-5 text-muted-foreground">
+              Verified political party profiles are not available for this
+              composition yet. Party names remain non-interactive until an exact
+              source identity is reviewed.
+            </p>
+          )}
 
           <p className="mt-3 text-xs leading-5 text-muted-foreground">
             {compositionCoverageText(primary, chamber)}
@@ -709,9 +763,13 @@ export function CountryPanel() {
     selectedEntityId,
     selectedName,
     activeTab,
+    detailSelection,
     setActiveTab,
     clearCountry,
+    openParty,
+    clearDetail,
   } = useWorkspaceStore();
+  const partyTriggerRef = useRef<HTMLButtonElement | null>(null);
   const fullIso3 = selectedEntityId
     ? supportedProfiles[selectedEntityId]
     : undefined;
@@ -733,8 +791,6 @@ export function CountryPanel() {
     enabled: Boolean(iso3),
   });
 
-  if (!selectedEntityId || !selectedName) return null;
-
   const sources = sourceRegistryQuery.data?.sources ?? [];
   const fullProfile =
     profileQuery.data && isCountryProfile(profileQuery.data)
@@ -752,6 +808,28 @@ export function CountryPanel() {
     !fullProfile && (activeTab === 'overview' || activeTab === 'relations')
       ? 'parliament'
       : activeTab;
+
+  const selectedParty =
+    detailSelection?.kind === 'party'
+      ? profileQuery.data?.parties.find(
+          (party) => party.entityId === detailSelection.entityId,
+        )
+      : undefined;
+
+  const handleOpenParty = useCallback(
+    (entityId: string, trigger: HTMLButtonElement) => {
+      partyTriggerRef.current = trigger;
+      openParty(entityId);
+    },
+    [openParty],
+  );
+
+  const handleCloseDetail = useCallback(() => {
+    clearDetail();
+    queueMicrotask(() => partyTriggerRef.current?.focus());
+  }, [clearDetail]);
+
+  if (!selectedEntityId || !selectedName) return null;
 
   function clearSelection() {
     clearCountry();
@@ -940,6 +1018,8 @@ export function CountryPanel() {
                     chamber={chamber}
                     sources={sources}
                     buildId={profileQuery.data.buildId}
+                    parties={profileQuery.data.parties}
+                    onOpenParty={handleOpenParty}
                   />
 
                   <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2">
@@ -1158,6 +1238,9 @@ export function CountryPanel() {
             </TabsContent>
           </div>
         </Tabs>
+      )}
+      {selectedParty && (
+        <PartyDetailPanel party={selectedParty} onClose={handleCloseDetail} />
       )}
     </aside>
   );
