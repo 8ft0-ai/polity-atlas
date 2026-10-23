@@ -6,10 +6,7 @@ const ROOT =
   VERSION +
   '/geojson';
 
-const outputRoot = new URL(
-  '../../../src/data/geometry/lod/',
-  import.meta.url,
-);
+const outputRoot = new URL('../../../src/data/geometry/lod/', import.meta.url);
 
 async function load(name) {
   const response = await fetch(`${ROOT}/${name}`);

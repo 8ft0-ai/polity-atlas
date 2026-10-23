@@ -881,7 +881,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q29468: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q29468",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -891,7 +891,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q29552: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q29552",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -1457,6 +1457,16 @@
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
+      "id": "wikipedia-en-page-32070",
+      "publisher": "Wikipedia",
+      "title": "Republican Party (United States)",
+      "url": "https://en.wikipedia.org/wiki/Republican_Party_(United_States)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Republican Party (United States)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
       "id": "wikipedia-en-page-3211155",
       "publisher": "Wikipedia",
       "title": "People's Consultative Assembly",
@@ -1524,6 +1534,16 @@
       "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Jacqui Lambie Network\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-5043544",
+      "publisher": "Wikipedia",
+      "title": "Democratic Party (United States)",
+      "url": "https://en.wikipedia.org/wiki/Democratic_Party_(United_States)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Democratic Party (United States)\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {

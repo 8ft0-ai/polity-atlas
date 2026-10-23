@@ -10,10 +10,7 @@
       "reason": "Reviewed against the same AUS IPU publication: the lower-house label The Greens and Senate label Australian Greens refer to the party verified as English Wikipedia page 171629; preserve the original chamber-specific IPU ID and name.",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-23",
-      "sourceIds": [
-        "ipu-parline",
-        "wikipedia-en-page-171629"
-      ]
+      "sourceIds": ["ipu-parline", "wikipedia-en-page-171629"]
     }
   ]
 }
