@@ -24,8 +24,12 @@ export function isPartyDiscoveryExcluded(name) {
   return (
     !value ||
     isGeneric(name) ||
-    /^(other |others |far right |far left |regionalist |ecologist |union of the far right$)/.test(value) ||
-    /\b(coalition|alliance|electoral bloc|popular front|presidential majority)\b/.test(value)
+    /^(other |others |far right |far left |regionalist |ecologist |union of the far right$)/.test(
+      value,
+    ) ||
+    /\b(coalition|alliance|electoral bloc|popular front|presidential majority)\b/.test(
+      value,
+    )
   );
 }
 
@@ -89,9 +93,9 @@ function titleMatchesParty(pageTitle, partyName, countryName) {
 export function verifyPartyDiscoveryPage(page, partyName, countryName) {
   return Boolean(
     page &&
-      titleMatchesParty(page.title, partyName, countryName) &&
-      sourceCountryMatches(page, countryName) &&
-      articleHasPartyEvidence(page),
+    titleMatchesParty(page.title, partyName, countryName) &&
+    sourceCountryMatches(page, countryName) &&
+    articleHasPartyEvidence(page),
   );
 }
 
@@ -109,12 +113,16 @@ function validateReviewedMappings(mappings, iso3) {
       !entry.reviewDate ||
       !Array.isArray(entry.sourceIds) ||
       !entry.sourceIds.length ||
-      Number(Boolean(entry.wikidataId)) + Number(Boolean(entry.wikipediaTitle)) !== 1 ||
+      Number(Boolean(entry.wikidataId)) +
+        Number(Boolean(entry.wikipediaTitle)) !==
+        1 ||
       (entry.wikidataId && !/^Q[1-9]\d*$/.test(entry.wikidataId))
     ) {
       throw new Error('PARTY_ALIAS_REGISTRY_INVALID');
     }
-    const key = [entry.countryIso3, entry.chamberId, entry.partyId].join('\u0000');
+    const key = [entry.countryIso3, entry.chamberId, entry.partyId].join(
+      '\u0000',
+    );
     if (used.has(key)) throw new Error('PARTY_ALIAS_REGISTRY_DUPLICATE');
     used.add(key);
   }
@@ -143,7 +151,8 @@ export async function discoverPartyIdentities(
   // A verified exact chamber-linked article takes precedence over discovery.
   const alreadyLinked = new Set(
     knownEvidence.map(
-      (entry) => entry.chamberId + '\u0000' + entry.partyId + '\u0000' + entry.party,
+      (entry) =>
+        entry.chamberId + '\u0000' + entry.partyId + '\u0000' + entry.party,
     ),
   );
   const rows = ipuPartyRows(profile).filter(
@@ -184,19 +193,21 @@ export async function discoverPartyIdentities(
         identityName(row.party) + ' ' + snapshot.requestedCountry.name,
         SEARCH_LIMIT,
       );
-      candidateTitles = [...new Set(
-        search
-          .map((hit) => hit.title ?? hit.key)
-          .filter(
-            (title) =>
-              title &&
-              titleMatchesParty(
-                title,
-                row.party,
-                snapshot.requestedCountry.name,
-              ),
-          ),
-      )].slice(0, SEARCH_LIMIT);
+      candidateTitles = [
+        ...new Set(
+          search
+            .map((hit) => hit.title ?? hit.key)
+            .filter(
+              (title) =>
+                title &&
+                titleMatchesParty(
+                  title,
+                  row.party,
+                  snapshot.requestedCountry.name,
+                ),
+            ),
+        ),
+      ].slice(0, SEARCH_LIMIT);
     }
 
     const candidates = [];
@@ -283,7 +294,11 @@ export function validatePartyDiscovery(snapshot, profile, discovery) {
       seen.has(key) ||
       rows.get(key) !== item.party ||
       !Array.isArray(item.candidates) ||
-      !['verified-search', 'reviewed-wikipedia-alias', 'reviewed-wikidata-sitelink'].includes(item.method) ||
+      ![
+        'verified-search',
+        'reviewed-wikipedia-alias',
+        'reviewed-wikidata-sitelink',
+      ].includes(item.method) ||
       !['verified', 'ambiguous', 'unresolved'].includes(item.status)
     ) {
       throw new Error('PARTY_DISCOVERY_CACHE_MISMATCH');
@@ -299,14 +314,16 @@ export function validatePartyDiscovery(snapshot, profile, discovery) {
           item.party,
           discovery.countryName,
         )
-      ) return false;
+      )
+        return false;
       return articleHasPartyEvidence(candidate.page);
     });
-    const status = valid.length === 1
-      ? 'verified'
-      : valid.length > 1
-        ? 'ambiguous'
-        : 'unresolved';
+    const status =
+      valid.length === 1
+        ? 'verified'
+        : valid.length > 1
+          ? 'ambiguous'
+          : 'unresolved';
     if (status !== item.status) {
       throw new Error('PARTY_DISCOVERY_CACHE_MISMATCH');
     }
