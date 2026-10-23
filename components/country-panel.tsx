@@ -178,7 +178,11 @@ function SeatBar({
   entries: Array<{
     partyId: string;
     partyEntityId?: string;
-    representationKind?: 'coalition' | 'electoral-alliance' | 'electoral-category' | 'membership-role';
+    representationKind?:
+      | 'coalition'
+      | 'electoral-alliance'
+      | 'electoral-category'
+      | 'membership-role';
     party: string;
     seats: number;
     group?: string;
@@ -274,12 +278,16 @@ function SeatBar({
                   )}
                   {group.representationKind && (
                     <span className="block truncate text-[10px]">
-                      {({
-                        coalition: 'Coalition',
-                        'electoral-alliance': 'Electoral alliance',
-                        'electoral-category': 'Electoral grouping',
-                        'membership-role': 'Membership category',
-                      } as const)[group.representationKind]}
+                      {
+                        (
+                          {
+                            coalition: 'Coalition',
+                            'electoral-alliance': 'Electoral alliance',
+                            'electoral-category': 'Electoral grouping',
+                            'membership-role': 'Membership category',
+                          } as const
+                        )[group.representationKind]
+                      }
                     </span>
                   )}
                   {group.group && (
