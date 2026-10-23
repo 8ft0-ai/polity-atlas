@@ -18,6 +18,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Temporary PR A exact formatter patch
+        run: |
+          npx oxfmt components/country-panel.test.tsx packages/data-pipeline/config/party-aliases.json packages/data-pipeline/wikipedia/party-identity.mjs packages/data-pipeline/wikipedia/party-identity.test.mjs packages/data-pipeline/wikipedia/refresh.mjs public/data/countries/AUS.json
+          git diff -- components/country-panel.test.tsx packages/data-pipeline/config/party-aliases.json packages/data-pipeline/wikipedia/party-identity.mjs packages/data-pipeline/wikipedia/party-identity.test.mjs packages/data-pipeline/wikipedia/refresh.mjs public/data/countries/AUS.json
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
