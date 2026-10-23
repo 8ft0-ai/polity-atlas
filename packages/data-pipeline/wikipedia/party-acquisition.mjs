@@ -42,14 +42,19 @@ export function isGeneric(name) {
   return GENERIC_NAMES.has(normaliseName(name));
 }
 
-function articleHasPartyEvidence(page) {
+export function articleHasPartyEvidence(page) {
+  if (typeof page?.html !== 'string') return false;
   const fields = new Set(
     parseInfobox(page.html).rows.map((row) => normaliseName(row.label)),
   );
-  const politicalField = ['ideology', 'political position', 'position'].some(
-    (field) => fields.has(field),
-  );
-  const organisationalField = [
+  const politicalField = [
+    'ideology',
+    'political position',
+    'position',
+    'international affiliation',
+    'national affiliation',
+  ].some((field) => fields.has(field));
+  const organisationalFields = [
     'leader',
     'party leader',
     'president',
@@ -57,9 +62,11 @@ function articleHasPartyEvidence(page) {
     'founded',
     'formation',
     'headquarters',
-    'national affiliation',
-  ].some((field) => fields.has(field));
-  return politicalField && organisationalField;
+  ].filter((field) => fields.has(field));
+  // Political position is optional. Two independent organisational fields
+  // can confirm an exact party article even when position is absent.
+  return organisationalFields.length >= 1 &&
+    (politicalField || organisationalFields.length >= 2);
 }
 
 /**
@@ -159,7 +166,7 @@ export async function acquireLinkedPartySnapshot(
  * Cache replay is pure and fails closed on changed candidate sets, missing
  * observations or conflicting page identities. No client is needed.
  */
-export function normalizeLinkedPartySnapshot(snapshot, acquired) {
+export function normalizeLinkedPartySnapshot(snapshot, acquired, discovery) {
   const expected = linkedPartyCandidates(snapshot);
   if (
     acquired?.schemaVersion !== 1 ||
@@ -213,6 +220,29 @@ export function normalizeLinkedPartySnapshot(snapshot, acquired) {
       ...new Set([...result.summary.sourceIds, ...candidate.sourceIds]),
     ].sort((a, b) => a.localeCompare(b));
     records.set(result.profile.entityId, result);
+  }
+
+  if (discovery) {
+    for (const observation of discovery.observations) {
+      if (observation.status !== 'verified') continue;
+      const winner = observation.candidates.filter(
+        (candidate) => candidate.verified && candidate.page,
+      );
+      if (winner.length !== 1) {
+        throw new Error('PARTY_DISCOVERY_CACHE_MISMATCH');
+      }
+      const page = winner[0].page;
+      if (!articleHasPartyEvidence(page)) {
+        throw new Error('PARTY_DISCOVERY_CACHE_MISMATCH');
+      }
+      const result = normalizeVerifiedPartyPage(page, acquired.retrievedAt);
+      if (!result) continue;
+      const existing = records.get(result.profile.entityId);
+      if (existing && JSON.stringify(existing.profile) !== JSON.stringify(result.profile)) {
+        throw new Error('PARTY_PAGE_ID_CONFLICT:' + result.profile.entityId);
+      }
+      if (!existing) records.set(result.profile.entityId, result);
+    }
   }
 
   const ordered = [...records.values()].sort((a, b) =>
