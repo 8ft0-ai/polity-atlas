@@ -381,8 +381,14 @@ export function associatePreparedParties(
   const diagnostics = [];
 
   function linkEntry(entry, entityId, sourceIds) {
-    if (entry.representationKind || isNonPartyRepresentation(entry.party, output.identity.iso3)) {
-      fail('Non-party representation cannot inherit a party identity: ' + entry.partyId);
+    if (
+      entry.representationKind ||
+      isNonPartyRepresentation(entry.party, output.identity.iso3)
+    ) {
+      fail(
+        'Non-party representation cannot inherit a party identity: ' +
+          entry.partyId,
+      );
     }
     if (entry.partyEntityId && entry.partyEntityId !== entityId) {
       fail('Existing party reference conflicts: ' + entry.partyId);
