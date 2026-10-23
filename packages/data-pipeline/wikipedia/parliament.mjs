@@ -403,11 +403,13 @@ function extractIpuPartyIdentityEvidence(candidate, chamber) {
   if (!entries.length || !chamber.latestElection?.outcome) return [];
 
   const byPartyId = new Map();
+  const conflictedPartyIds = new Set();
   const rows = [
     ...(chamber.latestElection.outcome.seatsWonInElection ?? []),
     ...(chamber.latestElection.outcome.postElectionComposition ?? []),
   ];
   for (const result of rows) {
+    if (conflictedPartyIds.has(result.partyId)) continue;
     if (isGenericPoliticalLabel(result.party)) continue;
     const key = strictPartyLabel(result.party);
     if (!key) continue;
@@ -425,6 +427,7 @@ function extractIpuPartyIdentityEvidence(candidate, chamber) {
     const existing = byPartyId.get(result.partyId);
     if (existing && (existing.articleTitle !== title || existing.party !== result.party)) {
       byPartyId.delete(result.partyId);
+      conflictedPartyIds.add(result.partyId);
       continue;
     }
     byPartyId.set(result.partyId, {
