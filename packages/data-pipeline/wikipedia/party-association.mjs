@@ -283,9 +283,11 @@ export function validatePartyPublication(profile, partyDetails, mergedSources) {
   for (const chamber of profile.parliament.chambers) {
     for (const entry of referencedEntries(chamber)) {
       if (!entry.partyEntityId) continue;
+      if (isGeneric(entry.party)) {
+        fail('Generic entry was linked: ' + entry.party);
+      }
       if (
         entry.representationKind ||
-        isGeneric(entry.party) ||
         isNonPartyRepresentation(entry.party, profile.identity.iso3)
       ) {
         fail('Non-party representation was linked: ' + entry.party);
