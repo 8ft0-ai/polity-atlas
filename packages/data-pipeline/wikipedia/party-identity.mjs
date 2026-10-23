@@ -1,5 +1,6 @@
 import { isGeneric, articleHasPartyEvidence } from './party-acquisition.mjs';
 import { parseInfobox } from './parse-infobox.mjs';
+import { isNonPartyRepresentation } from './representation.mjs';
 
 const SEARCH_LIMIT = 5;
 const SEARCH_ROWS_LIMIT = 24;
@@ -19,11 +20,12 @@ function identityName(value) {
     .trim();
 }
 
-export function isPartyDiscoveryExcluded(name) {
+export function isPartyDiscoveryExcluded(name, countryIso3) {
   const value = comparable(name);
   return (
     !value ||
     isGeneric(name) ||
+    isNonPartyRepresentation(name, countryIso3) ||
     /^(other |others |far right |far left |regionalist |ecologist |union of the far right$)/.test(
       value,
     ) ||
@@ -42,7 +44,7 @@ export function ipuPartyRows(profile) {
       ...(outcome?.postElectionComposition ?? []),
     ];
     for (const entry of entries) {
-      if (isPartyDiscoveryExcluded(entry.party)) continue;
+      if (isPartyDiscoveryExcluded(entry.party, profile.identity.iso3)) continue;
       const key = chamber.id + '\u0000' + entry.partyId;
       const prior = rows.get(key);
       if (prior && prior.party !== entry.party) {
