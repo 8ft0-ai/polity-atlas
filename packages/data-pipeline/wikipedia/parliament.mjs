@@ -384,7 +384,7 @@ function extractChamberVisualObservations(candidate, chamber) {
 function strictPartyLabel(value) {
   return String(value ?? '')
     .normalize('NFKC')
-    .replace(/\\s+\\([A-Z][A-Z0-9.-]{1,8}\\)\\s*$/, '')
+    .replace(/\s+\([A-Z][A-Z0-9.-]{1,8}\)\s*$/, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
