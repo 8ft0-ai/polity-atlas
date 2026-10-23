@@ -18,10 +18,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Temporary formatter diff for party identity correction
-        run: |
-          npx oxfmt packages/data-pipeline/wikipedia/parliament.mjs packages/data-pipeline/wikipedia/party-association.mjs packages/data-pipeline/wikipedia/party-association.test.mjs packages/data-pipeline/wikipedia/wikipedia.test.mjs
-          git diff -- packages/data-pipeline/wikipedia/parliament.mjs packages/data-pipeline/wikipedia/party-association.mjs packages/data-pipeline/wikipedia/party-association.test.mjs packages/data-pipeline/wikipedia/wikipedia.test.mjs
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
