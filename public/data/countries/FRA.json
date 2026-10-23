@@ -14,9 +14,7 @@
       "value": "Unitary semi-presidential republic",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": [
-        "fr-country"
-      ],
+      "sourceIds": ["fr-country"],
       "confidence": "verified"
     },
     "headOfState": [
@@ -24,9 +22,7 @@
         "office": "President",
         "name": "Emmanuel Macron",
         "since": "2017-05-14",
-        "sourceIds": [
-          "fr-president"
-        ]
+        "sourceIds": ["fr-president"]
       }
     ],
     "headOfGovernment": [
@@ -34,9 +30,7 @@
         "office": "Prime Minister",
         "name": "Sébastien Lecornu",
         "since": "2026-02-26",
-        "sourceIds": [
-          "fr-prime-minister"
-        ]
+        "sourceIds": ["fr-prime-minister"]
       }
     ]
   },
@@ -45,9 +39,7 @@
       "value": "Parliament",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T04:30:00.000Z",
-      "sourceIds": [
-        "ipu-parline"
-      ],
+      "sourceIds": ["ipu-parline"],
       "confidence": "verified"
     },
     "chambers": [
@@ -76,28 +68,19 @@
             "stateRank": "Fourth",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": [
-            "Plurality/majority",
-            "Two-Round System (TRS)"
-          ],
+          "systems": ["Plurality/majority", "Two-Round System (TRS)"],
           "directlyElectedSeats": 577,
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "FR-LC01-E20240630",
           "title": "France National Assembly June 2024 Election",
@@ -118,9 +101,7 @@
                 "visual": {
                   "color": "#FB2C59",
                   "method": "wikidata-p465",
-                  "sourceIds": [
-                    "wikidata-item-q126487286-p465"
-                  ]
+                  "sourceIds": ["wikidata-item-q126487286-p465"]
                 },
                 "representationKind": "electoral-alliance"
               },
@@ -137,9 +118,7 @@
                 "visual": {
                   "color": "#254671",
                   "method": "wikipedia-entry",
-                  "sourceIds": [
-                    "wikipedia-en-page-299616"
-                  ]
+                  "sourceIds": ["wikipedia-en-page-299616"]
                 }
               },
               {
@@ -179,9 +158,7 @@
                 "visual": {
                   "color": "#0000BA",
                   "method": "wikipedia-entry",
-                  "sourceIds": [
-                    "wikipedia-en-page-299616"
-                  ]
+                  "sourceIds": ["wikipedia-en-page-299616"]
                 },
                 "partyEntityId": "party:wikipedia:68946070"
               },
@@ -203,9 +180,7 @@
                 "visual": {
                   "color": "#E3265B",
                   "method": "wikipedia-entry",
-                  "sourceIds": [
-                    "wikipedia-en-page-299616"
-                  ]
+                  "sourceIds": ["wikipedia-en-page-299616"]
                 },
                 "partyEntityId": "party:wikipedia:39565408"
               },
@@ -216,9 +191,7 @@
                 "visual": {
                   "color": "#3E7F54",
                   "method": "wikipedia-entry",
-                  "sourceIds": [
-                    "wikipedia-en-page-299616"
-                  ]
+                  "sourceIds": ["wikipedia-en-page-299616"]
                 }
               },
               {
@@ -242,9 +215,7 @@
                 "visual": {
                   "color": "#FB2C59",
                   "method": "wikidata-p465",
-                  "sourceIds": [
-                    "wikidata-item-q126487286-p465"
-                  ]
+                  "sourceIds": ["wikidata-item-q126487286-p465"]
                 },
                 "representationKind": "electoral-alliance"
               },
@@ -261,9 +232,7 @@
                 "visual": {
                   "color": "#254671",
                   "method": "wikipedia-entry",
-                  "sourceIds": [
-                    "wikipedia-en-page-299616"
-                  ]
+                  "sourceIds": ["wikipedia-en-page-299616"]
                 }
               },
               {
@@ -303,9 +272,7 @@
                 "visual": {
                   "color": "#0000BA",
                   "method": "wikipedia-entry",
-                  "sourceIds": [
-                    "wikipedia-en-page-299616"
-                  ]
+                  "sourceIds": ["wikipedia-en-page-299616"]
                 },
                 "partyEntityId": "party:wikipedia:68946070"
               },
@@ -327,9 +294,7 @@
                 "visual": {
                   "color": "#E3265B",
                   "method": "wikipedia-entry",
-                  "sourceIds": [
-                    "wikipedia-en-page-299616"
-                  ]
+                  "sourceIds": ["wikipedia-en-page-299616"]
                 },
                 "partyEntityId": "party:wikipedia:39565408"
               },
@@ -340,9 +305,7 @@
                 "visual": {
                   "color": "#3E7F54",
                   "method": "wikipedia-entry",
-                  "sourceIds": [
-                    "wikipedia-en-page-299616"
-                  ]
+                  "sourceIds": ["wikipedia-en-page-299616"]
                 }
               },
               {
@@ -359,18 +322,13 @@
               }
             ]
           },
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         }
       },
       {
         "id": "FR-UC01",
         "name": "Senate",
-        "aliases": [
-          "Sénat",
-          "Sénat (Senate)"
-        ],
+        "aliases": ["Sénat", "Sénat (Senate)"],
         "kind": "upper",
         "totalSeats": 348,
         "parliamentaryTermYears": 6,
@@ -389,9 +347,7 @@
             "stateRank": "Second",
             "becomesInterimHeadOfState": true,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": [
-              "ipu-parline"
-            ]
+            "sourceIds": ["ipu-parline"]
           }
         ],
         "electoralSystem": {
@@ -400,13 +356,9 @@
           "indirectlyElectedSeats": 348,
           "eligibilityAge": 24,
           "compulsoryVoting": "No",
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
-        "sourceIds": [
-          "ipu-parline"
-        ],
+        "sourceIds": ["ipu-parline"],
         "latestElection": {
           "id": "FR-UC01-E20230924",
           "title": "France Senate September 2023 Election",
@@ -416,9 +368,7 @@
           "scope": "partial-renewal",
           "seatsAtStake": 170,
           "chamberSize": 348,
-          "sourceIds": [
-            "ipu-parline"
-          ]
+          "sourceIds": ["ipu-parline"]
         },
         "composition": {
           "basis": "source-reported",
@@ -432,9 +382,7 @@
               "visual": {
                 "color": "#2E70D1",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -445,9 +393,7 @@
               "visual": {
                 "color": "#5AD0EE",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -458,9 +404,7 @@
               "visual": {
                 "color": "#B84592",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -471,9 +415,7 @@
               "visual": {
                 "color": "#D80001",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -484,9 +426,7 @@
               "visual": {
                 "color": "#804A96",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -497,9 +437,7 @@
               "visual": {
                 "color": "#FBBC07",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -510,9 +448,7 @@
               "visual": {
                 "color": "#5DB88D",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -523,9 +459,7 @@
               "visual": {
                 "color": "#C8DCE2",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -536,9 +470,7 @@
               "visual": {
                 "color": "#193985",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             },
@@ -549,16 +481,12 @@
               "visual": {
                 "color": "#DCDCDC",
                 "method": "wikipedia-entry",
-                "sourceIds": [
-                  "wikipedia-en-page-567323"
-                ]
+                "sourceIds": ["wikipedia-en-page-567323"]
               },
               "representationKind": "parliamentary-group"
             }
           ],
-          "sourceIds": [
-            "wikipedia-en-page-567323"
-          ]
+          "sourceIds": ["wikipedia-en-page-567323"]
         }
       }
     ]
@@ -574,9 +502,7 @@
       "date": {
         "from": "2026-09-30"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "id": "FR-LC01:2029-06-30",
@@ -588,18 +514,14 @@
       "date": {
         "from": "2029-06-30"
       },
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ],
   "parties": [
     {
       "entityId": "party:wikipedia:39565408",
       "displayName": "Socialist Party (France)",
-      "sourcePartyIds": [
-        "fr-socialist_party_ps"
-      ],
+      "sourcePartyIds": ["fr-socialist_party_ps"],
       "wikipedia": {
         "pageId": 39565408,
         "title": "Socialist Party (France)"
@@ -609,20 +531,14 @@
         "from": "left",
         "to": "centre-left",
         "raw": "Centre-left to left-wing",
-        "sourceIds": [
-          "wikipedia-en-page-39565408"
-        ]
+        "sourceIds": ["wikipedia-en-page-39565408"]
       },
-      "sourceIds": [
-        "wikipedia-en-page-39565408"
-      ]
+      "sourceIds": ["wikipedia-en-page-39565408"]
     },
     {
       "entityId": "party:wikipedia:46843436",
       "displayName": "The Republicans (France)",
-      "sourcePartyIds": [
-        "fr-republicans_lr"
-      ],
+      "sourcePartyIds": ["fr-republicans_lr"],
       "wikipedia": {
         "pageId": 46843436,
         "title": "The Republicans (France)"
@@ -632,20 +548,14 @@
         "from": "centre-right",
         "to": "right",
         "raw": "Centre-right to right-wing",
-        "sourceIds": [
-          "wikipedia-en-page-46843436"
-        ]
+        "sourceIds": ["wikipedia-en-page-46843436"]
       },
-      "sourceIds": [
-        "wikipedia-en-page-46843436"
-      ]
+      "sourceIds": ["wikipedia-en-page-46843436"]
     },
     {
       "entityId": "party:wikipedia:68946070",
       "displayName": "Horizons (France)",
-      "sourcePartyIds": [
-        "fr-horizons-(hor)"
-      ],
+      "sourcePartyIds": ["fr-horizons-(hor)"],
       "wikipedia": {
         "pageId": 68946070,
         "title": "Horizons (France)"
@@ -655,13 +565,9 @@
         "from": "centre-right",
         "to": "centre-right",
         "raw": "Centre-right",
-        "sourceIds": [
-          "wikipedia-en-page-68946070"
-        ]
+        "sourceIds": ["wikipedia-en-page-68946070"]
       },
-      "sourceIds": [
-        "wikipedia-en-page-68946070"
-      ]
+      "sourceIds": ["wikipedia-en-page-68946070"]
     }
   ],
   "relations": [
@@ -670,81 +576,63 @@
       "m49": "036",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "Canada",
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": [
-        "fr-missions"
-      ]
+      "sourceIds": ["fr-missions"]
     }
   ]
 }
