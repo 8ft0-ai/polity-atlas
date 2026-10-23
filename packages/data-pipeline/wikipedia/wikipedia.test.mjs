@@ -1755,4 +1755,56 @@ describe('Wikipedia chamber fallback', () => {
       ),
     ).toBe(true);
   });
+  it('emits exact linked party evidence for a matched IPU chamber, not aggregates or NOM', () => {
+    const house = ipuChamber({
+      id: 'EX-LC01',
+      name: 'House',
+      kind: 'lower',
+      totalSeats: 100,
+    });
+    house.latestElection = {
+      outcome: {
+        seatsWonInElection: [
+          { partyId: 'ipu-alpha', party: 'Alpha Party (AP)', seats: 40 },
+          { partyId: 'ipu-nom', party: 'NOM', seats: 7 },
+        ],
+        postElectionComposition: [
+          { partyId: 'ipu-alpha', party: 'Alpha Party (AP)', seats: 40 },
+          { partyId: 'ipu-nom', party: 'NOM', seats: 7 },
+        ],
+      },
+    };
+    const normalized = normalizeWikipediaParliament(
+      snapshot({
+        houses: [{
+          name: 'House',
+          title: 'House',
+          seats: 100,
+          kind: 'lower',
+          compositionHtml: \`
+            <tr><th>Political groups</th><td><ul>
+              <li><a href="./Example_Coalition">Government</a> (47)<ul>
+                <li><a href="./Alpha_Party">Alpha Party</a> (40)</li>
+                <li><a href="./Nominated_Members">NOM</a> (7)</li>
+              </ul></li>
+              <li><a href="./Beta_Party">Beta Party</a> (12)</li>
+            </ul></td></tr>
+          \`,
+        }],
+      }),
+      profile([house]),
+    );
+    expect(normalized.partyIdentityEvidence).toEqual([{
+      chamberId: 'EX-LC01',
+      partyId: 'ipu-alpha',
+      party: 'Alpha Party (AP)',
+      articleTitle: 'Alpha Party',
+      sourcePageId: 2,
+    }]);
+    expect(normalized.sources.map((source) => source.id)).toContain(
+      'wikipedia-en-page-2',
+    );
+  });
+
+
 });
