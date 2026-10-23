@@ -41,6 +41,29 @@ describe('Wikidata visual metadata', () => {
     ).toBeUndefined();
   });
 
+  it('looks up only explicitly supplied Wikidata identities', async () => {
+    const fetchImpl = vi.fn(async (url) => {
+      const request = new URL(String(url));
+      expect(request.searchParams.get('ids')).toBe('Q123|Q456');
+      expect(request.searchParams.get('titles')).toBeNull();
+      expect(request.searchParams.get('props')).toBe('sitelinks');
+      return response(200, {
+        entities: {
+          Q123: { id: 'Q123', sitelinks: { enwiki: { title: 'Example Party' } } },
+          Q456: { id: 'Q456', sitelinks: {} },
+          Q789: { id: 'Q789', sitelinks: { enwiki: { title: 'Unrequested Party' } } },
+        },
+      });
+    });
+    const client = new WikidataClient({ fetchImpl });
+    const result = await client.enwikiSitelinksByIds(['Q456', 'Q123', 'Q123']);
+    expect([...result.entries()]).toEqual([['Q123', 'Example Party']]);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    await expect(client.enwikiSitelinksByIds(['not-an-id'])).rejects.toThrow(
+      'WIKIDATA_IDENTITY_INVALID',
+    );
+  });
+
   it('resolves exact English Wikipedia sitelinks without fuzzy party matching', async () => {
     const fetchImpl = vi.fn(async (url) => {
       expect(String(url)).toContain('action=wbgetentities');
