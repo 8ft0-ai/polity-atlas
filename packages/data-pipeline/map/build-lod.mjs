@@ -7,7 +7,7 @@ const ROOT =
   '/geojson';
 
 const outputRoot = new URL(
-  '../../../public/data/geometry/lod/',
+  '../../../src/data/geometry/lod/',
   import.meta.url,
 );
 

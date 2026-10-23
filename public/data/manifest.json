@@ -1,12 +1,12 @@
 {
   "schemaVersion": 6,
-  "buildId": "2026-09-19",
-  "generatedAt": "2026-09-19T15:22:05.000Z",
+  "buildId": "2026-10-23",
+  "generatedAt": "2026-10-23T00:00:00.000Z",
   "profiles": [
     {
       "iso3": "AUS",
       "path": "countries/AUS.json",
-      "sha256": "a9a9b78f8a48af989847e0c262bb502ce0fac7179dc95340e8509e081fca4c75"
+      "sha256": "be4a73e27dc9ee1782f94ded40d37a824e410a7fb6b3b774b62825d0800dc722"
     },
     {
       "iso3": "CAN",
@@ -71,9 +71,45 @@
       "sha256": "47c1ad01f8e344444984622892bb28967030d37259d911f1b7c02f33ae8e2048"
     }
   ],
-  "parties": [],
+  "parties": [
+    {
+      "entityId": "party:wikipedia:1495",
+      "path": "parties/wikipedia-en-1495.json",
+      "sha256": "edcb340f027fd5eefd0484cf38ceefbd4d255a436f24e14708ff785de252e04b"
+    },
+    {
+      "entityId": "party:wikipedia:171629",
+      "path": "parties/wikipedia-en-171629.json",
+      "sha256": "2471e8c53795722e16bb485a84887379f76ce86c1dd1de2d44d00dec871ea45d"
+    },
+    {
+      "entityId": "party:wikipedia:18453",
+      "path": "parties/wikipedia-en-18453.json",
+      "sha256": "77f1fce83605f2da21801efe3e89b6c6de0938ddf915d6ad0d6303713ec744f6"
+    },
+    {
+      "entityId": "party:wikipedia:31981469",
+      "path": "parties/wikipedia-en-31981469.json",
+      "sha256": "aa563e95cc5fd62f09bbf1e3c34d07066a2167a1a24b2e8b028a434843420369"
+    },
+    {
+      "entityId": "party:wikipedia:46327582",
+      "path": "parties/wikipedia-en-46327582.json",
+      "sha256": "4dd0093e65159b13b98df0973546b2c9677b07ecfb54989ec325bc29ccb1be56"
+    },
+    {
+      "entityId": "party:wikipedia:48186877",
+      "path": "parties/wikipedia-en-48186877.json",
+      "sha256": "34aa6693f89281d5db5656125c0313f542352705293fa13afd2c98cff751137b"
+    },
+    {
+      "entityId": "party:wikipedia:78079916",
+      "path": "parties/wikipedia-en-78079916.json",
+      "sha256": "8884bcbdb06651c543dc90068aabfe24f43f3f95841db7dc0834b215fdcafe28"
+    }
+  ],
   "sourceRegistry": {
     "path": "sources.json",
-    "sha256": "97801bb698a41bfc499ef93a7e9827a81ce6c30b3e91141a1ec61633992a4636"
+    "sha256": "3b48ec3c9fcecc8e18dc85ca0ffe4c38cf4a541376d4f3e89dde536a0dea8c50"
   }
 }

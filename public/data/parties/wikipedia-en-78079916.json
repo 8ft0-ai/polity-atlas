@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:78079916",
+  "identity": {
+    "displayName": "Australia's Voice",
+    "wikipediaPageId": 78079916,
+    "wikipediaTitle": "Australia's Voice",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Australia's_Voice"
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["AV"],
+      "sourceIds": ["wikipedia-en-page-78079916"]
+    },
+    {
+      "key": "leader",
+      "label": "Leader",
+      "values": ["Fatima Payman"],
+      "sourceIds": ["wikipedia-en-page-78079916"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["9 October 2024; 2 years ago (9 October 2024)"],
+      "sourceIds": ["wikipedia-en-page-78079916"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["ProgressivismRepublicanism"],
+      "sourceIds": ["wikipedia-en-page-78079916"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Maroon"],
+      "sourceIds": ["wikipedia-en-page-78079916"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-78079916"]
+}

@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import {
   LOD_ENTER_50M_SCALE,
@@ -7,6 +8,16 @@ import {
 } from './map-lod';
 
 describe('synchronized map LOD', () => {
+  it('bundles generated geometry from source modules, never public assets', async () => {
+    const moduleSource = await readFile(
+      new URL('./map-lod.ts', import.meta.url),
+      'utf8',
+    );
+
+    expect(moduleSource).toContain("from '@/src/data/geometry/lod/");
+    expect(moduleSource).not.toMatch(/from ['"]@\/public\//);
+  });
+
   it('uses hysteresis when switching between overview and detailed geometry', () => {
     expect(nextMapLod('110m', LOD_ENTER_50M_SCALE - 0.01)).toBe('110m');
     expect(nextMapLod('110m', LOD_ENTER_50M_SCALE)).toBe('50m');

@@ -351,7 +351,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q1065320: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q1065320",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -611,7 +611,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q1585274: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q1585274",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -701,7 +701,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q19876280: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q19876280",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -751,7 +751,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q216082: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q216082",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -761,7 +761,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q22079682: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q22079682",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -811,7 +811,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q241149: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q241149",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -1021,7 +1021,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q6378340: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q6378340",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -1141,7 +1141,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q781486: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q781486",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -1307,13 +1307,43 @@
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
+      "id": "wikipedia-en-page-1495",
+      "publisher": "Wikipedia",
+      "title": "Australian Labor Party",
+      "url": "https://en.wikipedia.org/wiki/Australian_Labor_Party",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Australian Labor Party\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
       "id": "wikipedia-en-page-165705",
       "publisher": "Wikipedia",
       "title": "Australian Senate",
       "url": "https://en.wikipedia.org/wiki/Australian_Senate",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Australian Senate\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-171629",
+      "publisher": "Wikipedia",
+      "title": "Australian Greens",
+      "url": "https://en.wikipedia.org/wiki/Australian_Greens",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Australian Greens\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-18453",
+      "publisher": "Wikipedia",
+      "title": "Liberal Party of Australia",
+      "url": "https://en.wikipedia.org/wiki/Liberal_Party_of_Australia",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Liberal Party of Australia\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -1417,6 +1447,16 @@
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
+      "id": "wikipedia-en-page-31981469",
+      "publisher": "Wikipedia",
+      "title": "Katter's Australian Party",
+      "url": "https://en.wikipedia.org/wiki/Katter's_Australian_Party",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Katter's Australian Party\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
       "id": "wikipedia-en-page-3211155",
       "publisher": "Wikipedia",
       "title": "People's Consultative Assembly",
@@ -1467,6 +1507,26 @@
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
+      "id": "wikipedia-en-page-46327582",
+      "publisher": "Wikipedia",
+      "title": "Centre Alliance",
+      "url": "https://en.wikipedia.org/wiki/Centre_Alliance",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Centre Alliance\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-48186877",
+      "publisher": "Wikipedia",
+      "title": "Jacqui Lambie Network",
+      "url": "https://en.wikipedia.org/wiki/Jacqui_Lambie_Network",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Jacqui Lambie Network\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
       "id": "wikipedia-en-page-567323",
       "publisher": "Wikipedia",
       "title": "Senate (France)",
@@ -1481,7 +1541,7 @@
       "publisher": "Wikipedia",
       "title": "Australian House of Representatives",
       "url": "https://en.wikipedia.org/wiki/Australian_House_of_Representatives",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Australian House of Representatives\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -1514,6 +1574,16 @@
       "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"House of Representatives (Indonesia)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-78079916",
+      "publisher": "Wikipedia",
+      "title": "Australia's Voice",
+      "url": "https://en.wikipedia.org/wiki/Australia's_Voice",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Australia's Voice\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     }
   ]
