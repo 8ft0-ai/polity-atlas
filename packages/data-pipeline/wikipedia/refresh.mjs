@@ -291,10 +291,16 @@ for (const country of targets) {
     );
     const discovery = fromCache
       ? await readJsonIfPresent(discoveryPath)
-      : await discoverAllPartyIdentities(snapshot, value, client, wikidataClient, {
-          mappings: partyAliasRegistry.mappings,
-          knownEvidence: normalized.partyIdentityEvidence,
-        });
+      : await discoverAllPartyIdentities(
+          snapshot,
+          value,
+          client,
+          wikidataClient,
+          {
+            mappings: partyAliasRegistry.mappings,
+            knownEvidence: normalized.partyIdentityEvidence,
+          },
+        );
     if (discovery) {
       validatePartyDiscovery(snapshot, value, discovery);
       if (!fromCache) await writeJson(discoveryPath, discovery);
