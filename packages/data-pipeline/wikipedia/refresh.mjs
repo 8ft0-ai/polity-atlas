@@ -290,6 +290,7 @@ for (const country of targets) {
       ? await readJsonIfPresent(discoveryPath)
       : await discoverPartyIdentities(snapshot, value, client, wikidataClient, {
           mappings: partyAliasRegistry.mappings,
+          knownEvidence: normalized.partyIdentityEvidence,
         });
     if (discovery) {
       validatePartyDiscovery(snapshot, value, discovery);
