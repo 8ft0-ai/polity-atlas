@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:46843436",
+  "identity": {
+    "displayName": "The Republicans (France)",
+    "wikipediaPageId": 46843436,
+    "wikipediaTitle": "The Republicans (France)",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/The_Republicans_(France)"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "centre-right",
+    "to": "right",
+    "raw": "Centre-right to right-wing",
+    "sourceIds": ["wikipedia-en-page-46843436"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["LR"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "president",
+      "label": "President",
+      "values": ["Bruno Retailleau"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["30 May 2015; 11 years ago (2015-05-30)"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["4 Place du Palais-Bourbon, 75007 Paris"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["Conservatism (French)"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Centre-right to right-wing"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "national-affiliation",
+      "label": "National affiliation",
+      "values": ["Union of the Right and Centre"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "european-affiliation",
+      "label": "European affiliation",
+      "values": ["European People's Party"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "international-affiliation",
+      "label": "International affiliation",
+      "values": ["Centrist Democrat International"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Blue White Red"],
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-46843436"]
+}

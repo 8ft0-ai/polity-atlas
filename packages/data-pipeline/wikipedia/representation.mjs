@@ -57,6 +57,11 @@ export function representationKind(label, countryIso3) {
   if (electoralCategoryLabels.has(value) || /^(other |others )/.test(value)) {
     return 'electoral-category';
   }
+  if (
+    countryIso3 === 'FRA' &&
+    (/\bgroup\b/.test(value) || value === 'senate republicans france')
+  )
+    return 'parliamentary-group';
   if (/\b(coalition|coalition partners)\b/.test(value)) return 'coalition';
   if (
     /\b(electoral alliance|political alliance|electoral bloc)\b/.test(value)

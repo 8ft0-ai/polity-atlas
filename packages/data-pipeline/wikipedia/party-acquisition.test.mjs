@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
+  articleHasPartyEvidence,
   linkedPartyCandidates,
   acquireLinkedPartySnapshot,
   normalizeLinkedPartySnapshot,
@@ -74,6 +75,26 @@ const beta = { name: 'Beta Party', title: 'Beta Party', seats: 8 };
 const base = countrySnapshot([chamber(100, [alpha, independent, beta])]);
 
 describe('Phase 4A exact-link party candidate discovery', () => {
+  it('excludes parliamentary-group articles despite ideology and president infobox rows', () => {
+    const parliamentaryGroup = {
+      ...partyPage({ title: 'Senate Republicans (France)' }),
+      html: '<table class="infobox"><tr><th>President</th><td>A Leader</td></tr><tr><th>Ideology</th><td>Conservatism</td></tr><tr><th>Political position</th><td>Centre-right</td></tr></table>',
+    };
+    expect(articleHasPartyEvidence(parliamentaryGroup)).toBe(false);
+    expect(
+      articleHasPartyEvidence({
+        ...parliamentaryGroup,
+        title: 'European Democratic and Social Rally group',
+      }),
+    ).toBe(false);
+    expect(articleHasPartyEvidence(partyPage())).toBe(true);
+    expect(
+      articleHasPartyEvidence({
+        ...partyPage(),
+        html: '<table class="infobox"><tr><th>President</th><td>A Leader</td></tr><tr><th>Ideology</th><td>Left</td></tr></table>',
+      }),
+    ).toBe(false);
+  });
   it('only discovers linked, non-generic political parties', () => {
     expect(linkedPartyCandidates(base)).toEqual([
       {

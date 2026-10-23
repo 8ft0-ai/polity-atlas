@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   LOD_ENTER_50M_SCALE,
@@ -10,7 +11,7 @@ import {
 describe('synchronized map LOD', () => {
   it('bundles generated geometry from source modules, never public assets', async () => {
     const moduleSource = await readFile(
-      new URL('./map-lod.ts', import.meta.url),
+      resolve(process.cwd(), 'lib/map-lod.ts'),
       'utf8',
     );
 

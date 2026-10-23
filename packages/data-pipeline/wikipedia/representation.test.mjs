@@ -73,6 +73,12 @@ describe('Phase 4 recovery PR2: non-party parliamentary representations', () => 
     expect(representationKind('Liberal National coalition', 'AUS')).toBe(
       'coalition',
     );
+    expect(representationKind('Senate Republicans (France)', 'FRA')).toBe(
+      'parliamentary-group',
+    );
+    expect(representationKind('Ecologist group (Senate)', 'FRA')).toBe(
+      'parliamentary-group',
+    );
     expect(representationKind('LNP', 'AUS')).toBeUndefined();
     expect(representationKind('The Greens', 'AUS')).toBeUndefined();
     expect(representationKind('Australian Greens', 'AUS')).toBeUndefined();

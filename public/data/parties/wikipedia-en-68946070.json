@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:68946070",
+  "identity": {
+    "displayName": "Horizons (France)",
+    "wikipediaPageId": 68946070,
+    "wikipediaTitle": "Horizons (France)",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Horizons_(France)"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "centre-right",
+    "to": "centre-right",
+    "raw": "Centre-right",
+    "sourceIds": ["wikipedia-en-page-68946070"]
+  },
+  "facts": [
+    {
+      "key": "leader",
+      "label": "Leader",
+      "values": ["Édouard Philippe"],
+      "sourceIds": ["wikipedia-en-page-68946070"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["9 October 2021; 5 years ago (2021-10-09)"],
+      "sourceIds": ["wikipedia-en-page-68946070"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["60, rue François-Ier75008 Paris"],
+      "sourceIds": ["wikipedia-en-page-68946070"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["Liberal conservatismEconomic liberalismPro-Europeanism"],
+      "sourceIds": ["wikipedia-en-page-68946070"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Centre-right"],
+      "sourceIds": ["wikipedia-en-page-68946070"]
+    },
+    {
+      "key": "national-affiliation",
+      "label": "National affiliation",
+      "values": ["Ensemble"],
+      "sourceIds": ["wikipedia-en-page-68946070"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Blue White"],
+      "sourceIds": ["wikipedia-en-page-68946070"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-68946070"]
+}

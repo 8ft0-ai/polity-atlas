@@ -21,7 +21,7 @@
     {
       "iso3": "FRA",
       "path": "countries/FRA.json",
-      "sha256": "9dccb36cbd532f623c7928ddc5b474b976e259c98b6fdb8ae662a17d998c59fb"
+      "sha256": "a90f8884978b7594b3a25b8e07eda96c10ba70435e41fc6dfb22cf6ac4d04bd1"
     },
     {
       "iso3": "GBR",
@@ -98,9 +98,19 @@
       "sha256": "7d91553e9aba711167380c73c84f2ae141959e388cd24b72c8fb783d2048ef1e"
     },
     {
+      "entityId": "party:wikipedia:39565408",
+      "path": "parties/wikipedia-en-39565408.json",
+      "sha256": "4af5f7f19617083bdf5eba7bfa502d0780fd2ec68b854ee7474e101ca35af817"
+    },
+    {
       "entityId": "party:wikipedia:46327582",
       "path": "parties/wikipedia-en-46327582.json",
       "sha256": "4dd0093e65159b13b98df0973546b2c9677b07ecfb54989ec325bc29ccb1be56"
+    },
+    {
+      "entityId": "party:wikipedia:46843436",
+      "path": "parties/wikipedia-en-46843436.json",
+      "sha256": "4090acff78f92c3df6d213e93022b87b99c2bf673b59c42fb4d160ec9905d5cb"
     },
     {
       "entityId": "party:wikipedia:48186877",
@@ -113,6 +123,11 @@
       "sha256": "bedf029fb4e74f1d3ef0d8976b16c8de40c786d8ce936c8dec416259fb0c2f66"
     },
     {
+      "entityId": "party:wikipedia:68946070",
+      "path": "parties/wikipedia-en-68946070.json",
+      "sha256": "f88356ebba27e86f6f240216b7479876d77e12b7511caf9526d006ccf2e0ae06"
+    },
+    {
       "entityId": "party:wikipedia:78079916",
       "path": "parties/wikipedia-en-78079916.json",
       "sha256": "8884bcbdb06651c543dc90068aabfe24f43f3f95841db7dc0834b215fdcafe28"
@@ -120,6 +135,6 @@
   ],
   "sourceRegistry": {
     "path": "sources.json",
-    "sha256": "bf6bbcaa8c85d3b3af768fe56bcac56d341793ab61be2cc18e1f4754036ef6de"
+    "sha256": "50e57ade79d97dbfa5a238870c4b0dac3adc1358199ada06b767cc84623730ea"
   }
 }
