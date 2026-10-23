@@ -232,7 +232,7 @@ function comparablePartyMatches(left, right) {
 }
 
 function isGenericPoliticalLabel(value) {
-  return /^(?:ind|independent|independents|independent politician|non affiliated|non partisan|non partisans|nonpartisan|nonpartisans|unaffiliated|other|others|vacant|vacancy|vacancies|crossbench|crossbenchers)$/.test(
+  return /^(?:ind|independent|independents|independent politician|non affiliated|non partisan|non partisans|nonpartisan|nonpartisans|unaffiliated|other|others|vacant|vacancy|vacancies|crossbench|crossbenchers|nom|nominated|nominated members|appointed members)$/.test(
     comparableParty(value),
   );
 }
