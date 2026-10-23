@@ -187,6 +187,23 @@ describe('CountryPanel', () => {
     expect(screen.getByText(/Alternative Vote \(AV\)/)).toBeInTheDocument();
   });
 
+  it('makes the existing verified ALP profile available for both Australian Senate result representations', async () => {
+    const senate = australiaProfile.parliament.chambers.find((entry) => entry.id === 'AU-UC01');
+    expect(senate).toBeDefined();
+    const outcome = senate!.latestElection!.outcome;
+    expect(
+      outcome.seatsWonInElection.find((entry) => entry.party === 'Australian Labor Party (ALP)')?.partyEntityId,
+    ).toBe('party:wikipedia:1495');
+    expect(
+      outcome.postElectionComposition?.find((entry) => entry.party === 'Australian Labor Party (government)')?.partyEntityId,
+    ).toBe('party:wikipedia:1495');
+    useWorkspaceStore.setState({ activeTab: 'parliament' });
+    renderPanel();
+    expect(
+      await screen.findByRole('button', { name: 'Australian Labor Party (government)' }),
+    ).toBeInTheDocument();
+  });
+
   it('uses one full source-reported semicircle for Japan Senate and lists the partial renewal beneath it', async () => {
     selectProfile({
       entityId: 'state:m49:392',
