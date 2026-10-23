@@ -347,6 +347,7 @@ export function associatePreparedParties(
   prepared,
   registry,
   partyIdentityEvidence = [],
+  discovery,
 ) {
   if (
     !profile?.identity?.iso3 ||
@@ -473,6 +474,54 @@ export function associatePreparedParties(
     const entityId = [...choice.entities][0];
     for (const entry of new Set(choice.rows)) {
       linkEntry(entry, entityId, [...choice.sources]);
+    }
+  }
+
+  // Supplemental IPU identity is valid only when the observed article was
+  // independently verified. Preserve the exact source ID and withhold any
+  // identity already contradicted by the stronger chamber-link evidence.
+  if (discovery) {
+    for (const observation of discovery.observations) {
+      if (observation.status !== 'verified') continue;
+      const winner = observation.candidates.filter(
+        (candidate) => candidate.verified && candidate.page,
+      );
+      if (winner.length !== 1) {
+        fail('Discovery observation is not uniquely verified');
+      }
+      const entityId = 'party:wikipedia:' + winner[0].page.pageId;
+      if (!prepared.summaries.some((party) => party.entityId === entityId)) {
+        fail('Discovery identity has no verified party summary');
+      }
+      const chamber = output.parliament.chambers.find(
+        (item) => item.id === observation.chamberId,
+      );
+      if (!chamber?.latestElection?.outcome) continue;
+      const rows = [
+        ...(chamber.latestElection.outcome.seatsWonInElection ?? []),
+        ...(chamber.latestElection.outcome.postElectionComposition ?? []),
+      ].filter(
+        (entry) =>
+          entry.partyId === observation.partyId &&
+          entry.party === observation.party &&
+          !isGeneric(entry.party),
+      );
+      for (const entry of rows) {
+        if (entry.partyEntityId && entry.partyEntityId !== entityId) {
+          diagnostics.push(
+            'PARTY_DISCOVERY_CONFLICT:' +
+              observation.chamberId +
+              ':' +
+              observation.partyId,
+          );
+          continue;
+        }
+        const proofSources = [
+          'wikipedia-en-page-' + winner[0].page.pageId,
+          ...(observation.reviewedSourceIds ?? []),
+        ];
+        linkEntry(entry, entityId, proofSources);
+      }
     }
   }
 

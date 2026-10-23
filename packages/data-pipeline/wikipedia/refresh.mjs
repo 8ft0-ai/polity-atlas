@@ -23,6 +23,10 @@ import {
   normalizeLinkedPartySnapshot,
 } from './party-acquisition.mjs';
 import {
+  discoverPartyIdentities,
+  validatePartyDiscovery,
+} from './party-identity.mjs';
+import {
   associatePreparedParties,
   validatePartyDataset,
 } from './party-association.mjs';
@@ -42,6 +46,10 @@ const legislatureConfigPath = resolve(
 const overrideConfigPath = resolve(
   repositoryRoot,
   'packages/data-pipeline/config/curated-overrides.json',
+);
+const partyAliasConfigPath = resolve(
+  repositoryRoot,
+  'packages/data-pipeline/config/party-aliases.json',
 );
 const profileDirectory = resolve(repositoryRoot, 'public/data/countries');
 const legislatureDirectory = resolve(
@@ -224,6 +232,10 @@ const wikidataClient = new WikidataClient();
 const existingSourceRegistry = await readJson(sourcesPath);
 const existingManifest = await readJson(manifestPath);
 const overrideRegistry = await readJson(overrideConfigPath);
+const partyAliasRegistry = await readJson(partyAliasConfigPath);
+if (partyAliasRegistry.schemaVersion !== 1) {
+  throw new Error('PARTY_ALIAS_REGISTRY_INVALID');
+}
 const emittedSources = [];
 const prepared = [];
 const preparedPartyDetails = new Map();
@@ -268,7 +280,31 @@ for (const country of targets) {
 
   let partyDiagnostics = [];
   if (acquired) {
-    const normalizedParties = normalizeLinkedPartySnapshot(snapshot, acquired);
+    const discoveryPath = resolve(
+      cacheDirectory,
+      'parties',
+      'discovery',
+      `${country.iso3}.json`,
+    );
+    const discovery = fromCache
+      ? await readJsonIfPresent(discoveryPath)
+      : await discoverPartyIdentities(snapshot, value, client, wikidataClient, {
+          mappings: partyAliasRegistry.mappings,
+          knownEvidence: normalized.partyIdentityEvidence,
+        });
+    if (discovery) {
+      validatePartyDiscovery(snapshot, value, discovery);
+      if (!fromCache) await writeJson(discoveryPath, discovery);
+    } else if (fromCache) {
+      process.stderr.write(
+        `PARTY_DISCOVERY_CACHE_UNAVAILABLE:${country.iso3}; exact linked identities only\n`,
+      );
+    }
+    const normalizedParties = normalizeLinkedPartySnapshot(
+      snapshot,
+      acquired,
+      discovery,
+    );
     const associationRegistry = {
       schemaVersion: 1,
       sources: mergeSourceRecords(
@@ -282,6 +318,7 @@ for (const country of targets) {
       normalizedParties,
       associationRegistry,
       normalized.partyIdentityEvidence,
+      discovery,
     );
     value = association.profile;
     emittedSources.push(...association.additionalSources);
@@ -294,6 +331,7 @@ for (const country of targets) {
     }
     partyDiagnostics = [
       ...normalizedParties.diagnostics,
+      ...(discovery?.diagnostics ?? []),
       ...association.diagnostics,
     ];
   }

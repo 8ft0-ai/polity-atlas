@@ -69,6 +69,37 @@ export class WikidataClient {
     return response.json();
   }
 
+  /**
+   * Identity lookup requires an explicit, previously verified Wikidata ID.
+   * Labels and first-ranked search hits are never treated as identity proof.
+   */
+  async enwikiSitelinksByIds(itemIds) {
+    const ids = [...new Set(itemIds)].sort((a, b) => a.localeCompare(b));
+    for (const id of ids) {
+      if (!/^Q[1-9]\d*$/.test(id)) {
+        throw new Error('WIKIDATA_IDENTITY_INVALID');
+      }
+    }
+    const resolved = new Map();
+    for (let index = 0; index < ids.length; index += 20) {
+      const response = await this.request({
+        action: 'wbgetentities',
+        ids: ids.slice(index, index + 20).join('|'),
+        props: 'sitelinks',
+        format: 'json',
+        formatversion: '2',
+      });
+      for (const entity of Object.values(response.entities ?? {})) {
+        if (!ids.includes(entity.id) || entity.missing) continue;
+        const title = entity.sitelinks?.enwiki?.title;
+        if (typeof title === 'string' && title.trim()) {
+          resolved.set(entity.id, title);
+        }
+      }
+    }
+    return resolved;
+  }
+
   async colorsByWikipediaTitles(titles, retrievedAt) {
     const uniqueTitles = Array.from(new Set(titles.filter(Boolean))).sort(
       (left, right) => left.localeCompare(right),
