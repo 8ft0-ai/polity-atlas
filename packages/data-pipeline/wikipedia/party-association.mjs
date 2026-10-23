@@ -346,6 +346,7 @@ export function associatePreparedParties(
   acquired,
   prepared,
   registry,
+  partyIdentityEvidence = [],
 ) {
   if (
     !profile?.identity?.iso3 ||
@@ -355,7 +356,8 @@ export function associatePreparedParties(
     !Array.isArray(prepared?.summaries) ||
     !Array.isArray(prepared?.profiles) ||
     !Array.isArray(prepared?.sources) ||
-    !Array.isArray(registry?.sources)
+    !Array.isArray(registry?.sources) ||
+    !Array.isArray(partyIdentityEvidence)
   ) {
     fail('Country identity or prepared snapshot does not match');
   }
@@ -365,6 +367,19 @@ export function associatePreparedParties(
   const partyIdsByEntity = new Map();
   const provenanceByEntity = new Map();
   const diagnostics = [];
+
+  function linkEntry(entry, entityId, sourceIds) {
+    if (entry.partyEntityId && entry.partyEntityId !== entityId) {
+      fail('Existing party reference conflicts: ' + entry.partyId);
+    }
+    entry.partyEntityId = entityId;
+    const ids = partyIdsByEntity.get(entityId) ?? new Set();
+    ids.add(entry.partyId);
+    partyIdsByEntity.set(entityId, ids);
+    const sources = provenanceByEntity.get(entityId) ?? new Set();
+    for (const id of sourceIds) sources.add(id);
+    provenanceByEntity.set(entityId, sources);
+  }
 
   for (const chamber of output.parliament.chambers) {
     for (const view of compositionViews(chamber)) {
@@ -379,25 +394,79 @@ export function associatePreparedParties(
           continue;
         }
         if (result.kind !== 'linked') continue;
-        if (entry.partyEntityId && entry.partyEntityId !== result.entityId) {
-          fail('Existing party reference conflicts: ' + entry.partyId);
-        }
-        entry.partyEntityId = result.entityId;
-        const ids = partyIdsByEntity.get(result.entityId) ?? new Set();
-        ids.add(entry.partyId);
-        partyIdsByEntity.set(result.entityId, ids);
-        const sources = provenanceByEntity.get(result.entityId) ?? new Set();
-        for (const id of sourceIds) {
-          if (
+        linkEntry(
+          entry,
+          result.entityId,
+          sourceIds.filter((id) =>
             bindings
               .get(id + '\u0000' + exactLabel(entry.party))
-              ?.has(result.entityId)
-          ) {
-            sources.add(id);
-          }
-        }
-        provenanceByEntity.set(result.entityId, sources);
+              ?.has(result.entityId),
+          ),
+        );
       }
+    }
+  }
+
+  // IPU rows may reuse a party identity only when its already-matched
+  // Wikipedia chamber supplied one *exact* party article link. Avoid using
+  // political colour, coalition group membership or similarity-only names.
+  const ipuChoices = new Map();
+  for (const observation of partyIdentityEvidence) {
+    if (
+      !observation ||
+      typeof observation.chamberId !== 'string' ||
+      typeof observation.partyId !== 'string' ||
+      typeof observation.party !== 'string' ||
+      typeof observation.articleTitle !== 'string' ||
+      !Number.isSafeInteger(observation.sourcePageId) ||
+      observation.sourcePageId <= 0 ||
+      isGeneric(observation.party)
+    ) {
+      continue;
+    }
+    const sourceId = 'wikipedia-en-page-' + observation.sourcePageId;
+    const index = acquired.candidates.findIndex(
+      (candidate) =>
+        candidate.requestedTitle === observation.articleTitle &&
+        candidate.sourceIds.includes(sourceId),
+    );
+    if (index < 0) continue;
+    const pageId = acquired.articles[index]?.page?.pageId;
+    const entityId = 'party:wikipedia:' + pageId;
+    if (!prepared.summaries.some((summary) => summary.entityId === entityId)) {
+      continue;
+    }
+
+    const chamber = output.parliament.chambers.find(
+      (item) => item.id === observation.chamberId,
+    );
+    if (!chamber?.latestElection?.outcome) continue;
+    const rows = [
+      ...(chamber.latestElection.outcome.seatsWonInElection ?? []),
+      ...(chamber.latestElection.outcome.postElectionComposition ?? []),
+    ].filter(
+      (entry) =>
+        entry.partyId === observation.partyId &&
+        entry.party === observation.party &&
+        !isGeneric(entry.party),
+    );
+    if (!rows.length) continue;
+    const key = observation.chamberId + '\u0000' + observation.partyId;
+    const choice = ipuChoices.get(key) ?? { entities: new Set(), rows: [], sources: new Set() };
+    choice.entities.add(entityId);
+    choice.rows.push(...rows);
+    choice.sources.add(sourceId);
+    ipuChoices.set(key, choice);
+  }
+
+  for (const [key, choice] of ipuChoices) {
+    if (choice.entities.size !== 1) {
+      diagnostics.push('PARTY_IDENTITY_AMBIGUOUS:' + key.replace('\u0000', ':'));
+      continue;
+    }
+    const entityId = [...choice.entities][0];
+    for (const entry of new Set(choice.rows)) {
+      linkEntry(entry, entityId, [...choice.sources]);
     }
   }
 
