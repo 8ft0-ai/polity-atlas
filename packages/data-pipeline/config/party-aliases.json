@@ -10,10 +10,7 @@
       "reason": "Reviewed against the same AUS IPU publication: the lower-house label The Greens and Senate label Australian Greens refer to the party verified as English Wikipedia page 171629; preserve the original chamber-specific IPU ID and name.",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-23",
-      "sourceIds": [
-        "ipu-parline",
-        "wikipedia-en-page-171629"
-      ]
+      "sourceIds": ["ipu-parline", "wikipedia-en-page-171629"]
     },
     {
       "countryIso3": "AUS",
@@ -24,9 +21,7 @@
       "reason": "The IPU Senate party name Pauline Hanson's One Nation is the Australian party described in the One Nation Wikipedia infobox (abbreviation PHON); preserve the historical election-row seat count.",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     },
     {
       "countryIso3": "AUS",
@@ -37,9 +32,7 @@
       "reason": "The Senate UAP entry describes the Palmer-era party, as distinct from the unrelated historical United Australia Party (1931–1945) and Pauline's United Australia Party (2007–2010); AEC registration history and the Wikipedia article corroborate the 2013-era entity.",
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
-      "sourceIds": [
-        "ipu-parline"
-      ]
+      "sourceIds": ["ipu-parline"]
     }
   ]
 }
