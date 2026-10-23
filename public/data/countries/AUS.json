@@ -14,7 +14,9 @@
       "value": "Federal parliamentary constitutional monarchy",
       "asOf": "2026-09-18",
       "retrievedAt": "2026-09-18T00:00:00.000Z",
-      "sourceIds": ["au-system"],
+      "sourceIds": [
+        "au-system"
+      ],
       "confidence": "verified"
     },
     "headOfState": [
@@ -22,7 +24,9 @@
         "office": "Governor-General",
         "name": "Sam Mostyn",
         "since": "2024-07-01",
-        "sourceIds": ["au-governor-general"]
+        "sourceIds": [
+          "au-governor-general"
+        ]
       }
     ],
     "headOfGovernment": [
@@ -30,7 +34,9 @@
         "office": "Prime Minister",
         "name": "Anthony Albanese",
         "since": "2022-05-23",
-        "sourceIds": ["au-prime-minister"]
+        "sourceIds": [
+          "au-prime-minister"
+        ]
       }
     ]
   },
@@ -39,7 +45,9 @@
       "value": "Parliament",
       "asOf": "2026-09-19",
       "retrievedAt": "2026-09-19T04:30:00.000Z",
-      "sourceIds": ["ipu-parline"],
+      "sourceIds": [
+        "ipu-parline"
+      ],
       "confidence": "verified"
     },
     "chambers": [
@@ -64,19 +72,28 @@
             "stateRank": "Fourth",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": false,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
           "directlyElected": true,
-          "systems": ["Plurality/majority", "Alternative Vote (AV)"],
+          "systems": [
+            "Plurality/majority",
+            "Alternative Vote (AV)"
+          ],
           "directlyElectedSeats": 150,
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "Yes",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "AU-LC01-E20250503",
           "title": "Australia House of Representatives May 2025 Election",
@@ -96,7 +113,9 @@
                 "visual": {
                   "color": "#F00011",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q216082-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q216082-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:1495"
               },
@@ -107,7 +126,9 @@
                 "visual": {
                   "color": "#00557C",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q1065320-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q1065320-p465"
+                  ]
                 },
                 "representationKind": "coalition"
               },
@@ -118,7 +139,9 @@
                 "visual": {
                   "color": "#888888",
                   "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "sourceIds": [
+                    "wikipedia-en-page-61565"
+                  ]
                 },
                 "representationKind": "membership-role"
               },
@@ -129,7 +152,9 @@
                 "visual": {
                   "color": "#FF6300",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q19876280-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q19876280-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:46327582"
               },
@@ -140,7 +165,9 @@
                 "visual": {
                   "color": "#B50204",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q6378340-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q6378340-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:31981469"
               },
@@ -151,7 +178,9 @@
                 "visual": {
                   "color": "#10C25B",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q781486-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q781486-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:171629"
               }
@@ -164,7 +193,9 @@
                 "visual": {
                   "color": "#F00011",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q216082-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q216082-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:1495"
               },
@@ -175,7 +206,9 @@
                 "visual": {
                   "color": "#00557C",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q1065320-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q1065320-p465"
+                  ]
                 },
                 "representationKind": "coalition"
               },
@@ -186,7 +219,9 @@
                 "visual": {
                   "color": "#888888",
                   "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-61565"]
+                  "sourceIds": [
+                    "wikipedia-en-page-61565"
+                  ]
                 },
                 "representationKind": "membership-role"
               },
@@ -197,7 +232,9 @@
                 "visual": {
                   "color": "#FF6300",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q19876280-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q19876280-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:46327582"
               },
@@ -208,7 +245,9 @@
                 "visual": {
                   "color": "#B50204",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q6378340-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q6378340-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:31981469"
               },
@@ -219,13 +258,17 @@
                 "visual": {
                   "color": "#10C25B",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q781486-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q781486-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:171629"
               }
             ]
           },
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       },
       {
@@ -250,7 +293,9 @@
             "stateRank": "Third",
             "becomesInterimHeadOfState": false,
             "mandateContinuesBetweenLegislatures": true,
-            "sourceIds": ["ipu-parline"]
+            "sourceIds": [
+              "ipu-parline"
+            ]
           }
         ],
         "electoralSystem": {
@@ -263,9 +308,13 @@
           "votingAge": 18,
           "eligibilityAge": 18,
           "compulsoryVoting": "Yes",
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         },
-        "sourceIds": ["ipu-parline"],
+        "sourceIds": [
+          "ipu-parline"
+        ],
         "latestElection": {
           "id": "AU-UC01-E20250503",
           "title": "Australia Senate May 2025 Election",
@@ -285,7 +334,9 @@
                 "visual": {
                   "color": "#F00011",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q216082-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q216082-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:1495"
               },
@@ -296,7 +347,9 @@
                 "visual": {
                   "color": "#080CAB",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q241149-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q241149-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:18453"
               },
@@ -307,7 +360,9 @@
                 "visual": {
                   "color": "#10C25B",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q781486-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q781486-p465"
+                  ]
                 }
               },
               {
@@ -322,7 +377,9 @@
                 "visual": {
                   "color": "#FF4900",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q1585274-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q1585274-p465"
+                  ]
                 }
               },
               {
@@ -337,7 +394,9 @@
                 "visual": {
                   "color": "#080CAB",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q241149-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q241149-p465"
+                  ]
                 }
               },
               {
@@ -352,7 +411,9 @@
                 "visual": {
                   "color": "#FFFF00",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q22079682-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q22079682-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:48186877"
               }
@@ -365,8 +426,11 @@
                 "visual": {
                   "color": "#F00011",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q216082-p465"]
-                }
+                  "sourceIds": [
+                    "wikidata-item-q216082-p465"
+                  ]
+                },
+                "partyEntityId": "party:wikipedia:1495"
               },
               {
                 "partyId": "au-uc01-e20250503-note-coalition-opposition",
@@ -375,7 +439,9 @@
                 "visual": {
                   "color": "#00557C",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q1065320-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q1065320-p465"
+                  ]
                 },
                 "representationKind": "coalition"
               },
@@ -386,7 +452,9 @@
                 "visual": {
                   "color": "#10C25B",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q781486-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q781486-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:171629"
               },
@@ -397,7 +465,9 @@
                 "visual": {
                   "color": "#FF4900",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q1585274-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q1585274-p465"
+                  ]
                 }
               },
               {
@@ -407,7 +477,9 @@
                 "visual": {
                   "color": "#888888",
                   "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "sourceIds": [
+                    "wikipedia-en-page-165705"
+                  ]
                 },
                 "representationKind": "membership-role"
               },
@@ -418,7 +490,9 @@
                 "visual": {
                   "color": "#91073D",
                   "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "sourceIds": [
+                    "wikipedia-en-page-165705"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:78079916"
               },
@@ -429,7 +503,9 @@
                 "visual": {
                   "color": "#FFFF00",
                   "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q22079682-p465"]
+                  "sourceIds": [
+                    "wikidata-item-q22079682-p465"
+                  ]
                 },
                 "partyEntityId": "party:wikipedia:48186877"
               },
@@ -440,7 +516,9 @@
                 "visual": {
                   "color": "#FFED00",
                   "method": "wikipedia-entry",
-                  "sourceIds": ["wikipedia-en-page-165705"]
+                  "sourceIds": [
+                    "wikipedia-en-page-165705"
+                  ]
                 }
               }
             ]
@@ -448,7 +526,9 @@
           "notes": [
             "The number of seats won by the Greens above includes a senator who joined the ALP after the elections."
           ],
-          "sourceIds": ["ipu-parline"]
+          "sourceIds": [
+            "ipu-parline"
+          ]
         }
       }
     ]
@@ -464,7 +544,9 @@
       "date": {
         "from": "2028-05-31"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     },
     {
       "id": "AU-UC01:2028-05-31",
@@ -476,14 +558,19 @@
       "date": {
         "from": "2028-05-31"
       },
-      "sourceIds": ["ipu-parline"]
+      "sourceIds": [
+        "ipu-parline"
+      ]
     }
   ],
   "parties": [
     {
       "entityId": "party:wikipedia:1495",
       "displayName": "Australian Labor Party",
-      "sourcePartyIds": ["au-australian_labor_party_alp"],
+      "sourcePartyIds": [
+        "au-australian_labor_party_alp",
+        "au-uc01-e20250503-note-australian-labor-party-government"
+      ],
       "wikipedia": {
         "pageId": 1495,
         "title": "Australian Labor Party"
@@ -493,9 +580,12 @@
         "from": "centre-left",
         "to": "centre-left",
         "raw": "Centre-left",
-        "sourceIds": ["wikipedia-en-page-1495"]
+        "sourceIds": [
+          "wikipedia-en-page-1495"
+        ]
       },
       "sourceIds": [
+        "ipu-parline",
         "wikipedia-en-page-1495",
         "wikipedia-en-page-165705",
         "wikipedia-en-page-61565"
@@ -517,7 +607,9 @@
         "from": "left",
         "to": "left",
         "raw": "Left-wing",
-        "sourceIds": ["wikipedia-en-page-171629"]
+        "sourceIds": [
+          "wikipedia-en-page-171629"
+        ]
       },
       "sourceIds": [
         "ipu-parline",
@@ -528,7 +620,9 @@
     {
       "entityId": "party:wikipedia:18453",
       "displayName": "Liberal Party of Australia",
-      "sourcePartyIds": ["au-liberal"],
+      "sourcePartyIds": [
+        "au-liberal"
+      ],
       "wikipedia": {
         "pageId": 18453,
         "title": "Liberal Party of Australia"
@@ -538,24 +632,36 @@
         "from": "centre-right",
         "to": "right",
         "raw": "Centre-right to right-wing",
-        "sourceIds": ["wikipedia-en-page-18453"]
+        "sourceIds": [
+          "wikipedia-en-page-18453"
+        ]
       },
-      "sourceIds": ["wikipedia-en-page-165705", "wikipedia-en-page-18453"]
+      "sourceIds": [
+        "wikipedia-en-page-165705",
+        "wikipedia-en-page-18453"
+      ]
     },
     {
       "entityId": "party:wikipedia:31981469",
       "displayName": "Katter's Australian Party",
-      "sourcePartyIds": ["au-katters_australian_party"],
+      "sourcePartyIds": [
+        "au-katters_australian_party"
+      ],
       "wikipedia": {
         "pageId": 31981469,
         "title": "Katter's Australian Party"
       },
-      "sourceIds": ["wikipedia-en-page-31981469", "wikipedia-en-page-61565"]
+      "sourceIds": [
+        "wikipedia-en-page-31981469",
+        "wikipedia-en-page-61565"
+      ]
     },
     {
       "entityId": "party:wikipedia:46327582",
       "displayName": "Centre Alliance",
-      "sourcePartyIds": ["au-centre_alliance"],
+      "sourcePartyIds": [
+        "au-centre_alliance"
+      ],
       "wikipedia": {
         "pageId": 46327582,
         "title": "Centre Alliance"
@@ -565,9 +671,14 @@
         "from": "centre",
         "to": "centre",
         "raw": "Centre",
-        "sourceIds": ["wikipedia-en-page-46327582"]
+        "sourceIds": [
+          "wikipedia-en-page-46327582"
+        ]
       },
-      "sourceIds": ["wikipedia-en-page-46327582", "wikipedia-en-page-61565"]
+      "sourceIds": [
+        "wikipedia-en-page-46327582",
+        "wikipedia-en-page-61565"
+      ]
     },
     {
       "entityId": "party:wikipedia:48186877",
@@ -584,19 +695,29 @@
         "kind": "label",
         "label": "Big tent",
         "raw": "Big tent",
-        "sourceIds": ["wikipedia-en-page-48186877"]
+        "sourceIds": [
+          "wikipedia-en-page-48186877"
+        ]
       },
-      "sourceIds": ["wikipedia-en-page-165705", "wikipedia-en-page-48186877"]
+      "sourceIds": [
+        "wikipedia-en-page-165705",
+        "wikipedia-en-page-48186877"
+      ]
     },
     {
       "entityId": "party:wikipedia:78079916",
       "displayName": "Australia's Voice",
-      "sourcePartyIds": ["au-uc01-e20250503-note-australia-s-voice"],
+      "sourcePartyIds": [
+        "au-uc01-e20250503-note-australia-s-voice"
+      ],
       "wikipedia": {
         "pageId": 78079916,
         "title": "Australia's Voice"
       },
-      "sourceIds": ["wikipedia-en-page-165705", "wikipedia-en-page-78079916"]
+      "sourceIds": [
+        "wikipedia-en-page-165705",
+        "wikipedia-en-page-78079916"
+      ]
     }
   ],
   "relations": [
@@ -605,63 +726,81 @@
       "m49": "124",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     },
     {
       "country": "China",
       "m49": "156",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     },
     {
       "country": "France",
       "m49": "250",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     },
     {
       "country": "India",
       "m49": "356",
       "status": "resident-mission",
       "note": "Resident diplomatic mission recorded in the cited mission list.",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     },
     {
       "country": "Indonesia",
       "m49": "360",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     },
     {
       "country": "Japan",
       "m49": "392",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     },
     {
       "country": "New Zealand",
       "m49": "554",
       "status": "resident-mission",
       "note": "Australian high commission network demonstration",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     },
     {
       "country": "United Kingdom",
       "m49": "826",
       "status": "resident-mission",
       "note": "Australian high commission network demonstration",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     },
     {
       "country": "United States of America",
       "m49": "840",
       "status": "resident-mission",
       "note": "Australian embassy network demonstration",
-      "sourceIds": ["au-missions"]
+      "sourceIds": [
+        "au-missions"
+      ]
     }
   ]
 }
