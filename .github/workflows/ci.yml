@@ -18,10 +18,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Temporary Phase 4 corrective formatter patch
-        run: |
-          npx oxfmt components/country-panel.test.tsx packages/data-pipeline/config/party-aliases.json public/data/countries/AUS.json public/data/countries/FRA.json
-          git diff -- components/country-panel.test.tsx packages/data-pipeline/config/party-aliases.json public/data/countries/AUS.json public/data/countries/FRA.json
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
