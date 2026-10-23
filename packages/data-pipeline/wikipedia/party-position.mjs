@@ -59,16 +59,23 @@ export function normalizePoliticalPosition(value, sourceIds) {
   if (range) {
     const from = canonicalPoint(range[1]);
     const to = canonicalPoint(range[2]);
-    if (
-      from &&
-      to &&
-      POSITION_POINTS.indexOf(from) <= POSITION_POINTS.indexOf(to)
-    ) {
-      return { kind: 'scale', from, to, raw, sourceIds };
+    if (from && to) {
+      const first = POSITION_POINTS.indexOf(from);
+      const last = POSITION_POINTS.indexOf(to);
+      return {
+        kind: 'scale',
+        from: POSITION_POINTS[Math.min(first, last)],
+        to: POSITION_POINTS[Math.max(first, last)],
+        raw,
+        sourceIds,
+      };
     }
   }
 
-  // No editorial interpretation of "Big tent", "Catch-all", composite
-  // classifications or unrecognised and reversed ranges.
-  return { kind: 'label', label: comparable, raw, sourceIds };
+  // Preserve only explicitly recognised non-scale political classifications.
+  // Other source text remains available as an infobox fact, not as a position.
+  if (/^(big[ -]tent|catch[ -]all|syncretic)$/i.test(comparable)) {
+    return { kind: 'label', label: comparable, raw, sourceIds };
+  }
+  return undefined;
 }

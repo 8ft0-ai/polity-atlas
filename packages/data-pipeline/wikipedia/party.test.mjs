@@ -51,13 +51,15 @@ describe('Phase 4A political position normalisation', () => {
     ['Centre-right to right-wing', 'centre-right', 'right'],
     ['Left–centre-left', 'left', 'centre-left'],
     ['Centre—far-right', 'centre', 'far-right'],
+    ['Left-wing to far-left', 'far-left', 'left'],
+    ['Right to centre-left', 'centre-left', 'right'],
   ])('keeps the explicit endpoints of %s', (raw, from, to) => {
     const position = normalizePoliticalPosition(raw, sourceIds);
     expect(position).toEqual({ kind: 'scale', from, to, raw, sourceIds });
     expect(() => politicalPositionSchema.parse(position)).not.toThrow();
   });
 
-  it.each(['Big tent', 'Catch-all', 'Syncretic', 'left / centre-left'])(
+  it.each(['Big tent', 'Catch-all', 'Syncretic'])(
     'preserves %s as a non-linear source label',
     (raw) => {
       expect(normalizePoliticalPosition(raw, sourceIds)).toEqual({
@@ -69,11 +71,12 @@ describe('Phase 4A political position normalisation', () => {
     },
   );
 
-  it('does not silently reverse an invalid position range', () => {
-    expect(
-      normalizePoliticalPosition('Right to centre-left', sourceIds),
-    ).toMatchObject({ kind: 'label', label: 'Right to centre-left' });
-  });
+  it.each(['left / centre-left', 'Mixed politics', 'Centre-left or right'])(
+    'keeps unsupported position text as a fact rather than a classification: %s',
+    (raw) => {
+      expect(normalizePoliticalPosition(raw, sourceIds)).toBeUndefined();
+    },
+  );
 
   it('never emits a classification without provenance or source text', () => {
     expect(normalizePoliticalPosition('  ', sourceIds)).toBeUndefined();

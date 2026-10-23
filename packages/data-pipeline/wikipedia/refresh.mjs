@@ -281,6 +281,7 @@ for (const country of targets) {
       acquired,
       normalizedParties,
       associationRegistry,
+      normalized.partyIdentityEvidence,
     );
     value = association.profile;
     emittedSources.push(...association.additionalSources);

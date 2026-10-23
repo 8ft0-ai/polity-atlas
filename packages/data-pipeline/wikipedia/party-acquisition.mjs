@@ -22,6 +22,9 @@ const GENERIC_NAMES = new Set([
   'crossbenchers',
   'speaker',
   'appointed members',
+  'nom',
+  'nominated',
+  'nominated members',
   'government',
   'opposition',
 ]);
