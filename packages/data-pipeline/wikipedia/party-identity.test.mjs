@@ -469,9 +469,13 @@ describe('Phase 4 PR1 party identity discovery', () => {
     expect(discovery.totalRows).toBe(27);
     expect(discovery.offset).toBe(0);
     expect(discovery.observations).toHaveLength(27);
-    expect(new Set(discovery.observations.map((entry) => entry.partyId)).size).toBe(27);
+    expect(
+      new Set(discovery.observations.map((entry) => entry.partyId)).size,
+    ).toBe(27);
     expect(client.searchPages).toHaveBeenCalledTimes(27);
-    expect(discovery.diagnostics).not.toContain('PARTY_DISCOVERY_LIMIT_EXCEEDED:USA');
+    expect(discovery.diagnostics).not.toContain(
+      'PARTY_DISCOVERY_LIMIT_EXCEEDED:USA',
+    );
     validatePartyDiscovery(snapshot, profile, discovery);
   });
 
