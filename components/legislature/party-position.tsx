@@ -23,7 +23,7 @@ export function PartyPosition({
         <span className={compact ? 'sr-only' : ''}>
           Wikipedia infobox position:{' '}
         </span>
-        Not listed
+        Not available
       </span>
     );
   }
