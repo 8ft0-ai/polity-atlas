@@ -276,6 +276,52 @@ export async function discoverPartyIdentities(
 }
 
 /**
+ * Complete deterministic coverage in bounded windows, preserving the row
+ * order and one observation per eligible IPU party. Never silently truncate
+ * the country at the first 24 parties.
+ */
+export async function discoverAllPartyIdentities(
+  snapshot,
+  profile,
+  client,
+  wikidataClient,
+  options = {},
+) {
+  const batchSize = options.maxRows ?? SEARCH_ROWS_LIMIT;
+  if (!Number.isSafeInteger(batchSize) || batchSize < 1 ||
+      batchSize > SEARCH_ROWS_LIMIT) {
+    throw new Error('PARTY_DISCOVERY_BATCH_INVALID');
+  }
+  const observations = [];
+  const diagnostics = [];
+  let totalRows;
+  for (let offset = 0; totalRows === undefined || offset < totalRows; offset += batchSize) {
+    const batch = await discoverPartyIdentities(
+      snapshot, profile, client, wikidataClient,
+      { ...options, maxRows: batchSize, offset },
+    );
+    if (totalRows !== undefined && totalRows !== batch.totalRows) {
+      throw new Error('PARTY_DISCOVERY_BATCH_DRIFT');
+    }
+    totalRows = batch.totalRows;
+    observations.push(...batch.observations);
+    diagnostics.push(...batch.diagnostics.filter(
+      (message) => !message.startsWith('PARTY_DISCOVERY_MORE_BATCHES:'),
+    ));
+  }
+  return {
+    schemaVersion: 1,
+    countryIso3: snapshot.requestedCountry.iso3,
+    countryName: snapshot.requestedCountry.name,
+    retrievedAt: snapshot.retrievedAt,
+    offset: 0,
+    totalRows,
+    observations,
+    diagnostics: diagnostics.sort((a, b) => a.localeCompare(b)),
+  };
+}
+
+/**
  * No network or search on replay; all identity decisions are reproduced from
  * the observed pages and stable source-party identifiers.
  */
@@ -300,6 +346,10 @@ export function validatePartyDiscovery(snapshot, profile, discovery) {
       row.party,
     ]),
   );
+  if (discovery.totalRows > rows.size ||
+      discovery.observations.length > discovery.totalRows) {
+    throw new Error('PARTY_DISCOVERY_CACHE_MISMATCH');
+  }
   const seen = new Set();
   for (const item of discovery.observations) {
     const key = item.chamberId + '\u0000' + item.partyId;
