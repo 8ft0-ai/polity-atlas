@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "buildId": "2026-09-19",
+  "buildId": "2026-10-23",
   "identity": {
     "iso2": "AU",
     "iso3": "AUS",
@@ -97,7 +97,8 @@
                   "color": "#F00011",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q216082-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:1495"
               },
               {
                 "partyId": "au-liberal_national_coalition",
@@ -107,7 +108,8 @@
                   "color": "#00557C",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q1065320-p465"]
-                }
+                },
+                "representationKind": "coalition"
               },
               {
                 "partyId": "au-independents",
@@ -117,7 +119,8 @@
                   "color": "#888888",
                   "method": "wikipedia-entry",
                   "sourceIds": ["wikipedia-en-page-61565"]
-                }
+                },
+                "representationKind": "membership-role"
               },
               {
                 "partyId": "au-centre_alliance",
@@ -127,7 +130,8 @@
                   "color": "#FF6300",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q19876280-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:46327582"
               },
               {
                 "partyId": "au-katters_australian_party",
@@ -137,7 +141,8 @@
                   "color": "#B50204",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q6378340-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:31981469"
               },
               {
                 "partyId": "au-greens_0",
@@ -159,7 +164,8 @@
                   "color": "#F00011",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q216082-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:1495"
               },
               {
                 "partyId": "au-liberal_national_coalition",
@@ -169,7 +175,8 @@
                   "color": "#00557C",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q1065320-p465"]
-                }
+                },
+                "representationKind": "coalition"
               },
               {
                 "partyId": "au-independents",
@@ -179,7 +186,8 @@
                   "color": "#888888",
                   "method": "wikipedia-entry",
                   "sourceIds": ["wikipedia-en-page-61565"]
-                }
+                },
+                "representationKind": "membership-role"
               },
               {
                 "partyId": "au-centre_alliance",
@@ -189,7 +197,8 @@
                   "color": "#FF6300",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q19876280-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:46327582"
               },
               {
                 "partyId": "au-katters_australian_party",
@@ -199,7 +208,8 @@
                   "color": "#B50204",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q6378340-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:31981469"
               },
               {
                 "partyId": "au-greens_0",
@@ -274,7 +284,8 @@
                   "color": "#F00011",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q216082-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:1495"
               },
               {
                 "partyId": "au-liberal",
@@ -284,7 +295,8 @@
                   "color": "#080CAB",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q241149-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:18453"
               },
               {
                 "partyId": "au-greens_0",
@@ -339,7 +351,8 @@
                   "color": "#FFFF00",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q22079682-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:48186877"
               }
             ],
             "postElectionComposition": [
@@ -361,7 +374,8 @@
                   "color": "#00557C",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q1065320-p465"]
-                }
+                },
+                "representationKind": "coalition"
               },
               {
                 "partyId": "au-uc01-e20250503-note-australian-greens",
@@ -371,7 +385,8 @@
                   "color": "#10C25B",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q781486-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:171629"
               },
               {
                 "partyId": "au-uc01-e20250503-note-pauline-hanson-s-one-nation",
@@ -391,7 +406,8 @@
                   "color": "#888888",
                   "method": "wikipedia-entry",
                   "sourceIds": ["wikipedia-en-page-165705"]
-                }
+                },
+                "representationKind": "membership-role"
               },
               {
                 "partyId": "au-uc01-e20250503-note-australia-s-voice",
@@ -401,7 +417,8 @@
                   "color": "#91073D",
                   "method": "wikipedia-entry",
                   "sourceIds": ["wikipedia-en-page-165705"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:78079916"
               },
               {
                 "partyId": "au-uc01-e20250503-note-jacqui-lambie-network",
@@ -411,7 +428,8 @@
                   "color": "#FFFF00",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q22079682-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:48186877"
               },
               {
                 "partyId": "au-uc01-e20250503-note-united-australia-party",
@@ -459,7 +477,119 @@
       "sourceIds": ["ipu-parline"]
     }
   ],
-  "parties": [],
+  "parties": [
+    {
+      "entityId": "party:wikipedia:1495",
+      "displayName": "Australian Labor Party",
+      "sourcePartyIds": ["au-australian_labor_party_alp"],
+      "wikipedia": {
+        "pageId": 1495,
+        "title": "Australian Labor Party"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "centre-left",
+        "to": "centre-left",
+        "raw": "Centre-left",
+        "sourceIds": ["wikipedia-en-page-1495"]
+      },
+      "sourceIds": [
+        "wikipedia-en-page-1495",
+        "wikipedia-en-page-165705",
+        "wikipedia-en-page-61565"
+      ]
+    },
+    {
+      "entityId": "party:wikipedia:171629",
+      "displayName": "Australian Greens",
+      "sourcePartyIds": ["au-uc01-e20250503-note-australian-greens"],
+      "wikipedia": {
+        "pageId": 171629,
+        "title": "Australian Greens"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "left",
+        "to": "left",
+        "raw": "Left-wing",
+        "sourceIds": ["wikipedia-en-page-171629"]
+      },
+      "sourceIds": ["wikipedia-en-page-165705", "wikipedia-en-page-171629"]
+    },
+    {
+      "entityId": "party:wikipedia:18453",
+      "displayName": "Liberal Party of Australia",
+      "sourcePartyIds": ["au-liberal"],
+      "wikipedia": {
+        "pageId": 18453,
+        "title": "Liberal Party of Australia"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "centre-right",
+        "to": "right",
+        "raw": "Centre-right to right-wing",
+        "sourceIds": ["wikipedia-en-page-18453"]
+      },
+      "sourceIds": ["wikipedia-en-page-165705", "wikipedia-en-page-18453"]
+    },
+    {
+      "entityId": "party:wikipedia:31981469",
+      "displayName": "Katter's Australian Party",
+      "sourcePartyIds": ["au-katters_australian_party"],
+      "wikipedia": {
+        "pageId": 31981469,
+        "title": "Katter's Australian Party"
+      },
+      "sourceIds": ["wikipedia-en-page-31981469", "wikipedia-en-page-61565"]
+    },
+    {
+      "entityId": "party:wikipedia:46327582",
+      "displayName": "Centre Alliance",
+      "sourcePartyIds": ["au-centre_alliance"],
+      "wikipedia": {
+        "pageId": 46327582,
+        "title": "Centre Alliance"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "centre",
+        "to": "centre",
+        "raw": "Centre",
+        "sourceIds": ["wikipedia-en-page-46327582"]
+      },
+      "sourceIds": ["wikipedia-en-page-46327582", "wikipedia-en-page-61565"]
+    },
+    {
+      "entityId": "party:wikipedia:48186877",
+      "displayName": "Jacqui Lambie Network",
+      "sourcePartyIds": [
+        "au-jacqui_lambie_network",
+        "au-uc01-e20250503-note-jacqui-lambie-network"
+      ],
+      "wikipedia": {
+        "pageId": 48186877,
+        "title": "Jacqui Lambie Network"
+      },
+      "position": {
+        "kind": "label",
+        "label": "Big tent",
+        "raw": "Big tent",
+        "sourceIds": ["wikipedia-en-page-48186877"]
+      },
+      "sourceIds": ["wikipedia-en-page-165705", "wikipedia-en-page-48186877"]
+    },
+    {
+      "entityId": "party:wikipedia:78079916",
+      "displayName": "Australia's Voice",
+      "sourcePartyIds": ["au-uc01-e20250503-note-australia-s-voice"],
+      "wikipedia": {
+        "pageId": 78079916,
+        "title": "Australia's Voice"
+      },
+      "sourceIds": ["wikipedia-en-page-165705", "wikipedia-en-page-78079916"]
+    }
+  ],
   "relations": [
     {
       "country": "Canada",

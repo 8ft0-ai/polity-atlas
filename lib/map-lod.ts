@@ -1,10 +1,10 @@
 import type { FeatureCollection, Geometry } from 'geojson';
-import countries110Source from '@/public/data/geometry/lod/110m/countries.json';
-import disputed110Source from '@/public/data/geometry/lod/110m/disputed-areas.json';
-import boundaries110Source from '@/public/data/geometry/lod/110m/disputed-boundaries.json';
-import countries50Source from '@/public/data/geometry/lod/50m/countries.json';
-import disputed50Source from '@/public/data/geometry/lod/50m/disputed-areas.json';
-import boundaries50Source from '@/public/data/geometry/lod/50m/disputed-boundaries.json';
+import countries110Source from '@/src/data/geometry/lod/110m/countries.json';
+import disputed110Source from '@/src/data/geometry/lod/110m/disputed-areas.json';
+import boundaries110Source from '@/src/data/geometry/lod/110m/disputed-boundaries.json';
+import countries50Source from '@/src/data/geometry/lod/50m/countries.json';
+import disputed50Source from '@/src/data/geometry/lod/50m/disputed-areas.json';
+import boundaries50Source from '@/src/data/geometry/lod/50m/disputed-boundaries.json';
 import {
   primaryEntityIdForM49,
   primaryEntityIdsMentionedInText,

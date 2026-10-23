@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:32070",
+  "identity": {
+    "displayName": "Republican Party (United States)",
+    "wikipediaPageId": 32070,
+    "wikipediaTitle": "Republican Party (United States)",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Republican_Party_(United_States)"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "right",
+    "to": "far-right",
+    "raw": "Right-wing to far-right",
+    "sourceIds": ["wikipedia-en-page-32070"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["GOP"],
+      "sourceIds": ["wikipedia-en-page-32070"]
+    },
+    {
+      "key": "chairperson",
+      "label": "Chairperson",
+      "values": ["Joe Gruters"],
+      "sourceIds": ["wikipedia-en-page-32070"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": [
+        "March 20, 1854; 172 years ago (1854-03-20)Ripon, Wisconsin, U.S."
+      ],
+      "sourceIds": ["wikipedia-en-page-32070"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["310 First Street SE,Washington, D.C., U.S."],
+      "sourceIds": ["wikipedia-en-page-32070"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": [
+        "Right-wing populism American neo-nationalism Factions: Conservatism (US) Christian right Right-libertarianism (US)"
+      ],
+      "sourceIds": ["wikipedia-en-page-32070"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Right-wing to far-right"],
+      "sourceIds": ["wikipedia-en-page-32070"]
+    },
+    {
+      "key": "international-affiliation",
+      "label": "International affiliation",
+      "values": [
+        "International Democracy Union Asia Pacific Democracy Union European Conservatives and Reformists Party"
+      ],
+      "sourceIds": ["wikipedia-en-page-32070"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Red"],
+      "sourceIds": ["wikipedia-en-page-32070"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-32070"]
+}

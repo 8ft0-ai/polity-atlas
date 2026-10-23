@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:31981469",
+  "identity": {
+    "displayName": "Katter's Australian Party",
+    "wikipediaPageId": 31981469,
+    "wikipediaTitle": "Katter's Australian Party",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Katter's_Australian_Party"
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["KAP"],
+      "sourceIds": ["wikipedia-en-page-31981469"]
+    },
+    {
+      "key": "leader",
+      "label": "Leader",
+      "values": ["Robbie Katter"],
+      "sourceIds": ["wikipedia-en-page-31981469"]
+    },
+    {
+      "key": "president",
+      "label": "President",
+      "values": ["Ben Fusco"],
+      "sourceIds": ["wikipedia-en-page-31981469"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["5 June 2011; 15 years ago (5 June 2011)"],
+      "sourceIds": ["wikipedia-en-page-31981469"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["2/321 Sturt Street, Townsville, Queensland"],
+      "sourceIds": ["wikipedia-en-page-31981469"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": [
+        "PopulismMcEwenismAgrarian socialismSocial conservatismEconomic nationalismNorth Queensland statehood"
+      ],
+      "sourceIds": ["wikipedia-en-page-31981469"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Dark red"],
+      "sourceIds": ["wikipedia-en-page-31981469"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-31981469"]
+}

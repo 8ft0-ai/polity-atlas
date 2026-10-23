@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:1495",
+  "identity": {
+    "displayName": "Australian Labor Party",
+    "wikipediaPageId": 1495,
+    "wikipediaTitle": "Australian Labor Party",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Australian_Labor_Party"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "centre-left",
+    "to": "centre-left",
+    "raw": "Centre-left",
+    "sourceIds": ["wikipedia-en-page-1495"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["ALP"],
+      "sourceIds": ["wikipedia-en-page-1495"]
+    },
+    {
+      "key": "leader",
+      "label": "Leader",
+      "values": ["Anthony Albanese"],
+      "sourceIds": ["wikipedia-en-page-1495"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": [
+        "Oldest branches:1891; 135 years ago (1891)Federal Caucus:8 May 1901;125 years ago (1901-05-08)"
+      ],
+      "sourceIds": ["wikipedia-en-page-1495"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["5/9 Sydney Avenue, Barton, Australian Capital Territory"],
+      "sourceIds": ["wikipedia-en-page-1495"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["Social democracyLabourism"],
+      "sourceIds": ["wikipedia-en-page-1495"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Centre-left"],
+      "sourceIds": ["wikipedia-en-page-1495"]
+    },
+    {
+      "key": "international-affiliation",
+      "label": "International affiliation",
+      "values": ["Progressive Alliance Socialist International (1966–2014)"],
+      "sourceIds": ["wikipedia-en-page-1495"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Red"],
+      "sourceIds": ["wikipedia-en-page-1495"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-1495"]
+}

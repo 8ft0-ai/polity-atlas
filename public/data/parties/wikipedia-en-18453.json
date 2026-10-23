@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:18453",
+  "identity": {
+    "displayName": "Liberal Party of Australia",
+    "wikipediaPageId": 18453,
+    "wikipediaTitle": "Liberal Party of Australia",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Liberal_Party_of_Australia"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "centre-right",
+    "to": "right",
+    "raw": "Centre-right to right-wing",
+    "sourceIds": ["wikipedia-en-page-18453"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["LPLIB"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "leader",
+      "label": "Leader",
+      "values": ["Angus Taylor"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "president",
+      "label": "President",
+      "values": ["Tony Abbott"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["13 October 1944;82 years ago (13 October 1944)"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["R. G. Menzies House, Barton, Australian Capital Territory"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": [
+        "Liberal conservatismConservatism (Australian)Liberalism (Australian)Factions:Right-wing populismAustralian nationalism"
+      ],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Centre-right to right-wing"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "national-affiliation",
+      "label": "National affiliation",
+      "values": ["Liberal–National Coalition (since 2026)"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "european-affiliation",
+      "label": "European affiliation",
+      "values": [
+        "European Conservatives and Reformists Party (regional partner, until 2022)"
+      ],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "international-affiliation",
+      "label": "International affiliation",
+      "values": ["International Democracy Union"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Blue"],
+      "sourceIds": ["wikipedia-en-page-18453"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-18453"]
+}

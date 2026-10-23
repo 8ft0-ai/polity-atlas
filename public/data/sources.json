@@ -351,7 +351,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q1065320: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q1065320",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -611,7 +611,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q1585274: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q1585274",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -701,7 +701,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q19876280: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q19876280",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -751,7 +751,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q216082: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q216082",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -761,7 +761,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q22079682: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q22079682",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -811,7 +811,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q241149: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q241149",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -881,7 +881,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q29468: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q29468",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -891,7 +891,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q29552: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q29552",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -1021,7 +1021,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q6378340: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q6378340",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -1141,7 +1141,7 @@
       "publisher": "Wikidata",
       "title": "Wikidata item Q781486: sRGB color hex triplet (P465)",
       "url": "https://www.wikidata.org/wiki/Q781486",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikidata contributors",
       "license": "Creative Commons CC0 1.0 Universal"
@@ -1307,13 +1307,53 @@
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
+      "id": "wikipedia-en-page-1495",
+      "publisher": "Wikipedia",
+      "title": "Australian Labor Party",
+      "url": "https://en.wikipedia.org/wiki/Australian_Labor_Party",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Australian Labor Party\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
       "id": "wikipedia-en-page-165705",
       "publisher": "Wikipedia",
       "title": "Australian Senate",
       "url": "https://en.wikipedia.org/wiki/Australian_Senate",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Australian Senate\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-171629",
+      "publisher": "Wikipedia",
+      "title": "Australian Greens",
+      "url": "https://en.wikipedia.org/wiki/Australian_Greens",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Australian Greens\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-17437014",
+      "publisher": "Wikipedia",
+      "title": "European Democratic and Social Rally group",
+      "url": "https://en.wikipedia.org/wiki/European_Democratic_and_Social_Rally_group",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"European Democratic and Social Rally group\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-18453",
+      "publisher": "Wikipedia",
+      "title": "Liberal Party of Australia",
+      "url": "https://en.wikipedia.org/wiki/Liberal_Party_of_Australia",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Liberal Party of Australia\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -1324,6 +1364,16 @@
       "retrievedAt": "2026-09-19T06:18:58.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"United States House of Representatives\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-20169050",
+      "publisher": "Wikipedia",
+      "title": "Communist, Republican, Citizen and Ecologist group",
+      "url": "https://en.wikipedia.org/wiki/Communist%2C_Republican%2C_Citizen_and_Ecologist_group",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Communist, Republican, Citizen and Ecologist group\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -1354,6 +1404,16 @@
       "retrievedAt": "2026-09-19T13:42:16.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Rajya Sabha\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-23702869",
+      "publisher": "Wikipedia",
+      "title": "Centrist Union group",
+      "url": "https://en.wikipedia.org/wiki/Centrist_Union_group",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Centrist Union group\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -1411,9 +1471,29 @@
       "publisher": "Wikipedia",
       "title": "National Assembly (France)",
       "url": "https://en.wikipedia.org/wiki/National_Assembly_(France)",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"National Assembly (France)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-31981469",
+      "publisher": "Wikipedia",
+      "title": "Katter's Australian Party",
+      "url": "https://en.wikipedia.org/wiki/Katter's_Australian_Party",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Katter's Australian Party\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-32070",
+      "publisher": "Wikipedia",
+      "title": "Republican Party (United States)",
+      "url": "https://en.wikipedia.org/wiki/Republican_Party_(United_States)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Republican Party (United States)\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -1424,6 +1504,16 @@
       "retrievedAt": "2026-09-19T13:42:16.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"People's Consultative Assembly\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-34256776",
+      "publisher": "Wikipedia",
+      "title": "Socialist group in the Senate",
+      "url": "https://en.wikipedia.org/wiki/Socialist_group_in_the_Senate",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Socialist group in the Senate\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
@@ -1457,6 +1547,16 @@
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
+      "id": "wikipedia-en-page-39565408",
+      "publisher": "Wikipedia",
+      "title": "Socialist Party (France)",
+      "url": "https://en.wikipedia.org/wiki/Socialist_Party_(France)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Socialist Party (France)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
       "id": "wikipedia-en-page-410238",
       "publisher": "Wikipedia",
       "title": "Parliament of India",
@@ -1467,11 +1567,91 @@
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
+      "id": "wikipedia-en-page-46327582",
+      "publisher": "Wikipedia",
+      "title": "Centre Alliance",
+      "url": "https://en.wikipedia.org/wiki/Centre_Alliance",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Centre Alliance\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-46843436",
+      "publisher": "Wikipedia",
+      "title": "The Republicans (France)",
+      "url": "https://en.wikipedia.org/wiki/The_Republicans_(France)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"The Republicans (France)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-48186877",
+      "publisher": "Wikipedia",
+      "title": "Jacqui Lambie Network",
+      "url": "https://en.wikipedia.org/wiki/Jacqui_Lambie_Network",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Jacqui Lambie Network\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-5043544",
+      "publisher": "Wikipedia",
+      "title": "Democratic Party (United States)",
+      "url": "https://en.wikipedia.org/wiki/Democratic_Party_(United_States)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Democratic Party (United States)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-54548070",
+      "publisher": "Wikipedia",
+      "title": "Senate Republicans (France)",
+      "url": "https://en.wikipedia.org/wiki/Senate_Republicans_(France)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Senate Republicans (France)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-54548735",
+      "publisher": "Wikipedia",
+      "title": "Rally of Democrats, Progressive and Independent group",
+      "url": "https://en.wikipedia.org/wiki/Rally_of_Democrats%2C_Progressive_and_Independent_group",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Rally of Democrats, Progressive and Independent group\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-54555567",
+      "publisher": "Wikipedia",
+      "title": "Ecologist group (Senate)",
+      "url": "https://en.wikipedia.org/wiki/Ecologist_group_(Senate)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Ecologist group (Senate)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-55548287",
+      "publisher": "Wikipedia",
+      "title": "The Independents – Republic and Territories group",
+      "url": "https://en.wikipedia.org/wiki/The_Independents_%E2%80%93_Republic_and_Territories_group",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"The Independents – Republic and Territories group\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
       "id": "wikipedia-en-page-567323",
       "publisher": "Wikipedia",
       "title": "Senate (France)",
       "url": "https://en.wikipedia.org/wiki/Senate_(France)",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Senate (France)\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -1481,7 +1661,7 @@
       "publisher": "Wikipedia",
       "title": "Australian House of Representatives",
       "url": "https://en.wikipedia.org/wiki/Australian_House_of_Representatives",
-      "retrievedAt": "2026-09-19T13:42:16.000Z",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"Australian House of Representatives\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
@@ -1507,6 +1687,16 @@
       "license": "Creative Commons Attribution-Share Alike 4.0"
     },
     {
+      "id": "wikipedia-en-page-68946070",
+      "publisher": "Wikipedia",
+      "title": "Horizons (France)",
+      "url": "https://en.wikipedia.org/wiki/Horizons_(France)",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Horizons (France)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
       "id": "wikipedia-en-page-737841",
       "publisher": "Wikipedia",
       "title": "House of Representatives (Indonesia)",
@@ -1514,6 +1704,26 @@
       "retrievedAt": "2026-09-19T04:35:00.000Z",
       "kind": "reference",
       "attribution": "Wikipedia contributors, \"House of Representatives (Indonesia)\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-78079916",
+      "publisher": "Wikipedia",
+      "title": "Australia's Voice",
+      "url": "https://en.wikipedia.org/wiki/Australia's_Voice",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"Australia's Voice\"",
+      "license": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    {
+      "id": "wikipedia-en-page-84421456",
+      "publisher": "Wikipedia",
+      "title": "National Union for Territories Group",
+      "url": "https://en.wikipedia.org/wiki/National_Union_for_Territories_Group",
+      "retrievedAt": "2026-10-23T00:00:00.000Z",
+      "kind": "reference",
+      "attribution": "Wikipedia contributors, \"National Union for Territories Group\"",
       "license": "Creative Commons Attribution-Share Alike 4.0"
     }
   ]

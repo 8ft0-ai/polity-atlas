@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:48186877",
+  "identity": {
+    "displayName": "Jacqui Lambie Network",
+    "wikipediaPageId": 48186877,
+    "wikipediaTitle": "Jacqui Lambie Network",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Jacqui_Lambie_Network"
+  },
+  "position": {
+    "kind": "label",
+    "label": "Big tent",
+    "raw": "Big tent",
+    "sourceIds": ["wikipedia-en-page-48186877"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["JLN"],
+      "sourceIds": ["wikipedia-en-page-48186877"]
+    },
+    {
+      "key": "president",
+      "label": "President",
+      "values": ["Jacqui Lambie"],
+      "sourceIds": ["wikipedia-en-page-48186877"]
+    },
+    {
+      "key": "leader",
+      "label": "Leader",
+      "values": ["Jacqui Lambie"],
+      "sourceIds": ["wikipedia-en-page-48186877"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["14 May 2015; 11 years ago (2015-05-14)"],
+      "sourceIds": ["wikipedia-en-page-48186877"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["Shop 4, 22 Mount Street, Burnie, Tasmania"],
+      "sourceIds": ["wikipedia-en-page-48186877"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["Populism Social conservatism"],
+      "sourceIds": ["wikipedia-en-page-48186877"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Big tent"],
+      "sourceIds": ["wikipedia-en-page-48186877"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Gold"],
+      "sourceIds": ["wikipedia-en-page-48186877"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-48186877"]
+}

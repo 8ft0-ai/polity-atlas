@@ -475,7 +475,14 @@ describe('country profile contract', () => {
     expect(parsedManifest.schemaVersion).toBe(6);
     expect(parsedManifest.profiles).toHaveLength(10);
     expect(parsedManifest.legislatures).toHaveLength(3);
-    expect(parsedManifest.parties).toEqual([]);
+    const publishedPartyIds = new Set(
+      [...pilotProfiles, ...legislaturePilots].flatMap((profile) =>
+        profile.parties.map((party) => party.entityId),
+      ),
+    );
+    expect(parsedManifest.parties.map((entry) => entry.entityId)).toEqual(
+      [...publishedPartyIds].sort((left, right) => left.localeCompare(right)),
+    );
     expect(parsedManifest.legislatures.map((entry) => entry.iso3)).toEqual([
       'IRN',
       'MMR',

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "buildId": "2026-09-19",
+  "buildId": "2026-10-23",
   "identity": {
     "iso2": "US",
     "iso3": "USA",
@@ -97,7 +97,8 @@
                   "color": "#E9151E",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q29468-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:32070"
               },
               {
                 "partyId": "us-democratic_party_0",
@@ -107,7 +108,8 @@
                   "color": "#003CBA",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q29552-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:5043544"
               }
             ],
             "postElectionComposition": [
@@ -119,7 +121,8 @@
                   "color": "#E9151E",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q29468-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:32070"
               },
               {
                 "partyId": "us-democratic_party_0",
@@ -129,7 +132,8 @@
                   "color": "#003CBA",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q29552-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:5043544"
               }
             ]
           },
@@ -208,7 +212,8 @@
                   "color": "#003CBA",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q29552-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:5043544"
               },
               {
                 "partyId": "us-republican_party",
@@ -218,7 +223,8 @@
                   "color": "#E9151E",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q29468-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:32070"
               }
             ],
             "postElectionComposition": [
@@ -230,7 +236,8 @@
                   "color": "#E9151E",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q29468-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:32070"
               },
               {
                 "partyId": "us-democratic_party",
@@ -240,7 +247,8 @@
                   "color": "#003CBA",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q29552-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:5043544"
               }
             ]
           },
@@ -275,7 +283,42 @@
       "sourceIds": ["ipu-parline"]
     }
   ],
-  "parties": [],
+  "parties": [
+    {
+      "entityId": "party:wikipedia:32070",
+      "displayName": "Republican Party (United States)",
+      "sourcePartyIds": ["us-republican_party"],
+      "wikipedia": {
+        "pageId": 32070,
+        "title": "Republican Party (United States)"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "right",
+        "to": "far-right",
+        "raw": "Right-wing to far-right",
+        "sourceIds": ["wikipedia-en-page-32070"]
+      },
+      "sourceIds": ["wikipedia-en-page-32070"]
+    },
+    {
+      "entityId": "party:wikipedia:5043544",
+      "displayName": "Democratic Party (United States)",
+      "sourcePartyIds": ["us-democratic_party", "us-democratic_party_0"],
+      "wikipedia": {
+        "pageId": 5043544,
+        "title": "Democratic Party (United States)"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "centre-left",
+        "to": "centre",
+        "raw": "Center to center-left",
+        "sourceIds": ["wikipedia-en-page-5043544"]
+      },
+      "sourceIds": ["wikipedia-en-page-5043544"]
+    }
+  ],
   "relations": [
     {
       "country": "Australia",

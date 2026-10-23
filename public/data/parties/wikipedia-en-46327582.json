@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:46327582",
+  "identity": {
+    "displayName": "Centre Alliance",
+    "wikipediaPageId": 46327582,
+    "wikipediaTitle": "Centre Alliance",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Centre_Alliance"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "centre",
+    "to": "centre",
+    "raw": "Centre",
+    "sourceIds": ["wikipedia-en-page-46327582"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["CA"],
+      "sourceIds": ["wikipedia-en-page-46327582"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["1 July 2013; 13 years ago (2013-07-01)"],
+      "sourceIds": ["wikipedia-en-page-46327582"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["Adelaide, South Australia"],
+      "sourceIds": ["wikipedia-en-page-46327582"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["Social liberalismPopulismSouth Australian regionalism"],
+      "sourceIds": ["wikipedia-en-page-46327582"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Centre"],
+      "sourceIds": ["wikipedia-en-page-46327582"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Black Orange Light orange (customary)"],
+      "sourceIds": ["wikipedia-en-page-46327582"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-46327582"]
+}

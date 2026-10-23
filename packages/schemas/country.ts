@@ -39,6 +39,7 @@ export const representationKindSchema = z.enum([
   'electoral-alliance',
   'electoral-category',
   'membership-role',
+  'parliamentary-group',
 ]);
 
 export const electionPartyResultSchema = z.object({

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:171629",
+  "identity": {
+    "displayName": "Australian Greens",
+    "wikipediaPageId": 171629,
+    "wikipediaTitle": "Australian Greens",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Australian_Greens"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "left",
+    "to": "left",
+    "raw": "Left-wing",
+    "sourceIds": ["wikipedia-en-page-171629"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["AGGRN"],
+      "sourceIds": ["wikipedia-en-page-171629"]
+    },
+    {
+      "key": "leader",
+      "label": "Leader",
+      "values": ["David Shoebridge"],
+      "sourceIds": ["wikipedia-en-page-171629"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["1992; 34 years ago (1992)"],
+      "sourceIds": ["wikipedia-en-page-171629"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["Braddon, Australian Capital Territory"],
+      "sourceIds": ["wikipedia-en-page-171629"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["Green politicsProgressivismLeft-wing populism"],
+      "sourceIds": ["wikipedia-en-page-171629"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Left-wing"],
+      "sourceIds": ["wikipedia-en-page-171629"]
+    },
+    {
+      "key": "international-affiliation",
+      "label": "International affiliation",
+      "values": ["Global Greens"],
+      "sourceIds": ["wikipedia-en-page-171629"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Green"],
+      "sourceIds": ["wikipedia-en-page-171629"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-171629"]
+}

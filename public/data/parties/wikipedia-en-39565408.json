@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:39565408",
+  "identity": {
+    "displayName": "Socialist Party (France)",
+    "wikipediaPageId": 39565408,
+    "wikipediaTitle": "Socialist Party (France)",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Socialist_Party_(France)"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "left",
+    "to": "centre-left",
+    "raw": "Centre-left to left-wing",
+    "sourceIds": ["wikipedia-en-page-39565408"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["PS"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["4 May 1969; 57 years ago (1969-05-04)"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["99 Rue Molière, 94200 Ivry-sur-Seine"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["Social democracyProgressivismPro-Europeanism"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Centre-left to left-wing"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "key": "national-affiliation",
+      "label": "National affiliation",
+      "values": ["New Popular Front(since 2024)NUPES (2022–2024)"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "key": "european-affiliation",
+      "label": "European affiliation",
+      "values": ["Party of European Socialists"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "key": "international-affiliation",
+      "label": "International affiliation",
+      "values": ["Progressive AllianceSocialist International"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Pink and green"],
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-39565408"]
+}

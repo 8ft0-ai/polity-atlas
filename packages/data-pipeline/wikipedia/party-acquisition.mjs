@@ -44,6 +44,15 @@ export function isGeneric(name) {
 
 export function articleHasPartyEvidence(page) {
   if (typeof page?.html !== 'string') return false;
+  // Parliamentary groups frequently have an infobox President and Ideology,
+  // but they are not individual political parties. Exclude them even when
+  // linked from the parliamentary source's party dimension.
+  const title = String(page.title ?? '');
+  if (
+    /\b(group|parliamentary caucus)\b/i.test(title) ||
+    /^Senate Republicans \(France\)$/i.test(title)
+  )
+    return false;
   const fields = new Set(
     parseInfobox(page.html).rows.map((row) => normaliseName(row.label)),
   );
@@ -63,6 +72,16 @@ export function articleHasPartyEvidence(page) {
     'formation',
     'headquarters',
   ].filter((field) => fields.has(field));
+  // A party formation, headquarters or registration is the essential
+  // organisational distinction from an internal parliamentary grouping.
+  // Neither ideological text nor a group president alone suffices.
+  if (
+    !['founded', 'formation', 'headquarters', 'registered'].some((field) =>
+      fields.has(field),
+    )
+  ) {
+    return false;
+  }
   // Political position is optional. Two independent organisational fields
   // can confirm an exact party article even when position is absent.
   return (

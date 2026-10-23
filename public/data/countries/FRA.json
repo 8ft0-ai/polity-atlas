@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "buildId": "2026-09-19",
+  "buildId": "2026-10-23",
   "identity": {
     "iso2": "FR",
     "iso3": "FRA",
@@ -102,12 +102,14 @@
                   "color": "#FB2C59",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q126487286-p465"]
-                }
+                },
+                "representationKind": "electoral-alliance"
               },
               {
                 "partyId": "fr-ensemble_presidential_majority_",
                 "party": "Ensemble (presidential majority)",
-                "seats": 150
+                "seats": 150,
+                "representationKind": "electoral-alliance"
               },
               {
                 "partyId": "fr-national_rally_rn_",
@@ -122,27 +124,32 @@
               {
                 "partyId": "fr-republicans_lr",
                 "party": "The Republicans (LR)",
-                "seats": 39
+                "seats": 39,
+                "partyEntityId": "party:wikipedia:46843436"
               },
               {
                 "partyId": "fr-other_parties_right_dvd",
                 "party": "Other parties of the right (DVD)",
-                "seats": 27
+                "seats": 27,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-union-of-the-far-right",
                 "party": "Union of the far right",
-                "seats": 17
+                "seats": 17,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-other_left_wing_parties_dvg",
                 "party": "Other left wing parties (DVG)",
-                "seats": 12
+                "seats": 12,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-regionalist_reg",
                 "party": "Regionalist (REG)",
-                "seats": 9
+                "seats": 9,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-horizons-(hor)",
@@ -152,12 +159,14 @@
                   "color": "#0000BA",
                   "method": "wikipedia-entry",
                   "sourceIds": ["wikipedia-en-page-299616"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:68946070"
               },
               {
                 "partyId": "fr-other_parties_of_the_centre",
                 "party": "Other parties of the centre",
-                "seats": 6
+                "seats": 6,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-union-of-democrats-and-independents-(udi)",
@@ -169,10 +178,11 @@
                 "party": "Socialist Party (PS)",
                 "seats": 2,
                 "visual": {
-                  "color": "#CC0000",
-                  "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q2236823-p465"]
-                }
+                  "color": "#E3265B",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-299616"]
+                },
+                "partyEntityId": "party:wikipedia:39565408"
               },
               {
                 "partyId": "fr-ecologist_eco",
@@ -187,12 +197,14 @@
               {
                 "partyId": "fr-far_right_exd",
                 "party": "Far Right (EXD)",
-                "seats": 1
+                "seats": 1,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-others_div",
                 "party": "Others (DIV)",
-                "seats": 1
+                "seats": 1,
+                "representationKind": "electoral-category"
               }
             ],
             "postElectionComposition": [
@@ -204,12 +216,14 @@
                   "color": "#FB2C59",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q126487286-p465"]
-                }
+                },
+                "representationKind": "electoral-alliance"
               },
               {
                 "partyId": "fr-ensemble_presidential_majority_",
                 "party": "Ensemble (presidential majority)",
-                "seats": 150
+                "seats": 150,
+                "representationKind": "electoral-alliance"
               },
               {
                 "partyId": "fr-national_rally_rn_",
@@ -224,27 +238,32 @@
               {
                 "partyId": "fr-republicans_lr",
                 "party": "The Republicans (LR)",
-                "seats": 39
+                "seats": 39,
+                "partyEntityId": "party:wikipedia:46843436"
               },
               {
                 "partyId": "fr-other_parties_right_dvd",
                 "party": "Other parties of the right (DVD)",
-                "seats": 27
+                "seats": 27,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-union-of-the-far-right",
                 "party": "Union of the far right",
-                "seats": 17
+                "seats": 17,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-other_left_wing_parties_dvg",
                 "party": "Other left wing parties (DVG)",
-                "seats": 12
+                "seats": 12,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-regionalist_reg",
                 "party": "Regionalist (REG)",
-                "seats": 9
+                "seats": 9,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-horizons-(hor)",
@@ -254,12 +273,14 @@
                   "color": "#0000BA",
                   "method": "wikipedia-entry",
                   "sourceIds": ["wikipedia-en-page-299616"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:68946070"
               },
               {
                 "partyId": "fr-other_parties_of_the_centre",
                 "party": "Other parties of the centre",
-                "seats": 6
+                "seats": 6,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-union-of-democrats-and-independents-(udi)",
@@ -271,10 +292,11 @@
                 "party": "Socialist Party (PS)",
                 "seats": 2,
                 "visual": {
-                  "color": "#CC0000",
-                  "method": "wikidata-p465",
-                  "sourceIds": ["wikidata-item-q2236823-p465"]
-                }
+                  "color": "#E3265B",
+                  "method": "wikipedia-entry",
+                  "sourceIds": ["wikipedia-en-page-299616"]
+                },
+                "partyEntityId": "party:wikipedia:39565408"
               },
               {
                 "partyId": "fr-ecologist_eco",
@@ -289,12 +311,14 @@
               {
                 "partyId": "fr-far_right_exd",
                 "party": "Far Right (EXD)",
-                "seats": 1
+                "seats": 1,
+                "representationKind": "electoral-category"
               },
               {
                 "partyId": "fr-others_div",
                 "party": "Others (DIV)",
-                "seats": 1
+                "seats": 1,
+                "representationKind": "electoral-category"
               }
             ]
           },
@@ -349,92 +373,102 @@
         "composition": {
           "basis": "source-reported",
           "reportedSeats": 348,
-          "retrievedAt": "2026-09-19T13:42:16.000Z",
+          "retrievedAt": "2026-10-23T00:00:00.000Z",
           "entries": [
             {
-              "partyId": "wiki-567323-ungrouped-sr-1",
-              "party": "SR",
-              "seats": 130,
+              "partyId": "wiki-567323-ungrouped-lr-1",
+              "party": "LR",
+              "seats": 124,
               "visual": {
-                "color": "#0043B0",
+                "color": "#2E70D1",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
               }
             },
             {
-              "partyId": "wiki-567323-ungrouped-s-2",
-              "party": "S",
-              "seats": 65,
-              "visual": {
-                "color": "#E3265B",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-567323"]
-              }
-            },
-            {
-              "partyId": "wiki-567323-ungrouped-uc-3",
+              "partyId": "wiki-567323-ungrouped-uc-2",
               "party": "UC",
-              "seats": 59,
+              "seats": 63,
               "visual": {
-                "color": "#247AC1",
+                "color": "#5AD0EE",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
               }
             },
             {
-              "partyId": "wiki-567323-ungrouped-lirt-4",
-              "party": "LIRT",
-              "seats": 20,
+              "partyId": "wiki-567323-ungrouped-ser-3",
+              "party": "SER",
+              "seats": 62,
               "visual": {
-                "color": "#66AAEE",
+                "color": "#B84592",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
               }
             },
             {
-              "partyId": "wiki-567323-ungrouped-rdpi-5",
-              "party": "RDPI",
-              "seats": 19,
-              "visual": {
-                "color": "#08A1E3",
-                "method": "wikipedia-entry",
-                "sourceIds": ["wikipedia-en-page-567323"]
-              }
-            },
-            {
-              "partyId": "wiki-567323-ungrouped-crce-6",
-              "party": "CRCE",
+              "partyId": "wiki-567323-ungrouped-crce-k-4",
+              "party": "CRCE-K",
               "seats": 18,
               "visual": {
-                "color": "#E4002A",
+                "color": "#D80001",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
               }
             },
             {
-              "partyId": "wiki-567323-ungrouped-rdse-7",
+              "partyId": "wiki-567323-ungrouped-rdse-5",
               "party": "RDSE",
-              "seats": 17,
+              "seats": 18,
               "visual": {
-                "color": "#022C54",
+                "color": "#804A96",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
               }
             },
             {
-              "partyId": "wiki-567323-ungrouped-e-8",
-              "party": "E",
+              "partyId": "wiki-567323-ungrouped-rdpi-6",
+              "party": "RDPI",
               "seats": 16,
               "visual": {
-                "color": "#79B41D",
+                "color": "#FBBC07",
                 "method": "wikipedia-entry",
                 "sourceIds": ["wikipedia-en-page-567323"]
               }
             },
             {
-              "partyId": "wiki-567323-ungrouped-rasnag-9",
+              "partyId": "wiki-567323-ungrouped-gest-8",
+              "party": "GEST",
+              "seats": 15,
+              "visual": {
+                "color": "#5DB88D",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-567323"]
+              }
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-lirt-7",
+              "party": "LIRT",
+              "seats": 15,
+              "visual": {
+                "color": "#C8DCE2",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-567323"]
+              }
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-unt-9",
+              "party": "UNT",
+              "seats": 15,
+              "visual": {
+                "color": "#193985",
+                "method": "wikipedia-entry",
+                "sourceIds": ["wikipedia-en-page-567323"]
+              }
+            },
+            {
+              "partyId": "wiki-567323-ungrouped-rasnag-10",
               "party": "RASNAG",
-              "seats": 4,
+              "seats": 2,
               "visual": {
                 "color": "#DCDCDC",
                 "method": "wikipedia-entry",
@@ -473,7 +507,59 @@
       "sourceIds": ["ipu-parline"]
     }
   ],
-  "parties": [],
+  "parties": [
+    {
+      "entityId": "party:wikipedia:39565408",
+      "displayName": "Socialist Party (France)",
+      "sourcePartyIds": ["fr-socialist_party_ps"],
+      "wikipedia": {
+        "pageId": 39565408,
+        "title": "Socialist Party (France)"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "left",
+        "to": "centre-left",
+        "raw": "Centre-left to left-wing",
+        "sourceIds": ["wikipedia-en-page-39565408"]
+      },
+      "sourceIds": ["wikipedia-en-page-39565408"]
+    },
+    {
+      "entityId": "party:wikipedia:46843436",
+      "displayName": "The Republicans (France)",
+      "sourcePartyIds": ["fr-republicans_lr"],
+      "wikipedia": {
+        "pageId": 46843436,
+        "title": "The Republicans (France)"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "centre-right",
+        "to": "right",
+        "raw": "Centre-right to right-wing",
+        "sourceIds": ["wikipedia-en-page-46843436"]
+      },
+      "sourceIds": ["wikipedia-en-page-46843436"]
+    },
+    {
+      "entityId": "party:wikipedia:68946070",
+      "displayName": "Horizons (France)",
+      "sourcePartyIds": ["fr-horizons-(hor)"],
+      "wikipedia": {
+        "pageId": 68946070,
+        "title": "Horizons (France)"
+      },
+      "position": {
+        "kind": "scale",
+        "from": "centre-right",
+        "to": "centre-right",
+        "raw": "Centre-right",
+        "sourceIds": ["wikipedia-en-page-68946070"]
+      },
+      "sourceIds": ["wikipedia-en-page-68946070"]
+    }
+  ],
   "relations": [
     {
       "country": "Australia",

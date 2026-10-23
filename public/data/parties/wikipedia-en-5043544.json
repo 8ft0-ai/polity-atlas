@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "entityId": "party:wikipedia:5043544",
+  "identity": {
+    "displayName": "Democratic Party (United States)",
+    "wikipediaPageId": 5043544,
+    "wikipediaTitle": "Democratic Party (United States)",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Democratic_Party_(United_States)"
+  },
+  "position": {
+    "kind": "scale",
+    "from": "centre-left",
+    "to": "centre",
+    "raw": "Center to center-left",
+    "sourceIds": ["wikipedia-en-page-5043544"]
+  },
+  "facts": [
+    {
+      "key": "abbreviation",
+      "label": "Abbreviation",
+      "values": ["Dem."],
+      "sourceIds": ["wikipedia-en-page-5043544"]
+    },
+    {
+      "key": "chairperson",
+      "label": "Chairperson",
+      "values": ["Ken Martin"],
+      "sourceIds": ["wikipedia-en-page-5043544"]
+    },
+    {
+      "key": "founded",
+      "label": "Founded",
+      "values": ["January 8, 1828; 198 years ago (1828-01-08)"],
+      "sourceIds": ["wikipedia-en-page-5043544"]
+    },
+    {
+      "key": "headquarters",
+      "label": "Headquarters",
+      "values": ["430 South Capitol St. SE,Washington, D.C., U.S."],
+      "sourceIds": ["wikipedia-en-page-5043544"]
+    },
+    {
+      "key": "ideology",
+      "label": "Ideology",
+      "values": ["Liberalism (US) Factions: Progressivism (US)"],
+      "sourceIds": ["wikipedia-en-page-5043544"]
+    },
+    {
+      "key": "political-position",
+      "label": "Political position",
+      "values": ["Center to center-left"],
+      "sourceIds": ["wikipedia-en-page-5043544"]
+    },
+    {
+      "key": "colours",
+      "label": "Colours",
+      "values": ["Blue"],
+      "sourceIds": ["wikipedia-en-page-5043544"]
+    }
+  ],
+  "sourceIds": ["wikipedia-en-page-5043544"]
+}
