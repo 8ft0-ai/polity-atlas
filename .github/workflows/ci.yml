@@ -18,6 +18,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Temporary Phase 4 PR1 exact formatter patch
+        run: |
+          npx oxfmt packages/data-pipeline/wikipedia/party-acquisition.mjs packages/data-pipeline/wikipedia/party-identity.mjs packages/data-pipeline/wikipedia/party-identity.test.mjs packages/data-pipeline/wikipedia/party-association.mjs packages/data-pipeline/wikipedia/prepare-parties.mjs packages/data-pipeline/wikipedia/refresh.mjs packages/data-pipeline/wikidata/client.test.mjs
+          git diff -- packages/data-pipeline/wikipedia/party-acquisition.mjs packages/data-pipeline/wikipedia/party-identity.mjs packages/data-pipeline/wikipedia/party-identity.test.mjs packages/data-pipeline/wikipedia/party-association.mjs packages/data-pipeline/wikipedia/prepare-parties.mjs packages/data-pipeline/wikipedia/refresh.mjs packages/data-pipeline/wikidata/client.test.mjs
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
