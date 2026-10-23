@@ -491,7 +491,7 @@ describe('Phase 4 PR1 party identity discovery', () => {
     );
     expect(discovery.observations).toHaveLength(1);
     expect(discovery.diagnostics).toContain(
-      'PARTY_DISCOVERY_LIMIT_EXCEEDED:USA',
+      'PARTY_DISCOVERY_MORE_BATCHES:USA:1',
     );
     expect(() =>
       validatePartyDiscovery(
