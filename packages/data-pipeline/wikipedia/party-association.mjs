@@ -1,4 +1,5 @@
 import { isGeneric } from './party-acquisition.mjs';
+import { isNonPartyRepresentation } from './representation.mjs';
 import { mergeSourceRecords } from '../sources/registry.mjs';
 
 function exactLabel(value) {
@@ -282,7 +283,7 @@ export function validatePartyPublication(profile, partyDetails, mergedSources) {
   for (const chamber of profile.parliament.chambers) {
     for (const entry of referencedEntries(chamber)) {
       if (!entry.partyEntityId) continue;
-      if (isGeneric(entry.party))
+      if (isGeneric(entry.party) || isNonPartyRepresentation(entry.party, profile.identity.iso3))
         fail('Generic entry was linked: ' + entry.party);
       if (!byId.has(entry.partyEntityId)) {
         fail('Dangling party entry: ' + entry.partyEntityId);
