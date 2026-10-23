@@ -283,8 +283,13 @@ export function validatePartyPublication(profile, partyDetails, mergedSources) {
   for (const chamber of profile.parliament.chambers) {
     for (const entry of referencedEntries(chamber)) {
       if (!entry.partyEntityId) continue;
-      if (isGeneric(entry.party) || isNonPartyRepresentation(entry.party, profile.identity.iso3))
-        fail('Generic entry was linked: ' + entry.party);
+      if (
+        entry.representationKind ||
+        isGeneric(entry.party) ||
+        isNonPartyRepresentation(entry.party, profile.identity.iso3)
+      ) {
+        fail('Non-party representation was linked: ' + entry.party);
+      }
       if (!byId.has(entry.partyEntityId)) {
         fail('Dangling party entry: ' + entry.partyEntityId);
       }
@@ -371,6 +376,9 @@ export function associatePreparedParties(
   const diagnostics = [];
 
   function linkEntry(entry, entityId, sourceIds) {
+    if (entry.representationKind || isNonPartyRepresentation(entry.party, output.identity.iso3)) {
+      fail('Non-party representation cannot inherit a party identity: ' + entry.partyId);
+    }
     if (entry.partyEntityId && entry.partyEntityId !== entityId) {
       fail('Existing party reference conflicts: ' + entry.partyId);
     }
