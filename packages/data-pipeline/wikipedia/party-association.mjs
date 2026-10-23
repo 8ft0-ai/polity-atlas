@@ -452,7 +452,11 @@ export function associatePreparedParties(
     );
     if (!rows.length) continue;
     const key = observation.chamberId + '\u0000' + observation.partyId;
-    const choice = ipuChoices.get(key) ?? { entities: new Set(), rows: [], sources: new Set() };
+    const choice = ipuChoices.get(key) ?? {
+      entities: new Set(),
+      rows: [],
+      sources: new Set(),
+    };
     choice.entities.add(entityId);
     choice.rows.push(...rows);
     choice.sources.add(sourceId);
@@ -461,7 +465,9 @@ export function associatePreparedParties(
 
   for (const [key, choice] of ipuChoices) {
     if (choice.entities.size !== 1) {
-      diagnostics.push('PARTY_IDENTITY_AMBIGUOUS:' + key.replace('\u0000', ':'));
+      diagnostics.push(
+        'PARTY_IDENTITY_AMBIGUOUS:' + key.replace('\u0000', ':'),
+      );
       continue;
     }
     const entityId = [...choice.entities][0];
