@@ -25,6 +25,22 @@ const membershipLabels = new Set([
   'vacancies',
 ]);
 
+// These exact abbreviations are the French Senate's parliamentary-group
+// listings from its sourced composition, not individual-party seat totals.
+// Match source and chamber below; do not apply this rule to other countries.
+const frenchSenateGroups = new Set([
+  'LR',
+  'UC',
+  'SER',
+  'CRCE-K',
+  'RDSE',
+  'RDPI',
+  'GEST',
+  'LIRT',
+  'UNT',
+  'RASNAG',
+]);
+
 const electoralCategoryLabels = new Set([
   'other',
   'others',
@@ -107,7 +123,16 @@ export function annotateRepresentationKinds(profile) {
       ...(chamber.latestElection?.outcome?.postElectionComposition ?? []),
     ];
     for (const entry of entries) {
-      const kind = representationKind(entry.party, countryIso3);
+      const frenchSenateGroup =
+        countryIso3 === 'FRA' &&
+        chamber.id === 'FR-UC01' &&
+        chamber.composition?.basis === 'source-reported' &&
+        chamber.composition.sourceIds?.includes('wikipedia-en-page-567323') &&
+        chamber.composition.entries?.includes(entry) &&
+        frenchSenateGroups.has(entry.party);
+      const kind = frenchSenateGroup
+        ? 'parliamentary-group'
+        : representationKind(entry.party, countryIso3);
       if (!kind) continue;
       if (entry.partyEntityId) {
         throw new Error(
