@@ -339,23 +339,31 @@ describe('Phase 4 PR1 party identity discovery', () => {
       { mappings: reviewed },
     );
     expect(discovery.observations).toHaveLength(2);
-    expect(discovery.observations.every((entry) => entry.status === 'verified')).toBe(true);
+    expect(
+      discovery.observations.every((entry) => entry.status === 'verified'),
+    ).toBe(true);
     const acquired = await acquireLinkedPartySnapshot(snapshot, client);
-    const prepared = normalizeLinkedPartySnapshot(snapshot, acquired, discovery);
+    const prepared = normalizeLinkedPartySnapshot(
+      snapshot,
+      acquired,
+      discovery,
+    );
     expect(prepared.profiles).toHaveLength(1);
     const association = associatePreparedParties(
       profile,
       acquired,
       prepared,
       {
-        sources: [{
-          id: 'ipu-parline',
-          publisher: 'IPU',
-          title: 'Synthetic IPU party source',
-          url: 'https://data.ipu.org/',
-          retrievedAt,
-          kind: 'reference',
-        }],
+        sources: [
+          {
+            id: 'ipu-parline',
+            publisher: 'IPU',
+            title: 'Synthetic IPU party source',
+            url: 'https://data.ipu.org/',
+            retrievedAt,
+            kind: 'reference',
+          },
+        ],
       },
       [],
       discovery,
@@ -366,8 +374,8 @@ describe('Phase 4 PR1 party identity discovery', () => {
       'au-greens-senate',
     ]);
     expect(
-      association.profile.parliament.chambers.flatMap(
-        (chamber) => chamber.latestElection.outcome.postElectionComposition.map(
+      association.profile.parliament.chambers.flatMap((chamber) =>
+        chamber.latestElection.outcome.postElectionComposition.map(
           (entry) => entry.partyEntityId,
         ),
       ),
