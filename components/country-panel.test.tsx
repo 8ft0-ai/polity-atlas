@@ -188,19 +188,27 @@ describe('CountryPanel', () => {
   });
 
   it('makes the existing verified ALP profile available for both Australian Senate result representations', async () => {
-    const senate = australiaProfile.parliament.chambers.find((entry) => entry.id === 'AU-UC01');
+    const senate = australiaProfile.parliament.chambers.find(
+      (entry) => entry.id === 'AU-UC01',
+    );
     expect(senate).toBeDefined();
     const outcome = senate!.latestElection!.outcome;
     expect(
-      outcome.seatsWonInElection.find((entry) => entry.party === 'Australian Labor Party (ALP)')?.partyEntityId,
+      outcome.seatsWonInElection.find(
+        (entry) => entry.party === 'Australian Labor Party (ALP)',
+      )?.partyEntityId,
     ).toBe('party:wikipedia:1495');
     expect(
-      outcome.postElectionComposition?.find((entry) => entry.party === 'Australian Labor Party (government)')?.partyEntityId,
+      outcome.postElectionComposition?.find(
+        (entry) => entry.party === 'Australian Labor Party (government)',
+      )?.partyEntityId,
     ).toBe('party:wikipedia:1495');
     useWorkspaceStore.setState({ activeTab: 'parliament' });
     renderPanel();
     expect(
-      await screen.findByRole('button', { name: 'Australian Labor Party (government)' }),
+      await screen.findByRole('button', {
+        name: 'Australian Labor Party (government)',
+      }),
     ).toBeInTheDocument();
   });
 
