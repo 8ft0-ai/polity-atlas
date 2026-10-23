@@ -1781,7 +1781,7 @@ describe('Wikipedia chamber fallback', () => {
           title: 'House',
           seats: 100,
           kind: 'lower',
-          compositionHtml: \`
+          compositionHtml: `
             <tr><th>Political groups</th><td><ul>
               <li><a href="./Example_Coalition">Government</a> (47)<ul>
                 <li><a href="./Alpha_Party">Alpha Party</a> (40)</li>
@@ -1789,7 +1789,7 @@ describe('Wikipedia chamber fallback', () => {
               </ul></li>
               <li><a href="./Beta_Party">Beta Party</a> (12)</li>
             </ul></td></tr>
-          \`,
+          `,
         }],
       }),
       profile([house]),
