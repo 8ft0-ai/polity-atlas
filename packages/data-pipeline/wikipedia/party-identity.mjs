@@ -44,7 +44,8 @@ export function ipuPartyRows(profile) {
       ...(outcome?.postElectionComposition ?? []),
     ];
     for (const entry of entries) {
-      if (isPartyDiscoveryExcluded(entry.party, profile.identity.iso3)) continue;
+      if (isPartyDiscoveryExcluded(entry.party, profile.identity.iso3))
+        continue;
       const key = chamber.id + '\u0000' + entry.partyId;
       const prior = rows.get(key);
       if (prior && prior.party !== entry.party) {
