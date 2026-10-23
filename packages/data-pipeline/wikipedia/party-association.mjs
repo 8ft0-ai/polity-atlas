@@ -1,4 +1,8 @@
 import { isGeneric } from './party-acquisition.mjs';
+import {
+  annotateRepresentationKinds,
+  isNonPartyRepresentation,
+} from './representation.mjs';
 import { mergeSourceRecords } from '../sources/registry.mjs';
 
 function exactLabel(value) {
@@ -282,8 +286,15 @@ export function validatePartyPublication(profile, partyDetails, mergedSources) {
   for (const chamber of profile.parliament.chambers) {
     for (const entry of referencedEntries(chamber)) {
       if (!entry.partyEntityId) continue;
-      if (isGeneric(entry.party))
+      if (isGeneric(entry.party)) {
         fail('Generic entry was linked: ' + entry.party);
+      }
+      if (
+        entry.representationKind ||
+        isNonPartyRepresentation(entry.party, profile.identity.iso3)
+      ) {
+        fail('Non-party representation was linked: ' + entry.party);
+      }
       if (!byId.has(entry.partyEntityId)) {
         fail('Dangling party entry: ' + entry.partyEntityId);
       }
@@ -364,12 +375,21 @@ export function associatePreparedParties(
   }
 
   const bindings = exactCandidateBindings(acquired, prepared);
-  const output = structuredClone(profile);
+  const output = annotateRepresentationKinds(profile);
   const partyIdsByEntity = new Map();
   const provenanceByEntity = new Map();
   const diagnostics = [];
 
   function linkEntry(entry, entityId, sourceIds) {
+    if (
+      entry.representationKind ||
+      isNonPartyRepresentation(entry.party, output.identity.iso3)
+    ) {
+      fail(
+        'Non-party representation cannot inherit a party identity: ' +
+          entry.partyId,
+      );
+    }
     if (entry.partyEntityId && entry.partyEntityId !== entityId) {
       fail('Existing party reference conflicts: ' + entry.partyId);
     }
@@ -389,6 +409,7 @@ export function associatePreparedParties(
       );
       if (!sourceIds.length) continue;
       for (const entry of view.entries) {
+        if (entry.representationKind) continue;
         const result = linkedEntityForEntry(entry, sourceIds, bindings);
         if (result.kind === 'ambiguous') {
           diagnostics.push('PARTY_IDENTITY_AMBIGUOUS:' + entry.partyId);
@@ -449,7 +470,8 @@ export function associatePreparedParties(
       (entry) =>
         entry.partyId === observation.partyId &&
         entry.party === observation.party &&
-        !isGeneric(entry.party),
+        !isGeneric(entry.party) &&
+        !entry.representationKind,
     );
     if (!rows.length) continue;
     const key = observation.chamberId + '\u0000' + observation.partyId;
@@ -504,7 +526,8 @@ export function associatePreparedParties(
         (entry) =>
           entry.partyId === observation.partyId &&
           entry.party === observation.party &&
-          !isGeneric(entry.party),
+          !isGeneric(entry.party) &&
+          !entry.representationKind,
       );
       for (const entry of rows) {
         if (entry.partyEntityId && entry.partyEntityId !== entityId) {

@@ -295,6 +295,94 @@ describe('Phase 4 PR1 party identity discovery', () => {
     });
   });
 
+  it('reuses one sourced Australian Greens identity across differently named chambers', async () => {
+    const { snapshot, profile } = setup({
+      iso3: 'AUS',
+      country: 'Australia',
+      parties: [
+        ['au-greens-house', 'The Greens', 'HOUSE'],
+        ['au-greens-senate', 'Australian Greens', 'SENATE'],
+      ],
+    });
+    const client = fakeClient({
+      'Australian Greens': page(777, 'Australian Greens', 'Australia'),
+    });
+    const reviewed = [
+      {
+        countryIso3: 'AUS',
+        chamberId: 'HOUSE',
+        partyId: 'au-greens-house',
+        partyName: 'The Greens',
+        wikipediaTitle: 'Australian Greens',
+        reason: 'Reviewed synthetic identity evidence',
+        reviewer: 'Synthetic reviewer',
+        reviewDate: '2026-10-23',
+        sourceIds: ['ipu-parline'],
+      },
+      {
+        countryIso3: 'AUS',
+        chamberId: 'SENATE',
+        partyId: 'au-greens-senate',
+        partyName: 'Australian Greens',
+        wikipediaTitle: 'Australian Greens',
+        reason: 'Reviewed synthetic identity evidence',
+        reviewer: 'Synthetic reviewer',
+        reviewDate: '2026-10-23',
+        sourceIds: ['ipu-parline'],
+      },
+    ];
+    const discovery = await discoverPartyIdentities(
+      snapshot,
+      profile,
+      client,
+      missingWikidata,
+      { mappings: reviewed },
+    );
+    expect(discovery.observations).toHaveLength(2);
+    expect(
+      discovery.observations.every((entry) => entry.status === 'verified'),
+    ).toBe(true);
+    const acquired = await acquireLinkedPartySnapshot(snapshot, client);
+    const prepared = normalizeLinkedPartySnapshot(
+      snapshot,
+      acquired,
+      discovery,
+    );
+    expect(prepared.profiles).toHaveLength(1);
+    const association = associatePreparedParties(
+      profile,
+      acquired,
+      prepared,
+      {
+        sources: [
+          {
+            id: 'ipu-parline',
+            publisher: 'IPU',
+            title: 'Synthetic IPU party source',
+            url: 'https://data.ipu.org/',
+            retrievedAt,
+            kind: 'reference',
+          },
+        ],
+      },
+      [],
+      discovery,
+    );
+    expect(association.profile.parties).toHaveLength(1);
+    expect(association.profile.parties[0].sourcePartyIds).toEqual([
+      'au-greens-house',
+      'au-greens-senate',
+    ]);
+    expect(
+      association.profile.parliament.chambers.flatMap((chamber) =>
+        chamber.latestElection.outcome.postElectionComposition.map(
+          (entry) => entry.partyEntityId,
+        ),
+      ),
+    ).toEqual(['party:wikipedia:777', 'party:wikipedia:777']);
+    expect(client.searchPages).not.toHaveBeenCalled();
+  });
+
   it('uses only a supplied Wikidata Q ID and its exact enwiki sitelink', async () => {
     const { snapshot, profile } = setup({
       parties: [['party-x', 'Example Party', 'HOUSE']],

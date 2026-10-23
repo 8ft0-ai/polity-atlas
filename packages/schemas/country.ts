@@ -34,8 +34,16 @@ const seatVisualSchema = z.object({
   sourceIds: z.array(z.string()).min(1),
 });
 
+export const representationKindSchema = z.enum([
+  'coalition',
+  'electoral-alliance',
+  'electoral-category',
+  'membership-role',
+]);
+
 export const electionPartyResultSchema = z.object({
   partyId: z.string(),
+  representationKind: representationKindSchema.optional(),
   partyEntityId: z.string().min(1).optional(),
   party: z.string(),
   seats: z.number().int().nonnegative(),

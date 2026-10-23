@@ -160,6 +160,41 @@ describe('Phase 4A sourced party association', () => {
     ).toEqual(result);
   });
 
+  it('does not let an electoral coalition inherit a constituent party position', async () => {
+    const { acquired, prepared } = await preparation();
+    const original = profile();
+    const chamber = original.parliament.chambers[0];
+    chamber.composition.entries[0].party = 'Liberal National coalition';
+    const result = associatePreparedParties(
+      original,
+      acquired,
+      prepared,
+      registry(),
+    );
+    expect(
+      result.profile.parliament.chambers[0].composition.entries[0],
+    ).toMatchObject({
+      party: 'Liberal National coalition',
+      representationKind: 'coalition',
+      seats: 12,
+    });
+    expect(
+      result.profile.parliament.chambers[0].composition.entries[0]
+        .partyEntityId,
+    ).toBeUndefined();
+    expect(result.profile.parties.map((party) => party.entityId)).toEqual([
+      'party:wikipedia:22',
+    ]);
+    result.profile.parliament.chambers[0].composition.entries[0].partyEntityId =
+      'party:wikipedia:22';
+    expect(() =>
+      validatePartyPublication(result.profile, result.partyDetails, [
+        ...registry().sources,
+        ...result.additionalSources,
+      ]),
+    ).toThrow('Non-party representation was linked');
+  });
+
   it('links IPU election rows only with exact chamber/article evidence', async () => {
     const { acquired, prepared } = await preparation();
     const original = profile();
