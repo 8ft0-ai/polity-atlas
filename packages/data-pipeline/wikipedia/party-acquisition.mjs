@@ -80,7 +80,9 @@ export function linkedPartyCandidates(snapshot) {
     }
     const views = extractPoliticalCompositionViews(parseInfobox(page.html));
     for (const view of views ?? []) {
-      if (view.dimension !== 'party' || view.containsNestedAggregates) {
+      // Nested seat aggregates describe group totals, but the parser emits
+      // only leaf entries. Retain exact links on the individual parties.
+      if (view.dimension !== 'party') {
         continue;
       }
       for (const entry of view.entries) {

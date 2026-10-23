@@ -115,6 +115,42 @@ describe('Phase 4A exact-link party candidate discovery', () => {
     expect(linkedPartyCandidates(snapshot)).toEqual([]);
   });
 
+  it('retains exact party links inside nested government, opposition and crossbench aggregates', () => {
+    const html = `<table class="infobox"><tbody><tr><th>Political groups</th><td>
+      <ul>
+        <li>Government (94)<ul><li><a href="./Australian_Labor_Party">Australian Labor Party</a> (94)</li></ul></li>
+        <li>Opposition (43)<ul><li><a href="./Liberal_Party_of_Australia">Liberal Party</a> (28)</li><li><a href="./National_Party_of_Australia">National Party</a> (15)</li></ul></li>
+        <li>Crossbench (13)<ul><li>Independents (10)</li><li><a href="./Australian_Greens">Australian Greens</a> (1)</li><li><a href="./Centre_Alliance">Centre Alliance</a> (1)</li><li>Vacant (1)</li></ul></li>
+      </ul></td></tr></tbody></table>`;
+    const source = countrySnapshot([{ ...chamber(61565, []), html }]);
+    expect(linkedPartyCandidates(source)).toEqual(
+      [
+        ['Australian Greens', 'Australian Greens'],
+        ['Australian Labor Party', 'Australian Labor Party'],
+        ['Centre Alliance', 'Centre Alliance'],
+        ['Liberal Party of Australia', 'Liberal Party'],
+        ['National Party of Australia', 'National Party'],
+      ].map(([requestedTitle, label]) => ({
+        requestedTitle,
+        sourceLabels: [label],
+        sourceIds: ['wikipedia-en-page-61565'],
+      })),
+    );
+  });
+
+  it('excludes nested aggregate headers even when they contain a Wikipedia link', () => {
+    const html = `<table class="infobox"><tbody><tr><th>Political groups</th><td><ul>
+      <li><a href="./Example_Coalition">Coalition</a> (20)<ul>
+        <li><a href="./Alpha_Party">Alpha Party</a> (12)</li>
+        <li><a href="./Beta_Party">Beta Party</a> (8)</li>
+      </ul></li>
+    </ul></td></tr></tbody></table>`;
+    const source = countrySnapshot([{ ...chamber(100, []), html }]);
+    expect(
+      linkedPartyCandidates(source).map((entry) => entry.requestedTitle),
+    ).toEqual(['Alpha Party', 'Beta Party']);
+  });
+
   it('refuses an unbound chamber page without a stable page ID', () => {
     expect(() =>
       linkedPartyCandidates(countrySnapshot([chamber(0, [alpha])])),
