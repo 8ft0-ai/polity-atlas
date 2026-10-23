@@ -99,22 +99,79 @@ function assertPartySources(ids, knownSources, context) {
   }
 }
 
+const POSITION_POINTS = [
+  'far-left',
+  'left',
+  'centre-left',
+  'centre',
+  'centre-right',
+  'right',
+  'far-right',
+];
+
+function assertPosition(position, knownSources, context) {
+  if (!position || !['scale', 'label'].includes(position.kind)) {
+    fail(context + ' is malformed');
+  }
+  assertPartySources(position.sourceIds, knownSources, context);
+  if (typeof position.raw !== 'string' || !position.raw.trim()) {
+    fail(context + ' has no raw source value');
+  }
+  if (position.kind === 'label') {
+    if (typeof position.label !== 'string' || !position.label.trim()) {
+      fail(context + ' has no label');
+    }
+    return;
+  }
+  const from = POSITION_POINTS.indexOf(position.from);
+  const to = POSITION_POINTS.indexOf(position.to);
+  if (from < 0 || to < 0 || from > to) {
+    fail(context + ' has an invalid or reversed scale range');
+  }
+}
+
 export function validatePartyPublication(profile, partyDetails, mergedSources) {
+  if (
+    ![6, 2].includes(profile?.schemaVersion) ||
+    !Array.isArray(profile?.parties) ||
+    !Array.isArray(profile?.parliament?.chambers)
+  ) {
+    fail('Profile does not match the active public schema version');
+  }
   const knownSources = new Set(mergedSources.map((source) => source.id));
-  const summaries = profile.parties ?? [];
+  const summaries = profile.parties;
   const byId = new Map();
 
   for (const party of summaries) {
     if (byId.has(party.entityId))
       fail('Duplicate party summary: ' + party.entityId);
-    if (party.entityId !== 'party:wikipedia:' + party.wikipedia.pageId) {
+    if (
+      !Number.isSafeInteger(party.wikipedia?.pageId) ||
+      party.wikipedia.pageId <= 0 ||
+      party.entityId !== 'party:wikipedia:' + party.wikipedia.pageId
+    ) {
       fail('Party summary identity mismatch: ' + party.entityId);
+    }
+    if (!Array.isArray(party.sourcePartyIds) || !party.sourcePartyIds.length) {
+      fail('Party summary has no source party IDs: ' + party.entityId);
+    }
+    if (
+      typeof party.displayName !== 'string' ||
+      !party.displayName.trim() ||
+      typeof party.wikipedia.title !== 'string' ||
+      !party.wikipedia.title.trim() ||
+      party.sourcePartyIds.some(
+        (sourcePartyId) =>
+          typeof sourcePartyId !== 'string' || !sourcePartyId.trim(),
+      )
+    ) {
+      fail('Party summary is malformed: ' + party.entityId);
     }
     byId.set(party.entityId, party);
     assertPartySources(party.sourceIds, knownSources, party.entityId);
     if (party.position) {
-      assertPartySources(
-        party.position.sourceIds,
+      assertPosition(
+        party.position,
         knownSources,
         party.entityId + ' position',
       );
@@ -126,10 +183,20 @@ export function validatePartyPublication(profile, partyDetails, mergedSources) {
     if (detailsById.has(detail.entityId))
       fail('Duplicate party detail: ' + detail.entityId);
     if (
-      detail.entityId !==
-      'party:wikipedia:' + detail.identity.wikipediaPageId
+      detail.schemaVersion !== 1 ||
+      !Number.isSafeInteger(detail.identity?.wikipediaPageId) ||
+      detail.identity.wikipediaPageId <= 0 ||
+      detail.entityId !== 'party:wikipedia:' + detail.identity.wikipediaPageId
     ) {
       fail('Party detail identity mismatch: ' + detail.entityId);
+    }
+    if (
+      typeof detail.identity.displayName !== 'string' ||
+      !detail.identity.displayName.trim() ||
+      typeof detail.identity.wikipediaTitle !== 'string' ||
+      !detail.identity.wikipediaTitle.trim()
+    ) {
+      fail('Party detail identity is malformed: ' + detail.entityId);
     }
     if (
       !/^https:\/\/en\.wikipedia\.org\/wiki\/[^?#]+$/.test(
@@ -140,16 +207,48 @@ export function validatePartyPublication(profile, partyDetails, mergedSources) {
     }
     detailsById.set(detail.entityId, detail);
     assertPartySources(detail.sourceIds, knownSources, detail.entityId);
+    if (!Array.isArray(detail.facts) || !detail.facts.length) {
+      fail('Party detail has no verified facts: ' + detail.entityId);
+    }
     for (const fact of detail.facts) {
+      if (
+        typeof fact.key !== 'string' ||
+        !fact.key.trim() ||
+        typeof fact.label !== 'string' ||
+        !fact.label.trim() ||
+        !Array.isArray(fact.values) ||
+        !fact.values.length ||
+        fact.values.some((value) => typeof value !== 'string' || !value.trim())
+      ) {
+        fail(detail.entityId + ' has a malformed fact');
+      }
       assertPartySources(
         fact.sourceIds,
         knownSources,
         detail.entityId + ' fact',
       );
+      for (const link of fact.links ?? []) {
+        if (
+          typeof link.label !== 'string' ||
+          !link.label.trim() ||
+          typeof link.url !== 'string'
+        ) {
+          fail(detail.entityId + ' fact has a malformed link');
+        }
+        let url;
+        try {
+          url = new URL(link.url);
+        } catch {
+          fail(detail.entityId + ' fact has an invalid link');
+        }
+        if (url.protocol !== 'https:') {
+          fail(detail.entityId + ' fact has an unsafe link');
+        }
+      }
     }
     if (detail.position) {
-      assertPartySources(
-        detail.position.sourceIds,
+      assertPosition(
+        detail.position,
         knownSources,
         detail.entityId + ' position',
       );
@@ -192,6 +291,47 @@ export function validatePartyPublication(profile, partyDetails, mergedSources) {
         fail('Party ID ownership mismatch: ' + entry.partyId);
       }
     }
+  }
+  return true;
+}
+
+export function validatePartyDataset(profiles, partyDetails, mergedSources) {
+  if (!Array.isArray(profiles) || !Array.isArray(partyDetails)) {
+    fail('Published party dataset must contain profile and detail arrays');
+  }
+  const detailsById = new Map();
+  for (const detail of partyDetails) {
+    if (detailsById.has(detail.entityId)) {
+      fail('Duplicate party detail: ' + detail.entityId);
+    }
+    detailsById.set(detail.entityId, detail);
+  }
+
+  const referenced = new Set();
+  const sourcePartyOwners = new Map();
+  for (const profile of profiles) {
+    const ids = new Set((profile.parties ?? []).map((party) => party.entityId));
+    validatePartyPublication(
+      profile,
+      partyDetails.filter((detail) => ids.has(detail.entityId)),
+      mergedSources,
+    );
+    for (const summary of profile.parties) {
+      referenced.add(summary.entityId);
+      for (const sourcePartyId of summary.sourcePartyIds) {
+        const prior = sourcePartyOwners.get(sourcePartyId);
+        if (prior && prior !== summary.entityId) {
+          fail('Source party ID links to multiple entities: ' + sourcePartyId);
+        }
+        sourcePartyOwners.set(sourcePartyId, summary.entityId);
+      }
+    }
+  }
+  for (const entityId of referenced) {
+    if (!detailsById.has(entityId)) fail('Missing detail: ' + entityId);
+  }
+  for (const entityId of detailsById.keys()) {
+    if (!referenced.has(entityId)) fail('Orphan party detail: ' + entityId);
   }
   return true;
 }

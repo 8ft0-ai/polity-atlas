@@ -11,10 +11,8 @@ import {
   normalizeIpuSnapshot,
 } from './normalize.mjs';
 import { mergeSourceRecords } from '../sources/registry.mjs';
-import {
-  applyCuratedOverrides,
-  hasCuratedOverrides,
-} from '../overrides/registry.mjs';
+import { applyCuratedOverrides } from '../overrides/registry.mjs';
+import { validatePartyDataset } from '../wikipedia/party-association.mjs';
 
 const repositoryRoot = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -38,6 +36,7 @@ const legislatureDirectory = resolve(
   'public/data/legislatures',
 );
 const cacheDirectory = resolve(repositoryRoot, '.cache/ipu');
+const partyDirectory = resolve(repositoryRoot, 'public/data/parties');
 const manifestPath = resolve(repositoryRoot, 'public/data/manifest.json');
 const sourcesPath = resolve(repositoryRoot, 'public/data/sources.json');
 const formatterPath = resolve(repositoryRoot, 'node_modules/.bin/oxfmt');
@@ -98,6 +97,7 @@ if (onlyIso3 && !targets.length) {
 
 const client = new IpuClient();
 const existingSourceRegistry = await readJson(sourcesPath);
+const existingManifest = await readJson(manifestPath);
 const overrideRegistry = await readJson(overrideConfigPath);
 const emittedSources = [];
 
@@ -131,11 +131,17 @@ for (const country of targets) {
     });
   } else {
     const outputPath = resolve(legislatureDirectory, `${country.iso3}.json`);
+    const previous = await readJsonIfPresent(outputPath);
     prepared.push({
       country,
       mode: country.mode,
       outputPath,
-      value: createIpuLegislatureProfile(country, normalized, buildId),
+      value: createIpuLegislatureProfile(
+        country,
+        normalized,
+        buildId,
+        previous,
+      ),
     });
   }
   process.stdout.write(`Prepared ${country.iso3} (${country.mode})\n`);
@@ -177,8 +183,6 @@ try {
       country,
       outputPath,
       stagedPath,
-      selected:
-        Boolean(candidate) || hasCuratedOverrides(overrideRegistry, target),
     });
   }
 
@@ -209,8 +213,6 @@ try {
       country,
       outputPath,
       stagedPath,
-      selected:
-        Boolean(candidate) || hasCuratedOverrides(overrideRegistry, target),
     });
   }
 
@@ -220,9 +222,55 @@ try {
     sources: mergedSources,
   });
 
+  const referencedPartyIds = new Set();
+  for (const entry of [...stagedProfiles, ...stagedLegislatures]) {
+    const profile = await readJson(entry.stagedPath);
+    for (const party of profile.parties ?? []) {
+      referencedPartyIds.add(party.entityId);
+    }
+  }
+  const existingPartyEntries = new Map(
+    (existingManifest.parties ?? []).map((entry) => [entry.entityId, entry]),
+  );
+  const stagedParties = [];
+  for (const entityId of [...referencedPartyIds].sort((left, right) =>
+    left.localeCompare(right),
+  )) {
+    const pageId = entityId.match(/^party:wikipedia:([1-9]\d*)$/)?.[1];
+    const existing = existingPartyEntries.get(entityId);
+    if (!pageId || !existing) {
+      throw new Error(`Missing manifest-backed party detail: ${entityId}`);
+    }
+    const value = await readJson(
+      resolve(repositoryRoot, 'public/data', existing.path),
+    );
+    const stagedPath = resolve(
+      stagingDirectory,
+      'parties',
+      `wikipedia-en-${pageId}.json`,
+    );
+    await writeJson(stagedPath, value);
+    stagedParties.push({
+      entityId,
+      outputPath: resolve(partyDirectory, `wikipedia-en-${pageId}.json`),
+      stagedPath,
+      path: `parties/wikipedia-en-${pageId}.json`,
+    });
+  }
+  const allPartyDetails = await Promise.all(
+    stagedParties.map(({ stagedPath }) => readJson(stagedPath)),
+  );
+  const allProfiles = await Promise.all(
+    [...stagedProfiles, ...stagedLegislatures].map(({ stagedPath }) =>
+      readJson(stagedPath),
+    ),
+  );
+  validatePartyDataset(allProfiles, allPartyDetails, mergedSources);
+
   await execFileAsync(formatterPath, [
     ...stagedProfiles.map(({ stagedPath }) => stagedPath),
     ...stagedLegislatures.map(({ stagedPath }) => stagedPath),
+    ...stagedParties.map(({ stagedPath }) => stagedPath),
     stagedSourcesPath,
   ]);
 
@@ -254,14 +302,26 @@ try {
   manifestLegislatures.sort((left, right) =>
     left.iso3.localeCompare(right.iso3),
   );
+  const manifestParties = [];
+  const partyOutputs = new Map();
+  for (const entry of stagedParties) {
+    const output = await readFile(entry.stagedPath);
+    partyOutputs.set(entry.entityId, output);
+    manifestParties.push({
+      entityId: entry.entityId,
+      path: entry.path,
+      sha256: sha256(output),
+    });
+  }
   const sourcesOutput = await readFile(stagedSourcesPath);
   const stagedManifestPath = resolve(stagingDirectory, 'manifest.json');
   await writeJson(stagedManifestPath, {
-    schemaVersion: 5,
+    schemaVersion: 6,
     buildId,
     generatedAt: retrievedAt,
     profiles: manifestProfiles,
     legislatures: manifestLegislatures,
+    parties: manifestParties,
     sourceRegistry: {
       path: 'sources.json',
       sha256: sha256(sourcesOutput),
@@ -270,11 +330,11 @@ try {
   await execFileAsync(formatterPath, [stagedManifestPath]);
   const manifestOutput = await readFile(stagedManifestPath);
 
-  for (const entry of stagedProfiles.filter(({ selected }) => selected)) {
+  for (const entry of stagedProfiles) {
     await writeFile(entry.outputPath, profileOutputs.get(entry.country.iso3));
     process.stdout.write(`Updated ${entry.country.iso3}\n`);
   }
-  for (const entry of stagedLegislatures.filter(({ selected }) => selected)) {
+  for (const entry of stagedLegislatures) {
     await mkdir(dirname(entry.outputPath), { recursive: true });
     await writeFile(
       entry.outputPath,
@@ -282,8 +342,20 @@ try {
     );
     process.stdout.write(`Updated legislature ${entry.country.iso3}\n`);
   }
+  for (const entry of stagedParties) {
+    await mkdir(dirname(entry.outputPath), { recursive: true });
+    await writeFile(entry.outputPath, partyOutputs.get(entry.entityId));
+  }
   await writeFile(sourcesPath, sourcesOutput);
   await writeFile(manifestPath, manifestOutput);
+  const retainedPartyPaths = new Set(stagedParties.map((entry) => entry.path));
+  for (const entry of existingManifest.parties ?? []) {
+    if (!retainedPartyPaths.has(entry.path)) {
+      await rm(resolve(repositoryRoot, 'public/data', entry.path), {
+        force: true,
+      });
+    }
+  }
   process.stdout.write(
     `Updated manifest for ${manifestProfiles.length} full profiles and ${manifestLegislatures.length} legislature modules\n`,
   );

@@ -640,14 +640,21 @@ function preserveResultVisuals(nextResults, previousResults) {
   if (!nextResults?.length || !previousResults?.length) return nextResults;
   const previousById = new Map(
     previousResults
-      .filter((result) => result.visual)
-      .map((result) => [result.partyId, result.visual]),
+      .filter((result) => result.visual || result.partyEntityId)
+      .map((result) => [result.partyId, result]),
   );
-  return nextResults.map((result) =>
-    previousById.has(result.partyId)
-      ? { ...result, visual: previousById.get(result.partyId) }
-      : result,
-  );
+  return nextResults.map((result) => {
+    const previous = previousById.get(result.partyId);
+    return previous
+      ? {
+          ...result,
+          ...(previous.visual && { visual: previous.visual }),
+          ...(previous.partyEntityId && {
+            partyEntityId: previous.partyEntityId,
+          }),
+        }
+      : result;
+  });
 }
 
 function preserveElectionVisuals(nextElection, previousElection) {
@@ -670,27 +677,50 @@ function preserveElectionVisuals(nextElection, previousElection) {
   };
 }
 
-export function createIpuLegislatureProfile(country, normalized, buildId) {
-  return {
-    schemaVersion: 1,
-    buildId,
-    identity: {
-      entityId: country.entityId,
-      iso2: country.iso2,
-      iso3: country.iso3,
-      m49: country.m49,
-      name: country.name,
-    },
-    parliament: normalized.parliament,
-    nextExpectedElections: normalized.nextExpectedElections,
-  };
+function previousPartyEntities(chamber) {
+  const entries = [
+    ...(chamber?.composition
+      ? 'views' in chamber.composition
+        ? chamber.composition.views.flatMap((view) => view.entries)
+        : chamber.composition.entries
+      : []),
+    ...(chamber?.latestElection?.outcome?.seatsWonInElection ?? []),
+    ...(chamber?.latestElection?.outcome?.postElectionComposition ?? []),
+  ];
+  return new Map(
+    entries
+      .filter((entry) => entry.partyEntityId)
+      .map((entry) => [entry.partyId, entry.partyEntityId]),
+  );
 }
 
-export function mergeIpuProfile(profile, normalized, buildId) {
+function preserveCompositionPartyEntities(composition, previous) {
+  if (!composition || !previous.size) return composition;
+  const preserveEntries = (entries) =>
+    entries.map((entry) =>
+      previous.has(entry.partyId)
+        ? { ...entry, partyEntityId: previous.get(entry.partyId) }
+        : entry,
+    );
+  return 'views' in composition
+    ? {
+        ...composition,
+        views: composition.views.map((view) => ({
+          ...view,
+          entries: preserveEntries(view.entries),
+        })),
+      }
+    : { ...composition, entries: preserveEntries(composition.entries) };
+}
+
+function mergeIpuChambers(previousProfile, normalized) {
   const previousChambers = new Map(
-    profile.parliament.chambers.map((chamber) => [chamber.id, chamber]),
+    (previousProfile?.parliament?.chambers ?? []).map((chamber) => [
+      chamber.id,
+      chamber,
+    ]),
   );
-  const chambers = normalized.parliament.chambers.map((chamber) => {
+  return normalized.parliament.chambers.map((chamber) => {
     const previous = previousChambers.get(chamber.id);
     const hasFullIpuComposition = Boolean(
       chamber.latestElection?.outcome?.postElectionComposition?.length,
@@ -706,16 +736,54 @@ export function mergeIpuProfile(profile, normalized, buildId) {
           }),
         }
       : chamber;
+    const withPartyEntities = withVisuals.composition
+      ? {
+          ...withVisuals,
+          composition: preserveCompositionPartyEntities(
+            withVisuals.composition,
+            previousPartyEntities(previous),
+          ),
+        }
+      : withVisuals;
     const hasIpuStructuredComposition = Boolean(chamber.composition);
     return !hasFullIpuComposition &&
       !hasIpuStructuredComposition &&
       previous?.composition
-      ? { ...withVisuals, composition: previous.composition }
-      : withVisuals;
+      ? { ...withPartyEntities, composition: previous.composition }
+      : withPartyEntities;
   });
+}
+
+export function createIpuLegislatureProfile(
+  country,
+  normalized,
+  buildId,
+  previous,
+) {
+  return {
+    schemaVersion: 2,
+    buildId,
+    identity: {
+      entityId: country.entityId,
+      iso2: country.iso2,
+      iso3: country.iso3,
+      m49: country.m49,
+      name: country.name,
+    },
+    parliament: {
+      ...normalized.parliament,
+      chambers: mergeIpuChambers(previous, normalized),
+    },
+    nextExpectedElections: normalized.nextExpectedElections,
+    parties: previous?.parties ?? [],
+  };
+}
+
+export function mergeIpuProfile(profile, normalized, buildId) {
+  const chambers = mergeIpuChambers(profile, normalized);
 
   return {
-    schemaVersion: 5,
+    schemaVersion: 6,
     buildId,
     identity: profile.identity,
     government: profile.government,
@@ -724,6 +792,7 @@ export function mergeIpuProfile(profile, normalized, buildId) {
       chambers,
     },
     nextExpectedElections: normalized.nextExpectedElections,
+    parties: profile.parties ?? [],
     relations: profile.relations,
     ...(profile.territories && { territories: profile.territories }),
   };

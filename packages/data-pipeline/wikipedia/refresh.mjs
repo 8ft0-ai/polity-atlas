@@ -5,10 +5,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { mergeSourceRecords } from '../sources/registry.mjs';
-import {
-  applyCuratedOverrides,
-  hasCuratedOverrides,
-} from '../overrides/registry.mjs';
+import { applyCuratedOverrides } from '../overrides/registry.mjs';
 import { WikidataClient } from '../wikidata/client.mjs';
 import { WikipediaClient } from './client.mjs';
 import {
@@ -21,6 +18,14 @@ import {
   extractPoliticalCompositionViews,
   parseInfobox,
 } from './parse-infobox.mjs';
+import {
+  acquireLinkedPartySnapshot,
+  normalizeLinkedPartySnapshot,
+} from './party-acquisition.mjs';
+import {
+  associatePreparedParties,
+  validatePartyDataset,
+} from './party-association.mjs';
 
 const repositoryRoot = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -44,6 +49,7 @@ const legislatureDirectory = resolve(
   'public/data/legislatures',
 );
 const cacheDirectory = resolve(repositoryRoot, '.cache/wikipedia');
+const partyDirectory = resolve(repositoryRoot, 'public/data/parties');
 const manifestPath = resolve(repositoryRoot, 'public/data/manifest.json');
 const sourcesPath = resolve(repositoryRoot, 'public/data/sources.json');
 const formatterPath = resolve(repositoryRoot, 'node_modules/.bin/oxfmt');
@@ -216,9 +222,11 @@ if (onlyIso3 && !targets.length) {
 const client = new WikipediaClient();
 const wikidataClient = new WikidataClient();
 const existingSourceRegistry = await readJson(sourcesPath);
+const existingManifest = await readJson(manifestPath);
 const overrideRegistry = await readJson(overrideConfigPath);
 const emittedSources = [];
 const prepared = [];
+const preparedPartyDetails = new Map();
 
 for (const country of targets) {
   const outputPath =
@@ -237,12 +245,62 @@ for (const country of targets) {
   if (!fromCache) await writeJson(snapshotPath, snapshot);
 
   const normalized = normalizeWikipediaParliament(snapshot, previous);
-  const value = mergeWikipediaChambers(previous, normalized, buildId);
+  let value = mergeWikipediaChambers(previous, normalized, buildId);
   emittedSources.push(...normalized.sources);
+
+  const partySnapshotPath = resolve(
+    cacheDirectory,
+    'parties',
+    `${country.iso3}.json`,
+  );
+  let acquired;
+  if (fromCache) {
+    acquired = await readJsonIfPresent(partySnapshotPath);
+    if (!acquired) {
+      process.stderr.write(
+        `PARTY_CACHE_UNAVAILABLE:${country.iso3}; preserving existing verified party data\n`,
+      );
+    }
+  } else {
+    acquired = await acquireLinkedPartySnapshot(snapshot, client);
+    await writeJson(partySnapshotPath, acquired);
+  }
+
+  let partyDiagnostics = [];
+  if (acquired) {
+    const normalizedParties = normalizeLinkedPartySnapshot(snapshot, acquired);
+    const associationRegistry = {
+      schemaVersion: 1,
+      sources: mergeSourceRecords(
+        existingSourceRegistry.sources,
+        emittedSources,
+      ),
+    };
+    const association = associatePreparedParties(
+      value,
+      acquired,
+      normalizedParties,
+      associationRegistry,
+    );
+    value = association.profile;
+    emittedSources.push(...association.additionalSources);
+    for (const detail of association.partyDetails) {
+      const prior = preparedPartyDetails.get(detail.entityId);
+      if (prior && JSON.stringify(prior) !== JSON.stringify(detail)) {
+        throw new Error(`PARTY_PAGE_ID_CONFLICT:${detail.entityId}`);
+      }
+      preparedPartyDetails.set(detail.entityId, detail);
+    }
+    partyDiagnostics = [
+      ...normalizedParties.diagnostics,
+      ...association.diagnostics,
+    ];
+  }
   prepared.push({ country, mode: country.mode, outputPath, value });
 
-  const diagnosticSuffix = normalized.diagnostics.length
-    ? ` (${normalized.diagnostics.join(', ')})`
+  const diagnostics = [...normalized.diagnostics, ...partyDiagnostics];
+  const diagnosticSuffix = diagnostics.length
+    ? ` (${diagnostics.join(', ')})`
     : '';
   process.stdout.write(
     `Prepared ${country.iso3}: +${normalized.missingChambers.length} chamber(s), ${normalized.chamberCompositions.length} composition fallback(s), ${normalized.chamberVisuals.length} colour set(s)${diagnosticSuffix}\n`,
@@ -285,8 +343,6 @@ try {
       country,
       outputPath,
       stagedPath,
-      selected:
-        Boolean(candidate) || hasCuratedOverrides(overrideRegistry, target),
     });
   }
 
@@ -317,8 +373,6 @@ try {
       country,
       outputPath,
       stagedPath,
-      selected:
-        Boolean(candidate) || hasCuratedOverrides(overrideRegistry, target),
     });
   }
 
@@ -328,9 +382,62 @@ try {
     sources: mergedSources,
   });
 
+  const referencedPartyIds = new Set();
+  for (const entry of [...stagedProfiles, ...stagedLegislatures]) {
+    const profile = await readJson(entry.stagedPath);
+    for (const party of profile.parties ?? []) {
+      referencedPartyIds.add(party.entityId);
+    }
+  }
+  const existingPartyEntries = new Map(
+    (existingManifest.parties ?? []).map((entry) => [entry.entityId, entry]),
+  );
+  const stagedParties = [];
+  for (const entityId of [...referencedPartyIds].sort((left, right) =>
+    left.localeCompare(right),
+  )) {
+    const pageId = entityId.match(/^party:wikipedia:([1-9]\d*)$/)?.[1];
+    if (!pageId) throw new Error(`Invalid party entity ID: ${entityId}`);
+    const value =
+      preparedPartyDetails.get(entityId) ??
+      (existingPartyEntries.has(entityId)
+        ? await readJson(
+            resolve(
+              repositoryRoot,
+              'public/data',
+              existingPartyEntries.get(entityId).path,
+            ),
+          )
+        : undefined);
+    if (!value) throw new Error(`Missing party detail: ${entityId}`);
+    const stagedPath = resolve(
+      stagingDirectory,
+      'parties',
+      `wikipedia-en-${pageId}.json`,
+    );
+    await writeJson(stagedPath, value);
+    stagedParties.push({
+      entityId,
+      outputPath: resolve(partyDirectory, `wikipedia-en-${pageId}.json`),
+      stagedPath,
+      path: `parties/wikipedia-en-${pageId}.json`,
+    });
+  }
+
+  const allPartyDetails = await Promise.all(
+    stagedParties.map(({ stagedPath }) => readJson(stagedPath)),
+  );
+  const allProfiles = await Promise.all(
+    [...stagedProfiles, ...stagedLegislatures].map(({ stagedPath }) =>
+      readJson(stagedPath),
+    ),
+  );
+  validatePartyDataset(allProfiles, allPartyDetails, mergedSources);
+
   await execFileAsync(formatterPath, [
     ...stagedProfiles.map(({ stagedPath }) => stagedPath),
     ...stagedLegislatures.map(({ stagedPath }) => stagedPath),
+    ...stagedParties.map(({ stagedPath }) => stagedPath),
     stagedSourcesPath,
   ]);
 
@@ -362,14 +469,26 @@ try {
   manifestLegislatures.sort((left, right) =>
     left.iso3.localeCompare(right.iso3),
   );
+  const manifestParties = [];
+  const partyOutputs = new Map();
+  for (const entry of stagedParties) {
+    const output = await readFile(entry.stagedPath);
+    partyOutputs.set(entry.entityId, output);
+    manifestParties.push({
+      entityId: entry.entityId,
+      path: entry.path,
+      sha256: sha256(output),
+    });
+  }
   const sourcesOutput = await readFile(stagedSourcesPath);
   const stagedManifestPath = resolve(stagingDirectory, 'manifest.json');
   await writeJson(stagedManifestPath, {
-    schemaVersion: 5,
+    schemaVersion: 6,
     buildId,
     generatedAt: retrievedAt,
     profiles: manifestProfiles,
     legislatures: manifestLegislatures,
+    parties: manifestParties,
     sourceRegistry: {
       path: 'sources.json',
       sha256: sha256(sourcesOutput),
@@ -378,11 +497,11 @@ try {
   await execFileAsync(formatterPath, [stagedManifestPath]);
   const manifestOutput = await readFile(stagedManifestPath);
 
-  for (const entry of stagedProfiles.filter(({ selected }) => selected)) {
+  for (const entry of stagedProfiles) {
     await writeFile(entry.outputPath, profileOutputs.get(entry.country.iso3));
     process.stdout.write(`Updated ${entry.country.iso3}\n`);
   }
-  for (const entry of stagedLegislatures.filter(({ selected }) => selected)) {
+  for (const entry of stagedLegislatures) {
     await mkdir(dirname(entry.outputPath), { recursive: true });
     await writeFile(
       entry.outputPath,
@@ -390,8 +509,20 @@ try {
     );
     process.stdout.write(`Updated legislature ${entry.country.iso3}\n`);
   }
+  for (const entry of stagedParties) {
+    await mkdir(dirname(entry.outputPath), { recursive: true });
+    await writeFile(entry.outputPath, partyOutputs.get(entry.entityId));
+  }
   await writeFile(sourcesPath, sourcesOutput);
   await writeFile(manifestPath, manifestOutput);
+  const retainedPartyPaths = new Set(stagedParties.map((entry) => entry.path));
+  for (const entry of existingManifest.parties ?? []) {
+    if (!retainedPartyPaths.has(entry.path)) {
+      await rm(resolve(repositoryRoot, 'public/data', entry.path), {
+        force: true,
+      });
+    }
+  }
   process.stdout.write(
     `Updated manifest for ${manifestProfiles.length} full profiles and ${manifestLegislatures.length} legislature modules\n`,
   );

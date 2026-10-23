@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "buildId": "2026-09-19",
   "identity": {
     "entityId": "state:m49:364",
@@ -265,6 +265,7 @@
       }
     ]
   },
+  "parties": [],
   "nextExpectedElections": [
     {
       "id": "IR-LC01:2028-02-29",
