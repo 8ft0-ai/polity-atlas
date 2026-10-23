@@ -319,5 +319,30 @@ entity aborts preparation rather than producing a misleading review file.
 
 The command still supports `--from-cache` without a network request.
 Replay additionally reads the reviewed public profile and source registry,
-which must remain the same inputs for identical preview output. The preview
-is a prerequisite for the later atomic public publication step.
+which must remain the same inputs for identical preview output.
+
+### Published party data (Phase 4A, increment 4)
+
+The normal `data:refresh:wikipedia` command now performs linked-party
+acquisition, conservative association, validation and publication in the same
+run as chamber enrichment. `--country=ISO3` and `--from-cache` retain their
+existing meanings. Cache replay never requests party pages. If a party cache is
+absent, replay emits `PARTY_CACHE_UNAVAILABLE:<ISO3>` and preserves any existing
+verified party data; a fresh checkout therefore safely publishes zero party
+profiles rather than inventing facts.
+
+Full profiles use schema v6, legislature-only profiles use schema v2, and the
+manifest uses schema v6. Every profile has a `parties` summary collection.
+Verified detail records are written as
+`public/data/parties/wikipedia-en-<pageId>.json` and independently hashed in the
+manifest. Composition and election entries may reference a summary with
+`partyEntityId`, but exact chamber-link provenance remains required; IPU party
+name similarity alone is not sufficient.
+
+All country, legislature, party, source-registry and manifest output is built
+in a temporary staging tree. Party cross-references, source IDs, page identity,
+position ranges and HTTPS URLs are validated before public files are replaced.
+Partial refreshes preserve unrelated profiles and details, while details no
+longer referenced by any profile are removed after the new manifest is in
+place. The IPU refresh also carries existing verified party data through its
+own staged manifest rebuild.

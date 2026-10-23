@@ -5,6 +5,7 @@ import {
 } from './party-acquisition.mjs';
 import {
   associatePreparedParties,
+  validatePartyDataset,
   validatePartyPublication,
 } from './party-association.mjs';
 
@@ -68,7 +69,7 @@ const snapshot = {
 
 function profile() {
   return {
-    schemaVersion: 5,
+    schemaVersion: 6,
     buildId: '2026-10-22',
     identity: { iso3: 'EXA' },
     parliament: {
@@ -96,6 +97,7 @@ function profile() {
         },
       ],
     },
+    parties: [],
   };
 }
 
@@ -297,6 +299,27 @@ describe('Phase 4A sourced party association', () => {
     ).toThrow('unknown source');
   });
 
+  it('blocks malformed party detail records before publication', async () => {
+    const { acquired, prepared } = await preparation();
+    const result = associatePreparedParties(
+      profile(),
+      acquired,
+      prepared,
+      registry(),
+    );
+    const sources = [...registry().sources, ...result.additionalSources];
+    result.partyDetails[0].facts[0].values = [];
+    expect(() =>
+      validatePartyPublication(result.profile, result.partyDetails, sources),
+    ).toThrow('malformed fact');
+
+    result.partyDetails[0].facts[0].values = ['1980'];
+    result.partyDetails[0].schemaVersion = 2;
+    expect(() =>
+      validatePartyPublication(result.profile, result.partyDetails, sources),
+    ).toThrow('identity mismatch');
+  });
+
   it('rejects generic party labels injected with entity links', async () => {
     const { acquired, prepared } = await preparation();
     const result = associatePreparedParties(
@@ -313,5 +336,80 @@ describe('Phase 4A sourced party association', () => {
         ...result.additionalSources,
       ]),
     ).toThrow('Generic entry was linked');
+  });
+
+  it('rejects malformed position ranges and stale profile schemas', async () => {
+    const { acquired, prepared } = await preparation();
+    const result = associatePreparedParties(
+      profile(),
+      acquired,
+      prepared,
+      registry(),
+    );
+    const sources = [...registry().sources, ...result.additionalSources];
+    result.profile.parties[0].position = {
+      ...result.profile.parties[0].position,
+      from: 'right',
+      to: 'left',
+    };
+    expect(() =>
+      validatePartyPublication(result.profile, result.partyDetails, sources),
+    ).toThrow('invalid or reversed scale range');
+
+    result.profile.schemaVersion = 5;
+    expect(() =>
+      validatePartyPublication(result.profile, result.partyDetails, sources),
+    ).toThrow('active public schema version');
+  });
+
+  it('validates partial-refresh datasets and rejects cross-profile source ID conflicts', async () => {
+    const { acquired, prepared } = await preparation();
+    const result = associatePreparedParties(
+      profile(),
+      acquired,
+      prepared,
+      registry(),
+    );
+    const sources = [...registry().sources, ...result.additionalSources];
+    const untouched = {
+      schemaVersion: 6,
+      identity: { iso3: 'OTH' },
+      parliament: { chambers: [] },
+      parties: [],
+    };
+    expect(
+      validatePartyDataset(
+        [result.profile, untouched],
+        result.partyDetails,
+        sources,
+      ),
+    ).toBe(true);
+
+    const alphaProfile = structuredClone(result.profile);
+    alphaProfile.parties = [structuredClone(result.profile.parties[0])];
+    alphaProfile.parliament.chambers[0].composition.entries = [
+      structuredClone(
+        result.profile.parliament.chambers[0].composition.entries[0],
+      ),
+    ];
+    const betaProfile = structuredClone(result.profile);
+    betaProfile.identity.iso3 = 'EXB';
+    betaProfile.parties = [structuredClone(result.profile.parties[1])];
+    betaProfile.parties[0].sourcePartyIds = ['wiki-alpha'];
+    betaProfile.parliament.chambers[0].composition.entries = [
+      {
+        ...structuredClone(
+          result.profile.parliament.chambers[0].composition.entries[1],
+        ),
+        partyId: 'wiki-alpha',
+      },
+    ];
+    expect(() =>
+      validatePartyDataset(
+        [alphaProfile, betaProfile],
+        result.partyDetails,
+        sources,
+      ),
+    ).toThrow('Source party ID links to multiple entities');
   });
 });

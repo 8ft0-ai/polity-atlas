@@ -20,10 +20,12 @@ import usa from '@/public/data/countries/USA.json';
 import {
   chamberSchema,
   countryProfileSchema,
+  dataManifestSchema,
   legislatureProfileSchema,
   type ParliamentaryChamber,
   sourceRegistrySchema,
 } from './country';
+import { partyProfileSchema } from './party';
 
 const pilotProfiles = [aus, nzl, can, usa, gbr, fra, chn, ind, idn, jpn];
 const legislaturePilots = [irn, sau, mmr];
@@ -469,34 +471,59 @@ describe('country profile contract', () => {
   });
 
   it('publishes ten full profiles and three legislature modules in a deterministic, hash-backed manifest', () => {
-    expect(manifest.schemaVersion).toBe(5);
-    expect(manifest.profiles).toHaveLength(10);
-    expect(manifest.legislatures).toHaveLength(3);
-    expect(manifest.legislatures.map((entry) => entry.iso3)).toEqual([
+    const parsedManifest = dataManifestSchema.parse(manifest);
+    expect(parsedManifest.schemaVersion).toBe(6);
+    expect(parsedManifest.profiles).toHaveLength(10);
+    expect(parsedManifest.legislatures).toHaveLength(3);
+    expect(parsedManifest.parties).toEqual([]);
+    expect(parsedManifest.legislatures.map((entry) => entry.iso3)).toEqual([
       'IRN',
       'MMR',
       'SAU',
     ]);
-    expect(manifest.profiles.map((profile) => profile.iso3)).toEqual(
+    expect(parsedManifest.profiles.map((profile) => profile.iso3)).toEqual(
       [...pilotProfiles]
         .map((profile) => profile.identity.iso3)
         .sort((left, right) => left.localeCompare(right)),
     );
 
     const sourceContent = readFileSync(
-      resolve(process.cwd(), 'public/data', manifest.sourceRegistry.path),
+      resolve(process.cwd(), 'public/data', parsedManifest.sourceRegistry.path),
     );
     expect(createHash('sha256').update(sourceContent).digest('hex')).toBe(
-      manifest.sourceRegistry.sha256,
+      parsedManifest.sourceRegistry.sha256,
     );
 
-    for (const entry of [...manifest.profiles, ...manifest.legislatures]) {
+    for (const entry of [
+      ...parsedManifest.profiles,
+      ...parsedManifest.legislatures,
+      ...parsedManifest.parties,
+    ]) {
       const content = readFileSync(
         resolve(process.cwd(), 'public/data', entry.path),
       );
       expect(createHash('sha256').update(content).digest('hex')).toBe(
         entry.sha256,
       );
+      if ('entityId' in entry) {
+        const detail = partyProfileSchema.parse(JSON.parse(content.toString()));
+        expect(detail.entityId).toBe(entry.entityId);
+      }
     }
+  });
+
+  it('rejects party manifest paths that disagree with stable entity IDs', () => {
+    expect(() =>
+      dataManifestSchema.parse({
+        ...manifest,
+        parties: [
+          {
+            entityId: 'party:wikipedia:123',
+            path: 'parties/wikipedia-en-456.json',
+            sha256: '0'.repeat(64),
+          },
+        ],
+      }),
+    ).toThrow('Party manifest path must match its entity ID');
   });
 });

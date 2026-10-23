@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "buildId": "2026-09-19",
   "identity": {
     "iso2": "JP",
@@ -641,6 +641,7 @@
       "sourceIds": ["ipu-parline"]
     }
   ],
+  "parties": [],
   "relations": [
     {
       "country": "Australia",

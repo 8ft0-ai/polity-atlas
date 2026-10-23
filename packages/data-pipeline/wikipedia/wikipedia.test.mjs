@@ -102,7 +102,7 @@ function lordsGroupsRow() {
 
 function profile(chambers = []) {
   return {
-    schemaVersion: 5,
+    schemaVersion: 6,
     buildId: '2026-09-19',
     identity: {
       iso2: 'EX',
@@ -557,6 +557,42 @@ describe('Wikipedia chamber fallback', () => {
       id: 'EX-LC01',
       composition: { reportedSeats: 580 },
     });
+  });
+
+  it('preserves verified party references when replay has no party cache', () => {
+    const current = profile([
+      ipuChamber({
+        id: 'EX-LC01',
+        name: 'Assembly',
+        kind: 'unicameral',
+        totalSeats: 12,
+      }),
+    ]);
+    const sourceSnapshot = snapshot({
+      houses: [
+        {
+          name: 'Assembly',
+          title: 'Assembly',
+          seats: 12,
+          kind: 'unicameral',
+          compositionHtml:
+            '<tr><th>Political groups</th><td><ul><li><a href="./Alpha_Party">Alpha Party</a> (12)</li></ul></td></tr>',
+        },
+      ],
+    });
+    const normalized = normalizeWikipediaParliament(sourceSnapshot, current);
+    const first = mergeWikipediaChambers(current, normalized, '2026-09-19');
+    first.parliament.chambers[0].composition.entries[0].partyEntityId =
+      'party:wikipedia:21';
+
+    const replayed = mergeWikipediaChambers(
+      first,
+      normalizeWikipediaParliament(sourceSnapshot, first),
+      '2026-09-19',
+    );
+    expect(
+      replayed.parliament.chambers[0].composition.entries[0].partyEntityId,
+    ).toBe('party:wikipedia:21');
   });
 
   it('does not replace an IPU-backed membership composition with Wikipedia', () => {

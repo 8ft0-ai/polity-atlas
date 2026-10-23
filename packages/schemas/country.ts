@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { partySummarySchema } from './party';
 
 export const factSchema = <T extends z.ZodType>(value: T) =>
   z.object({
@@ -35,6 +36,7 @@ const seatVisualSchema = z.object({
 
 export const electionPartyResultSchema = z.object({
   partyId: z.string(),
+  partyEntityId: z.string().min(1).optional(),
   party: z.string(),
   seats: z.number().int().nonnegative(),
   visual: seatVisualSchema.optional(),
@@ -354,16 +356,76 @@ export const sourceRegistrySchema = z
     });
   });
 
+const manifestFileSchema = z.object({
+  path: z.string().min(1),
+  sha256: z.string().regex(/^[0-9a-f]{64}$/),
+});
+
+export const dataManifestSchema = z
+  .object({
+    schemaVersion: z.literal(6),
+    buildId: z.string().min(1),
+    generatedAt: z.iso.datetime(),
+    profiles: z.array(
+      manifestFileSchema.extend({
+        iso3: z.string().length(3),
+      }),
+    ),
+    legislatures: z.array(
+      manifestFileSchema.extend({
+        iso3: z.string().length(3),
+      }),
+    ),
+    parties: z.array(
+      manifestFileSchema.extend({
+        entityId: z.string().regex(/^party:wikipedia:[1-9]\d*$/),
+        path: z.string().regex(/^parties\/wikipedia-en-[1-9]\d*\.json$/),
+      }),
+    ),
+    sourceRegistry: manifestFileSchema,
+  })
+  .superRefine((manifest, ctx) => {
+    const paths = new Set<string>();
+    for (const [collectionName, collection] of [
+      ['profiles', manifest.profiles],
+      ['legislatures', manifest.legislatures],
+      ['parties', manifest.parties],
+    ] as const) {
+      collection.forEach((entry, index) => {
+        if (paths.has(entry.path)) {
+          ctx.addIssue({
+            code: 'custom',
+            message: `Duplicate manifest path: ${entry.path}`,
+            path: [collectionName, index, 'path'],
+          });
+        }
+        paths.add(entry.path);
+      });
+    }
+    manifest.parties.forEach((entry, index) => {
+      const entityPageId = entry.entityId.slice('party:wikipedia:'.length);
+      const pathPageId = entry.path.match(/wikipedia-en-(\d+)\.json$/)?.[1];
+      if (entityPageId !== pathPageId) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Party manifest path must match its entity ID',
+          path: ['parties', index, 'path'],
+        });
+      }
+    });
+  });
+
 export const legislatureSchema = z.object({
   parliament: z.object({
     name: factSchema(z.string()),
     chambers: z.array(chamberSchema),
   }),
   nextExpectedElections: z.array(expectedElectionSchema),
+  parties: z.array(partySummarySchema),
 });
 
 export const legislatureProfileSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   buildId: z.string(),
   identity: z.object({
     entityId: z.string(),
@@ -376,7 +438,7 @@ export const legislatureProfileSchema = z.object({
 });
 
 export const countryProfileSchema = z.object({
-  schemaVersion: z.literal(5),
+  schemaVersion: z.literal(6),
   buildId: z.string(),
   identity: z.object({
     iso2: z.string().length(2),
@@ -410,6 +472,7 @@ export const countryProfileSchema = z.object({
     chambers: z.array(chamberSchema),
   }),
   nextExpectedElections: z.array(expectedElectionSchema),
+  parties: z.array(partySummarySchema),
   relations: z.array(
     z.object({
       country: z.string(),
@@ -444,6 +507,7 @@ export type CountryProfile = z.infer<typeof countryProfileSchema>;
 export type LegislatureProfile = z.infer<typeof legislatureProfileSchema>;
 export type SourceRecord = z.infer<typeof sourceSchema>;
 export type SourceRegistry = z.infer<typeof sourceRegistrySchema>;
+export type DataManifest = z.infer<typeof dataManifestSchema>;
 export type ParliamentaryChamber = z.infer<typeof chamberSchema>;
 export type ElectionPartyResult = z.infer<typeof electionPartyResultSchema>;
 export type ChamberCompositionEntry = z.infer<

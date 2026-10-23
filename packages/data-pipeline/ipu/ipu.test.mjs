@@ -531,8 +531,21 @@ describe('IPU normalisation', () => {
       '2026-09-18',
     );
     expect(() => countryProfileSchema.parse(profile)).not.toThrow();
-    expect(profile.schemaVersion).toBe(5);
+    expect(profile.schemaVersion).toBe(6);
     expect(profile).not.toHaveProperty('sources');
+  });
+
+  it('preserves verified election party references across IPU replay', () => {
+    const normalized = normalizeIpuSnapshot(snapshot);
+    const previous = mergeIpuProfile(previousProfile, normalized, '2026-09-18');
+    previous.parliament.chambers[0].latestElection.outcome.seatsWonInElection[0].partyEntityId =
+      'party:wikipedia:21';
+
+    const replayed = mergeIpuProfile(previous, normalized, '2026-09-19');
+    expect(
+      replayed.parliament.chambers[0].latestElection.outcome
+        .seatsWonInElection[0].partyEntityId,
+    ).toBe('party:wikipedia:21');
   });
 });
 

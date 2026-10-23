@@ -844,6 +844,54 @@ export function mergeWikipediaChambers(profile, normalized, buildId) {
     ]),
   );
 
+  const previousPartyEntities = new Map(
+    profile.parliament.chambers.map((chamber) => {
+      const entries = [
+        ...(chamber.composition
+          ? 'views' in chamber.composition
+            ? chamber.composition.views.flatMap((view) => view.entries)
+            : chamber.composition.entries
+          : []),
+        ...(chamber.latestElection?.outcome?.seatsWonInElection ?? []),
+        ...(chamber.latestElection?.outcome?.postElectionComposition ?? []),
+      ];
+      return [
+        chamber.id,
+        new Map(
+          entries
+            .filter((entry) => entry.partyEntityId)
+            .map((entry) => [entry.partyId, entry.partyEntityId]),
+        ),
+      ];
+    }),
+  );
+
+  function preservePartyEntities(results, chamberId) {
+    const byParty = previousPartyEntities.get(chamberId);
+    if (!results?.length || !byParty?.size) return results;
+    return results.map((result) =>
+      byParty.has(result.partyId)
+        ? { ...result, partyEntityId: byParty.get(result.partyId) }
+        : result,
+    );
+  }
+
+  function preserveCompositionPartyEntities(composition, chamberId) {
+    if (!composition) return composition;
+    return 'views' in composition
+      ? {
+          ...composition,
+          views: composition.views.map((view) => ({
+            ...view,
+            entries: preservePartyEntities(view.entries, chamberId),
+          })),
+        }
+      : {
+          ...composition,
+          entries: preservePartyEntities(composition.entries, chamberId),
+        };
+  }
+
   function applyVisuals(results, chamberId) {
     const byParty = visuals.get(chamberId);
     if (!results?.length || !byParty) return results;
@@ -882,23 +930,38 @@ export function mergeWikipediaChambers(profile, normalized, buildId) {
       !next.composition &&
       compositions.has(next.id)
     ) {
-      next.composition = compositions.get(next.id);
+      next.composition = preserveCompositionPartyEntities(
+        compositions.get(next.id),
+        next.id,
+      );
     }
     return next;
   });
 
   return {
     ...profile,
-    schemaVersion: 'government' in profile ? 5 : 1,
+    schemaVersion: 'government' in profile ? 6 : 2,
     buildId,
     parliament: {
       ...profile.parliament,
-      chambers: [...enrichedChambers, ...normalized.missingChambers].sort(
+      chambers: [
+        ...enrichedChambers,
+        ...normalized.missingChambers.map((chamber) => ({
+          ...chamber,
+          ...(chamber.composition && {
+            composition: preserveCompositionPartyEntities(
+              chamber.composition,
+              chamber.id,
+            ),
+          }),
+        })),
+      ].sort(
         (left, right) =>
           order[left.kind] - order[right.kind] ||
           left.name.localeCompare(right.name),
       ),
     },
+    parties: profile.parties ?? [],
   };
 }
 
