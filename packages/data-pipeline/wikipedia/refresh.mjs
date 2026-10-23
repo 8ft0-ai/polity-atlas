@@ -24,7 +24,7 @@ import {
   normalizeLinkedPartySnapshot,
 } from './party-acquisition.mjs';
 import {
-  discoverPartyIdentities,
+  discoverAllPartyIdentities,
   validatePartyDiscovery,
 } from './party-identity.mjs';
 import {
@@ -291,7 +291,7 @@ for (const country of targets) {
     );
     const discovery = fromCache
       ? await readJsonIfPresent(discoveryPath)
-      : await discoverPartyIdentities(snapshot, value, client, wikidataClient, {
+      : await discoverAllPartyIdentities(snapshot, value, client, wikidataClient, {
           mappings: partyAliasRegistry.mappings,
           knownEvidence: normalized.partyIdentityEvidence,
         });
