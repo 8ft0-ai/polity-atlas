@@ -375,6 +375,69 @@ function extractChamberVisualObservations(candidate, chamber) {
   return [...observations.values()];
 }
 
+/**
+ * Produce identity evidence only when an authoritative IPU party name matches
+ * exactly one *linked* party leaf in its already matched Wikipedia chamber.
+ * Never promote the fuzzy/colour fallback used for visual presentation into
+ * a political-party identity, and never use links on aggregate headings.
+ */
+function strictPartyLabel(value) {
+  return String(value ?? '')
+    .normalize('NFKC')
+    .replace(/\\s+\\([A-Z][A-Z0-9.-]{1,8}\\)\\s*$/, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function extractIpuPartyIdentityEvidence(candidate, chamber) {
+  const entries = (candidate.compositionViews ?? [])
+    .filter((view) => view.dimension === 'party')
+    .flatMap((view) => view.entries)
+    .filter(
+      (entry) =>
+        entry.articleTitle &&
+        !isGenericPoliticalLabel(entry.party) &&
+        !isGenericPoliticalLabel(entry.articleTitle),
+    );
+  if (!entries.length || !chamber.latestElection?.outcome) return [];
+
+  const byPartyId = new Map();
+  const rows = [
+    ...(chamber.latestElection.outcome.seatsWonInElection ?? []),
+    ...(chamber.latestElection.outcome.postElectionComposition ?? []),
+  ];
+  for (const result of rows) {
+    if (isGenericPoliticalLabel(result.party)) continue;
+    const key = strictPartyLabel(result.party);
+    if (!key) continue;
+    const matchedTitles = new Set(
+      entries
+        .filter((entry) =>
+          [entry.party, entry.articleTitle].some(
+            (label) => strictPartyLabel(label) === key,
+          ),
+        )
+        .map((entry) => entry.articleTitle),
+    );
+    if (matchedTitles.size !== 1) continue;
+    const title = [...matchedTitles][0];
+    const existing = byPartyId.get(result.partyId);
+    if (existing && (existing.articleTitle !== title || existing.party !== result.party)) {
+      byPartyId.delete(result.partyId);
+      continue;
+    }
+    byPartyId.set(result.partyId, {
+      chamberId: chamber.id,
+      partyId: result.partyId,
+      party: result.party,
+      articleTitle: title,
+      sourcePageId: candidate.pageId,
+    });
+  }
+  return [...byPartyId.values()];
+}
+
 function selectCanonicalVisual(visuals) {
   if (!visuals.length) return undefined;
   const colors = new Set(visuals.map((visual) => visual.color));
@@ -614,6 +677,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       missingChambers: [],
       chamberCompositions: [],
       chamberVisuals: [],
+      partyIdentityEvidence: [],
       sources: [],
       diagnostics: ['NO_WIKIPEDIA_LEGISLATURE_PAGE'],
     };
@@ -679,6 +743,15 @@ export function normalizeWikipediaParliament(snapshot, profile) {
       extractChamberVisualObservations(candidate, chamber),
     ),
   );
+  const partyIdentityEvidence = matchedCandidates
+    .flatMap(({ candidate, chamber }) =>
+      extractIpuPartyIdentityEvidence(candidate, chamber),
+    )
+    .sort(
+      (left, right) =>
+        left.chamberId.localeCompare(right.chamberId) ||
+        left.partyId.localeCompare(right.partyId),
+    );
 
   const chamberCompositions = matchedCandidates
     .filter(
@@ -755,6 +828,9 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     });
 
   const sourceIds = new Set([
+    ...partyIdentityEvidence.map(
+      (evidence) => 'wikipedia-en-page-' + evidence.sourcePageId,
+    ),
     ...missingChambers.flatMap((chamber) => chamber.sourceIds),
     ...missingChambers.flatMap((chamber) =>
       compositionSourceIds(chamber.composition),
@@ -820,6 +896,7 @@ export function normalizeWikipediaParliament(snapshot, profile) {
     missingChambers,
     chamberCompositions,
     chamberVisuals,
+    partyIdentityEvidence,
     sources,
     diagnostics,
   };
