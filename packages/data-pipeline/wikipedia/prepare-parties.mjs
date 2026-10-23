@@ -50,7 +50,12 @@ const sourcePath = resolve(cacheRoot, iso3 + '.json');
 const acquisitionPath = resolve(cacheRoot, 'parties', iso3 + '.json');
 const preparedPath = resolve(cacheRoot, 'parties', 'prepared', iso3 + '.json');
 const reviewPath = resolve(cacheRoot, 'parties', 'review', iso3 + '.json');
-const discoveryPath = resolve(cacheRoot, 'parties', 'discovery', iso3 + '.json');
+const discoveryPath = resolve(
+  cacheRoot,
+  'parties',
+  'discovery',
+  iso3 + '.json',
+);
 
 const sourceSnapshot = await readJson(sourcePath);
 if (sourceSnapshot.requestedCountry?.iso3 !== iso3) {
@@ -87,8 +92,13 @@ const discovery = fromCache
       new WikidataClient(),
       { mappings: aliasRegistry.mappings },
     );
-if (discovery) validatePartyDiscovery(sourceSnapshot, publishedProfile, discovery);
-const prepared = normalizeLinkedPartySnapshot(sourceSnapshot, acquired, discovery);
+if (discovery)
+  validatePartyDiscovery(sourceSnapshot, publishedProfile, discovery);
+const prepared = normalizeLinkedPartySnapshot(
+  sourceSnapshot,
+  acquired,
+  discovery,
+);
 const sourceRegistry = await readJson(
   resolve(root, 'public/data/sources.json'),
 );
