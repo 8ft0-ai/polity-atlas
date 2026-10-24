@@ -366,7 +366,8 @@
                   "color": "#F00011",
                   "method": "wikidata-p465",
                   "sourceIds": ["wikidata-item-q216082-p465"]
-                }
+                },
+                "partyEntityId": "party:wikipedia:1495"
               },
               {
                 "partyId": "au-uc01-e20250503-note-coalition-opposition",
@@ -483,7 +484,10 @@
     {
       "entityId": "party:wikipedia:1495",
       "displayName": "Australian Labor Party",
-      "sourcePartyIds": ["au-australian_labor_party_alp"],
+      "sourcePartyIds": [
+        "au-australian_labor_party_alp",
+        "au-uc01-e20250503-note-australian-labor-party-government"
+      ],
       "wikipedia": {
         "pageId": 1495,
         "title": "Australian Labor Party"
@@ -496,6 +500,7 @@
         "sourceIds": ["wikipedia-en-page-1495"]
       },
       "sourceIds": [
+        "ipu-parline",
         "wikipedia-en-page-1495",
         "wikipedia-en-page-165705",
         "wikipedia-en-page-61565"

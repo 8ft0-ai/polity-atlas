@@ -33,6 +33,138 @@
       "reviewer": "Polity Atlas source review",
       "reviewDate": "2026-10-24",
       "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "AUS",
+      "chamberId": "AU-UC01",
+      "partyId": "au-uc01-e20250503-note-australian-labor-party-government",
+      "partyName": "Australian Labor Party (government)",
+      "wikipediaTitle": "Australian Labor Party",
+      "reason": "The IPU Senate note's government role is a qualifier for the same Australian Labor Party already independently verified in the House as Wikipedia page 1495. Do not treat government as a distinct party.",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline", "wikipedia-en-page-1495"]
+    },
+    {
+      "countryIso3": "NZL",
+      "chamberId": "NZ-LC01",
+      "partyId": "nz-national_party",
+      "partyName": "National Party",
+      "wikipediaTitle": "New Zealand National Party",
+      "reason": "Verified New Zealand parliamentary National Party organisation and English Wikipedia party infobox",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "NZL",
+      "chamberId": "NZ-LC01",
+      "partyId": "nz-labour_party",
+      "partyName": "Labour Party",
+      "wikipediaTitle": "New Zealand Labour Party",
+      "reason": "Verified New Zealand parliamentary Labour Party organisation and English Wikipedia party infobox",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "NZL",
+      "chamberId": "NZ-LC01",
+      "partyId": "nz-green_party_0",
+      "partyName": "Green Party",
+      "wikipediaTitle": "Green Party of Aotearoa New Zealand",
+      "reason": "Official parliamentary Green Party organisation matches the party's full Wikipedia name",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "NZL",
+      "chamberId": "NZ-LC01",
+      "partyId": "nz-act_new_zealand",
+      "partyName": "ACT New Zealand",
+      "wikipediaTitle": "ACT New Zealand",
+      "reason": "Exact ACT New Zealand parliamentary party and Wikipedia political-party infobox",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "NZL",
+      "chamberId": "NZ-LC01",
+      "partyId": "nz-new_zealand_first",
+      "partyName": "New Zealand First",
+      "wikipediaTitle": "New Zealand First",
+      "reason": "Exact New Zealand First party identity from parliamentary records and Wikipedia",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "NZL",
+      "chamberId": "NZ-LC01",
+      "partyId": "nz-maori_party",
+      "partyName": "Maori Party",
+      "wikipediaTitle": "Te Pāti Māori",
+      "reason": "The Māori Party is currently registered as Te Pāti Māori, corroborated by Elections NZ and National Library",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "FRA",
+      "chamberId": "FR-LC01",
+      "partyId": "fr-national_rally_rn_",
+      "partyName": "National Rally (RN)",
+      "wikipediaTitle": "National Rally",
+      "reason": "RN is the abbreviation of France's National Rally party, corroborated by the party's Wikipedia infobox",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "FRA",
+      "chamberId": "FR-LC01",
+      "partyId": "fr-union-of-democrats-and-independents-(udi)",
+      "partyName": "Union of Democrats and Independents (UDI)",
+      "wikipediaTitle": "Union of Democrats and Independents",
+      "reason": "Exact French UDI party identity, distinct from the broader parliamentary group and alliance",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "IND",
+      "chamberId": "IN-LC01",
+      "partyId": "in-bharatiya_janata_party_bjp",
+      "partyName": "Bharatiya Janata Party (BJP)",
+      "wikipediaTitle": "Bharatiya Janata Party",
+      "reason": "Exact BJP Indian political-party identity with separately published Wikipedia article",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "IND",
+      "chamberId": "IN-LC01",
+      "partyId": "in-indian_national_congress_inc",
+      "partyName": "Indian National Congress (INC)",
+      "wikipediaTitle": "Indian National Congress",
+      "reason": "Exact INC Indian political-party identity with separately published Wikipedia article",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
+    },
+    {
+      "countryIso3": "IND",
+      "chamberId": "IN-LC01",
+      "partyId": "in-samajwadi_party_sp",
+      "partyName": "Samajwadi Party (SP)",
+      "wikipediaTitle": "Samajwadi Party",
+      "reason": "Exact Samajwadi Party (SP) identity verified against party website and Wikipedia article",
+      "reviewer": "Polity Atlas source review",
+      "reviewDate": "2026-10-24",
+      "sourceIds": ["ipu-parline"]
     }
   ]
 }

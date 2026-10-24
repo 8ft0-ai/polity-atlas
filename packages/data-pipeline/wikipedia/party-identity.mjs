@@ -144,7 +144,12 @@ export async function discoverPartyIdentities(
   profile,
   client,
   wikidataClient,
-  { mappings = [], maxRows = SEARCH_ROWS_LIMIT, knownEvidence = [] } = {},
+  {
+    mappings = [],
+    maxRows = SEARCH_ROWS_LIMIT,
+    offset = 0,
+    knownEvidence = [],
+  } = {},
 ) {
   const iso3 = snapshot.requestedCountry.iso3;
   if (iso3 !== profile.identity.iso3) {
@@ -164,12 +169,23 @@ export async function discoverPartyIdentities(
         entry.chamberId + '\u0000' + entry.partyId + '\u0000' + entry.party,
       ),
   );
+  if (
+    !Number.isSafeInteger(offset) ||
+    offset < 0 ||
+    !Number.isSafeInteger(maxRows) ||
+    maxRows < 1 ||
+    maxRows > SEARCH_ROWS_LIMIT
+  ) {
+    throw new Error('PARTY_DISCOVERY_BATCH_INVALID');
+  }
   const diagnostics = [];
   const observations = [];
-  if (rows.length > maxRows) {
-    diagnostics.push('PARTY_DISCOVERY_LIMIT_EXCEEDED:' + iso3);
+  if (offset + maxRows < rows.length) {
+    diagnostics.push(
+      'PARTY_DISCOVERY_MORE_BATCHES:' + iso3 + ':' + (offset + maxRows),
+    );
   }
-  const selected = rows.slice(0, maxRows);
+  const selected = rows.slice(offset, offset + maxRows);
   for (const row of selected) {
     const mapping = reviewed.find(
       (item) =>
@@ -264,6 +280,66 @@ export async function discoverPartyIdentities(
     countryIso3: iso3,
     countryName: snapshot.requestedCountry.name,
     retrievedAt: snapshot.retrievedAt,
+    offset,
+    totalRows: rows.length,
+    observations,
+    diagnostics: diagnostics.sort((a, b) => a.localeCompare(b)),
+  };
+}
+
+/**
+ * Complete deterministic coverage in bounded windows, preserving the row
+ * order and one observation per eligible IPU party. Never silently truncate
+ * the country at the first 24 parties.
+ */
+export async function discoverAllPartyIdentities(
+  snapshot,
+  profile,
+  client,
+  wikidataClient,
+  options = {},
+) {
+  const batchSize = options.maxRows ?? SEARCH_ROWS_LIMIT;
+  if (
+    !Number.isSafeInteger(batchSize) ||
+    batchSize < 1 ||
+    batchSize > SEARCH_ROWS_LIMIT
+  ) {
+    throw new Error('PARTY_DISCOVERY_BATCH_INVALID');
+  }
+  const observations = [];
+  const diagnostics = [];
+  let totalRows;
+  for (
+    let offset = 0;
+    totalRows === undefined || offset < totalRows;
+    offset += batchSize
+  ) {
+    const batch = await discoverPartyIdentities(
+      snapshot,
+      profile,
+      client,
+      wikidataClient,
+      { ...options, maxRows: batchSize, offset },
+    );
+    if (totalRows !== undefined && totalRows !== batch.totalRows) {
+      throw new Error('PARTY_DISCOVERY_BATCH_DRIFT');
+    }
+    totalRows = batch.totalRows;
+    observations.push(...batch.observations);
+    diagnostics.push(
+      ...batch.diagnostics.filter(
+        (message) => !message.startsWith('PARTY_DISCOVERY_MORE_BATCHES:'),
+      ),
+    );
+  }
+  return {
+    schemaVersion: 1,
+    countryIso3: snapshot.requestedCountry.iso3,
+    countryName: snapshot.requestedCountry.name,
+    retrievedAt: snapshot.retrievedAt,
+    offset: 0,
+    totalRows,
     observations,
     diagnostics: diagnostics.sort((a, b) => a.localeCompare(b)),
   };
@@ -280,7 +356,11 @@ export function validatePartyDiscovery(snapshot, profile, discovery) {
     discovery.countryName !== snapshot.requestedCountry.name ||
     discovery.retrievedAt !== snapshot.retrievedAt ||
     discovery.countryIso3 !== profile.identity.iso3 ||
-    !Array.isArray(discovery.observations)
+    !Array.isArray(discovery.observations) ||
+    !Number.isSafeInteger(discovery.offset) ||
+    discovery.offset < 0 ||
+    !Number.isSafeInteger(discovery.totalRows) ||
+    discovery.totalRows < 0
   ) {
     throw new Error('PARTY_DISCOVERY_CACHE_MISMATCH');
   }
@@ -290,6 +370,12 @@ export function validatePartyDiscovery(snapshot, profile, discovery) {
       row.party,
     ]),
   );
+  if (
+    discovery.totalRows > rows.size ||
+    discovery.observations.length > discovery.totalRows
+  ) {
+    throw new Error('PARTY_DISCOVERY_CACHE_MISMATCH');
+  }
   const seen = new Set();
   for (const item of discovery.observations) {
     const key = item.chamberId + '\u0000' + item.partyId;

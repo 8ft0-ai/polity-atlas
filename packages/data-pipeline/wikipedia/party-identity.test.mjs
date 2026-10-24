@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   discoverPartyIdentities,
+  discoverAllPartyIdentities,
   ipuPartyRows,
   isPartyDiscoveryExcluded,
   validatePartyDiscovery,
@@ -450,6 +451,34 @@ describe('Phase 4 PR1 party identity discovery', () => {
     expect(discovery.observations).toHaveLength(1);
   });
 
+  it('visits every IPU identity across bounded ordered batches', async () => {
+    const parties = Array.from({ length: 27 }, (_, index) => [
+      'source-party-' + index,
+      'Verified Party ' + index,
+      'HOUSE',
+    ]);
+    const { snapshot, profile } = setup({ parties });
+    const client = fakeClient({}, []);
+    const discovery = await discoverAllPartyIdentities(
+      snapshot,
+      profile,
+      client,
+      missingWikidata,
+      { maxRows: 10 },
+    );
+    expect(discovery.totalRows).toBe(27);
+    expect(discovery.offset).toBe(0);
+    expect(discovery.observations).toHaveLength(27);
+    expect(
+      new Set(discovery.observations.map((entry) => entry.partyId)).size,
+    ).toBe(27);
+    expect(client.searchPages).toHaveBeenCalledTimes(27);
+    expect(discovery.diagnostics).not.toContain(
+      'PARTY_DISCOVERY_LIMIT_EXCEEDED:USA',
+    );
+    validatePartyDiscovery(snapshot, profile, discovery);
+  });
+
   it('bounds discovery work and rejects mismatched offline cache or aliases', async () => {
     const { snapshot, profile } = setup();
     const client = fakeClient({}, []);
@@ -462,7 +491,7 @@ describe('Phase 4 PR1 party identity discovery', () => {
     );
     expect(discovery.observations).toHaveLength(1);
     expect(discovery.diagnostics).toContain(
-      'PARTY_DISCOVERY_LIMIT_EXCEEDED:USA',
+      'PARTY_DISCOVERY_MORE_BATCHES:USA:1',
     );
     expect(() =>
       validatePartyDiscovery(

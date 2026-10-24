@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { WikipediaClient } from './client.mjs';
 import { WikidataClient } from '../wikidata/client.mjs';
 import {
-  discoverPartyIdentities,
+  discoverAllPartyIdentities,
   validatePartyDiscovery,
 } from './party-identity.mjs';
 import { associatePreparedParties } from './party-association.mjs';
@@ -85,7 +85,7 @@ if (aliasRegistry.schemaVersion !== 1) {
 }
 const discovery = fromCache
   ? await readJsonIfPresent(discoveryPath)
-  : await discoverPartyIdentities(
+  : await discoverAllPartyIdentities(
       sourceSnapshot,
       publishedProfile,
       client,
