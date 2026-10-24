@@ -26,7 +26,9 @@ describe('source-backed composite representation detail', () => {
       'Liberal National Party of Queensland',
       'Country Liberal Party',
     ]);
-    expect(detail?.membershipEvidence[0].url).toMatch(/^https:\/\/www.pbo.gov.au\//);
+    expect(detail?.membershipEvidence[0].url).toMatch(
+      /^https:\/\/www.pbo.gov.au\//,
+    );
     expect(detail?.members.every((member) => !('seats' in member))).toBe(true);
     expect(detail).not.toHaveProperty('position');
   });
@@ -60,14 +62,18 @@ describe('source-backed composite representation detail', () => {
 
   it('shows unresolved alliances and parliamentary groups without guessing members', () => {
     const alliance = representationDetailFor(
-      france, 'FR-LC01', 'fr-ensemble_presidential_majority_',
+      france,
+      'FR-LC01',
+      'fr-ensemble_presidential_majority_',
     );
     expect(alliance?.seats).toBe(150);
     expect(alliance?.members).toEqual([]);
     expect(alliance?.membershipEvidence).toEqual([]);
 
     const group = representationDetailFor(
-      france, 'FR-UC01', 'wiki-567323-ungrouped-lr-1',
+      france,
+      'FR-UC01',
+      'wiki-567323-ungrouped-lr-1',
     );
     expect(group?.kind).toBe('parliamentary-group');
     expect(group?.seats).toBe(124);
@@ -80,7 +86,11 @@ describe('source-backed composite representation detail', () => {
       representationDetailFor(france, 'FR-LC01', 'fr-other_parties_right_dvd'),
     ).toBeUndefined();
     expect(
-      representationDetailFor(australia, 'AU-LC01', 'au-australian_labor_party_alp'),
+      representationDetailFor(
+        australia,
+        'AU-LC01',
+        'au-australian_labor_party_alp',
+      ),
     ).toBeUndefined();
     expect(
       representationDetailFor(france, 'FR-LC01', 'wiki-567323-ungrouped-lr-1'),
