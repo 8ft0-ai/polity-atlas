@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "representations": [
+    {
+      "countryIso3": "AUS",
+      "chamberId": "AU-LC01",
+      "partyId": "au-liberal_national_coalition",
+      "kind": "coalition",
+      "members": [
+        {
+          "name": "Liberal Party of Australia"
+        },
+        {
+          "name": "The Nationals"
+        },
+        {
+          "name": "Liberal National Party of Queensland"
+        },
+        {
+          "name": "Country Liberal Party"
+        }
+      ],
+      "evidence": [
+        {
+          "title": "Parliamentary Budget Office — 2025 election commitments report methodology",
+          "url": "https://www.pbo.gov.au/elections/2025-general-election/2025-election-commitments-report/report-requirements-and-methodology/legislative-requirements-and-consultation-processes"
+        }
+      ],
+      "context": "The Parliamentary Budget Office treats these parties together as the Coalition for its 2025 election reporting. Membership evidence is separate from the IPU aggregate seat count."
+    },
+    {
+      "countryIso3": "AUS",
+      "chamberId": "AU-UC01",
+      "partyId": "au-uc01-e20250503-note-coalition-opposition",
+      "kind": "coalition",
+      "members": [
+        {
+          "name": "Liberal Party of Australia"
+        },
+        {
+          "name": "The Nationals"
+        },
+        {
+          "name": "Liberal National Party of Queensland"
+        },
+        {
+          "name": "Country Liberal Party"
+        }
+      ],
+      "evidence": [
+        {
+          "title": "Parliamentary Education Office — composition of the Australian Parliament",
+          "url": "https://peo.gov.au/understand-our-parliament/parliament-and-its-people/people-in-parliament/whos-who-in-the-current-parliament"
+        }
+      ],
+      "context": "The Parliamentary Education Office lists these separate party affiliations within the Senate opposition. Its observation date may differ from the reported IPU post-election composition."
+    },
+    {
+      "countryIso3": "FRA",
+      "chamberId": "FR-LC01",
+      "partyId": "fr-new-popular-front-(nfp)-ug",
+      "kind": "electoral-alliance",
+      "members": [
+        {
+          "name": "La France Insoumise"
+        },
+        {
+          "name": "Socialist Party",
+          "partyEntityId": "party:wikipedia:39565408"
+        },
+        {
+          "name": "The Ecologists"
+        },
+        {
+          "name": "French Communist Party"
+        }
+      ],
+      "evidence": [
+        {
+          "title": "UK House of Commons Library — France and the 2024 National Assembly elections",
+          "url": "https://researchbriefings.files.parliament.uk/documents/CBP-10112/CBP-10112.pdf"
+        }
+      ],
+      "context": "These parties formed the electoral alliance for the 2024 legislative election. Party-level seat distribution is not derivable from the aggregate IPU entry."
+    }
+  ]
+}
