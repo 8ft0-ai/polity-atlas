@@ -18,10 +18,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Temporary Phase 4 PR B exact formatter patch
-        run: |
-          npx oxfmt components/country-panel.test.tsx components/details/representation-detail-panel.tsx lib/representation-details.test.ts lib/representation-details.ts lib/workspace-store.test.ts
-          git diff -- components/country-panel.test.tsx components/details/representation-detail-panel.tsx lib/representation-details.test.ts lib/representation-details.ts lib/workspace-store.test.ts
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
