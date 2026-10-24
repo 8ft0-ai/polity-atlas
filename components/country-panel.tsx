@@ -4,7 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback, useRef, useState } from 'react';
 import { AlertTriangle, ExternalLink, X } from 'lucide-react';
 import { PartyDetailPanel } from '@/components/details/party-detail-panel';
+import { RepresentationDetailPanel } from '@/components/details/representation-detail-panel';
 import { PartyPosition } from '@/components/legislature/party-position';
+import { representationDetailFor } from '@/lib/representation-details';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -174,6 +176,7 @@ function SeatBar({
   label,
   parties,
   onOpenParty,
+  onOpenRepresentation,
 }: {
   entries: Array<{
     partyId: string;
@@ -197,6 +200,7 @@ function SeatBar({
   label: string;
   parties: PartySummary[];
   onOpenParty: (entityId: string, trigger: HTMLButtonElement) => void;
+  onOpenRepresentation: (partyId: string, trigger: HTMLButtonElement) => void;
 }) {
   const summaries = new Map(parties.map((party) => [party.entityId, party]));
   const seatSegments = entries.map((group, index) => {
@@ -270,6 +274,18 @@ function SeatBar({
                       className="block max-w-full truncate text-left font-medium text-foreground underline decoration-border underline-offset-2 hover:decoration-foreground focus-visible:rounded-sm focus-visible:outline-2"
                       onClick={(event) =>
                         onOpenParty(summary.entityId, event.currentTarget)
+                      }
+                    >
+                      {group.party}
+                    </button>
+                  ) : group.representationKind === 'coalition' ||
+                    group.representationKind === 'electoral-alliance' ||
+                    group.representationKind === 'parliamentary-group' ? (
+                    <button
+                      type="button"
+                      className="block max-w-full truncate text-left font-medium text-foreground underline decoration-border underline-offset-2 hover:decoration-foreground focus-visible:rounded-sm focus-visible:outline-2"
+                      onClick={(event) =>
+                        onOpenRepresentation(group.partyId, event.currentTarget)
                       }
                     >
                       {group.party}
@@ -505,12 +521,18 @@ function ElectionOutcome({
   buildId,
   parties,
   onOpenParty,
+  onOpenRepresentation,
 }: {
   chamber: CountryProfile['parliament']['chambers'][number];
   sources: SourceRecord[];
   buildId: string;
   parties: PartySummary[];
   onOpenParty: (entityId: string, trigger: HTMLButtonElement) => void;
+  onOpenRepresentation: (
+    chamberId: string,
+    partyId: string,
+    trigger: HTMLButtonElement,
+  ) => void;
 }) {
   const election = chamber.latestElection;
   const outcome = election?.outcome;
@@ -657,6 +679,9 @@ function ElectionOutcome({
             label={primary.label}
             parties={parties}
             onOpenParty={onOpenParty}
+            onOpenRepresentation={(partyId, trigger) =>
+              onOpenRepresentation(chamber.id, partyId, trigger)
+            }
           />
 
           {primary.kind === 'source-reported' && (
@@ -796,6 +821,7 @@ export function CountryPanel() {
     setActiveTab,
     clearCountry,
     openParty,
+    openRepresentation,
     clearDetail,
   } = useWorkspaceStore();
   const partyTriggerRef = useRef<HTMLButtonElement | null>(null);
@@ -844,6 +870,22 @@ export function CountryPanel() {
           (party) => party.entityId === detailSelection.entityId,
         )
       : undefined;
+  const selectedRepresentation =
+    detailSelection?.kind === 'representation' && profileQuery.data
+      ? representationDetailFor(
+          profileQuery.data,
+          detailSelection.chamberId,
+          detailSelection.partyId,
+        )
+      : undefined;
+
+  const handleOpenRepresentation = useCallback(
+    (chamberId: string, partyId: string, trigger: HTMLButtonElement) => {
+      partyTriggerRef.current = trigger;
+      openRepresentation(chamberId, partyId);
+    },
+    [openRepresentation],
+  );
 
   const handleOpenParty = useCallback(
     (entityId: string, trigger: HTMLButtonElement) => {
@@ -1049,6 +1091,7 @@ export function CountryPanel() {
                     buildId={profileQuery.data.buildId}
                     parties={profileQuery.data.parties}
                     onOpenParty={handleOpenParty}
+                    onOpenRepresentation={handleOpenRepresentation}
                   />
 
                   <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2">
@@ -1267,6 +1310,15 @@ export function CountryPanel() {
             </TabsContent>
           </div>
         </Tabs>
+      )}
+      {selectedRepresentation && (
+        <RepresentationDetailPanel
+          detail={selectedRepresentation}
+          sources={sources}
+          parties={profileQuery.data?.parties ?? []}
+          onOpenParty={handleOpenParty}
+          onClose={handleCloseDetail}
+        />
       )}
       {selectedParty && (
         <PartyDetailPanel party={selectedParty} onClose={handleCloseDetail} />
