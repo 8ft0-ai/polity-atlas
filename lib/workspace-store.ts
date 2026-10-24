@@ -7,10 +7,20 @@ export type CountryTab =
   | 'relations'
   | 'sources';
 
-export type DetailSelection = {
-  kind: 'party';
-  entityId: string;
-} | null;
+export type RepresentationSelection = {
+  kind: 'representation';
+  chamberId: string;
+  partyId: string;
+};
+
+export type DetailSelection =
+  | {
+      kind: 'party';
+      entityId: string;
+      returnTo?: RepresentationSelection;
+    }
+  | RepresentationSelection
+  | null;
 
 type WorkspaceState = {
   selectedEntityId: string | null;
@@ -22,6 +32,7 @@ type WorkspaceState = {
   clearCountry: () => void;
   setActiveTab: (tab: CountryTab) => void;
   openParty: (entityId: string) => void;
+  openRepresentation: (chamberId: string, partyId: string) => void;
   clearDetail: () => void;
 };
 
@@ -49,6 +60,22 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
     }),
   setActiveTab: (activeTab) => set({ activeTab, detailSelection: null }),
   openParty: (entityId) =>
-    set({ detailSelection: { kind: 'party', entityId } }),
-  clearDetail: () => set({ detailSelection: null }),
+    set((state) => ({
+      detailSelection: {
+        kind: 'party',
+        entityId,
+        ...(state.detailSelection?.kind === 'representation'
+          ? { returnTo: state.detailSelection }
+          : {}),
+      },
+    })),
+  openRepresentation: (chamberId, partyId) =>
+    set({ detailSelection: { kind: 'representation', chamberId, partyId } }),
+  clearDetail: () =>
+    set((state) => ({
+      detailSelection:
+        state.detailSelection?.kind === 'party'
+          ? (state.detailSelection.returnTo ?? null)
+          : null,
+    })),
 }));
