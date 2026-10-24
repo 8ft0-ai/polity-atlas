@@ -305,19 +305,27 @@ describe('CountryPanel', () => {
       name: 'Liberal National coalition',
     });
     fireEvent.click(coalition);
-    const panel = screen.getByRole('dialog', { name: 'Liberal National coalition' });
+    const panel = screen.getByRole('dialog', {
+      name: 'Liberal National coalition',
+    });
     expect(panel).toHaveTextContent('43 reported seats');
     expect(panel).toHaveTextContent('Liberal Party of Australia');
     expect(panel).toHaveTextContent('Liberal National Party of Queensland');
-    expect(panel).toHaveTextContent('No group-wide political position is calculated');
+    expect(panel).toHaveTextContent(
+      'No group-wide political position is calculated',
+    );
     expect(
       screen.getByRole('link', {
         name: /Parliamentary Budget Office.*2025 election commitments/,
       }),
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Back to country briefing' }));
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Back to country briefing' }),
+    );
     expect(screen.queryByRole('dialog')).toBeNull();
-    expect(screen.getByRole('button', { name: 'Liberal National coalition' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Liberal National coalition' }),
+    ).toBeInTheDocument();
   });
 
   it('navigates from a reviewed French alliance into a verified constituent party and back', async () => {
@@ -333,15 +341,18 @@ describe('CountryPanel', () => {
     fireEvent.click(
       await screen.findByRole('button', { name: 'New Popular Front (NFP)/UG' }),
     );
-    expect(screen.getByRole('dialog', { name: 'New Popular Front (NFP)/UG' }))
-      .toHaveTextContent('178 reported seats');
+    expect(
+      screen.getByRole('dialog', { name: 'New Popular Front (NFP)/UG' }),
+    ).toHaveTextContent('178 reported seats');
     expect(screen.getByText('La France Insoumise')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Socialist Party' }));
     expect(useWorkspaceStore.getState().detailSelection).toMatchObject({
       kind: 'party',
       entityId: 'party:wikipedia:39565408',
     });
-    fireEvent.click(screen.getByRole('button', { name: 'Back to country briefing' }));
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Back to country briefing' }),
+    );
     expect(
       screen.getByRole('dialog', { name: 'New Popular Front (NFP)/UG' }),
     ).toBeInTheDocument();
@@ -367,7 +378,9 @@ describe('CountryPanel', () => {
       screen.getByRole('dialog', { name: 'Ensemble (presidential majority)' }),
     ).toHaveTextContent('150 reported seats');
     expect(
-      screen.getByText(/Source-verified constituent membership is not available/),
+      screen.getByText(
+        /Source-verified constituent membership is not available/,
+      ),
     ).toBeInTheDocument();
   });
 
