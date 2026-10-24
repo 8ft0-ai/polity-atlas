@@ -43,7 +43,8 @@ export function RepresentationDetailPanel({
           </p>
           <p className="mt-2 text-sm font-semibold">{detail.chamberName}</p>
           <p className="mt-2 text-3xl font-semibold tabular-nums">
-            {detail.seats} <span className="text-sm font-normal">reported seats</span>
+            {detail.seats}{' '}
+            <span className="text-sm font-normal">reported seats</span>
           </p>
           {detail.observation && (
             <p className="mt-1 text-xs text-muted-foreground">
@@ -54,9 +55,9 @@ export function RepresentationDetailPanel({
             </p>
           )}
           <p className="mt-3 text-xs leading-5 text-muted-foreground">
-            This is an aggregate reported by the cited parliamentary source,
-            not a calculated sum of constituent party seats or a current
-            live seat count.
+            This is an aggregate reported by the cited parliamentary source, not
+            a calculated sum of constituent party seats or a current live seat
+            count.
           </p>
           {knownSources.length > 0 && (
             <ul className="mt-2 space-y-1">
@@ -68,7 +69,8 @@ export function RepresentationDetailPanel({
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-xs text-primary underline underline-offset-2"
                   >
-                    {source.title} <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                    {source.title}{' '}
+                    <ExternalLink className="h-3 w-3" aria-hidden="true" />
                   </a>
                 </li>
               ))}
@@ -77,7 +79,9 @@ export function RepresentationDetailPanel({
         </section>
 
         <section className="border-t border-border pt-4">
-          <h3 className="text-sm font-semibold">Verified constituent parties</h3>
+          <h3 className="text-sm font-semibold">
+            Verified constituent parties
+          </h3>
           {detail.members.length ? (
             <>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">
@@ -111,7 +115,8 @@ export function RepresentationDetailPanel({
                       )}
                       {!party && (
                         <p className="mt-1 text-xs text-muted-foreground">
-                          Individual party details not yet verified in this country profile
+                          Individual party details not yet verified in this
+                          country profile
                         </p>
                       )}
                     </li>
@@ -132,7 +137,8 @@ export function RepresentationDetailPanel({
                     rel="noopener noreferrer"
                     className="flex items-center gap-1 text-xs text-primary underline underline-offset-2"
                   >
-                    {source.title} <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                    {source.title}{' '}
+                    <ExternalLink className="h-3 w-3" aria-hidden="true" />
                   </a>
                 ))}
               </div>
