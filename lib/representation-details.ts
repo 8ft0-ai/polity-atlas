@@ -8,7 +8,7 @@ import {
 
 const memberSchema = z.object({
   name: z.string().min(1),
-  partyEntityId: z.string().regex(/^party:wikipedia:[1-9]\\d*$/).optional(),
+  partyEntityId: z.string().regex(/^party:wikipedia:[1-9][0-9]*$/).optional(),
 });
 
 const membershipSchema = z.object({
