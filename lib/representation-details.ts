@@ -90,29 +90,29 @@ export function representationDetailFor(
   if (!chamber) return undefined;
   const election = chamber.latestElection;
   const outcome = election?.outcome;
+  const composition = chamber.composition;
+  const compositionChoices = composition
+    ? 'views' in composition
+      ? composition.views.flatMap((view) =>
+          view.entries.map((entry) => ({
+            entry,
+            sourceIds: view.sourceIds,
+            observation: { value: composition.retrievedAt, type: 'retrieved' as const },
+          })),
+        )
+      : composition.entries.map((entry) => ({
+          entry,
+          sourceIds: composition.sourceIds,
+          observation: { value: composition.retrievedAt, type: 'retrieved' as const },
+        }))
+    : [];
   const choices = [
     ...(outcome?.postElectionComposition ?? []).map((entry) => ({
       entry,
       sourceIds: election?.sourceIds ?? [],
       observation: election ? { value: election.date.from, type: 'election' as const } : null,
     })),
-    ...(
-      chamber.composition
-        ? 'views' in chamber.composition
-          ? chamber.composition.views.flatMap((view) =>
-              view.entries.map((entry) => ({
-                entry,
-                sourceIds: view.sourceIds,
-                observation: { value: chamber.composition!.retrievedAt, type: 'retrieved' as const },
-              })),
-            )
-          : chamber.composition.entries.map((entry) => ({
-              entry,
-              sourceIds: chamber.composition!.sourceIds,
-              observation: { value: chamber.composition!.retrievedAt, type: 'retrieved' as const },
-            }))
-        : []
-    ),
+    ...compositionChoices,
     ...(outcome?.seatsWonInElection ?? []).map((entry) => ({
       entry,
       sourceIds: election?.sourceIds ?? [],
