@@ -88,11 +88,15 @@ describe('workspace store country selection', () => {
   });
 
   it('drops representation context on tab or country changes', () => {
-    useWorkspaceStore.getState().openRepresentation('AU-LC01', 'au-liberal_national_coalition');
+    useWorkspaceStore
+      .getState()
+      .openRepresentation('AU-LC01', 'au-liberal_national_coalition');
     useWorkspaceStore.getState().setActiveTab('sources');
     expect(useWorkspaceStore.getState().detailSelection).toBeNull();
 
-    useWorkspaceStore.getState().openRepresentation('AU-LC01', 'au-liberal_national_coalition');
+    useWorkspaceStore
+      .getState()
+      .openRepresentation('AU-LC01', 'au-liberal_national_coalition');
     useWorkspaceStore.getState().setCountry('state:m49:250', 'France', '250');
     expect(useWorkspaceStore.getState().detailSelection).toBeNull();
   });
