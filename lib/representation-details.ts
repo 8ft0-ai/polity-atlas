@@ -8,7 +8,10 @@ import {
 
 const memberSchema = z.object({
   name: z.string().min(1),
-  partyEntityId: z.string().regex(/^party:wikipedia:[1-9][0-9]*$/).optional(),
+  partyEntityId: z
+    .string()
+    .regex(/^party:wikipedia:[1-9]\\d*$/)
+    .optional(),
 });
 
 const membershipSchema = z.object({
@@ -22,37 +25,46 @@ const membershipSchema = z.object({
       kind === 'parliamentary-group',
   ),
   members: z.array(memberSchema).min(1),
-  evidence: z.array(z.object({
-    title: z.string().min(1),
-    url: z.url().startsWith('https://'),
-  })).min(1),
+  evidence: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        url: z.url().startsWith('https://'),
+      }),
+    )
+    .min(1),
   context: z.string().min(1),
 });
 
-const membershipsSchema = z.object({
-  schemaVersion: z.literal(1),
-  representations: z.array(membershipSchema),
-}).superRefine((registry, ctx) => {
-  const seen = new Set<string>();
-  for (const [index, row] of registry.representations.entries()) {
-    const key = [row.countryIso3, row.chamberId, row.partyId].join(':');
-    if (seen.has(key)) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'Duplicate reviewed representation identity',
-        path: ['representations', index],
-      });
+const membershipsSchema = z
+  .object({
+    schemaVersion: z.literal(1),
+    representations: z.array(membershipSchema),
+  })
+  .superRefine((registry, ctx) => {
+    const seen = new Set<string>();
+    for (const [index, row] of registry.representations.entries()) {
+      const key = [row.countryIso3, row.chamberId, row.partyId].join(':');
+      if (seen.has(key)) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Duplicate reviewed representation identity',
+          path: ['representations', index],
+        });
+      }
+      seen.add(key);
+      if (
+        new Set(row.members.map((member) => member.name)).size !==
+        row.members.length
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Duplicate constituent name',
+          path: ['representations', index, 'members'],
+        });
+      }
     }
-    seen.add(key);
-    if (new Set(row.members.map((member) => member.name)).size !== row.members.length) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'Duplicate constituent name',
-        path: ['representations', index, 'members'],
-      });
-    }
-  }
-});
+  });
 
 const registry = membershipsSchema.parse(reviewedMemberships);
 
@@ -86,7 +98,9 @@ export function representationDetailFor(
   chamberId: string,
   partyId: string,
 ): RepresentationDetail | undefined {
-  const chamber = profile.parliament.chambers.find((item) => item.id === chamberId);
+  const chamber = profile.parliament.chambers.find(
+    (item) => item.id === chamberId,
+  );
   if (!chamber) return undefined;
   const election = chamber.latestElection;
   const outcome = election?.outcome;
@@ -97,26 +111,36 @@ export function representationDetailFor(
           view.entries.map((entry) => ({
             entry,
             sourceIds: view.sourceIds,
-            observation: { value: composition.retrievedAt, type: 'retrieved' as const },
+            observation: {
+              value: composition.retrievedAt,
+              type: 'retrieved' as const,
+            },
           })),
         )
       : composition.entries.map((entry) => ({
           entry,
           sourceIds: composition.sourceIds,
-          observation: { value: composition.retrievedAt, type: 'retrieved' as const },
+          observation: {
+            value: composition.retrievedAt,
+            type: 'retrieved' as const,
+          },
         }))
     : [];
   const choices = [
     ...(outcome?.postElectionComposition ?? []).map((entry) => ({
       entry,
       sourceIds: election?.sourceIds ?? [],
-      observation: election ? { value: election.date.from, type: 'election' as const } : null,
+      observation: election
+        ? { value: election.date.from, type: 'election' as const }
+        : null,
     })),
     ...compositionChoices,
     ...(outcome?.seatsWonInElection ?? []).map((entry) => ({
       entry,
       sourceIds: election?.sourceIds ?? [],
-      observation: election ? { value: election.date.from, type: 'election' as const } : null,
+      observation: election
+        ? { value: election.date.from, type: 'election' as const }
+        : null,
     })),
   ];
   const selected = choices.find((choice) => choice.entry.partyId === partyId);
@@ -126,7 +150,8 @@ export function representationDetailFor(
     entry.representationKind !== 'coalition' &&
     entry.representationKind !== 'electoral-alliance' &&
     entry.representationKind !== 'parliamentary-group'
-  ) return undefined;
+  )
+    return undefined;
   if (entry.partyEntityId) return undefined;
 
   const reviewed = registry.representations.find(
@@ -136,7 +161,9 @@ export function representationDetailFor(
       item.partyId === partyId &&
       item.kind === entry.representationKind,
   );
-  const availableParties = new Set(profile.parties.map((party) => party.entityId));
+  const availableParties = new Set(
+    profile.parties.map((party) => party.entityId),
+  );
   return {
     chamberId,
     chamberName: chamber.name,
