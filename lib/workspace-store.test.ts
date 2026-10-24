@@ -59,6 +59,44 @@ describe('workspace store country selection', () => {
     expect(useWorkspaceStore.getState().detailSelection).toBeNull();
   });
 
+  it('returns from a constituent party to its source-backed representation', () => {
+    const store = useWorkspaceStore.getState();
+    store.openRepresentation('FR-LC01', 'fr-new-popular-front-(nfp)-ug');
+    expect(useWorkspaceStore.getState().detailSelection).toEqual({
+      kind: 'representation',
+      chamberId: 'FR-LC01',
+      partyId: 'fr-new-popular-front-(nfp)-ug',
+    });
+
+    useWorkspaceStore.getState().openParty('party:wikipedia:39565408');
+    expect(useWorkspaceStore.getState().detailSelection).toMatchObject({
+      kind: 'party',
+      entityId: 'party:wikipedia:39565408',
+      returnTo: {
+        kind: 'representation',
+        chamberId: 'FR-LC01',
+        partyId: 'fr-new-popular-front-(nfp)-ug',
+      },
+    });
+
+    useWorkspaceStore.getState().clearDetail();
+    expect(useWorkspaceStore.getState().detailSelection?.kind).toBe(
+      'representation',
+    );
+    useWorkspaceStore.getState().clearDetail();
+    expect(useWorkspaceStore.getState().detailSelection).toBeNull();
+  });
+
+  it('drops representation context on tab or country changes', () => {
+    useWorkspaceStore.getState().openRepresentation('AU-LC01', 'au-liberal_national_coalition');
+    useWorkspaceStore.getState().setActiveTab('sources');
+    expect(useWorkspaceStore.getState().detailSelection).toBeNull();
+
+    useWorkspaceStore.getState().openRepresentation('AU-LC01', 'au-liberal_national_coalition');
+    useWorkspaceStore.getState().setCountry('state:m49:250', 'France', '250');
+    expect(useWorkspaceStore.getState().detailSelection).toBeNull();
+  });
+
   it('clears nested detail when the country or tab changes', () => {
     useWorkspaceStore.getState().openParty('party:wikipedia:216082');
     useWorkspaceStore.getState().setActiveTab('sources');
